@@ -17,6 +17,7 @@
   import fallback from '../../../../../assets/svg/monochrome/emptyImage.svg';
 
   export let thumbnail: string | null;
+  export let fillMode: 'contain' | 'cover' = 'contain';
 
   $: thumbnailImg = thumbnail ?? fallback;
   $: thumbnailAltText =
@@ -25,5 +26,5 @@
 
 <img
   src={thumbnailImg}
-  class="h-full w-full object-contain"
+  class={`h-full w-full object-${fillMode}`}
   alt={thumbnailAltText} />

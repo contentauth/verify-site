@@ -1,5 +1,7 @@
 {
   "asset.defaultTitle": "Untitled asset",
+  "assetInfo.incomplete": "Incomplete Content Credential",
+  "assetInfo.invalid": "Invalid Content Credential",
   "contentSummary.compositeWithTrainedAlgorithmicMedia": "This image combines multiple pieces of content. At least one was generated with an AI tool.",
   "contentSummary.trainedAlgorithmicMedia": "This image was generated with an AI tool.",
   "emptyState.dropFile": "Drag and drop anywhere or",

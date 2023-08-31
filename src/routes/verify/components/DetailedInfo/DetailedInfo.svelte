@@ -47,11 +47,11 @@
 
 <div
   class="flex h-20 shrink-0 items-center justify-between border-b-2 bg-gray-50 px-6 shadow">
-  <BigAssetInfo
-    date={$assetData.manifestData?.date}
-    thumbnail={$assetData.thumbnail}>
-    <svelte:fragment slot="name">{$assetData.title}</svelte:fragment
-    ></BigAssetInfo>
+  {#if $assetData}
+    <BigAssetInfo assetData={$assetData}>
+      <svelte:fragment slot="name">{$assetData.title}</svelte:fragment
+      ></BigAssetInfo>
+  {/if}
   <button on:click={handleCloseClick}>
     <img
       src={close}
@@ -59,12 +59,22 @@
       alt={$_('sidebar.verify.hideInfo')} /></button>
 </div>
 <ThumbnailSection thumbnail={$assetData.thumbnail} />
-{#if $assetData.manifestData}
+{#if $assetData.manifestData && $assetData.validationResult?.statusCode === 'valid'}
   <ContentSummarySection {...assetDataToContentSummaryProps($assetData)} />
   <CreditAndUsage manifestData={$assetData.manifestData} />
   <ProcessSection manifestData={$assetData.manifestData} {ingredients} />
   <AboutSection manifestData={$assetData.manifestData} />
   <AdvancedSection />
 {:else}
-  <div class="p-5"><Body>{$_('sidebar.verify.noCCFile')}</Body></div>
+  <div class="p-5">
+    <Body>
+      {#if $assetData.validationResult?.statusCode === 'incomplete'}
+        {$_('assetInfo.incomplete')}
+      {:else if $assetData.validationResult?.statusCode === 'invalid'}
+        {$_('assetInfo.invalid')}
+      {:else}
+        {$_('sidebar.verify.noCCFile')}
+      {/if}
+    </Body>
+  </div>
 {/if}

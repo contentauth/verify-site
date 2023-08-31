@@ -31,14 +31,14 @@
 </script>
 
 <button
-  class={`absolute left-0 top-0 rounded border-2 bg-white transition`}
+  class={`absolute left-0 top-0 flex flex-col overflow-hidden rounded border-2 bg-white transition`}
   class:border-gray-400={$assetStore.state === 'none'}
   class:border-gray-700={$assetStore.state === 'path'}
   class:border-blue-900={$assetStore.state === 'selected'}
   {style}>
   <TreeThumbnail thumbnail={$assetStore.thumbnail} />
-  <div class="bottom-0 py-2">
-    <AssetInfoBase date={$assetStore.manifestData?.date}>
+  <div class="pt-2" style:width={`${width}px`}>
+    <AssetInfoBase assetData={$assetStore}>
       <Body slot="name">{$assetStore.title ?? $_('asset.defaultTitle')}</Body>
     </AssetInfoBase>
   </div>

@@ -64,8 +64,8 @@
 
   $: source = link.source;
   $: target = link.target;
-  $: targetAsset = target.data;
-  $: isDashed = $targetAsset.validationResult?.hasOtgp;
+  $: sourceAsset = source.data;
+  $: isDashed = $sourceAsset.validationResult?.hasOtgp;
   $: path = curve(d3Path(), source.x, source.y, target.x, target.y);
   $: pathData = path.toString();
 </script>

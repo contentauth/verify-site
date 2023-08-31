@@ -105,7 +105,7 @@ export async function resultToAssetMap({
 
   if (!manifestStore || hasError || hasOtgp) {
     const thumbnail = source.thumbnail?.getUrl();
-    const children = manifestStore ? ['0.0'] : [];
+    const children = hasOtgp ? ['0.0'] : [];
 
     disposers.push(thumbnail.dispose);
 
@@ -120,7 +120,7 @@ export async function resultToAssetMap({
     };
 
     // Return early if we don't have a manifestStore
-    if (!manifestStore) {
+    if (!manifestStore || hasError) {
       return {
         assetMap,
         dispose,
@@ -132,8 +132,15 @@ export async function resultToAssetMap({
   }
 
   // Start processing the provenance tree
-  // This conditional should always resolve to `true`, it's more to help TypeScript out
-  if (manifestStore && rootValidationResult) {
+  if (manifestStore && hasOtgp) {
+    // Since the OTGP status is on the source, we don't show any issues on the asset underneath
+    await manifestStoreToAssetData(
+      manifestStore,
+      selectValidationResult([]),
+      id,
+    );
+  } else if (manifestStore && rootValidationResult) {
+    // This conditional should always resolve to `true`, it's more to help TypeScript out
     await manifestStoreToAssetData(manifestStore, rootValidationResult, id);
   }
 

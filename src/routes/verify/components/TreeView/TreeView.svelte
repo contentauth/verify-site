@@ -19,15 +19,25 @@
   import ZoomOut from '$assets/svg/monochrome/zoom-out.svg?component';
   import Body from '$src/components/typography/Body.svelte';
   import type { AssetData } from '$src/lib/asset';
-  import { onMount, tick } from 'svelte';
+  import { select as d3Select } from 'd3-selection';
+  import type { ZoomTransform } from 'd3-zoom';
+  import { zoom as d3Zoom, zoomIdentity } from 'd3-zoom';
+  import { onMount } from 'svelte';
   import { _ } from 'svelte-i18n';
   import type { Readable } from 'svelte/store';
   import {
-    createTreeView,
+    calculateTransforms,
+    createLinks,
+    createTree,
+    defaultConfig,
     remToPx,
+    zoomIn,
+    zoomOut,
+    type SVGSelection,
     type TreeViewConfig,
   } from '../../lib/treeView';
   import { verifyStore } from '../../stores';
+  import type { ReadableAssetStore } from '../../stores/asset';
   import type { ReadableAssetMap } from '../../stores/hierarchyView';
   import SvgTreeNode from './SVGTreeNode.svelte';
   import TreeLink from './TreeLink.svelte';
@@ -38,100 +48,113 @@
 
   const nodeWidth = remToPx(10.25);
   const nodeHeight = remToPx(10.25);
-
-  let treeView: ReturnType<typeof createTreeView>;
+  const config: TreeViewConfig = {
+    ...defaultConfig,
+    nodeWidth,
+    nodeHeight,
+  };
   let svgElement: SVGElement;
   let boundsElement: SVGGraphicsElement;
+  let svgSel: SVGSelection;
   let width = 1;
   let height = 1;
-
-  onMount(async () => {
-    const config: Partial<TreeViewConfig> = {
-      nodeWidth,
-      nodeHeight,
-    };
-
-    treeView = createTreeView({
-      assetStoreMap,
-      selectedAsset,
-      config,
-      svgElement,
-      boundsElement,
-      dims: { width, height },
-    });
-
-    // TODO: See why `boundsElement.getBBox()` is returning null values causing minScale to be `1`
-    // on initial page load. This causes both zoom buttons to be disabled.
-    await tick();
-    treeView.zoomIn();
-
-    return treeView.destroy;
+  let boundsTransform: ZoomTransform;
+  let zoom = d3Zoom<SVGElement, ReadableAssetStore>().on('zoom', (evt) => {
+    boundsTransform = evt.transform;
   });
 
+  onMount(() => {
+    svgSel = d3Select<SVGElement, ReadableAssetStore>(svgElement);
+    svgSel
+      .call(zoom)
+      // Initially center on the root
+      .call(zoom.transform, zoomIdentity.translate(width / 2, height * 0.3));
+
+    return () => {
+      svgSel.on('.zoom', null);
+    };
+  });
+
+  $: tree = createTree({ assetStoreMap, width, height, config });
+  $: transforms = calculateTransforms({
+    boundsElement,
+    boundsTransform,
+    width,
+    height,
+    margin: config.margin,
+  });
+  $: links = createLinks(tree, $selectedAsset);
+  $: descendants = tree.descendants();
   $: {
-    treeView?.setDimensions({ width, height });
+    // Set the proper scaleExtent whenever the width/height changes
+    zoom.scaleExtent([transforms.minScale, 1]);
   }
-  $: transforms = treeView?.transforms;
-  $: links = treeView?.links;
-  $: canZoomIn = $transforms?.scale < 1;
-  $: canZoomOut = $transforms?.scale > $transforms?.minScale;
 </script>
 
 <div class="h-full w-full" bind:clientWidth={width} bind:clientHeight={height}>
   <svg bind:this={svgElement} viewBox={`0 0 ${width} ${height}`}>
-    <g bind:this={boundsElement} transform={$transforms?.gTransform ?? ''}>
-      {#if treeView}
-        {#each $links as { link, idx, isAncestor } (idx)}
-          <TreeLink {link} {isAncestor} {nodeHeight} />
-        {/each}
-        {#each treeView.descendants as { data, x, y }, key (key)}
-          <SvgTreeNode assetStore={data} {x} {y} {nodeWidth} {nodeHeight} />
-        {/each}
-      {/if}
+    <g bind:this={boundsElement} transform={transforms.gTransform ?? ''}>
+      {#each links as { link, idx, isAncestor } (idx)}
+        <TreeLink {link} {isAncestor} {nodeHeight} />
+      {/each}
+      {#each descendants as { data, x, y }, key (key)}
+        <SvgTreeNode
+          assetStore={data}
+          {x}
+          {y}
+          {nodeWidth}
+          {nodeHeight}
+          on:mobileTap />
+      {/each}
     </g>
   </svg>
   <!-- Layer the HTML nodes over the SVG paths and sync the transformations so we don't have
     to use SVG `foreignObject`, which doesn't always work great in different browsers. -->
-  {#if treeView && $transforms}
-    <div class="pointer-events-none absolute left-0 top-0 z-0 select-none">
-      <div
-        class="absolute left-0 top-0"
-        style={`transform: ${$transforms.htmlTransform ?? ''};`}>
-        {#each treeView.descendants as { x, y, data }, key (key)}
-          <TreeNode
-            assetStore={data}
-            {x}
-            {y}
-            width={nodeWidth}
-            height={nodeHeight} />
-        {/each}
-      </div>
+  <div class="pointer-events-none absolute left-0 top-0 z-0 select-none">
+    <div
+      class="absolute left-0 top-0"
+      style={`transform: ${transforms.htmlTransform ?? ''};`}>
+      {#each descendants as { x, y, data }, key (key)}
+        <TreeNode
+          assetStore={data}
+          {x}
+          {y}
+          width={nodeWidth}
+          height={nodeHeight} />
+      {/each}
     </div>
-    <div>
-      <div
-        class="absolute bottom-16 right-5 z-20 flex h-8 items-center rounded-full bg-white shadow-md">
-        <button
-          class="h-full pl-2.5 pr-2 transition-opacity"
-          class:opacity-40={!canZoomIn}
-          on:click={treeView.zoomIn}>
-          <ZoomIn width="1rem" height="1rem" class="text-gray-800" />
-        </button>
-        <div class="h-[85%] w-px bg-gray-200" />
-        <button
-          class="h-full pl-2 pr-2.5 transition-opacity"
-          class:opacity-40={!canZoomOut}
-          on:click={treeView.zoomOut}>
-          <ZoomOut width="1rem" height="1rem" class="text-gray-800" />
-        </button>
-      </div>
-      <div
-        class="absolute bottom-5 right-5 z-20 flex h-8 items-center rounded-full bg-white shadow-md">
-        <button on:click={() => verifyStore.setCompareView()}
-          ><div class="mx-4 my-2 flex">
-            <Compare class="me-2 h-4 w-4" />
-            <Body>{$_('sidebar.verify.compare')}</Body>
-          </div></button>
-      </div>
-    </div>
-  {/if}
+  </div>
+  <div
+    class="absolute bottom-16 right-5 z-20 flex h-8 items-center rounded-full bg-white shadow-md">
+    <button
+      class="h-full pe-2 ps-2.5 transition-opacity"
+      class:opacity-40={!transforms.canZoomIn}
+      on:click={() => transforms.canZoomIn && zoomIn({ svgSel, zoom })}>
+      <ZoomIn width="1rem" height="1rem" class="text-gray-800" />
+    </button>
+    <div class="h-[85%] w-px bg-gray-200" />
+    <button
+      class="h-full pe-2.5 ps-2 transition-opacity"
+      class:opacity-40={!transforms.canZoomOut}
+      on:click={() =>
+        transforms.canZoomOut &&
+        zoomOut({
+          svgSel,
+          zoom,
+          boundsElement,
+          width,
+          height,
+          minZoomScale: transforms.minZoomScale,
+        })}>
+      <ZoomOut width="1rem" height="1rem" class="text-gray-800" />
+    </button>
+  </div>
+  <div
+    class="absolute bottom-5 right-5 z-20 flex h-8 items-center rounded-full bg-white shadow-md">
+    <button on:click={() => verifyStore.setCompareView()}
+      ><div class="mx-4 my-2 flex">
+        <Compare class="me-2 h-4 w-4" />
+        <Body>{$_('sidebar.verify.compare')}</Body>
+      </div></button>
+  </div>
 </div>

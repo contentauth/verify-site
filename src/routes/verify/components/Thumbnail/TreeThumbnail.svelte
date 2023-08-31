@@ -18,6 +18,6 @@
   export let thumbnail: string | null = null;
 </script>
 
-<div class="h-[6.15rem] w-full bg-gray-100">
-  <ThumbnailImage {thumbnail} />
+<div class="h-[6.5rem] w-full bg-gray-100">
+  <ThumbnailImage {thumbnail} fillMode="cover" />
 </div>

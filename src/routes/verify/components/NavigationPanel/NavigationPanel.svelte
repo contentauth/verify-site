@@ -23,15 +23,15 @@
 
   const { recoveredManifestResults } = verifyStore;
 
-  export let asset: AssetData;
+  export let assetData: AssetData;
 
   async function handleRecovery() {
     verifyStore.recoverManifests();
   }
 </script>
 
-{#if asset}
-  <ManifestRecoverySection {...asset} date={asset.manifestData?.date ?? null} />
+{#if assetData}
+  <ManifestRecoverySection {assetData} />
 {/if}
 <LegalSection>
   <svelte:fragment slot="legal-text-visible">

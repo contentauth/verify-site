@@ -13,6 +13,7 @@
   from Adobe.
 -->
 <script lang="ts">
+  import { createEventDispatcher } from 'svelte';
   import type {
     ReadableAssetData,
     ReadableAssetStore,
@@ -24,12 +25,18 @@
   export let nodeWidth: number;
   export let nodeHeight: number;
 
+  const dispatch = createEventDispatcher();
+
   function handleKeyPress(onKeyPress: ReadableAssetData['select']) {
     return (evt: KeyboardEvent) => {
       if (['Space', 'Enter'].includes(evt.code)) {
         onKeyPress();
       }
     };
+  }
+
+  function handleMobileTap() {
+    dispatch('mobileTap');
   }
 </script>
 
@@ -46,4 +53,17 @@
     rx={6}
     ry={6}
     class="cursor-pointer fill-current text-gray-300 focus:outline-blue-300" />
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <rect
+    on:click={() => {
+      handleMobileTap();
+      $assetStore.select();
+    }}
+    height={nodeHeight}
+    width={nodeWidth}
+    x={-nodeWidth / 2}
+    y={-nodeHeight / 2}
+    rx={6}
+    ry={6}
+    class="cursor-pointer fill-transparent sm:hidden" />
 </g>

@@ -13,14 +13,14 @@
   from Adobe.
 -->
 <script lang="ts">
+  import type { AssetData } from '$src/lib/asset';
   import SmallThumbnail from '../Thumbnail/SmallThumbnail.svelte';
   import AssetInfoBase from './AssetInfoBase.svelte';
 
-  export let thumbnail: string | null = null;
-  export let date: Date | null = null;
+  export let assetData: AssetData;
 </script>
 
-<AssetInfoBase {date}>
-  <SmallThumbnail {thumbnail} slot="thumbnail" />
+<AssetInfoBase {assetData}>
+  <SmallThumbnail thumbnail={assetData.thumbnail} slot="thumbnail" />
   <slot slot="name" name="name" />
 </AssetInfoBase>

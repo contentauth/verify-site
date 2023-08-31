@@ -14,13 +14,12 @@
 -->
 <script lang="ts">
   import ClosedBorderSection from '$src/components/SidebarSection/ClosedBorderSection.svelte';
+  import type { AssetData } from '$src/lib/asset';
   import { _ } from 'svelte-i18n';
   import SmallAssetInfo from '../../AssetInfo/SmallAssetInfo.svelte';
   import SearchForMatches from './SearchForMatches.svelte';
 
-  export let date: Date | null;
-  export let title: string | null;
-  export let thumbnail: string | null;
+  export let assetData: AssetData;
 </script>
 
 <ClosedBorderSection>
@@ -28,9 +27,9 @@
     {$_('sidebar.verify.title')}
   </div>
   <svelte:fragment slot="content">
-    <SmallAssetInfo {thumbnail} {date}>
+    <SmallAssetInfo {assetData}>
       <svelte:fragment slot="name"
-        >{title ?? $_('asset.defaultTitle')}</svelte:fragment
+        >{assetData.title ?? $_('asset.defaultTitle')}</svelte:fragment
       ></SmallAssetInfo>
     <SearchForMatches />
   </svelte:fragment>
