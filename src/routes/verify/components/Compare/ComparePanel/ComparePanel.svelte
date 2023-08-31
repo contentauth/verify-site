@@ -14,18 +14,23 @@
 -->
 
 <script lang="ts">
-  import { verifyStore } from '../../stores';
-  import type { CompareAssetStoreMap } from '../../stores/compareView';
+  import BackArrow from '$assets/svg/monochrome/back-arrow.svg?component';
+  import Header from '$src/components/typography/Header.svelte';
+  import { _ } from 'svelte-i18n';
+  import { verifyStore } from '../../../stores';
+  import type { CompareAssetStoreMap } from '../../../stores/compareView';
   import CompareAsset from './CompareAsset.svelte';
 
   export let assetStoreMap: CompareAssetStoreMap;
 </script>
 
-<button
-  class="m-2 bg-blue-600 p-2 text-white"
-  on:click={() => verifyStore.setHierarchyView()}>
-  Back
+<button class="me-2" on:click={() => verifyStore.setHierarchyView()}>
+  <div class="flex px-2 py-5">
+    <BackArrow class="me-2" />
+    <Header>{$_('sidebar.verify.compare')}</Header>
+  </div>
 </button>
+
 {#each Object.values(assetStoreMap) as compareAssetStore}
   <CompareAsset {compareAssetStore} />
 {/each}

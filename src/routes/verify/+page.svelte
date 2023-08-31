@@ -17,9 +17,9 @@
   import { afterNavigate } from '$app/navigation';
   import { SidebarLayout } from '$src/features/SidebarLayout';
   import { _ } from 'svelte-i18n';
-  import CompareDetailedInfo from './components/CompareInfo/CompareInfo.svelte';
-  import ComparePanel from './components/ComparePanel/ComparePanel.svelte';
-  import CompareView from './components/CompareView/CompareView.svelte';
+  import CompareDetailedInfo from './components/Compare/CompareInfo/CompareInfo.svelte';
+  import ComparePanel from './components/Compare/ComparePanel/ComparePanel.svelte';
+  import CompareView from './components/Compare/CompareView/CompareView.svelte';
   import DetailedInfo from './components/DetailedInfo/DetailedInfo.svelte';
   import DragDropOverlay from './components/DragDropOverlay/DragDropOverlay.svelte';
   import EmptyState from './components/EmptyState/EmptyState.svelte';
@@ -69,9 +69,6 @@
         {:else if $hierarchyView.state === 'success'}
           <NavigationPanel asset={$hierarchyView.rootAsset} />
         {/if}
-        <button
-          class="m-2 bg-blue-600 p-2 text-white"
-          on:click={() => verifyStore.setCompareView()}>Compare View</button>
       {:else if $viewState === 'compare' && $compareView.state === 'success'}
         <ComparePanel assetStoreMap={$compareView.compareAssetMap} />
       {/if}

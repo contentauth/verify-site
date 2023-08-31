@@ -14,16 +14,20 @@
 -->
 
 <script lang="ts">
+  import Compare from '$assets/svg/monochrome/compare.svg?component';
   import ZoomIn from '$assets/svg/monochrome/zoom-in.svg?component';
   import ZoomOut from '$assets/svg/monochrome/zoom-out.svg?component';
+  import Body from '$src/components/typography/Body.svelte';
   import type { AssetData } from '$src/lib/asset';
   import { onMount, tick } from 'svelte';
+  import { _ } from 'svelte-i18n';
   import type { Readable } from 'svelte/store';
   import {
     createTreeView,
     remToPx,
     type TreeViewConfig,
   } from '../../lib/treeView';
+  import { verifyStore } from '../../stores';
   import type { ReadableAssetMap } from '../../stores/hierarchyView';
   import SvgTreeNode from './SVGTreeNode.svelte';
   import TreeLink from './TreeLink.svelte';
@@ -103,21 +107,31 @@
         {/each}
       </div>
     </div>
-    <div
-      class="absolute bottom-5 right-5 z-20 flex h-8 items-center rounded-full bg-white shadow-md">
-      <button
-        class="h-full pl-2.5 pr-2 transition-opacity"
-        class:opacity-40={!canZoomIn}
-        on:click={treeView.zoomIn}>
-        <ZoomIn width="1rem" height="1rem" class="text-gray-800" />
-      </button>
-      <div class="h-[85%] w-px bg-gray-200" />
-      <button
-        class="h-full pl-2 pr-2.5 transition-opacity"
-        class:opacity-40={!canZoomOut}
-        on:click={treeView.zoomOut}>
-        <ZoomOut width="1rem" height="1rem" class="text-gray-800" />
-      </button>
+    <div>
+      <div
+        class="absolute bottom-16 right-5 z-20 flex h-8 items-center rounded-full bg-white shadow-md">
+        <button
+          class="h-full pl-2.5 pr-2 transition-opacity"
+          class:opacity-40={!canZoomIn}
+          on:click={treeView.zoomIn}>
+          <ZoomIn width="1rem" height="1rem" class="text-gray-800" />
+        </button>
+        <div class="h-[85%] w-px bg-gray-200" />
+        <button
+          class="h-full pl-2 pr-2.5 transition-opacity"
+          class:opacity-40={!canZoomOut}
+          on:click={treeView.zoomOut}>
+          <ZoomOut width="1rem" height="1rem" class="text-gray-800" />
+        </button>
+      </div>
+      <div
+        class="absolute bottom-5 right-5 z-20 flex h-8 items-center rounded-full bg-white shadow-md">
+        <button on:click={() => verifyStore.setCompareView()}
+          ><div class="mx-4 my-2 flex">
+            <Compare class="me-2 h-4 w-4" />
+            <Body>{$_('sidebar.verify.compare')}</Body>
+          </div></button>
+      </div>
     </div>
   {/if}
 </div>

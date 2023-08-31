@@ -15,7 +15,7 @@
 
 <script lang="ts">
   import type { Readable } from 'svelte/store';
-  import type { CompareSelectedAssetStore } from '../../stores/compareSelectedAsset';
+  import type { CompareSelectedAssetStore } from '../../../stores/compareSelectedAsset';
 
   export let selectedAssets: Readable<(CompareSelectedAssetStore | null)[]>;
 

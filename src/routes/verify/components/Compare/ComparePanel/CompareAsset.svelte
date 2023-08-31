@@ -14,7 +14,7 @@
 -->
 
 <script lang="ts">
-  import type { CompareAssetStore } from '../../stores/compareAsset';
+  import type { CompareAssetStore } from '../../../stores/compareAsset';
 
   export let compareAssetStore: CompareAssetStore;
 </script>

@@ -16,7 +16,7 @@
 <script lang="ts">
   import type { AssetData } from '$src/lib/asset';
   import type { Readable } from 'svelte/store';
-  import DetailedInfo from '../DetailedInfo/DetailedInfo.svelte';
+  import DetailedInfo from '../../DetailedInfo/DetailedInfo.svelte';
 
   export let assetData: Readable<AssetData | null>;
 
