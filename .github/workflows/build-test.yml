@@ -38,11 +38,7 @@ jobs:
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
-  install-pnpm-deps:
-    name: Install dependencies
-    needs: setup-env
-    runs-on: ubuntu-latest
-    steps:
+
       - name: Install dependencies
         run: pnpm install
   install-playwright:
@@ -53,7 +49,7 @@ jobs:
       - run: npx playwright install --with-deps
   build:
     name: Run build script
-    needs: install-pnpm-deps
+    needs: setup-env
     runs-on: ubuntu-latest
     steps:
       - run: pnpm run build
