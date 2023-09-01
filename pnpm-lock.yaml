@@ -9,8 +9,8 @@ dependencies:
     specifier: ^4.3.0
     version: 4.3.0
   '@intl/adobe-locales':
-    specifier: ^2.17.7
-    version: 2.34.3
+    specifier: ^2.35.2
+    version: 2.35.2
   '@mapbox/mapbox-sdk':
     specifier: ^0.13.5
     version: 0.13.7
@@ -3515,8 +3515,8 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
 
-  /@intl/adobe-locales@2.34.3:
-    resolution: {integrity: sha512-FRFaKJYgWzCxu/TEZ7rB9v6UxGcU/hINXwtah1rW6OzTnurnK97sWkpCdC1ljgCvWUMGHAlEB3kfo2m2jZUo6A==, tarball: https://artifactory.corp.adobe.com/artifactory/api/npm/npm-adobe-release/@intl/adobe-locales/-/@intl/adobe-locales-2.34.3.tgz}
+  /@intl/adobe-locales@2.35.2:
+    resolution: {integrity: sha512-Z5SO09b7jKlxZ3ka5DynMK6/ZVh+GW6MZkTxcOMt4csOy0zX3LrleJIdc4/muUkrram9NtQHfrDTrwmubQWblw==, tarball: https://artifactory.corp.adobe.com/artifactory/api/npm/npm-adobe-release/@intl/adobe-locales/-/@intl/adobe-locales-2.35.2.tgz}
     dev: false
 
   /@isaacs/cliui@8.0.2:

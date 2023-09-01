@@ -100,7 +100,7 @@
   },
   "dependencies": {
     "@ccx-public/ingest": "^4.3.0",
-    "@intl/adobe-locales": "^2.17.7",
+    "@intl/adobe-locales": "^2.35.2",
     "@mapbox/mapbox-sdk": "^0.13.5",
     "@spectrum-web-components/button": "^0.30.0",
     "@spectrum-web-components/checkbox": "^0.30.0",
