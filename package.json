@@ -99,8 +99,8 @@
     "vitest": "^0.28.5"
   },
   "dependencies": {
-    "@ccx-public/ingest": "^4.3.0",
-    "@intl/adobe-locales": "^2.35.2",
+    "@ccx-public/ingest": "file:etc/packages/ingest-4.3.0.tgz",
+    "@intl/adobe-locales": "file:etc/packages/adobe-locales-2.35.2.tgz",
     "@mapbox/mapbox-sdk": "^0.13.5",
     "@spectrum-web-components/button": "^0.30.0",
     "@spectrum-web-components/checkbox": "^0.30.0",

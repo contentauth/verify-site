@@ -6,11 +6,11 @@ settings:
 
 dependencies:
   '@ccx-public/ingest':
-    specifier: ^4.3.0
-    version: 4.3.0
+    specifier: file:etc/packages/ingest-4.3.0.tgz
+    version: file:etc/packages/ingest-4.3.0.tgz
   '@intl/adobe-locales':
-    specifier: ^2.35.2
-    version: 2.35.2
+    specifier: file:etc/packages/adobe-locales-2.35.2.tgz
+    version: file:etc/packages/adobe-locales-2.35.2.tgz
   '@mapbox/mapbox-sdk':
     specifier: ^0.13.5
     version: 0.13.7
@@ -2894,11 +2894,6 @@ packages:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
 
-  /@ccx-public/ingest@4.3.0:
-    resolution: {integrity: sha1-uqsdiLHLFU3AmxD1EE0lmcSurds=, tarball: https://artifactory.corp.adobe.com/artifactory/api/npm/npm-adobe-release/@ccx-public/ingest/-/@ccx-public/ingest-4.3.0.tgz}
-    engines: {node: '>=8.0.0'}
-    dev: false
-
   /@colors/colors@1.5.0:
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
     engines: {node: '>=0.1.90'}
@@ -3514,10 +3509,6 @@ packages:
   /@humanwhocodes/object-schema@1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
-
-  /@intl/adobe-locales@2.35.2:
-    resolution: {integrity: sha512-Z5SO09b7jKlxZ3ka5DynMK6/ZVh+GW6MZkTxcOMt4csOy0zX3LrleJIdc4/muUkrram9NtQHfrDTrwmubQWblw==, tarball: https://artifactory.corp.adobe.com/artifactory/api/npm/npm-adobe-release/@intl/adobe-locales/-/@intl/adobe-locales-2.35.2.tgz}
-    dev: false
 
   /@isaacs/cliui@8.0.2:
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -16248,3 +16239,16 @@ packages:
   /yocto-queue@1.0.0:
     resolution: {integrity: sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g==}
     engines: {node: '>=12.20'}
+
+  file:etc/packages/adobe-locales-2.35.2.tgz:
+    resolution: {integrity: sha512-Z5SO09b7jKlxZ3ka5DynMK6/ZVh+GW6MZkTxcOMt4csOy0zX3LrleJIdc4/muUkrram9NtQHfrDTrwmubQWblw==, tarball: file:etc/packages/adobe-locales-2.35.2.tgz}
+    name: '@intl/adobe-locales'
+    version: 2.35.2
+    dev: false
+
+  file:etc/packages/ingest-4.3.0.tgz:
+    resolution: {integrity: sha512-XXVMq2KVo53rcJWnMbJ5gVZXmGZzVXtJLf2EjT91FGnMOKXTiezuTbys7YSR7tUGu/jrR9J6xjaW1Hh9ZfYWsQ==, tarball: file:etc/packages/ingest-4.3.0.tgz}
+    name: '@ccx-public/ingest'
+    version: 4.3.0
+    engines: {node: '>=8.0.0'}
+    dev: false
