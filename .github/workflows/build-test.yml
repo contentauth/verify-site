@@ -17,15 +17,15 @@ jobs:
         with:
           lfs: true
 
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
       - name: Install pnpm
         run: |
           corepack enable
           corepack prepare pnpm@latest --activate
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
 
       - name: Get pnpm store directory
         shell: bash
