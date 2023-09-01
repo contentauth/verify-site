@@ -22,11 +22,10 @@ jobs:
         with:
           node-version: 18
 
-      - uses: pnpm/action-setup@v2
-        name: Install pnpm
-        with:
-          version: 8
-          run_install: false
+      - name: Install pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
 
       - name: Get pnpm store directory
         shell: bash
@@ -40,7 +39,11 @@ jobs:
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
-
+  install-pnpm-deps:
+    name: Install dependencies
+    needs: setup-env
+    runs-on: ubuntu-latest
+    steps:
       - name: Install dependencies
         run: pnpm install
   install-playwright:
@@ -51,7 +54,7 @@ jobs:
       - run: npx playwright install --with-deps
   build:
     name: Run build script
-    needs: setup-env
+    needs: install-pnpm-deps
     runs-on: ubuntu-latest
     steps:
       - run: pnpm run build
