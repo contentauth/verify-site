@@ -17,10 +17,12 @@
   import SmallThumbnail from '../Thumbnail/SmallThumbnail.svelte';
   import AssetInfoBase from './AssetInfoBase.svelte';
 
+  export let isActive = false;
+
   export let assetData: AssetData;
 </script>
 
 <AssetInfoBase {assetData}>
-  <SmallThumbnail thumbnail={assetData.thumbnail} slot="thumbnail" />
+  <SmallThumbnail thumbnail={assetData.thumbnail} {isActive} slot="thumbnail" />
   <slot slot="name" name="name" />
 </AssetInfoBase>

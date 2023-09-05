@@ -15,9 +15,12 @@
 <script lang="ts">
   import ThumbnailImage from './ThumbnailImage.svelte';
 
+  export let isActive = false;
   export let thumbnail: string | null;
 </script>
 
-<div class="h-12 w-12 rounded bg-gray-100">
+<div
+  class="h-12 w-12 rounded border-2 border-blue-900 bg-gray-100"
+  class:border-2={isActive}>
   <ThumbnailImage {thumbnail} />
 </div>

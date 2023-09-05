@@ -14,16 +14,30 @@
 -->
 
 <script lang="ts">
-  import type { CompareAssetStore } from '../../../stores/compareAsset';
+  import type { CompareAssetStoreMap } from '$src/routes/verify/stores/compareView';
 
+  import type { CompareAssetStore } from '../../../stores/compareAsset';
+  import CollapsibleSmallAssetInfo from '../../AssetInfo/CollapsibleSmallAssetInfo.svelte';
+
+  export let expanded = true;
   export let compareAssetStore: CompareAssetStore;
+  export let compareAssetStoreMap: CompareAssetStoreMap;
 </script>
 
-<div
-  class="m-2 rounded border p-2"
-  class:bg-blue-100={$compareAssetStore.isSelected}
-  class:border-gray-900={$compareAssetStore.isActive}>
-  <button on:click={$compareAssetStore.select}>
-    {$compareAssetStore.id} - {$compareAssetStore.title}
-  </button>
-</div>
+<CollapsibleSmallAssetInfo
+  {compareAssetStore}
+  expanded
+  on:showChildren={() => (expanded = !expanded)}
+  ><svelte:fragment slot="name">
+    {$compareAssetStore.title}</svelte:fragment
+  ></CollapsibleSmallAssetInfo>
+
+{#if expanded}
+  {#each $compareAssetStore.children as child}
+    <div class="ps-2">
+      <svelte:self
+        compareAssetStore={compareAssetStoreMap[child]}
+        {compareAssetStoreMap} />
+    </div>
+  {/each}
+{/if}

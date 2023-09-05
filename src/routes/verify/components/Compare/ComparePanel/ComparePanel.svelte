@@ -31,6 +31,6 @@
   </div>
 </button>
 
-{#each Object.values(assetStoreMap) as compareAssetStore}
-  <CompareAsset {compareAssetStore} />
-{/each}
+<CompareAsset
+  compareAssetStore={assetStoreMap[0]}
+  compareAssetStoreMap={assetStoreMap} />
