@@ -11,14 +11,20 @@
 // is strictly forbidden unless prior written permission is obtained
 // from Adobe.
 
-import percySnapshot from '@percy/playwright';
-import { expect, test } from '@playwright/test';
+import { test } from '@playwright/test';
+import { VerifyPage } from './page';
 
-test.describe('Base functionality', () => {
-  test('Verify site loads', async ({ page }) => {
-    await page.goto('/verify');
-    await page.locator('header').filter({ hasText: 'Verify' }).waitFor();
-    await expect(page).toHaveTitle(/Content Credentials/);
-    await percySnapshot(page, 'Verify zero state');
+test.describe('Verify - base functionality', () => {
+  test('zero state loads', async ({ page }) => {
+    const verify = new VerifyPage(page);
+    await verify.goto();
+    await verify.takeSnapshot(`zero state`);
+  });
+
+  test('specifying an image via source should work', async ({ page }) => {
+    const verify = new VerifyPage(page);
+    const source = VerifyPage.getFixtureUrl('CAICAI.jpg');
+    await verify.goto(source);
+    await verify.takeSnapshot(`result for CAICAI.jpg via source`);
   });
 });

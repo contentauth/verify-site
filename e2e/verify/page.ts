@@ -11,12 +11,49 @@
 // is strictly forbidden unless prior written permission is obtained
 // from Adobe.
 
+/// <reference lib="dom"/>
+
+import type { SnapshotOptions } from '@percy/core';
+import percySnapshot from '@percy/playwright';
 import { type Page } from '@playwright/test';
+import { fixturesPort } from '../../playwright.config';
+
+const TALL_SNAPSHOT_HEIGHT = 2000;
 
 export class VerifyPage {
   readonly page: Page;
 
   constructor(page: Page) {
     this.page = page;
+  }
+
+  static getFixtureUrl(filename: string) {
+    return `http://localhost:${fixturesPort}/${filename}`;
+  }
+
+  async goto(source: string | null = null) {
+    if (source) {
+      const params = new URLSearchParams({ source });
+      await this.page.goto(`/verify?${params.toString()}`);
+      await this.page
+        .locator('span', { hasText: 'About this Content Credential' })
+        .waitFor();
+    } else {
+      await this.page.goto('/verify');
+      await this.page
+        .locator('span', { hasText: 'Drag and drop anywhere' })
+        .waitFor();
+    }
+  }
+
+  async takeSnapshot(name: string, options: SnapshotOptions = {}) {
+    await percySnapshot(this.page, `Verify: ${name}`, options);
+  }
+
+  async takeTallSnapshot(name: string, options: SnapshotOptions = {}) {
+    await this.takeSnapshot(name, {
+      ...options,
+      minHeight: TALL_SNAPSHOT_HEIGHT,
+    });
   }
 }
