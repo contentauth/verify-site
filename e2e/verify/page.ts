@@ -35,9 +35,11 @@ export class VerifyPage {
     if (source) {
       const params = new URLSearchParams({ source });
       await this.page.goto(`/verify?${params.toString()}`);
-      await this.page
-        .locator('span', { hasText: 'About this Content Credential' })
-        .waitFor();
+      await this.page.waitForFunction(() => {
+        return Array.from<HTMLImageElement>(
+          document.querySelectorAll('button[role="treeitem"] img'),
+        ).every((x) => x.complete);
+      });
     } else {
       await this.page.goto('/verify');
       await this.page

@@ -31,6 +31,8 @@
 </script>
 
 <button
+  role="treeitem"
+  aria-selected={$assetStore.state === 'selected' ? 'true' : 'false'}
   class={`absolute left-0 top-0 flex flex-col overflow-hidden rounded border-2 bg-white transition`}
   class:border-gray-400={$assetStore.state === 'none'}
   class:border-gray-700={$assetStore.state === 'path'}

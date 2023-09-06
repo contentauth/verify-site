@@ -8,12 +8,15 @@ This project generates the code for the contentcredentials.org site.
 
 Running this repo requires the following tools installed on your system:
 
-- **[Node.js](https://nodejs.org/en)** - needed for the installation of packages, development tools, and build process
-- **[pnpm](pnpm)** - package manager for Node.js with efficiency and speed in mind
+- **[Node.js](https://nodejs.org/)** - needed for the installation of packages, development tools, and build process
+- **[pnpm](https://pnpm.io/)** - package manager for Node.js with efficiency and speed in mind
+- **[Git LFS](https://git-lfs.com/)** - large file storage for Git
 
 We recommend [nvm](https://github.com/nvm-sh) for managing your Node.js install. You can follow [their instructions](https://github.com/nvm-sh/nvm#installing-and-updating) for installation.
 
 Once Node.js is installed, you can install pnpm by running `npm install -g pnpm`, or by one of the methods described on their [installation page](https://pnpm.io/installation).
+
+Git LFS can be installed by following the instructions on their [home page](https://git-lfs.com/).
 
 ### Running locally
 
