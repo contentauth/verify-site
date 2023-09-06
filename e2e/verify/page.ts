@@ -35,17 +35,26 @@ export class VerifyPage {
     if (source) {
       const params = new URLSearchParams({ source });
       await this.page.goto(`/verify?${params.toString()}`);
-      await this.page.waitForFunction(() => {
-        return Array.from<HTMLImageElement>(
-          document.querySelectorAll('button[role="treeitem"] img'),
-        ).every((x) => x.complete);
-      });
+      await this.waitForTreeView();
     } else {
       await this.page.goto('/verify');
       await this.page
         .locator('span', { hasText: 'Drag and drop anywhere' })
         .waitFor();
     }
+  }
+
+  async waitForTreeView() {
+    await this.page.waitForFunction(() => {
+      const treeViewThumbnails = Array.from<HTMLImageElement>(
+        document.querySelectorAll('button[role="treeitem"] img'),
+      );
+
+      return (
+        treeViewThumbnails.length > 0 &&
+        treeViewThumbnails.every((x) => x.complete)
+      );
+    });
   }
 
   async takeSnapshot(name: string, options: SnapshotOptions = {}) {
