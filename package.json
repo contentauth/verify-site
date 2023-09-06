@@ -25,6 +25,7 @@
     "build-storybook": "storybook build"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.7.3",
     "@fullhuman/postcss-purgecss": "^4.0.3",
     "@percy/cli": "^1.26.3",
     "@percy/playwright": "^1.0.4",
