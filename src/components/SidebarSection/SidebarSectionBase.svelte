@@ -16,11 +16,9 @@
   export let expanded = true;
 </script>
 
-<div class="pt-5">
-  <div class="border-b pb-5">
-    <slot name="headerSection" />
-    <div class:hidden={!expanded}>
-      <slot name="content" />
-    </div>
+<div class="border-b py-5">
+  <slot name="headerSection" />
+  <div class:hidden={!expanded}>
+    <slot name="content" />
   </div>
 </div>

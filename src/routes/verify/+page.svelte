@@ -66,8 +66,8 @@
       {#if $viewState === 'hierarchy'}
         {#if hasEmptyState}
           <EmptyState />
-        {:else if $hierarchyView.state === 'success'}
-          <NavigationPanel assetData={$hierarchyView.rootAsset} />
+        {:else}
+          <NavigationPanel />
         {/if}
       {:else if $viewState === 'compare' && $compareView.state === 'success'}
         <ComparePanel assetStoreMap={$compareView.compareAssetMap} />

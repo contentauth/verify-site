@@ -85,10 +85,12 @@
   "sidebar.verify.process.app": "App or device used",
   "sidebar.verify.process.description": "The app or device used to produce this content recorded the following info:",
   "sidebar.verify.process.ingredients": "Ingredients",
+  "sidebar.verify.recovery.possibleMatches": "Possible matches",
   "sidebar.verify.search": "Search for possible matches",
   "sidebar.verify.search.tooltip": "Find Content Credentials that may be related to your file based on their content's visual similarity to yours.",
   "sidebar.verify.search.tooltip.close": "Close",
   "sidebar.verify.search.tooltip.help": "Help",
   "sidebar.verify.summary": "Content Summary",
-  "sidebar.verify.title": "Content Credentials"
+  "sidebar.verify.title": "Content Credentials",
+  "spinner.loading": "Loading"
 }

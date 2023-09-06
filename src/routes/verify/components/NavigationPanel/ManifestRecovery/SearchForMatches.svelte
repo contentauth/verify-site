@@ -21,9 +21,9 @@
   let showTooltip = false;
 </script>
 
-<div class="flex flex-col pb-1 pt-6">
+<div class="flex flex-col">
   <div class="flex justify-between">
-    <button><Link>{$_('sidebar.verify.search')}</Link></button>
+    <button on:click><Link>{$_('sidebar.verify.search')}</Link></button>
     <button on:click={() => (showTooltip = !showTooltip)}
       ><img
         src={help}

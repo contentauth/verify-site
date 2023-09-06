@@ -12,21 +12,19 @@
   is strictly forbidden unless prior written permission is obtained
   from Adobe.
 -->
+
 <script lang="ts">
-  import fallback from '$assets/svg/monochrome/emptyImage.svg';
-  import { _ } from 'svelte-i18n';
+  import { ROOT_ID } from '$lib/asset';
+  import type { ReadableRecoveredManifestStore } from '../../../stores/recoveredManifest';
+  import AssetInfoButton from '../../AssetInfoButton.svelte';
 
-  export let thumbnail: string | null;
-  export let fillMode: 'contain' | 'cover' = 'contain';
+  export let recoveredManifestStore: ReadableRecoveredManifestStore;
 
-  $: thumbnailImg = thumbnail ?? fallback;
-  $: thumbnailAltText =
-    thumbnailImg == fallback ? $_('page.verify.emptyThumbnail') : '';
+  $: assetData = $recoveredManifestStore.assetMap[ROOT_ID];
+  $: isSelected = $recoveredManifestStore.isSelected;
 </script>
 
-<img
-  src={thumbnailImg}
-  class="h-full w-full"
-  class:object-contain={fillMode === 'contain'}
-  class:object-cover={fillMode === 'cover'}
-  alt={thumbnailAltText} />
+<AssetInfoButton
+  {assetData}
+  {isSelected}
+  on:click={$recoveredManifestStore.select} />

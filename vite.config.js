@@ -48,6 +48,12 @@ const config = {
           from: '__SUPPORTED_LOCALES__', // type defined in global.d.ts
           to: JSON.stringify(getSupportedLocales()),
         },
+        {
+          from: '__OVERRIDE_MANIFEST_RECOVERY_BASE_URL__', // type defined in global.d.ts
+          to: JSON.stringify(
+            process.env.OVERRIDE_MANIFEST_RECOVERY_BASE_URL ?? '',
+          ),
+        },
       ],
     }),
   ],

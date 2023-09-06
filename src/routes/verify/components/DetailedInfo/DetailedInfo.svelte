@@ -46,7 +46,7 @@
 </script>
 
 <div
-  class="flex h-20 shrink-0 items-center justify-between border-b-2 bg-gray-50 px-6 shadow">
+  class="sticky top-0 z-30 flex h-20 shrink-0 items-center justify-between bg-gray-50 px-6 shadow">
   {#if $assetData}
     <BigAssetInfo assetData={$assetData}>
       <svelte:fragment slot="name">{$assetData.title}</svelte:fragment

@@ -26,6 +26,7 @@ import debug from 'debug';
 import { locale } from 'svelte-i18n';
 import { get } from 'svelte/store';
 import { DEFAULT_LOCALE } from './i18n';
+import { MANIFEST_STORE_MIME_TYPE } from './manifestRecovery';
 import {
   selectGenerativeInfo,
   type GenerativeInfo,
@@ -89,6 +90,7 @@ export async function resultToAssetMap({
     ? selectValidationResult(manifestStore?.validationStatus)
     : null;
   const { hasError, hasOtgp } = rootValidationResult ?? {};
+  const isManifest = source.blob?.type === MANIFEST_STORE_MIME_TYPE;
   let id = ROOT_ID;
 
   dbg('resultToAssetMap input:', {
@@ -103,7 +105,7 @@ export async function resultToAssetMap({
     }
   }
 
-  if (!manifestStore || hasError || hasOtgp) {
+  if (!isManifest && (!manifestStore || hasError || hasOtgp)) {
     const thumbnail = source.thumbnail?.getUrl();
     const children = hasOtgp ? ['0.0'] : [];
 
@@ -190,14 +192,14 @@ export async function resultToAssetMap({
     const validationResult = selectValidationResult(
       ingredient.validationStatus,
     );
+    const showChildren = validationResult.statusCode !== 'invalid';
     const asset = {
       id,
       title: ingredient.title,
       thumbnail: thumbnail?.url ?? null,
-      children: await processIngredients(
-        ingredient.manifest?.ingredients ?? [],
-        id,
-      ),
+      children: showChildren
+        ? await processIngredients(ingredient.manifest?.ingredients ?? [], id)
+        : [],
       manifestData: await getManifestData(ingredient.manifest),
       validationResult,
     };

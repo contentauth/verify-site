@@ -15,23 +15,15 @@
 <script lang="ts">
   import LegalSection from '$src/components/LegalSection/LegalSection.svelte';
   import { sidebarLayoutPageState } from '$src/features/SidebarLayout';
-  import type { AssetData } from '$src/lib/asset';
   import { _ } from 'svelte-i18n';
   import { verifyStore } from '../../stores';
-  import ManifestRecoveryItem from '../ManifestRecoveryItem.svelte';
   import ManifestRecoverySection from './ManifestRecovery/ManifestRecoverySection.svelte';
 
-  const { recoveredManifestResults } = verifyStore;
-
-  export let assetData: AssetData;
-
-  async function handleRecovery() {
-    verifyStore.recoverManifests();
-  }
+  const { hierarchyView } = verifyStore;
 </script>
 
-{#if assetData}
-  <ManifestRecoverySection {assetData} />
+{#if $hierarchyView.state === 'success'}
+  <ManifestRecoverySection />
 {/if}
 <LegalSection>
   <svelte:fragment slot="legal-text-visible">
@@ -45,12 +37,3 @@
 <button
   class="m-2 bg-blue-600 p-2 text-white lg:hidden"
   on:click={() => sidebarLayoutPageState.next()}>NEXT</button>
-<button class="m-2 bg-blue-600 p-2 text-white" on:click={handleRecovery}
-  >Recover manifests</button>
-{#if $recoveredManifestResults.state === 'success'}
-  {#each $recoveredManifestResults.manifests as manifest}
-    <ManifestRecoveryItem recoveredManifestStore={manifest} />
-  {/each}
-{:else if $recoveredManifestResults.state === 'loading'}
-  Loading
-{/if}

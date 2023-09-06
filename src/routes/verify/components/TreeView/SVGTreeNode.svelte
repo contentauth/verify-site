@@ -41,9 +41,9 @@
 </script>
 
 <g transform={`translate(${x}, ${y})`}>
-  <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
   <rect
     tabindex="0"
+    role="button"
     on:click={$assetStore.select}
     on:keypress={handleKeyPress($assetStore.select)}
     height={nodeHeight}
@@ -59,6 +59,8 @@
       handleMobileTap();
       $assetStore.select();
     }}
+    tabindex="0"
+    role="button"
     height={nodeHeight}
     width={nodeWidth}
     x={-nodeWidth / 2}

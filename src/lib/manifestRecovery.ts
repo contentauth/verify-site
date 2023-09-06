@@ -30,6 +30,8 @@ const baseParams = { api_key: apiKey };
 
 const limit = pLimit(Math.min(navigator.hardwareConcurrency ?? 8, 8));
 
+export const MANIFEST_STORE_MIME_TYPE = 'application/x-c2pa-manifest-store';
+
 export type DisposableManifestRecoveryResult = DisposableAssetDataMap & {
   source: Source;
 };
@@ -39,15 +41,20 @@ export type ManifestRecoveryResult = Omit<
   'dispose'
 >;
 
+// Allows overriding of the manifest service API URL for testing, development,
+// and deploy preview environments where we may run into CORS issues
+export const overrideBaseUrl = __OVERRIDE_MANIFEST_RECOVERY_BASE_URL__;
+
 export async function recoverManifests(
   sourceImage: Blob,
 ): Promise<DisposableManifestRecoveryResult[]> {
   // @TODO force-stage functionality?
   const config = await getConfig();
   const baseUrl =
-    config.env === 'prod'
+    overrideBaseUrl ||
+    (config.env === 'prod'
       ? `https://cai-msb.adobe.io`
-      : `https://cai-msb-stage.adobe.io`;
+      : `https://cai-msb-stage.adobe.io`);
   const searchImage = await resizeImage(sourceImage);
   const { url, filename } = await getUploadUrlAndFilename(searchImage, baseUrl);
 
@@ -68,7 +75,7 @@ export async function recoverManifests(
 
         const resultData = await resultResponse.arrayBuffer();
         const blob = new Blob([resultData], {
-          type: 'application/x-c2pa-manifest-store',
+          type: MANIFEST_STORE_MIME_TYPE,
         });
 
         const result = await sdk.read(blob);

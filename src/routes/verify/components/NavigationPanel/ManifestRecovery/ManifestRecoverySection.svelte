@@ -13,13 +13,22 @@
   from Adobe.
 -->
 <script lang="ts">
+  import CloseIcon from '$assets/svg/monochrome/close.svg?component';
   import ClosedBorderSection from '$src/components/SidebarSection/ClosedBorderSection.svelte';
-  import type { AssetData } from '$src/lib/asset';
+  import Spinner from '$src/components/Spinner/Spinner.svelte';
+  import BodyBold from '$src/components/typography/BodyBold.svelte';
   import { _ } from 'svelte-i18n';
-  import SmallAssetInfo from '../../AssetInfo/SmallAssetInfo.svelte';
+  import { verifyStore } from '../../../stores';
+  import AssetInfoButton from '../../AssetInfoButton.svelte';
   import SearchForMatches from './SearchForMatches.svelte';
+  import SearchResults from './SearchResults.svelte';
 
-  export let assetData: AssetData;
+  const { recoveredManifestResults, clearManifestResults, mostRecentlyLoaded } =
+    verifyStore;
+
+  async function handleRecovery() {
+    verifyStore.recoverManifests();
+  }
 </script>
 
 <ClosedBorderSection>
@@ -27,10 +36,37 @@
     {$_('sidebar.verify.title')}
   </div>
   <svelte:fragment slot="content">
-    <SmallAssetInfo {assetData}>
-      <svelte:fragment slot="name"
-        >{assetData.title ?? $_('asset.defaultTitle')}</svelte:fragment
-      ></SmallAssetInfo>
-    <SearchForMatches />
+    {#if $mostRecentlyLoaded.assetData}
+      <AssetInfoButton
+        assetData={$mostRecentlyLoaded.assetData}
+        on:click={$mostRecentlyLoaded.select}
+        isSelected={$mostRecentlyLoaded.isSelected} />
+    {/if}
   </svelte:fragment>
 </ClosedBorderSection>
+{#if $recoveredManifestResults.state === 'success'}
+  <ClosedBorderSection>
+    <div slot="title" class="mb-5 flex justify-between">
+      <div class="text-md">
+        <BodyBold>
+          {$_('sidebar.verify.recovery.possibleMatches')}
+        </BodyBold>
+      </div>
+      <button class="-me-1" on:click={clearManifestResults}
+        ><CloseIcon width="1rem" height="1rem" /></button>
+    </div>
+    <div slot="content">
+      <SearchResults results={$recoveredManifestResults.manifests} />
+    </div>
+  </ClosedBorderSection>
+{:else if $recoveredManifestResults.state === 'loading'}
+  <ClosedBorderSection>
+    <div slot="content" class="relative top-0.5 origin-left scale-125">
+      <Spinner size="s" />
+    </div>
+  </ClosedBorderSection>
+{:else}
+  <ClosedBorderSection>
+    <SearchForMatches on:click={handleRecovery} slot="content" />
+  </ClosedBorderSection>
+{/if}

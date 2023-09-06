@@ -19,8 +19,9 @@
 
   export let isActive = false;
   export let assetData: AssetData;
+  export let highlighted = false;
 </script>
 
-<AssetInfoThumbnailBase {assetData} {isActive}>
+<AssetInfoThumbnailBase {assetData} {highlighted} {isActive}>
   <Body slot="name"><slot name="name" /></Body>
 </AssetInfoThumbnailBase>

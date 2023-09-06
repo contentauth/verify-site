@@ -58,9 +58,8 @@ export function createC2paReader(): C2paReaderStore {
           return;
         }
 
-        const { assetMap, dispose: assetMapDisposer } = await resultToAssetMap(
-          result,
-        );
+        const { assetMap, dispose: assetMapDisposer } =
+          await resultToAssetMap(result);
         dispose = assetMapDisposer;
 
         set({

@@ -20,9 +20,14 @@
   export let isActive = false;
 
   export let assetData: AssetData;
+  export let highlighted = false;
 </script>
 
 <AssetInfoBase {assetData}>
-  <SmallThumbnail thumbnail={assetData.thumbnail} {isActive} slot="thumbnail" />
+  <SmallThumbnail
+    thumbnail={assetData.thumbnail}
+    {highlighted}
+    {isActive}
+    slot="thumbnail" />
   <slot slot="name" name="name" />
 </AssetInfoBase>

@@ -17,10 +17,12 @@
 
   export let isActive = false;
   export let thumbnail: string | null;
+  export let highlighted = false;
 </script>
 
 <div
-  class="h-12 w-12 rounded border-2 border-blue-900 bg-gray-100"
-  class:border-2={isActive}>
+  class="h-12 w-12 shrink-0 rounded-sm bg-gray-100 transition"
+  class:ring-2={highlighted || isActive}
+  class:ring-blue-800={highlighted || isActive}>
   <ThumbnailImage {thumbnail} />
 </div>

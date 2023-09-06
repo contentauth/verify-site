@@ -43,6 +43,7 @@ type ManifestRecoveryState = Loadable<RecoveredManifestData>;
 
 export interface ManifestRecovererStore
   extends Readable<ManifestRecoveryState> {
+  clear: () => void;
   recover: (source: Source) => Promise<void>;
 }
 
@@ -56,13 +57,16 @@ export function createManifestRecoverer(
   selectedSource: Writable<SelectedSource>,
   selectedAssetId: Writable<string>,
 ): ManifestRecovererStore {
-  let disposers: (() => void)[];
+  const disposers: (() => void)[] = [];
   const manifestRecoveryState = writable<ManifestRecoveryState>({
     state: 'none',
   });
 
   return {
     subscribe: manifestRecoveryState.subscribe,
+    clear: () => {
+      manifestRecoveryState.set({ state: 'none' });
+    },
     recover: async ({ blob }: Source) => {
       manifestRecoveryState.set({ state: 'loading' });
 
