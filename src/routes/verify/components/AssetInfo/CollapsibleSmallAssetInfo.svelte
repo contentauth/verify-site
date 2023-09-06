@@ -20,7 +20,7 @@
 
   export let compareAssetStore: CompareAssetStore;
   const dispatch = createEventDispatcher();
-  export let expanded = false;
+  export let expanded = true;
   $: hasChildren = $compareAssetStore.children.length > 0;
 
   function showChildren() {
@@ -30,7 +30,7 @@
   }
 </script>
 
-<div class="m-2 p-2" class:bg-blue-100={$compareAssetStore.isSelected}>
+<div class="p-2" class:bg-blue-100={$compareAssetStore.isSelected}>
   <button on:click={$compareAssetStore.select} class="w-full">
     <div class="flex">
       {#if hasChildren}
@@ -40,6 +40,8 @@
               ? 'rotate-0'
               : '-rotate-90'}" />
         </button>
+      {:else}
+        <span class="ms-2" />
       {/if}
       <SmallAssetInfo
         assetData={$compareAssetStore}

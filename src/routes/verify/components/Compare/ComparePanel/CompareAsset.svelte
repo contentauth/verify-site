@@ -26,7 +26,7 @@
 
 <CollapsibleSmallAssetInfo
   {compareAssetStore}
-  expanded
+  {expanded}
   on:showChildren={() => (expanded = !expanded)}
   ><svelte:fragment slot="name">
     {$compareAssetStore.title}</svelte:fragment
@@ -34,7 +34,7 @@
 
 {#if expanded}
   {#each $compareAssetStore.children as child}
-    <div class="ps-2">
+    <div class="ps-4">
       <svelte:self
         compareAssetStore={compareAssetStoreMap[child]}
         {compareAssetStoreMap} />
