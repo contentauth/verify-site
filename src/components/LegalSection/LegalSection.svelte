@@ -22,7 +22,7 @@
 
 <div class="flex p-5">
   <img src={sunIcon} alt="" class="self-start pe-2" />
-  <p>
+  <p class="block">
     <SmallDescription>
       <slot name="legal-text-visible" />
       {#if readMore}
