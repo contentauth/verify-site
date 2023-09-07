@@ -34,7 +34,7 @@
 
 {#if expanded}
   {#each $compareAssetStore.children as child}
-    <div class="ps-6">
+    <div class="ps-8">
       <svelte:self
         compareAssetStore={compareAssetStoreMap[child]}
         {compareAssetStoreMap} />

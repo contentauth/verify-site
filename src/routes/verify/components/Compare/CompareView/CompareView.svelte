@@ -14,6 +14,9 @@
 -->
 
 <script lang="ts">
+  import EmptyImage from '$assets/svg/monochrome/emptyImageGray.svg?component';
+  import Body from '$src/components/typography/Body.svelte';
+  import { _ } from 'svelte-i18n';
   import type { Readable } from 'svelte/store';
   import type { CompareSelectedAssetStore } from '../../../stores/compareSelectedAsset';
 
@@ -27,21 +30,49 @@
   }
 </script>
 
-<div>
-  {#if primaryAsset !== null}
-    <button on:click={$primaryAsset?.select}>
-      <img src={$primaryAsset?.thumbnail} alt={$primaryAsset?.title} />
-    </button>
-  {:else}
-    None
-  {/if}
-</div>
-<div>
-  {#if secondaryAsset !== null}
-    <button on:click={$secondaryAsset?.select}>
-      <img src={$secondaryAsset?.thumbnail} alt={$secondaryAsset?.title} />
-    </button>
-  {:else}
-    None
-  {/if}
+<div class="flex w-full flex-col">
+  <div class="flex justify-center pb-1">
+    {#if primaryAsset !== null}
+      <button
+        on:click={$primaryAsset?.select}
+        class:border-2={$primaryAsset?.isActive}
+        class:border-blue-800={$primaryAsset?.isActive}
+        class="rounded">
+        <img
+          src={$primaryAsset?.thumbnail}
+          alt={$primaryAsset?.title}
+          class="h-[45vh] w-full object-contain" />
+      </button>
+    {:else}
+      <div class="flex h-[45vh] flex-col justify-center">
+        <EmptyImage class="h-40 w-40 self-center "></EmptyImage>
+        <Body
+          ><span class=" text-center text-gray-500">
+            {$_('sidebar.verify.compare.null.picture')}</span
+          ></Body>
+      </div>
+    {/if}
+  </div>
+  <div class="flex justify-center">
+    {#if secondaryAsset !== null}
+      <button
+        on:click={$secondaryAsset?.select}
+        class:border-2={$secondaryAsset?.isActive}
+        class:border-blue-800={$secondaryAsset?.isActive}
+        class="rounded">
+        <img
+          src={$secondaryAsset?.thumbnail}
+          alt={$secondaryAsset?.title}
+          class="h-[45vh] w-full object-contain" />
+      </button>
+    {:else}
+      <div class="flex h-[45vh] flex-col justify-center">
+        <EmptyImage class="h-40 w-40 self-center"></EmptyImage>
+        <Body
+          ><span class=" text-center text-gray-500">
+            {$_('sidebar.verify.compare.null.picture')}</span
+          ></Body>
+      </div>
+    {/if}
+  </div>
 </div>

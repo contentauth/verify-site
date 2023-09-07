@@ -14,7 +14,10 @@
 -->
 
 <script lang="ts">
+  import Body from '$src/components/typography/Body.svelte';
+  import Header from '$src/components/typography/Header.svelte';
   import type { AssetData } from '$src/lib/asset';
+  import { _ } from 'svelte-i18n';
   import type { Readable } from 'svelte/store';
   import DetailedInfo from '../../DetailedInfo/DetailedInfo.svelte';
 
@@ -27,5 +30,13 @@
 {#if $assetData !== null}
   <DetailedInfo on:close assetData={assetDataNonNull} />
 {:else}
-  Null state pls implement
+  <div class="flex flex-col pe-8 ps-4 pt-4">
+    <Header>{$_('sidebar.verify.compare.null.title')}</Header>
+    <div class="pt-1">
+      <Body
+        ><span class=" text-gray-500">
+          {$_('sidebar.verify.compare.null.description')}</span
+        ></Body>
+    </div>
+  </div>
 {/if}

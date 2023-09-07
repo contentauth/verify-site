@@ -41,7 +41,7 @@
               : '-rotate-90'}" />
         </button>
       {:else}
-        <span class="ms-2" />
+        <span class="ms-4" />
       {/if}
       <SmallAssetInfo
         assetData={$compareAssetStore}

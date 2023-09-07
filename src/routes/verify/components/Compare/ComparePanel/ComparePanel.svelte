@@ -24,13 +24,15 @@
   export let assetStoreMap: CompareAssetStoreMap;
 </script>
 
-<button class="me-2" on:click={() => verifyStore.setHierarchyView()}>
-  <div class="flex px-2 py-5">
-    <BackArrow class="me-2" />
-    <Header>{$_('sidebar.verify.compare')}</Header>
-  </div>
-</button>
+<div class="overflow-auto">
+  <button class="me-2" on:click={() => verifyStore.setHierarchyView()}>
+    <div class="flex px-2 py-5">
+      <BackArrow class="me-2" />
+      <Header>{$_('sidebar.verify.compare')}</Header>
+    </div>
+  </button>
 
-<CompareAsset
-  compareAssetStore={assetStoreMap[0]}
-  compareAssetStoreMap={assetStoreMap} />
+  <CompareAsset
+    compareAssetStore={assetStoreMap[0]}
+    compareAssetStoreMap={assetStoreMap} />
+</div>
