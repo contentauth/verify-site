@@ -23,7 +23,6 @@ const config: PlaywrightTestConfig = {
   use: {
     baseURL,
     headless: true,
-    viewport: { width: 1280, height: 2000 },
     locale: 'en-US',
     timezoneId: 'America/New_York',
     ignoreHTTPSErrors: true,

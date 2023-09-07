@@ -25,7 +25,6 @@ test.describe('Verify - base functionality', () => {
     const verify = new VerifyPage(page);
     const source = VerifyPage.getFixtureUrl('CAICAI.jpg');
     await verify.goto(source);
-    await verify.waitForTreeView();
     await verify.takeSnapshot(`result for CAICAI.jpg via source`);
   });
 });
