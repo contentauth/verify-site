@@ -41,7 +41,6 @@
     "@storybook/svelte": "7.4.0",
     "@storybook/sveltekit": "7.4.0",
     "@storybook/testing-library": "^0.2.0",
-    "@sveltejs/adapter-auto": "^2.1.0",
     "@sveltejs/adapter-static": "^2.0.3",
     "@sveltejs/kit": "^1.24.1",
     "@testing-library/jest-dom": "^5.16.5",
