@@ -61,6 +61,7 @@ export default {
       base: defs['family-base'],
     },
     colors: {
+      brandYellow: 'FCE458',
       white: defs['gray-50'],
       'gray-50': defs['gray-50'],
       'gray-75': defs['gray-75'],
@@ -86,6 +87,7 @@ export default {
       'blue-1100': defs['blue-1100'],
       'blue-1200': defs['blue-1200'],
       'blue-1300': defs['blue-1300'],
+      black: defs['black'],
       transparent: 'transparent',
       current: 'currentColor',
     },
@@ -139,12 +141,57 @@ export default {
           fontWeight: '700',
         },
       ],
+      hero: [
+        '3.75rem',
+        {
+          fontWeight: '700',
+          lineHeight: '75px',
+        },
+      ],
+      secondaryTitle: [
+        '2.25rem',
+        {
+          fontWeight: '700',
+          lineHeight: '43px',
+        },
+      ],
+      general: [
+        '1.125rem',
+        {
+          fontWeight: '400',
+          lineHeight: '24px',
+        },
+      ],
+      generalSm: [
+        '1rem',
+        {
+          fontWeight: '400',
+          lineHeight: '24px',
+        },
+      ],
+      subHeading: [
+        '1.25rem',
+        {
+          fontWeight: '700',
+          lineHeight: '24px',
+        },
+      ],
+      footerText: [
+        '0.75rem',
+        {
+          fontWeight: '400',
+          lineHeight: '18px',
+        },
+      ],
     },
     boxShadow: {
       DEFAULT: '0px 4px 20px rgba(0, 0, 0, 0.3)',
       md: '0px 2px 6px 0px rgba(0, 0, 0, 0.15)',
     },
     extend: {
+      backgroundImage: {
+        'hero-pattern': "url('/assets/png/Circles.png')",
+      },
       spacing: {
         sidebar: '20rem',
         header: '3.5rem',
