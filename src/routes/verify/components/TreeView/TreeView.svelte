@@ -162,5 +162,4 @@
         <Body>{$_('sidebar.verify.compare')}</Body>
       </div></button>
   </div>
-</div>
 </figure>
