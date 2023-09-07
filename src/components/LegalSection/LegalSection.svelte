@@ -22,13 +22,15 @@
 
 <div class="flex p-5">
   <img src={sunIcon} alt="" class="self-start pe-2" />
-  <p>
-    <SmallDescription>
-      <slot name="legal-text-visible" />
-      {#if readMore}
-        <slot name="legal-text-more" />
-      {/if}
-    </SmallDescription>
+  <div>
+    <div>
+      <SmallDescription>
+        <slot name="legal-text-visible" />
+        {#if readMore}
+          <slot name="legal-text-more" />
+        {/if}
+      </SmallDescription>
+    </div>
     <button on:click={() => (readMore = !readMore)}>
       <SmallDescription>
         <span class="font-bold underline"
@@ -37,5 +39,5 @@
             : $_('sidebar.legal.more')}</span>
       </SmallDescription>
     </button>
-  </p>
+  </div>
 </div>

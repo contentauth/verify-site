@@ -44,6 +44,7 @@ const config = {
     },
     paths: {
       base: BASE_PATH,
+      relative: true,
     },
     version: { name: gitRevision },
   },

@@ -36,6 +36,7 @@ import {
   selectValidationResult,
   type ValidationStatusResult,
 } from './selectors/validationResult';
+import { formatThumbnail } from './thumbnail';
 import type { Disposable } from './types';
 
 const dbg = debug('lib:asset');
@@ -106,16 +107,18 @@ export async function resultToAssetMap({
   }
 
   if (!isManifest && (!manifestStore || hasError || hasOtgp)) {
-    const thumbnail = source.thumbnail?.getUrl();
+    const thumbnail = await formatThumbnail(source.thumbnail.getUrl());
     const children = hasOtgp ? ['0.0'] : [];
 
-    disposers.push(thumbnail.dispose);
+    if (thumbnail?.dispose) {
+      disposers.push(thumbnail.dispose);
+    }
 
     assetMap[id] = {
       // @TODO filename if none present?
       id,
       title: source.metadata.filename ?? null,
-      thumbnail: thumbnail.url ?? null,
+      thumbnail: thumbnail?.url ?? null,
       children,
       manifestData: null,
       validationResult: rootValidationResult,
@@ -156,7 +159,7 @@ export async function resultToAssetMap({
     const { activeManifest: manifest } = manifestStore;
 
     // Attempt to use a thumbnail on the manifest if found
-    let thumbnail = manifest.thumbnail?.getUrl();
+    let thumbnail = await formatThumbnail(manifest.thumbnail?.getUrl());
 
     // If no thumbnail exists on the claim and we have a valid manifest,
     // we can use the source thumbnail
@@ -188,7 +191,7 @@ export async function resultToAssetMap({
     ingredient: Ingredient,
     id: string,
   ): Promise<AssetData> {
-    const thumbnail = ingredient.thumbnail?.getUrl();
+    const thumbnail = await formatThumbnail(ingredient.thumbnail?.getUrl());
     const validationResult = selectValidationResult(
       ingredient.validationStatus,
     );

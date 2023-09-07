@@ -91,7 +91,10 @@
   }
 </script>
 
-<div class="h-full w-full" bind:clientWidth={width} bind:clientHeight={height}>
+<figure
+  class="h-full w-full"
+  bind:clientWidth={width}
+  bind:clientHeight={height}>
   <svg bind:this={svgElement} viewBox={`0 0 ${width} ${height}`}>
     <g bind:this={boundsElement} transform={transforms.gTransform ?? ''}>
       {#each links as { link, idx, isAncestor } (idx)}
@@ -110,7 +113,9 @@
   </svg>
   <!-- Layer the HTML nodes over the SVG paths and sync the transformations so we don't have
     to use SVG `foreignObject`, which doesn't always work great in different browsers. -->
-  <div class="pointer-events-none absolute left-0 top-0 z-0 select-none">
+  <div
+    role="tree"
+    class="pointer-events-none absolute left-0 top-0 z-0 select-none">
     <div
       class="absolute left-0 top-0"
       style={`transform: ${transforms.htmlTransform ?? ''};`}>
@@ -158,3 +163,4 @@
       </div></button>
   </div>
 </div>
+</figure>

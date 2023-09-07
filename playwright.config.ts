@@ -13,7 +13,8 @@
 
 import type { PlaywrightTestConfig } from '@playwright/test';
 
-const port = 4173;
+export const port = 4173;
+export const fixturesPort = 8080;
 const base = process.env.BASE_URL;
 const baseURL = `${base ?? `http://localhost`}:${port}/`;
 
@@ -22,15 +23,22 @@ const config: PlaywrightTestConfig = {
   use: {
     baseURL,
     headless: true,
-    viewport: { width: 1280, height: 2000 },
     locale: 'en-US',
     timezoneId: 'America/New_York',
     ignoreHTTPSErrors: true,
   },
-  webServer: {
-    command: 'npm run build && npm run preview',
-    port: port,
-  },
+  webServer: [
+    {
+      command: 'pnpm preview',
+      port: port,
+      reuseExistingServer: !process.env.CI,
+    },
+    {
+      command: `pnpm http-server e2e/fixtures --port=${fixturesPort} --cors --gzip`,
+      port: fixturesPort,
+      reuseExistingServer: !process.env.CI,
+    },
+  ],
 };
 
 export default config;

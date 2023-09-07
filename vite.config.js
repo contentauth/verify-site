@@ -33,10 +33,24 @@ const config = {
   build: {
     minify: 'terser',
     terserOptions: {
-      // Added since error names were being mangled, resulting in incorrect error handling (CAI-3792)
+      // Added since error names were being mangled, resulting in incorrect error handling
       keep_classnames: true,
       // image-blob-reduce breaks unless this is disabled
       compress: { evaluate: false },
+    },
+  },
+  experimental: {
+    // Hack to make sure Svelte(Kit)/Vite doesn't try to automatically prepend the hostname to
+    // our asset URLs. This breaks snapshot testing on Percy/Browserstack due to them not being
+    // able to proxy localhost in Safari (see https://docs.percy.io/docs/browsers-specific-handling#localhost-proxy-support-on-safari).
+    renderBuiltUrl(filename, { hostType }) {
+      if (hostType === 'js') {
+        return {
+          runtime: `${JSON.stringify(`/${filename}`)}`,
+        };
+      } else {
+        return { relative: true };
+      }
     },
   },
   plugins: [
@@ -53,6 +67,10 @@ const config = {
           to: JSON.stringify(
             process.env.OVERRIDE_MANIFEST_RECOVERY_BASE_URL ?? '',
           ),
+        },
+        {
+          from: '__THUMBNAIL_DATA_TYPE__', // type defined in global.d.ts
+          to: JSON.stringify(process.env.THUMBNAIL_DATA_TYPE ?? 'blob'),
         },
       ],
     }),
