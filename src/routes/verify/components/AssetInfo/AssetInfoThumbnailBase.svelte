@@ -17,8 +17,6 @@
   import SmallThumbnail from '../Thumbnail/SmallThumbnail.svelte';
   import AssetInfoBase from './AssetInfoBase.svelte';
 
-  export let isActive = false;
-
   export let assetData: AssetData;
   export let highlighted = false;
 </script>
@@ -27,7 +25,6 @@
   <SmallThumbnail
     thumbnail={assetData.thumbnail}
     {highlighted}
-    {isActive}
     slot="thumbnail" />
   <slot slot="name" name="name" />
 </AssetInfoBase>

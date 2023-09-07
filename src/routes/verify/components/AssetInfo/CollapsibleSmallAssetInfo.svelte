@@ -45,7 +45,7 @@
       {/if}
       <SmallAssetInfo
         assetData={$compareAssetStore}
-        isActive={$compareAssetStore.isActive}>
+        highlighted={$compareAssetStore.isActive}>
         <svelte:fragment slot="name"><slot name="name" /></svelte:fragment>
       </SmallAssetInfo>
     </div>

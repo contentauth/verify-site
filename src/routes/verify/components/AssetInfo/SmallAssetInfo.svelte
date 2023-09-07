@@ -17,11 +17,10 @@
   import type { AssetData } from '$src/lib/asset';
   import AssetInfoThumbnailBase from './AssetInfoThumbnailBase.svelte';
 
-  export let isActive = false;
   export let assetData: AssetData;
   export let highlighted = false;
 </script>
 
-<AssetInfoThumbnailBase {assetData} {highlighted} {isActive}>
+<AssetInfoThumbnailBase {assetData} {highlighted}>
   <Body slot="name"><slot name="name" /></Body>
 </AssetInfoThumbnailBase>
