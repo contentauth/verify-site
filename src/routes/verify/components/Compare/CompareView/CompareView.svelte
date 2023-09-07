@@ -14,11 +14,9 @@
 -->
 
 <script lang="ts">
-  import EmptyImage from '$assets/svg/monochrome/emptyImageGray.svg?component';
-  import Body from '$src/components/typography/Body.svelte';
-  import { _ } from 'svelte-i18n';
   import type { Readable } from 'svelte/store';
   import type { CompareSelectedAssetStore } from '../../../stores/compareSelectedAsset';
+  import NullState from './NullState.svelte';
 
   export let selectedAssets: Readable<(CompareSelectedAssetStore | null)[]>;
 
@@ -44,13 +42,7 @@
           class="h-[45vh] w-full object-contain" />
       </button>
     {:else}
-      <div class="flex h-[45vh] flex-col justify-center">
-        <EmptyImage class="h-40 w-40 self-center "></EmptyImage>
-        <Body
-          ><span class=" text-center text-gray-500">
-            {$_('sidebar.verify.compare.null.picture')}</span
-          ></Body>
-      </div>
+      <NullState></NullState>
     {/if}
   </div>
   <div class="flex justify-center">
@@ -66,13 +58,7 @@
           class="h-[45vh] w-full object-contain" />
       </button>
     {:else}
-      <div class="flex h-[45vh] flex-col justify-center">
-        <EmptyImage class="h-40 w-40 self-center"></EmptyImage>
-        <Body
-          ><span class=" text-center text-gray-500">
-            {$_('sidebar.verify.compare.null.picture')}</span
-          ></Body>
-      </div>
+      <NullState></NullState>
     {/if}
   </div>
 </div>
