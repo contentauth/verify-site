@@ -36,7 +36,6 @@ export class VerifyPage {
       const params = new URLSearchParams({ source });
       await this.page.goto(`/verify?${params.toString()}`);
       await this.waitForTreeView();
-      await this.page.waitForTimeout(50); // only for debugging
     } else {
       await this.page.goto('/verify');
       await this.page

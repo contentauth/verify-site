@@ -54,6 +54,10 @@ const config = {
             process.env.OVERRIDE_MANIFEST_RECOVERY_BASE_URL ?? '',
           ),
         },
+        {
+          from: '__THUMBNAIL_DATA_TYPE__', // type defined in global.d.ts
+          to: JSON.stringify(process.env.THUMBNAIL_DATA_TYPE ?? 'blob'),
+        },
       ],
     }),
   ],

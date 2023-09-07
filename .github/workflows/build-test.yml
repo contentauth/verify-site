@@ -42,8 +42,10 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
-      - name: Run build script
+      - name: Run build script for test output
         run: pnpm run build
+        env:
+          THUMBNAIL_DATA_TYPE: datauri
 
       - name: Run unit tests
         run: pnpm run test:unit

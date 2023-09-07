@@ -23,6 +23,7 @@ declare module '*.jpg';
 
 declare const __SUPPORTED_LOCALES__: string[];
 declare const __OVERRIDE_MANIFEST_RECOVERY_BASE_URL__: string;
+declare const __THUMBNAIL_DATA_TYPE__: 'blob' | 'datauri';
 
 declare module '*.svg?component' {
   import type { ComponentType, SvelteComponentTyped } from 'svelte';
