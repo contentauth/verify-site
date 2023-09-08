@@ -24,6 +24,7 @@
   import ThumbnailSection from '../Thumbnail/ThumbnailSection.svelte';
   import AboutSection from './AboutSection/AboutSection.svelte';
   import AdvancedSection from './AdvancedSection/AdvancedSection.svelte';
+  import CameraCaptureSection from './CameraCaptureSection/CameraCaptureSection.svelte';
   import ContentSummarySection, {
     assetDataToProps as assetDataToContentSummaryProps,
   } from './ContentSummarySection/ContentSummarySection.svelte';
@@ -63,6 +64,7 @@
   <ContentSummarySection {...assetDataToContentSummaryProps($assetData)} />
   <CreditAndUsage manifestData={$assetData.manifestData} />
   <ProcessSection manifestData={$assetData.manifestData} {ingredients} />
+  <CameraCaptureSection manifestData={$assetData.manifestData} />
   <AboutSection manifestData={$assetData.manifestData} />
   <AdvancedSection />
 {:else}

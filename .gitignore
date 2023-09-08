@@ -15,6 +15,7 @@ test-results
 *.terraform*
 .dccache
 .env
+.env.local
 
 # Local Netlify folder
 .netlify

@@ -12,7 +12,7 @@ dependencies:
     specifier: file:etc/packages/adobe-locales-2.35.2.tgz
     version: file:etc/packages/adobe-locales-2.35.2.tgz
   '@mapbox/mapbox-sdk':
-    specifier: ^0.13.5
+    specifier: ^0.13.7
     version: 0.13.7
   '@netlify/functions':
     specifier: ^2.0.2
@@ -44,6 +44,9 @@ dependencies:
   c2pa:
     specifier: ^0.17.1
     version: 0.17.1
+  circle-to-polygon:
+    specifier: ^2.2.0
+    version: 2.2.0
   d3-hierarchy:
     specifier: ^3.1.2
     version: 3.1.2
@@ -56,12 +59,18 @@ dependencies:
   d3-zoom:
     specifier: ^3.0.0
     version: 3.0.0
+  date-fns:
+    specifier: ^2.30.0
+    version: 2.30.0
   debug:
     specifier: ^4.3.1
     version: 4.3.4
   drag-drop:
     specifier: ^7.2.0
     version: 7.2.0
+  geo-coordinates-parser:
+    specifier: ^1.6.3
+    version: 1.6.3
   image-blob-reduce:
     specifier: ^4.1.0
     version: 4.1.0
@@ -172,6 +181,9 @@ devDependencies:
   '@types/lodash':
     specifier: ^4.14.161
     version: 4.14.192
+  '@types/mapbox__mapbox-sdk':
+    specifier: ^0.13.5
+    version: 0.13.5
   '@types/new-relic-browser':
     specifier: ^0.1118.0
     version: 0.1118.2
@@ -301,9 +313,6 @@ devDependencies:
   vite:
     specifier: ^4.4.9
     version: 4.4.9(@types/node@18.15.11)(terser@5.16.9)
-  vite-plugin-replace:
-    specifier: ^0.1.1
-    version: 0.1.1(vite@4.4.9)
   vitest:
     specifier: ^0.28.5
     version: 0.28.5(jsdom@21.1.1)(terser@5.16.9)
@@ -2810,7 +2819,6 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.14.0
-    dev: true
 
   /@babel/template@7.20.7:
     resolution: {integrity: sha512-8SegXApWe6VoNw0r9JHpSteLKTpTiLZ4rMlGIm9JQ18KiCtyQiAMEazujAHrUS5flrcqYZa75ukev3P6QmUwUw==}
@@ -3794,7 +3802,7 @@ packages:
     engines: {node: ^12.13.0 || ^14.15.0 || ^16.10.0 || >=17.0.0}
     dependencies:
       '@jest/types': 28.1.3
-      '@types/node': 18.15.11
+      '@types/node': 20.5.9
       chalk: 4.1.2
       jest-message-util: 28.1.3
       jest-util: 28.1.3
@@ -3815,14 +3823,14 @@ packages:
       '@jest/test-result': 28.1.3
       '@jest/transform': 28.1.3
       '@jest/types': 28.1.3
-      '@types/node': 18.15.11
+      '@types/node': 20.5.9
       ansi-escapes: 4.3.2
       chalk: 4.1.2
       ci-info: 3.8.0
       exit: 0.1.2
       graceful-fs: 4.2.11
       jest-changed-files: 28.1.3
-      jest-config: 28.1.3(@types/node@18.15.11)
+      jest-config: 28.1.3(@types/node@20.5.9)
       jest-haste-map: 28.1.3
       jest-message-util: 28.1.3
       jest-regex-util: 28.0.2
@@ -3916,7 +3924,7 @@ packages:
       '@jest/transform': 28.1.3
       '@jest/types': 28.1.3
       '@jridgewell/trace-mapping': 0.3.19
-      '@types/node': 18.15.11
+      '@types/node': 20.5.9
       chalk: 4.1.2
       collect-v8-coverage: 1.0.1
       exit: 0.1.2
@@ -4071,7 +4079,7 @@ packages:
     dependencies:
       '@types/istanbul-lib-coverage': 2.0.4
       '@types/istanbul-reports': 3.0.1
-      '@types/node': 20.4.9
+      '@types/node': 20.5.9
       '@types/yargs': 16.0.5
       chalk: 4.1.2
     dev: true
@@ -4083,7 +4091,7 @@ packages:
       '@jest/schemas': 28.1.3
       '@types/istanbul-lib-coverage': 2.0.4
       '@types/istanbul-reports': 3.0.1
-      '@types/node': 18.15.11
+      '@types/node': 20.5.9
       '@types/yargs': 17.0.24
       chalk: 4.1.2
     dev: true
@@ -4095,7 +4103,7 @@ packages:
       '@jest/schemas': 29.6.0
       '@types/istanbul-lib-coverage': 2.0.4
       '@types/istanbul-reports': 3.0.1
-      '@types/node': 20.4.9
+      '@types/node': 20.5.9
       '@types/yargs': 17.0.24
       chalk: 4.1.2
     dev: true
@@ -6299,7 +6307,7 @@ packages:
       '@storybook/telemetry': 7.0.12
       '@storybook/types': 7.0.12
       '@types/detect-port': 1.3.2
-      '@types/node': 16.18.40
+      '@types/node': 16.18.48
       '@types/node-fetch': 2.6.4
       '@types/pretty-hrtime': 1.0.1
       '@types/semver': 7.3.13
@@ -7011,7 +7019,7 @@ packages:
     resolution: {integrity: sha512-ALYone6pm6QmwZoAgeyNksccT9Q4AWZQ6PvfwR37GT6r6FWUPguq6sUmNGSMV2Wr761oQoBxwGGa6DR5o1DC9g==}
     dependencies:
       '@types/connect': 3.4.35
-      '@types/node': 20.4.9
+      '@types/node': 20.5.9
     dev: true
 
   /@types/btoa-lite@1.0.0:
@@ -7023,7 +7031,7 @@ packages:
     dependencies:
       '@types/http-cache-semantics': 4.0.1
       '@types/keyv': 3.1.4
-      '@types/node': 20.4.9
+      '@types/node': 20.5.9
       '@types/responselike': 1.0.0
     dev: false
 
@@ -7106,7 +7114,7 @@ packages:
   /@types/express-serve-static-core@4.17.35:
     resolution: {integrity: sha512-wALWQwrgiB2AWTT91CB62b6Yt0sNHpznUXeZEcnPU3DRdlDIz74x8Qg1UUYKSVFi+va5vKOLYRBI1bRKiLLKIg==}
     dependencies:
-      '@types/node': 20.4.9
+      '@types/node': 20.5.9
       '@types/qs': 6.9.7
       '@types/range-parser': 1.2.4
       '@types/send': 0.17.1
@@ -7123,6 +7131,10 @@ packages:
 
   /@types/find-cache-dir@3.2.1:
     resolution: {integrity: sha512-frsJrz2t/CeGifcu/6uRo4b+SzAwT4NYCVPu1GN8IB9XTzrpPkGuV0tmh9mN+/L0PklAlsC3u5Fxt0ju00LXIw==}
+    dev: true
+
+  /@types/geojson@7946.0.10:
+    resolution: {integrity: sha512-Nmh0K3iWQJzniTuPRcJn5hxXkfB1T1pgB89SBig5PlJQU5yocazeu4jATJlaA0GYFKWMqDdvYemoSnF2pXgLVA==}
     dev: true
 
   /@types/glob@8.1.0:
@@ -7207,6 +7219,20 @@ packages:
     resolution: {integrity: sha512-ssE3Vlrys7sdIzs5LOxCzTVMsU7i9oa/IaW92wF32JFb3CVczqOkru2xspuKczHEbG3nvmPY7IFqVmGGHdNbYw==}
     dev: true
 
+  /@types/mapbox-gl@2.7.13:
+    resolution: {integrity: sha512-qNffhTdYkeFl8QG9Q1zPPJmcs8PvHgmLa1PcwP1rxvcfMsIgcFr/FnrCttG0ZnH7Kzdd7xfECSRNTWSr4jC3PQ==}
+    dependencies:
+      '@types/geojson': 7946.0.10
+    dev: true
+
+  /@types/mapbox__mapbox-sdk@0.13.5:
+    resolution: {integrity: sha512-VTl2pzD2uutORaSSqYCKhXFiifjHTvJM84pBqPqWFLUtQFKirAq2J9bhSLtMyozXoxGiz5ZXd426chkub1idaw==}
+    dependencies:
+      '@types/geojson': 7946.0.10
+      '@types/mapbox-gl': 2.7.13
+      '@types/node': 20.5.9
+    dev: true
+
   /@types/mdx@2.0.5:
     resolution: {integrity: sha512-76CqzuD6Q7LC+AtbPqrvD9AqsN0k8bsYo2bM2J8pmNldP1aIPAbzUQ7QbobyXL4eLr1wK5x8FZFe8eF/ubRuBg==}
     dev: true
@@ -7260,6 +7286,7 @@ packages:
 
   /@types/node@20.4.9:
     resolution: {integrity: sha512-8e2HYcg7ohnTUbHk8focoklEQYvemQmu9M/f43DZVx43kHn0tE3BY/6gSDxS7k0SprtS0NHvj+L80cGLnoOUcQ==}
+    dev: true
 
   /@types/node@20.5.9:
     resolution: {integrity: sha512-PcGNd//40kHAS3sTlzKB9C9XL4K0sTup8nbG5lC14kzEteTNuAFh9u5nA0o5TWnSG2r/JNPRXFVcHJIIeRlmqQ==}
@@ -7322,7 +7349,7 @@ packages:
   /@types/responselike@1.0.0:
     resolution: {integrity: sha512-85Y2BjiufFzaMIlvJDvTTB8Fxl2xfLo4HgmHzVBz08w4wDePCTjYw66PdrolO0kzli3yam/YCgRufyo1DdQVTA==}
     dependencies:
-      '@types/node': 20.4.9
+      '@types/node': 20.5.9
     dev: false
 
   /@types/scheduler@0.16.3:
@@ -7344,7 +7371,7 @@ packages:
     resolution: {integrity: sha512-NUo5XNiAdULrJENtJXZZ3fHtfMolzZwczzBbnAeBbqBwG+LaG6YaJtuwzwGSQZ2wsCrxjEhNNjAkKigy3n8teQ==}
     dependencies:
       '@types/mime': 3.0.1
-      '@types/node': 20.4.9
+      '@types/node': 20.5.9
     dev: true
 
   /@types/stack-utils@2.0.1:
@@ -8465,6 +8492,10 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /circle-to-polygon@2.2.0:
+    resolution: {integrity: sha512-yC9/bw6P0YmV2/oxm4DLrSgrzHhbz9H+vgUScmSFN5KilR/KFGVRbUi9a0mIYPsXK44HvnysVVi/iIysRJVvNw==}
+    dev: false
+
   /cjs-module-lexer@1.2.2:
     resolution: {integrity: sha512-cOU9usZw8/dXIXKtwa8pM0OTJQuJkxMN6w30csNRUerHfeQ5R6U3kkU/FtJeIf3M202OHfY2U8ccInBG7/xogA==}
     dev: true
@@ -9033,6 +9064,13 @@ packages:
       whatwg-mimetype: 3.0.0
       whatwg-url: 12.0.1
     dev: true
+
+  /date-fns@2.30.0:
+    resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
+    engines: {node: '>=0.11'}
+    dependencies:
+      '@babel/runtime': 7.22.15
+    dev: false
 
   /debug@2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
@@ -10595,6 +10633,10 @@ packages:
     engines: {node: '>=6.9.0'}
     dev: true
 
+  /geo-coordinates-parser@1.6.3:
+    resolution: {integrity: sha512-HalJ+bkY8vNy0+JbpdTpc0bxinJgkPtjdmS3ssqGt9wi22133377yt1IQZKnFubg9KkZKJk+x989qtm9ntj8Sw==}
+    dev: false
+
   /get-caller-file@2.0.5:
     resolution: {integrity: sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg==}
     engines: {node: 6.* || 8.* || >= 10.*}
@@ -11612,7 +11654,7 @@ packages:
       exit: 0.1.2
       graceful-fs: 4.2.11
       import-local: 3.1.0
-      jest-config: 28.1.3(@types/node@18.15.11)
+      jest-config: 28.1.3(@types/node@20.5.9)
       jest-util: 28.1.3
       jest-validate: 28.1.3
       prompts: 2.4.2
@@ -11623,7 +11665,7 @@ packages:
       - ts-node
     dev: true
 
-  /jest-config@28.1.3(@types/node@18.15.11):
+  /jest-config@28.1.3(@types/node@20.5.9):
     resolution: {integrity: sha512-MG3INjByJ0J4AsNBm7T3hsuxKQqFIiRo/AUqb1q9LRKI5UU6Aar9JHbr9Ivn1TVwfUD9KirRoM/T6u8XlcQPHQ==}
     engines: {node: ^12.13.0 || ^14.15.0 || ^16.10.0 || >=17.0.0}
     peerDependencies:
@@ -11638,7 +11680,7 @@ packages:
       '@babel/core': 7.21.4
       '@jest/test-sequencer': 28.1.3
       '@jest/types': 28.1.3
-      '@types/node': 18.15.11
+      '@types/node': 20.5.9
       babel-jest: 28.1.3(@babel/core@7.21.4)
       chalk: 4.1.2
       ci-info: 3.8.0
@@ -11728,7 +11770,7 @@ packages:
     dependencies:
       '@jest/types': 28.1.3
       '@types/graceful-fs': 4.1.6
-      '@types/node': 18.15.11
+      '@types/node': 20.5.9
       anymatch: 3.1.3
       fb-watchman: 2.0.2
       graceful-fs: 4.2.11
@@ -11747,7 +11789,7 @@ packages:
     dependencies:
       '@jest/types': 29.6.1
       '@types/graceful-fs': 4.1.6
-      '@types/node': 20.4.9
+      '@types/node': 20.5.9
       anymatch: 3.1.3
       fb-watchman: 2.0.2
       graceful-fs: 4.2.11
@@ -11914,7 +11956,7 @@ packages:
       '@jest/test-result': 28.1.3
       '@jest/transform': 28.1.3
       '@jest/types': 28.1.3
-      '@types/node': 18.15.11
+      '@types/node': 20.5.9
       chalk: 4.1.2
       emittery: 0.10.2
       graceful-fs: 4.2.11
@@ -12000,7 +12042,7 @@ packages:
     engines: {node: ^12.13.0 || ^14.15.0 || ^16.10.0 || >=17.0.0}
     dependencies:
       '@jest/types': 28.1.3
-      '@types/node': 18.15.11
+      '@types/node': 20.5.9
       chalk: 4.1.2
       ci-info: 3.8.0
       graceful-fs: 4.2.11
@@ -12024,7 +12066,7 @@ packages:
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
       '@jest/types': 29.6.1
-      '@types/node': 20.4.9
+      '@types/node': 20.5.9
       chalk: 4.1.2
       ci-info: 3.8.0
       graceful-fs: 4.2.11
@@ -12061,7 +12103,7 @@ packages:
     dependencies:
       '@jest/test-result': 28.1.3
       '@jest/types': 28.1.3
-      '@types/node': 18.15.11
+      '@types/node': 20.5.9
       ansi-escapes: 4.3.2
       chalk: 4.1.2
       emittery: 0.10.2
@@ -13580,7 +13622,7 @@ packages:
     resolution: {integrity: sha512-Sz2Lkdxz6F2Pgnpi9U5Ng/WdWAUZxmHrNPoVlm3aAemxoy2Qy7LGjQg4uf8qKelDAUW94F4np3iH2YPf2qefcQ==}
     engines: {node: '>=10'}
     dependencies:
-      '@babel/runtime': 7.22.10
+      '@babel/runtime': 7.22.15
     dev: true
 
   /portfinder@1.0.32:
@@ -14532,7 +14574,6 @@ packages:
 
   /regenerator-runtime@0.14.0:
     resolution: {integrity: sha512-srw17NI0TUWHuGa5CFGGmhfNIeja30WMBfbslPNhf6JrqQlLN5gcrvig1oqPxiVaXb0oW0XRKtH6Nngs5lKCIA==}
-    dev: true
 
   /regenerator-transform@0.15.1:
     resolution: {integrity: sha512-knzmNAcuyxV+gQCufkYcvOqX/qIIfHLv0u5x79kRxuGojfYVky1f15TzZEu2Avte8QGepvUNTnLskf8E6X6Vyg==}
@@ -16227,14 +16268,6 @@ packages:
       - sugarss
       - supports-color
       - terser
-    dev: true
-
-  /vite-plugin-replace@0.1.1(vite@4.4.9):
-    resolution: {integrity: sha512-v+okl3JNt2pf1jDYijw+WPVt6h9FWa/atTi+qnSFBqmKThLTDhlesx0r3bh+oFPmxRJmis5tNx9HtN6lGFoqWg==}
-    peerDependencies:
-      vite: ^2
-    dependencies:
-      vite: 4.4.9(@types/node@18.15.11)(terser@5.16.9)
     dev: true
 
   /vite@4.4.9(@types/node@18.15.11)(terser@5.16.9):
