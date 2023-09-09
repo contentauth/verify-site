@@ -19,7 +19,7 @@
   import { _ } from 'svelte-i18n';
   import CompareDetailedInfo from './components/Compare/CompareInfo/CompareInfo.svelte';
   import ComparePanel from './components/Compare/ComparePanel/ComparePanel.svelte';
-  import CompareView from './components/Compare/CompareView/Slider.svelte';
+  import CompareView from './components/Compare/CompareView/CompareView.svelte';
   import DetailedInfo from './components/DetailedInfo/DetailedInfo.svelte';
   import DragDropOverlay from './components/DragDropOverlay/DragDropOverlay.svelte';
   import EmptyState from './components/EmptyState/EmptyState.svelte';

@@ -14,51 +14,17 @@
 -->
 
 <script lang="ts">
+  import { compareMode } from '$src/routes/verify/stores/compareView';
   import type { Readable } from 'svelte/store';
   import type { CompareSelectedAssetStore } from '../../../stores/compareSelectedAsset';
-  import NullState from './NullState.svelte';
+  import SideBySide from './Side-by-Side.svelte';
+  import Slider from './Slider.svelte';
 
   export let selectedAssets: Readable<(CompareSelectedAssetStore | null)[]>;
-
-  let primaryAsset: CompareSelectedAssetStore | null;
-  let secondaryAsset: CompareSelectedAssetStore | null;
-
-  $: {
-    [primaryAsset, secondaryAsset] = $selectedAssets;
-  }
 </script>
 
-<div class="flex w-full flex-col">
-  <div class="flex justify-center pb-1">
-    {#if primaryAsset !== null}
-      <button
-        on:click={$primaryAsset?.select}
-        class:border-2={$primaryAsset?.isActive}
-        class:border-blue-800={$primaryAsset?.isActive}
-        class="rounded">
-        <img
-          src={$primaryAsset?.thumbnail}
-          alt={$primaryAsset?.title}
-          class="h-[45vh] w-full object-contain" />
-      </button>
-    {:else}
-      <NullState></NullState>
-    {/if}
-  </div>
-  <div class="flex justify-center">
-    {#if secondaryAsset !== null}
-      <button
-        on:click={$secondaryAsset?.select}
-        class:border-2={$secondaryAsset?.isActive}
-        class:border-blue-800={$secondaryAsset?.isActive}
-        class="rounded">
-        <img
-          src={$secondaryAsset?.thumbnail}
-          alt={$secondaryAsset?.title}
-          class="h-[45vh] w-full object-contain" />
-      </button>
-    {:else}
-      <NullState></NullState>
-    {/if}
-  </div>
-</div>
+{#if $compareMode === 'Slider'}
+  <Slider {selectedAssets}></Slider>
+{:else}
+  <SideBySide {selectedAssets}></SideBySide>
+{/if}

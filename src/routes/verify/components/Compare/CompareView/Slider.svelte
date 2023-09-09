@@ -13,34 +13,44 @@
 -->
 <script lang="ts">
   import ChevronLeft from '$assets/svg/monochrome/back-arrow.svg?component';
+  import EmptyImage from '$assets/svg/monochrome/emptyImageGray.svg?component';
+  import Body from '$src/components/typography/Body.svelte';
   import type { DragEvent } from '@interactjs/types';
   import interact from 'interactjs';
   import { onMount } from 'svelte';
   import cssVars from 'svelte-css-vars';
+  import { _ } from 'svelte-i18n';
   import type { Readable } from 'svelte/store';
-
   import type { CompareSelectedAssetStore } from '../../../stores/compareSelectedAsset';
 
   export let selectedAssets: Readable<(CompareSelectedAssetStore | null)[]>;
-
   let primaryAsset: CompareSelectedAssetStore | null;
   let secondaryAsset: CompareSelectedAssetStore | null;
+  const MIN_SIDE_PX = 752;
+  let width = 0;
+  let height = 0;
+  let side = 0;
+  let selectorHeight = 0;
+  let slider: HTMLDivElement;
+  let sliderX = 0.5;
 
   $: {
     [primaryAsset, secondaryAsset] = $selectedAssets;
   }
-
-  export let side = 0;
-  let slider: HTMLDivElement;
-  let sliderX = 0.5;
-
+  $: {
+    const padding = 20;
+    side = Math.max(
+      MIN_SIDE_PX,
+      Math.min(width, height) - padding * 2 - selectorHeight,
+    );
+  }
   $: styles = {
     width: `${side}px`,
     height: `${side}px`,
     leftWidth: `${sliderX * 100}%`,
     rightWidth: `${100 - sliderX * 100}%`,
   };
-
+  ``;
   const restrictToParent = interact.modifiers.restrict({
     restriction: 'parent',
     elementRect: { left: 0, right: 0, top: 1, bottom: 1 },
@@ -50,6 +60,7 @@
     targets: [{ x: 0 }, () => ({ x: side / 2 }), () => ({ x: side })],
     relativePoints: [{ x: 0, y: 0 }],
   });
+
   onMount(() => {
     let origSliderX: number;
     interact(slider).draggable({
@@ -71,33 +82,56 @@
   });
 </script>
 
-<div class="inner" use:cssVars={styles}>
-  <div class="slider" bind:this={slider}>
-    <div class="handle">
-      <div>
-        <ChevronLeft width="16px" height="16px" class="text-gray-700" />
-        <ChevronLeft
-          width="16px"
-          height="16px"
-          class="rotate-180 text-gray-700" />
+<div class="flex justify-center">
+  <div class="inner" use:cssVars={styles}>
+    <div class="slider" bind:this={slider}>
+      <div class="handle">
+        <div>
+          <ChevronLeft width="16px" height="16px" class="text-gray-700" />
+          <ChevronLeft
+            width="16px"
+            height="16px"
+            class="rotate-180 text-gray-700" />
+        </div>
       </div>
     </div>
-  </div>
-  <div class="primary">
-    <div class="thumbnail">
-      <img src={$primaryAsset?.thumbnail} alt="" />
+    <div class="primary">
+      <div class="thumbnail flex">
+        {#if primaryAsset !== null}
+          <img src={$primaryAsset?.thumbnail} alt="" />
+        {:else}
+          <div class="flex w-[50%] flex-col items-center self-center">
+            <EmptyImage class="h-40 w-40 "></EmptyImage>
+            <Body
+              ><span class=" text-center text-gray-500">
+                {$_('sidebar.verify.compare.null.picture')}</span
+              ></Body>
+          </div>
+        {/if}
+      </div>
     </div>
-  </div>
-  <div class="secondary">
-    <div class="thumbnail">
-      <img src={$secondaryAsset?.thumbnail} alt="" />
+    <div class="secondary">
+      <div class="thumbnail flex">
+        {#if secondaryAsset !== null}
+          <img src={$secondaryAsset?.thumbnail} alt="" />
+        {:else}
+          <div
+            class="ms-[376px] flex w-[50%] flex-col items-center self-center">
+            <EmptyImage class="h-40 w-40 "></EmptyImage>
+            <Body
+              ><span class="text-center text-gray-500">
+                {$_('sidebar.verify.compare.null.picture')}</span
+              ></Body>
+          </div>
+        {/if}
+      </div>
     </div>
   </div>
 </div>
 
 <style lang="postcss">
   .inner {
-    @apply pointer-events-none relative select-none border;
+    @apply pointer-events-none relative select-none;
     width: var(--width);
     height: var(--height);
   }

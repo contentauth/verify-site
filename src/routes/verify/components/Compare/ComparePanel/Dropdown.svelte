@@ -17,10 +17,22 @@
   import DownArrow from '$assets/svg/monochrome/down-arrow.svg?component';
   import Body from '$src/components/typography/Body.svelte';
   import Label from '$src/components/typography/Label.svelte';
+  import type { CompareMode } from '$src/routes/verify/stores/compareView';
+  import {
+    compareMode,
+    setCompareMode,
+  } from '$src/routes/verify/stores/compareView';
   import { _ } from 'svelte-i18n';
 
   let isOpen = false;
-  let items = ['Item 1', 'Item 2', 'Item 3'];
+  const slider: CompareMode = 'Slider';
+  const sideBySide: CompareMode = 'Side by Side';
+  const compareModeArray = [sideBySide, slider];
+
+  function selectOption(mode: CompareMode) {
+    setCompareMode(mode);
+    isOpen = false;
+  }
 </script>
 
 <div class="flex items-center pb-5">
@@ -33,7 +45,12 @@
       class="h-7 w-44 border border-gray-500 pe-2 ps-2"
       on:click={() => (isOpen = !isOpen)}>
       <div class="flex justify-between">
-        <Body>Side-by-side</Body>
+        <Body>
+          {#if $compareMode === 'Slider'}
+            {$_('sidebar.verify.compare.slider')}
+          {:else}
+            {$_('sidebar.verify.compare.sideBySide')}
+          {/if}</Body>
         <DownArrow class="h-3 w-3 self-center"></DownArrow>
       </div>
     </button>
@@ -41,11 +58,16 @@
     {#if isOpen}
       <div
         class="shadow-xl absolute left-0 mr-10 mt-2 w-48 rounded-lg bg-white py-2">
-        {#each items as item (item)}
+        {#each compareModeArray as item (item)}
           <a
+            on:click={() => selectOption(item)}
             href="#top"
-            class="hover:bg-indigo-500 block px-4 py-2 text-gray-800 hover:text-white">
-            {item}
+            class="hover:bg-indigo-500 block px-4 py-2 text-gray-800">
+            {#if item === 'Side by Side'}
+              {$_('sidebar.verify.compare.sideBySide')}
+            {:else}
+              {$_('sidebar.verify.compare.slider')}
+            {/if}
           </a>
         {/each}
       </div>

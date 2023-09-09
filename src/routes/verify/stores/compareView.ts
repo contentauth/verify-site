@@ -13,7 +13,8 @@
 
 import type { Loadable } from '$lib/types';
 import type { AssetData } from '$src/lib/asset';
-import { derived, type Readable, type Writable } from 'svelte/store';
+import local from 'store2';
+import { derived, writable, type Readable, type Writable } from 'svelte/store';
 import type { C2paReaderStore } from './c2paReader';
 import {
   createCompareAssetStore,
@@ -23,6 +24,8 @@ import {
   createCompareSelectedAssetStore,
   type CompareSelectedAssetStore,
 } from './compareSelectedAsset';
+
+const STORAGE_MODE_KEY = 'compareMode';
 
 export type CompareAssetStoreMap = Record<string, CompareAssetStore>;
 
@@ -77,4 +80,22 @@ export function createCompareView(
       state: $c2paReader.state,
     };
   });
+}
+
+export type CompareMode = 'Side by Side' | 'Slider';
+
+/**
+ * Specifies the active compare mode on the comparison view
+ */
+export const compareMode = writable<CompareMode>(
+  local.get(STORAGE_MODE_KEY) || 'Side By Side',
+);
+
+/**
+ * Sets the comparison mode
+ * @param mode CompareMode
+ */
+export function setCompareMode(mode: CompareMode) {
+  compareMode.set(mode);
+  local.set(STORAGE_MODE_KEY, mode);
 }

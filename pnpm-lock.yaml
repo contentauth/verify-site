@@ -79,6 +79,9 @@ dependencies:
   p-memoize:
     specifier: ^4.0.4
     version: 4.0.4
+  store2:
+    specifier: ^2.14.2
+    version: 2.14.2
   svelte:
     specifier: ^4.2.0
     version: 4.2.0
@@ -15167,7 +15170,6 @@ packages:
 
   /store2@2.14.2:
     resolution: {integrity: sha512-siT1RiqlfQnGqgT/YzXVUNsom9S0H1OX+dpdGN1xkyYATo4I6sep5NmsRD/40s3IIOvlCq6akxkqG82urIZW1w==}
-    dev: true
 
   /storybook-addon-designs@7.0.0-beta.2(@storybook/addon-docs@7.4.0)(@storybook/addons@7.4.0)(@storybook/api@7.4.0)(@storybook/components@7.4.0)(@storybook/theming@7.4.0)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-ljBNmyCJdPTXhiBSfA1S+GBxtMooW2M7nxlt49OoCRH7jcxZOYQdiI8JYQiMF5Ur0MGakbSci0Xm+JzAvcm02g==}
