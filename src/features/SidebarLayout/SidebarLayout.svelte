@@ -32,7 +32,7 @@
     <Header><slot name="header" /></Header>
     <div
       class={[
-        'relative z-0 flex-grow  border-t-2 transition-colors duration-100',
+        'relative z-0 flex-grow border-t-2 transition-colors duration-100',
         leftColumnTakeover ? 'border-transparent' : 'border-gray-200',
       ].join(' ')}>
       <slot name="sidebar" />
