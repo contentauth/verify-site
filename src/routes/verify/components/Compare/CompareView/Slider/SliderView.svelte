@@ -21,7 +21,7 @@
   import cssVars from 'svelte-css-vars';
   import { _ } from 'svelte-i18n';
   import type { Readable } from 'svelte/store';
-  import type { CompareSelectedAssetStore } from '../../../stores/compareSelectedAsset';
+  import type { CompareSelectedAssetStore } from '../../../../stores/compareSelectedAsset';
 
   export let selectedAssets: Readable<(CompareSelectedAssetStore | null)[]>;
   let primaryAsset: CompareSelectedAssetStore | null;
@@ -50,7 +50,7 @@
     leftWidth: `${sliderX * 100}%`,
     rightWidth: `${100 - sliderX * 100}%`,
   };
-  ``;
+
   const restrictToParent = interact.modifiers.restrict({
     restriction: 'parent',
     elementRect: { left: 0, right: 0, top: 1, bottom: 1 },
@@ -83,10 +83,15 @@
 </script>
 
 <div class="flex justify-center">
-  <div class="inner" use:cssVars={styles}>
-    <div class="slider" bind:this={slider}>
-      <div class="handle">
-        <div>
+  <div
+    class="inner pointer-events-none relative select-none"
+    use:cssVars={styles}>
+    <div
+      class="slider pointer-events-none absolute bottom-0 top-0 z-10 w-[4px] translate-x-[-2px] touch-none border-l border-r border-gray-300 bg-white"
+      bind:this={slider}>
+      <div
+        class="handle pointer-events-auto absolute top-[50%] flex h-[32px] w-[32px] translate-x-[-14px] translate-y-[-15px] select-none items-center justify-center rounded-full border border-gray-300 bg-white">
+        <div class="relative flex">
           <ChevronLeft width="16px" height="16px" class="text-gray-700" />
           <ChevronLeft
             width="16px"
@@ -95,13 +100,17 @@
         </div>
       </div>
     </div>
-    <div class="primary">
-      <div class="thumbnail flex">
+    <div
+      class="primary pointer-events-none absolute left-0 top-0 h-full overflow-hidden">
+      <div class="thumbnail pointer-events-auto flex">
         {#if primaryAsset !== null}
-          <img src={$primaryAsset?.thumbnail} alt="" />
+          <img
+            src={$primaryAsset?.thumbnail}
+            alt=""
+            class=" h-full w-full object-contain object-center" />
         {:else}
           <div class="flex w-[50%] flex-col items-center self-center">
-            <EmptyImage class="h-40 w-40 "></EmptyImage>
+            <EmptyImage class="h-40 w-40 text-gray-400 "></EmptyImage>
             <Body
               ><span class=" text-center text-gray-500">
                 {$_('sidebar.verify.compare.null.picture')}</span
@@ -110,14 +119,18 @@
         {/if}
       </div>
     </div>
-    <div class="secondary">
-      <div class="thumbnail flex">
+    <div
+      class="secondary pointer-events-none absolute right-0 top-0 h-full overflow-hidden">
+      <div class="thumbnail pointer-events-auto float-right flex">
         {#if secondaryAsset !== null}
-          <img src={$secondaryAsset?.thumbnail} alt="" />
+          <img
+            src={$secondaryAsset?.thumbnail}
+            alt=""
+            class=" h-full w-full object-contain object-center" />
         {:else}
           <div
             class="ms-[376px] flex w-[50%] flex-col items-center self-center">
-            <EmptyImage class="h-40 w-40 "></EmptyImage>
+            <EmptyImage class="h-40 w-40 text-gray-400"></EmptyImage>
             <Body
               ><span class="text-center text-gray-500">
                 {$_('sidebar.verify.compare.null.picture')}</span
@@ -131,50 +144,26 @@
 
 <style lang="postcss">
   .inner {
-    @apply pointer-events-none relative select-none;
     width: var(--width);
     height: var(--height);
   }
-  .primary,
-  .secondary {
-    @apply pointer-events-none absolute top-0 h-full overflow-hidden;
-  }
+
   .primary {
-    left: 0;
     width: var(--leftWidth);
   }
   .secondary {
-    right: 0;
     width: var(--rightWidth);
   }
-  .secondary .thumbnail {
-    float: right;
-  }
+
   .thumbnail {
-    @apply pointer-events-auto;
     width: var(--width);
     height: var(--height);
   }
   .thumbnail img {
-    @apply h-full w-full object-contain object-center;
     width: var(--width);
     height: var(--height);
   }
   .slider {
-    @apply pointer-events-none absolute bottom-0 top-0 z-10 border-l border-r border-gray-300 bg-white;
-    transform: translateX(-2px);
-    width: 4px;
     left: var(--leftWidth);
-    touch-action: none;
-  }
-  .handle {
-    @apply pointer-events-auto absolute flex select-none items-center justify-center rounded-full border border-gray-300 bg-white;
-    top: 50%;
-    width: 32px;
-    height: 32px;
-    transform: translate(-14px, -15px);
-  }
-  .handle > div {
-    @apply relative flex;
   }
 </style>

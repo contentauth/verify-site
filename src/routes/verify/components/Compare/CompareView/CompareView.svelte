@@ -18,7 +18,7 @@
   import type { Readable } from 'svelte/store';
   import type { CompareSelectedAssetStore } from '../../../stores/compareSelectedAsset';
   import SideBySide from './Side-by-Side.svelte';
-  import Slider from './Slider.svelte';
+  import Slider from './Slider/SliderView.svelte';
 
   export let selectedAssets: Readable<(CompareSelectedAssetStore | null)[]>;
 </script>
