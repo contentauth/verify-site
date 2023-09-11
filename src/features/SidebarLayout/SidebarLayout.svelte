@@ -23,16 +23,16 @@
 
 <div
   class={[
-    'grid h-screen grid-cols-[100vw_100vw] overflow-x-hidden transition-colors duration-100',
+    'grid h-screen grid-cols-[100vw_100vw] overflow-hidden transition-colors duration-100',
     leftColumnTakeover
       ? 'bg-gray-100'
       : 'bg-white lg:grid-cols-[theme(spacing.sidebar)_auto]',
   ].join(' ')}>
-  <div class="flex flex-col lg:border-e-2">
+  <div class="flex flex-col lg:border-e-2 h-screen">
     <Header><slot name="header" /></Header>
     <div
       class={[
-        'relative z-0 flex-grow border-t-2 transition-colors duration-100',
+        'relative z-0 flex-grow flex overflow-auto border-t-2 transition-colors duration-100',
         leftColumnTakeover ? 'border-transparent' : 'border-gray-200',
       ].join(' ')}>
       <slot name="sidebar" />

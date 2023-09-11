@@ -25,7 +25,9 @@
 </script>
 
 <div class="overflow-auto">
-  <button class="me-2" on:click={() => verifyStore.setHierarchyView()}>
+  <button
+    class="me-2 sticky w-full top-0 left-0 bg-white z-10"
+    on:click={() => verifyStore.setHierarchyView()}>
     <div class="flex px-2 py-5">
       <BackArrow class="me-2" />
       <Header>{$_('sidebar.verify.compare')}</Header>
