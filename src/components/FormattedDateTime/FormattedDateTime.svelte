@@ -12,22 +12,23 @@
   from Adobe.
 -->
 <script lang="ts">
-  import { _, date, time } from 'svelte-i18n';
+  import { _, date as fDate, time } from 'svelte-i18n';
 
-  export let sigDate: Date;
+  export let date: Date;
   export let noTime = false;
 </script>
 
-<p class="text-gray-600">
-  {#if sigDate.toString() === 'Invalid Date'}
+<span>
+  {#if date.toString() === 'Invalid Date'}
     {$_('comp.date.invalid')}
   {:else if noTime}
-    {$date(sigDate, { format: 'medium' })}
-  {:else}{$date(sigDate, { format: 'medium' })}{' at '}
-    {$time(sigDate, {
+    {$fDate(date, { format: 'medium' })}
+  {:else}{$fDate(date, { format: 'medium' })}
+    <span>{$_('comp.date.at')}</span>
+    {$time(date, {
       hour: 'numeric',
       minute: 'numeric',
       timeZoneName: 'short',
     })}
   {/if}
-</p>
+</span>

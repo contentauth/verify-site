@@ -32,14 +32,13 @@
   <slot name="thumbnail" />
   <div class="w-full px-2">
     <div class="flex pb-0.5"><Truncate><slot name="name" /></Truncate></div>
-    <div class="flex items-center">
+    <div class="flex items-center text-gray-600">
       {#if statusCode === 'valid' && date}
         <L1Icon
           width="1rem"
           height="1rem"
           class="me-1.5 h-4 w-4 text-gray-600" />
-        <Truncate
-          ><Body><FormattedDateTime sigDate={date} noTime /></Body></Truncate>
+        <Truncate><Body><FormattedDateTime {date} noTime /></Body></Truncate>
       {:else if statusCode === 'incomplete'}
         <L1Incomplete
           width="1.25rem"

@@ -41,33 +41,19 @@ declare module 'c2pa' {
   }
 }
 
-const exifTagRegExp = /^exif:/i;
+const exifTagRegExp = /^(exif(ex)?|dc|tiff|xmp):/i;
 
 function findExifValue(exif: ExifTags, locations: string[]) {
-  return (
+  const value =
     locations
       .map((key) => exif[key as keyof ExifTags])
-      .filter((x) => !!x)?.[0] ?? null
-  );
-}
+      .filter((x) => !!x)?.[0] ?? null;
 
-function getExposureDetails(exif: ExifTags) {
-  const exposure = [];
-  // TODO: Convert this to a fraction if not
-  const exposureTime = exif['exif:exposuretime'];
-  const fNumber = exif['exif:fnumber'];
-  const isoValue = findExifValue(exif, [
-    'exifex:photographicsensitivity',
-    'exif:isospeed',
-    'exif:isospeedratings',
-  ]);
-  const iso = Array.isArray(isoValue) ? isoValue[0] : isoValue;
-
-  if (exposureTime) exposure.push(`${exposureTime} sec`);
-  if (fNumber) exposure.push(`f/${fNumber}`);
-  if (iso) exposure.push(`ISO ${iso}`);
-
-  return exposure;
+  if (typeof value === 'string') {
+    return value;
+  } else if (Object.getPrototypeOf(value) == Object.prototype) {
+    return value?.['$serde_json::private::Number'];
+  }
 }
 
 interface CaptureDetails {
@@ -75,11 +61,16 @@ interface CaptureDetails {
   cameraModel?: string;
   lensMake?: string;
   lensModel?: string;
-  exposure?: string;
+  exposureTime?: string;
+  fNumber?: string;
+  iso?: string;
 }
 
 function getCaptureDetails(exif: ExifTags) {
-  return [
+  const mapping: {
+    label: keyof CaptureDetails;
+    value: ReturnType<typeof findExifValue>;
+  }[] = [
     {
       label: 'cameraMake',
       value: findExifValue(exif, ['exif:make', 'tiff:make']),
@@ -97,10 +88,25 @@ function getCaptureDetails(exif: ExifTags) {
       value: findExifValue(exif, ['exif:lensmodel', 'exifex:lensmodel']),
     },
     {
-      label: 'exposure',
-      value: getExposureDetails(exif).join('; '),
+      label: 'exposureTime',
+      // TODO: Convert this to a fraction if not
+      value: findExifValue(exif, ['exif:exposuretime']),
     },
-  ]
+    {
+      label: 'fNumber',
+      value: findExifValue(exif, ['exif:fnumber']),
+    },
+    {
+      label: 'iso',
+      value: findExifValue(exif, [
+        'exifex:photographicsensitivity',
+        'exif:isospeed',
+        'exif:isospeedratings',
+      ]),
+    },
+  ];
+
+  return mapping
     .filter(({ value }) => !!value)
     .reduce((acc, { label, value }) => {
       return {
@@ -148,6 +154,8 @@ export function selectExif(manifest: Manifest): ExifSummary | null {
 
       return merge({}, acc, caseInsensitiveData);
     }, {});
+
+  dbg('Got EXIF tags', exif);
 
   if (Object.keys(exif).length > 0) {
     const captureDate = exif['exif:datetimeoriginal'];

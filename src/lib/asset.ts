@@ -260,7 +260,10 @@ export async function resultToAssetMap({
     return Promise.all(ingredientIds);
   }
 
-  dbg('resultToAssetMap result:', assetMap);
+  dbg('resultToAssetMap result:', {
+    assetMap,
+    activeManifestData: assetMap[ROOT_ID]?.manifestData,
+  });
 
   return {
     assetMap,
