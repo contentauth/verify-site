@@ -13,15 +13,13 @@
 -->
 <script lang="ts">
   import ChevronLeft from '$assets/svg/monochrome/back-arrow.svg?component';
-  import EmptyImage from '$assets/svg/monochrome/emptyImageGray.svg?component';
-  import Body from '$src/components/typography/Body.svelte';
   import type { DragEvent } from '@interactjs/types';
   import interact from 'interactjs';
   import { onMount } from 'svelte';
   import cssVars from 'svelte-css-vars';
-  import { _ } from 'svelte-i18n';
   import type { Readable } from 'svelte/store';
   import type { CompareSelectedAssetStore } from '../../../../stores/compareSelectedAsset';
+  import NullState from '../NullState.svelte';
 
   export let selectedAssets: Readable<(CompareSelectedAssetStore | null)[]>;
   let primaryAsset: CompareSelectedAssetStore | null;
@@ -82,7 +80,7 @@
   });
 </script>
 
-<div class="flex justify-center">
+<div class="flex justify-center px-6">
   <div
     class="inner pointer-events-none relative select-none"
     use:cssVars={styles}>
@@ -110,11 +108,7 @@
             class=" h-full w-full object-contain object-center" />
         {:else}
           <div class="flex w-[50%] flex-col items-center self-center">
-            <EmptyImage class="h-40 w-40 text-gray-400 "></EmptyImage>
-            <Body
-              ><span class=" text-center text-gray-500">
-                {$_('sidebar.verify.compare.null.picture')}</span
-              ></Body>
+            <NullState />
           </div>
         {/if}
       </div>
@@ -130,11 +124,7 @@
         {:else}
           <div
             class="ms-[376px] flex w-[50%] flex-col items-center self-center">
-            <EmptyImage class="h-40 w-40 text-gray-400"></EmptyImage>
-            <Body
-              ><span class="text-center text-gray-500">
-                {$_('sidebar.verify.compare.null.picture')}</span
-              ></Body>
+            <NullState />
           </div>
         {/if}
       </div>

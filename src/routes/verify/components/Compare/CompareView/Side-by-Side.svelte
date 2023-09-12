@@ -19,7 +19,6 @@
   import SideBySideImg from './SideBySideImg.svelte';
 
   export let selectedAssets: Readable<(CompareSelectedAssetStore | null)[]>;
-
   let primaryAsset: CompareSelectedAssetStore | null;
   let secondaryAsset: CompareSelectedAssetStore | null;
 

@@ -39,7 +39,6 @@
   <div class="pe-2 ps-5 capitalize">
     <Label>{$_('sidebar.verify.compare.dropdown')}</Label>
   </div>
-
   <div class="relative">
     <button
       class="h-7 w-44 border border-gray-500 pe-2 ps-2"
@@ -54,7 +53,6 @@
         <DownArrow class="h-3 w-3 self-center"></DownArrow>
       </div>
     </button>
-
     {#if isOpen}
       <div
         class="shadow-xl absolute left-0 mr-10 mt-2 w-48 rounded-lg bg-white py-2">
