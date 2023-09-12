@@ -20,14 +20,14 @@
   import { verifyStore } from '../../../stores';
   import type { CompareAssetStoreMap } from '../../../stores/compareView';
   import CompareAsset from './CompareAsset.svelte';
-  import Dropdown from './Dropdown.svelte';
+  import Dropdown from './Dropdown/Dropdown.svelte';
 
   export let assetStoreMap: CompareAssetStoreMap;
 </script>
 
 <div class="z-1">
   <button class="me-2" on:click={() => verifyStore.setHierarchyView()}>
-    <div class="flex px-2 pb-2 py-5">
+    <div class="flex px-2 py-5 pb-2">
       <BackArrow class="me-2" />
       <Header>{$_('sidebar.verify.compare')}</Header>
     </div>

@@ -42,6 +42,7 @@
       Math.min(width, height) - padding * 2 - selectorHeight,
     );
   }
+
   $: styles = {
     width: `${side}px`,
     height: `${side}px`,
@@ -82,10 +83,13 @@
 
 <div class="flex justify-center px-6">
   <div
-    class="inner pointer-events-none relative select-none"
-    use:cssVars={styles}>
+    class="pointer-events-none relative select-none"
+    use:cssVars={styles}
+    style="  width: var(--width);
+  height: var(--height);">
     <div
-      class="slider pointer-events-none absolute bottom-0 top-0 z-10 w-[4px] translate-x-[-2px] touch-none border-l border-r border-gray-300 bg-white"
+      class="pointer-events-none absolute bottom-0 top-0 z-10 w-[4px] translate-x-[-2px] touch-none border-l border-r border-gray-300 bg-white"
+      style="left: var(--leftWidth);"
       bind:this={slider}>
       <div
         class="handle pointer-events-auto absolute top-[50%] flex h-[32px] w-[32px] translate-x-[-14px] translate-y-[-15px] select-none items-center justify-center rounded-full border border-gray-300 bg-white">
@@ -99,11 +103,17 @@
       </div>
     </div>
     <div
-      class="primary pointer-events-none absolute left-0 top-0 h-full overflow-hidden">
-      <div class="thumbnail pointer-events-auto flex">
+      class="pointer-events-none absolute left-0 top-0 h-full overflow-hidden"
+      style="width: var(--leftWidth);">
+      <div
+        class="pointer-events-auto flex"
+        style=" width: var(--width);
+      height: var(--height);">
         {#if primaryAsset !== null}
           <img
             src={$primaryAsset?.thumbnail}
+            style="width: var(--width);
+        height: var(--height)"
             alt=""
             class=" h-full w-full object-contain object-center" />
         {:else}
@@ -114,11 +124,17 @@
       </div>
     </div>
     <div
-      class="secondary pointer-events-none absolute right-0 top-0 h-full overflow-hidden">
-      <div class="thumbnail pointer-events-auto float-right flex">
+      class="pointer-events-none absolute right-0 top-0 h-full overflow-hidden"
+      style=" width: var(--rightWidth);">
+      <div
+        class="pointer-events-auto float-right flex"
+        style="width: var(--width);
+      height: var(--height);">
         {#if secondaryAsset !== null}
           <img
             src={$secondaryAsset?.thumbnail}
+            style="width: var(--width);
+            height: var(--height)"
             alt=""
             class=" h-full w-full object-contain object-center" />
         {:else}
@@ -131,29 +147,3 @@
     </div>
   </div>
 </div>
-
-<style lang="postcss">
-  .inner {
-    width: var(--width);
-    height: var(--height);
-  }
-
-  .primary {
-    width: var(--leftWidth);
-  }
-  .secondary {
-    width: var(--rightWidth);
-  }
-
-  .thumbnail {
-    width: var(--width);
-    height: var(--height);
-  }
-  .thumbnail img {
-    width: var(--width);
-    height: var(--height);
-  }
-  .slider {
-    left: var(--leftWidth);
-  }
-</style>
