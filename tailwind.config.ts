@@ -86,6 +86,7 @@ export default {
       'blue-1100': defs['blue-1100'],
       'blue-1200': defs['blue-1200'],
       'blue-1300': defs['blue-1300'],
+      'red-900': defs['red-900'],
       transparent: 'transparent',
       current: 'currentColor',
     },
