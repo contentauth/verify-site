@@ -19,7 +19,7 @@
   import DropDownOptions from './DropDownOptions.svelte';
   import DropdownButton from './DropdownButton.svelte';
 
-  let isOpen = false;
+  export let isOpen = false;
 </script>
 
 <div class="flex items-center pb-5">
@@ -27,9 +27,9 @@
     <Label>{$_('sidebar.verify.compare.dropdown')}</Label>
   </div>
   <div class="relative">
-    <DropdownButton />
+    <DropdownButton {isOpen} on:toggleDropdown={() => (isOpen = !isOpen)} />
     {#if isOpen}
-      <DropDownOptions {isOpen} on:closeDropdown={() => (isOpen = false)}
+      <DropDownOptions {isOpen} on:closeDropdown={() => (isOpen = !isOpen)}
       ></DropDownOptions>
     {/if}
   </div>

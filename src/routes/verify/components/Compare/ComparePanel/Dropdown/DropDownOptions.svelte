@@ -32,7 +32,6 @@
   }
   function selectOption(mode: CompareMode) {
     setCompareMode(mode);
-    closeDropDown;
   }
 </script>
 
@@ -40,6 +39,7 @@
   {#each compareModeArray as item (item)}
     <a
       on:click={() => selectOption(item)}
+      on:click={closeDropDown}
       href="#top"
       class="hover:bg-indigo-500 block px-4 py-2 text-gray-800">
       {#if item === 'Side by Side'}
