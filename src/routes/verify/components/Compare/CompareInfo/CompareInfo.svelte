@@ -34,7 +34,7 @@
     <Header>{$_('sidebar.verify.compare.null.title')}</Header>
     <div class="pt-1">
       <Body
-        ><span class=" text-gray-500">
+        ><span class="text-gray-500">
           {$_('sidebar.verify.compare.null.description')}</span
         ></Body>
     </div>

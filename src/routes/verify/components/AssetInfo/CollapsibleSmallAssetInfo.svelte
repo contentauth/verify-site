@@ -25,7 +25,7 @@
 
   function showChildren() {
     dispatch('showChildren', {
-      expanded: expanded,
+      expanded,
     });
   }
 </script>

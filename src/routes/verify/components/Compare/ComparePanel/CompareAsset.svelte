@@ -20,8 +20,8 @@
   import CollapsibleSmallAssetInfo from '../../AssetInfo/CollapsibleSmallAssetInfo.svelte';
 
   export let expanded = true;
-  export let compareAssetStore: CompareAssetStore;
   export let compareAssetStoreMap: CompareAssetStoreMap;
+  export let compareAssetStore: CompareAssetStore = compareAssetStoreMap[0];
 </script>
 
 <CollapsibleSmallAssetInfo

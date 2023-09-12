@@ -32,8 +32,6 @@
     </div>
   </button>
   <div class="h-screen overflow-auto">
-    <CompareAsset
-      compareAssetStore={assetStoreMap[0]}
-      compareAssetStoreMap={assetStoreMap} />
+    <CompareAsset compareAssetStoreMap={assetStoreMap} />
   </div>
 </div>
