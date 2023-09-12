@@ -15,7 +15,6 @@
 
 <script lang="ts">
   import type { CompareAssetStoreMap } from '$src/routes/verify/stores/compareView';
-
   import type { CompareAssetStore } from '../../../stores/compareAsset';
   import CollapsibleSmallAssetInfo from '../../AssetInfo/CollapsibleSmallAssetInfo.svelte';
 
