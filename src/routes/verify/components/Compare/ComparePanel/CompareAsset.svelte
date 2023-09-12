@@ -15,13 +15,12 @@
 
 <script lang="ts">
   import type { CompareAssetStoreMap } from '$src/routes/verify/stores/compareView';
-
   import type { CompareAssetStore } from '../../../stores/compareAsset';
   import CollapsibleSmallAssetInfo from '../../AssetInfo/CollapsibleSmallAssetInfo.svelte';
 
   export let expanded = true;
-  export let compareAssetStore: CompareAssetStore;
   export let compareAssetStoreMap: CompareAssetStoreMap;
+  export let compareAssetStore: CompareAssetStore = compareAssetStoreMap[0];
 </script>
 
 <CollapsibleSmallAssetInfo

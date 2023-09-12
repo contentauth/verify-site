@@ -14,25 +14,21 @@
 -->
 
 <script lang="ts">
-  import type { Readable } from 'svelte/store';
   import type { CompareSelectedAssetStore } from '../../../stores/compareSelectedAsset';
-  import SideBySideImg from './SideBySideImg.svelte';
+  import NullState from './NullState.svelte';
 
-  export let selectedAssets: Readable<(CompareSelectedAssetStore | null)[]>;
-
-  let primaryAsset: CompareSelectedAssetStore | null;
-  let secondaryAsset: CompareSelectedAssetStore | null;
-
-  $: {
-    [primaryAsset, secondaryAsset] = $selectedAssets;
-  }
+  export let asset: CompareSelectedAssetStore | null;
 </script>
 
-<div class="flex w-full flex-col">
-  <div class="flex justify-center px-6 pb-1">
-    <SideBySideImg asset={primaryAsset}></SideBySideImg>
-  </div>
-  <div class="flex justify-center px-6">
-    <SideBySideImg asset={secondaryAsset}></SideBySideImg>
-  </div>
-</div>
+{#if asset !== null}
+  <button
+    on:click={$asset?.select}
+    class={[$asset?.isActive ? 'inset-2 ring-2 ring-blue-800' : ''].join(' ')}>
+    <img
+      src={$asset?.thumbnail}
+      alt={$asset?.title}
+      class="h-[45vh] w-full object-contain" />
+  </button>
+{:else}
+  <NullState />
+{/if}

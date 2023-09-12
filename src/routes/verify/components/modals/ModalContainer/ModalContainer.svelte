@@ -13,24 +13,23 @@
 -->
 
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { Modals, closeModal } from 'svelte-modals';
   import { fade } from 'svelte/transition';
 
-  export let visible = false;
+  function handleKeyDown({ key }: KeyboardEvent) {
+    if (key === 'Escape') {
+      closeModal();
+    }
+  }
 </script>
 
-{#if visible}
+<svelte:window on:keydown={handleKeyDown} />
+
+<Modals>
+  <!--  svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
   <div
-    class="fixed inset-0 z-50 flex bg-blue-800/90 p-10 text-white"
-    transition:fade={{ duration: 100 }}>
-    <div
-      class="align-center flex w-full flex-col items-center justify-center space-y-5">
-      <div class="font-home text-[3.75rem] font-bold leading-[3.75rem]">
-        {$_('overlay.dragDrop.title')}
-      </div>
-      <div class="font-weight-400 font-base text-[2rem] leading-10">
-        {$_('overlay.dragDrop.subtitle')}
-      </div>
-    </div>
-  </div>
-{/if}
+    slot="backdrop"
+    class="fixed inset-0 bg-gray-900 opacity-30"
+    transition:fade={{ duration: 100 }}
+    on:click={closeModal} />
+</Modals>

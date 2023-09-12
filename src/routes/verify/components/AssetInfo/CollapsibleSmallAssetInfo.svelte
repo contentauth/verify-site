@@ -19,13 +19,13 @@
   import SmallAssetInfo from './SmallAssetInfo.svelte';
 
   export let compareAssetStore: CompareAssetStore;
-  const dispatch = createEventDispatcher();
   export let expanded = true;
+  const dispatch = createEventDispatcher();
   $: hasChildren = $compareAssetStore.children.length > 0;
 
   function showChildren() {
     dispatch('showChildren', {
-      expanded: expanded,
+      expanded,
     });
   }
 </script>

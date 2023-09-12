@@ -98,5 +98,8 @@
   "sidebar.verify.search.tooltip.help": "Help",
   "sidebar.verify.summary": "Content Summary",
   "sidebar.verify.title": "Content Credentials",
-  "spinner.loading": "Loading"
+  "spinner.loading": "Loading",
+  "dialog.error.manifestSearchConnectionIssue.title": "Connection issue",
+  "dialog.error.manifestSearchConnectionIssue.message": "Manifest search can't be completed right now due to connection issues with another service. Try again later.",
+  "dialog.OK": "OK"
 }

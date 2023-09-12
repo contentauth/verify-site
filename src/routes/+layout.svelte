@@ -24,6 +24,7 @@
 
   import '../app.css';
   import '../globalWebComponents';
+  import ModalContainer from './verify/components/modals/ModalContainer/ModalContainer.svelte';
 
   afterNavigate(() => {
     let duration: number | null = null;
@@ -62,4 +63,6 @@
   <slot />
 
   <SidebarMenu />
+
+  <ModalContainer />
 </div>

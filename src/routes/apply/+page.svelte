@@ -23,7 +23,7 @@
     sidebarLayoutPageState,
   } from '$src/features/SidebarLayout';
   import { _ } from 'svelte-i18n';
-  import Button from './components/Button/Button.svelte';
+  import Button from '../verify/components/Button/Button.svelte';
   import Checkbox from './components/Checkbox/Checkbox.svelte';
   import CheckboxGroup from './components/Checkbox/CheckboxGroup.svelte';
   import Radio from './components/Radio/Radio.svelte';

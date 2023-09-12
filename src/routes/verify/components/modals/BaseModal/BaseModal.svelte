@@ -2,7 +2,6 @@
   ADOBE CONFIDENTIAL
   Copyright 2023 Adobe
   All Rights Reserved.
-
   NOTICE: All information contained herein is, and remains
   the property of Adobe and its suppliers, if any. The intellectual
   and technical concepts contained herein are proprietary to Adobe
@@ -12,16 +11,22 @@
   is strictly forbidden unless prior written permission is obtained
   from Adobe.
 -->
-<script lang="ts">
-  import '@spectrum-web-components/button/sp-button.js';
 
-  export let size: string;
-  export let variant = 'accent';
-  export let treatment = 'fill';
+<script lang="ts">
+  import { focusTrap } from 'svelte-focus-trap';
+  import { fade } from 'svelte/transition';
+
+  export let label: string;
 </script>
 
-<sp-theme color="lightest" scale="medium">
-  <sp-button {size} {variant} {treatment}>
+<div
+  role="dialog"
+  aria-modal="true"
+  aria-label={label}
+  class="pointer-events-none fixed inset-0 flex items-center justify-center"
+  transition:fade|global={{ duration: 100 }}
+  use:focusTrap>
+  <div class="pointer-events-auto">
     <slot />
-  </sp-button>
-</sp-theme>
+  </div>
+</div>

@@ -1,5 +1,5 @@
 <script>
-  import AdvancedSection from '$src/routes/verify/components/InfoPanel/AdvancedSection/AdvancedSection.svelte';
+  import AdvancedSection from '$src/routes/verify/components/DetailedInfo/AdvancedSection/AdvancedSection.svelte';
   import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
   import { _ } from 'svelte-i18n';
   import Description from '../typography/Description.svelte';
