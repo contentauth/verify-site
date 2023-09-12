@@ -35,18 +35,17 @@
   }
 </script>
 
-<div class="shadow-xl absolute left-0 mr-10 mt-2 w-48 rounded-lg bg-white py-2">
+<div class="shadow-xl absolute left-0 w-full rounded-lg bg-white">
   {#each compareModeArray as item (item)}
-    <a
+    <button
       on:click={() => selectOption(item)}
       on:click={closeDropDown}
-      href="#top"
-      class="hover:bg-indigo-500 block px-4 py-2 text-gray-800">
+      class="hover:bg-indigo-500 block w-full p-2 px-4 text-start text-gray-800">
       {#if item === 'Side by Side'}
         {$_('sidebar.verify.compare.sideBySide')}
       {:else}
         {$_('sidebar.verify.compare.slider')}
       {/if}
-    </a>
+    </button>
   {/each}
 </div>
