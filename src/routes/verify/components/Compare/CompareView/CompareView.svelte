@@ -25,8 +25,8 @@
 
 <div class="flex h-full flex-col justify-center">
   {#if $compareViewMode === 'slider'}
-    <Slider {selectedAssets}></Slider>
+    <Slider {selectedAssets} />
   {:else}
-    <SideBySide {selectedAssets}></SideBySide>
+    <SideBySide {selectedAssets} />
   {/if}
 </div>
