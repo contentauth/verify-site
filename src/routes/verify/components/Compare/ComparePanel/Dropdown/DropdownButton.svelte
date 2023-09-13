@@ -16,7 +16,6 @@
 <script lang="ts">
   import DownArrow from '$assets/svg/monochrome/down-arrow.svg?component';
   import Body from '$src/components/typography/Body.svelte';
-
   import { _ } from 'svelte-i18n';
 
   export let compareViewMode;

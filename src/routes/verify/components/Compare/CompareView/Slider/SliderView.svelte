@@ -83,16 +83,13 @@
 
 <div class="flex justify-center px-6">
   <div
-    class="pointer-events-none relative select-none"
-    use:cssVars={styles}
-    style="  width: var(--width);
-  height: var(--height);">
+    class="pointer-events-none relative h-[--height] w-[--width] select-none"
+    use:cssVars={styles}>
     <div
-      class="pointer-events-none absolute bottom-0 top-0 z-10 w-[4px] translate-x-[-2px] touch-none border-l border-r border-gray-300 bg-white"
-      style="left: var(--leftWidth);"
+      class="pointer-events-none absolute bottom-0 left-[--leftWidth] top-0 z-10 w-1 -translate-x-0.5 touch-none border-l border-r border-gray-300 bg-white"
       bind:this={slider}>
       <div
-        class="handle pointer-events-auto absolute top-[50%] flex h-[32px] w-[32px] translate-x-[-14px] translate-y-[-15px] select-none items-center justify-center rounded-full border border-gray-300 bg-white">
+        class="pointer-events-auto absolute top-1/2 flex h-8 w-8 -translate-x-3.5 translate-y-[-15px] select-none items-center justify-center rounded-full border border-gray-300 bg-white">
         <div class="relative flex">
           <ChevronLeft width="16px" height="16px" class="text-gray-700" />
           <ChevronLeft
@@ -103,19 +100,15 @@
       </div>
     </div>
     <div
-      class="pointer-events-none absolute left-0 top-0 h-full overflow-hidden"
-      style="width: var(--leftWidth);">
-      <div
-        class="pointer-events-auto flex"
-        style=" width: var(--width);
-      height: var(--height);">
+      class="pointer-events-none absolute left-0 top-0 h-full w-[--leftWidth] overflow-hidden">
+      <div class="pointer-events-auto flex h-[--height] w-[--width]">
         {#if primaryAsset !== null}
           <img
             src={$primaryAsset?.thumbnail}
             style="width: var(--width);
         height: var(--height)"
             alt=""
-            class=" h-full w-full object-contain object-center" />
+            class="h-[--height] w-[--width] object-contain object-center" />
         {:else}
           <div class="flex w-[50%] flex-col items-center self-center">
             <NullState />
@@ -124,22 +117,18 @@
       </div>
     </div>
     <div
-      class="pointer-events-none absolute right-0 top-0 h-full overflow-hidden"
-      style=" width: var(--rightWidth);">
+      class="pointer-events-none absolute right-0 top-0 h-full w-[--rightWidth] overflow-hidden">
       <div
-        class="pointer-events-auto float-right flex"
-        style="width: var(--width);
-      height: var(--height);">
+        class="pointer-events-auto float-right flex h-[--height] w-[--width]">
         {#if secondaryAsset !== null}
           <img
             src={$secondaryAsset?.thumbnail}
             style="width: var(--width);
             height: var(--height)"
             alt=""
-            class=" h-full w-full object-contain object-center" />
+            class="h-[--height] w-[--width] object-contain object-center" />
         {:else}
-          <div
-            class="ms-[376px] flex w-[50%] flex-col items-center self-center">
+          <div class="ms-[376px] flex w-1/2 flex-col items-center self-center">
             <NullState />
           </div>
         {/if}
