@@ -12,6 +12,7 @@
             <a href="/" class="bg-[#FCE458] rounded-full text-black font-bold px-6 py-3 hover:bg-[#ffeb77] hover:text-[#454545]">Join Us</a>
             <a href="/" class="font-bold">How it Works</a>
         </div>
+        <div>Test Text</div>
     </div>
 </div>
 
