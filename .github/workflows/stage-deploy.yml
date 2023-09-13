@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    types: [opened, synchronize]
 
 jobs:
   build-test:
@@ -48,3 +50,7 @@ jobs:
       - name: Deploy to S3 bucket
         run: |
           aws s3 sync ${{ vars.DEPLOY_SOURCE_DIR }} s3://${{ vars.AWS_STAGE_S3_BUCKET }} --delete
+
+      - name: Purge Fastly cache
+        run: |
+          curl -i  -X POST "https://api.fastly.com/service/${{ vars.FASTLY_STAGE_SERVICE_ID }}/purge_all" -H "Fastly-Key: ${{ secrets.FASTLY_PURGE_API_TOKEN }}" -H "Accept: application/json"
