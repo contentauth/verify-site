@@ -23,8 +23,10 @@
   export let selectedAssets: Readable<(CompareSelectedAssetStore | null)[]>;
 </script>
 
-{#if $compareViewMode === 'slider'}
-  <Slider {selectedAssets}></Slider>
-{:else}
-  <SideBySide {selectedAssets}></SideBySide>
-{/if}
+<div class="flex h-full flex-col justify-center">
+  {#if $compareViewMode === 'slider'}
+    <Slider {selectedAssets}></Slider>
+  {:else}
+    <SideBySide {selectedAssets}></SideBySide>
+  {/if}
+</div>

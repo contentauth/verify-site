@@ -76,13 +76,7 @@
     <div
       slot="content"
       class="h-full grid-cols-[auto_theme(spacing.sidebar)] sm:grid">
-      <div
-        class={[
-          'h-full lg:h-screen',
-          $viewState === 'compare' && $compareView.state === 'success'
-            ? 'flex flex-col justify-center'
-            : '',
-        ].join(' ')}>
+      <div class="h-full lg:h-screen">
         {#if $viewState === 'hierarchy' && $hierarchyView.state === 'success'}
           <TreeView
             assetStoreMap={$hierarchyView.assets}
