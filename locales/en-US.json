@@ -82,7 +82,7 @@
   "sidebar.verify.compare": "Compare",
   "sidebar.verify.compare.dropdown": "Compare view",
   "sidebar.verify.compare.slider": "Slider",
-  "sidebar.verify.compare.sideBySide": "Side By Side",
+  "sidebar.verify.compare.sideBySide": "Side by Side",
   "sidebar.verify.compare.null.title": "Select files to compare",
   "sidebar.verify.compare.null.picture": "Select another asset to compare",
   "sidebar.verify.compare.null.description": "Compare two files side-by-side or overlapping.",
