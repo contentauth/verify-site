@@ -38,8 +38,7 @@
   <div class="relative">
     <DropdownButton {compareViewMode} on:click={() => (isOpen = !isOpen)} />
     {#if isOpen}
-      <DropDownOptions on:click={(e) => handleOption(e.detail.mode)}
-      ></DropDownOptions>
+      <DropDownOptions on:click={(e) => handleOption(e.detail.mode)} />
     {/if}
   </div>
 </div>
