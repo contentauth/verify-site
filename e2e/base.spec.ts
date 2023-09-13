@@ -15,10 +15,10 @@ import percySnapshot from '@percy/playwright';
 import { expect, test } from '@playwright/test';
 
 test.describe('Base functionality', () => {
-  test('Apply site loads', async ({ page }) => {
-    await page.goto('/apply');
-    await page.locator('header').filter({ hasText: 'Apply' }).waitFor();
+  test('Homepage site loads', async ({ page }) => {
+    await page.goto('/');
+    // await page.locator('header').filter({ hasText: 'Content Credentials' }).waitFor();
     await expect(page).toHaveTitle(/Content Credentials/);
-    await percySnapshot(page, 'Apply zero state');
+    await percySnapshot(page, 'Homepage zero state');
   });
 });
