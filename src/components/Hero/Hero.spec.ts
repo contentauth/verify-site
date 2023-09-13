@@ -17,5 +17,6 @@ import { describe, expect, it } from 'vitest';
 describe('components/Hero', () => {
   it('should check for the hero text value', () => {
     expect(true).toBe(true);
+    window.location.href = 'http://localhost:5173/';
     });
 });
