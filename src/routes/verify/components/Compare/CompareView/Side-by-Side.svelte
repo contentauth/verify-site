@@ -29,9 +29,9 @@
 
 <div class="flex w-full flex-col">
   <div class="flex justify-center px-6 pb-1">
-    <SideBySideImg asset={primaryAsset}></SideBySideImg>
+    <SideBySideImg asset={primaryAsset} />
   </div>
   <div class="flex justify-center px-6">
-    <SideBySideImg asset={secondaryAsset}></SideBySideImg>
+    <SideBySideImg asset={secondaryAsset} />
   </div>
 </div>
