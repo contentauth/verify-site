@@ -11,12 +11,14 @@
 // is strictly forbidden unless prior written permission is obtained
 // from Adobe.
 
-import { test, expect } from '@playwright/test';
+import percySnapshot from '@percy/playwright';
+import { expect, test } from '@playwright/test';
 
-
-test('has title', async ({ page }) => {
-    await page.goto('https://');
-  
-    // Expect a title "to contain" a substring.
-    await expect(page).toHaveTitle("Content Credentials");
+test.describe('Base functionality', () => {
+  test('Verify site loads', async ({ page }) => {
+    await page.goto('/apply');
+    await page.locator('header').filter({ hasText: 'Apply' }).waitFor();
+    await expect(page).toHaveTitle(/Content Credentials/);
+    await percySnapshot(page, 'Apply zero state');
   });
+});
