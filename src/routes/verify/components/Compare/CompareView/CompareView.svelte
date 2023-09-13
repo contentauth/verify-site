@@ -14,7 +14,7 @@
 -->
 
 <script lang="ts">
-  import { compareMode } from '$src/routes/verify/stores/compareView';
+  import { compareViewMode } from '$src/routes/verify/stores/compareView';
   import type { Readable } from 'svelte/store';
   import type { CompareSelectedAssetStore } from '../../../stores/compareSelectedAsset';
   import SideBySide from './Side-by-Side.svelte';
@@ -23,7 +23,7 @@
   export let selectedAssets: Readable<(CompareSelectedAssetStore | null)[]>;
 </script>
 
-{#if $compareMode === 'Slider'}
+{#if $compareViewMode === 'slider'}
   <Slider {selectedAssets}></Slider>
 {:else}
   <SideBySide {selectedAssets}></SideBySide>

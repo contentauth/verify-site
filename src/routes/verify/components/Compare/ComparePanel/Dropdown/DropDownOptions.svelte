@@ -15,23 +15,18 @@
 
 <script lang="ts">
   import type { CompareMode } from '$src/routes/verify/stores/compareView';
-  import { setCompareMode } from '$src/routes/verify/stores/compareView';
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
 
-  export let isOpen = false;
   const dispatch = createEventDispatcher();
-  const slider: CompareMode = 'Slider';
-  const sideBySide: CompareMode = 'Side by Side';
+  const slider: CompareMode = 'slider';
+  const sideBySide: CompareMode = 'sideBySide';
   const compareModeArray = [sideBySide, slider];
 
-  function closeDropDown() {
-    dispatch('closeDropdown', {
-      isOpen,
-    });
-  }
   function selectOption(mode: CompareMode) {
-    setCompareMode(mode);
+    dispatch('click', {
+      mode,
+    });
   }
 </script>
 
@@ -39,9 +34,8 @@
   {#each compareModeArray as item (item)}
     <button
       on:click={() => selectOption(item)}
-      on:click={closeDropDown}
       class="hover:bg-indigo-500 block w-full p-2 px-4 text-start text-gray-800">
-      {#if item === 'Side by Side'}
+      {#if item === 'sideBySide'}
         {$_('sidebar.verify.compare.sideBySide')}
       {:else}
         {$_('sidebar.verify.compare.slider')}

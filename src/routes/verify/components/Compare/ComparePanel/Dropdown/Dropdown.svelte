@@ -15,11 +15,20 @@
 
 <script lang="ts">
   import Label from '$src/components/typography/Label.svelte';
+  import {
+    compareViewMode,
+    type CompareMode,
+  } from '$src/routes/verify/stores/compareView';
   import { _ } from 'svelte-i18n';
   import DropDownOptions from './DropDownOptions.svelte';
   import DropdownButton from './DropdownButton.svelte';
 
-  export let isOpen = false;
+  let isOpen = false;
+
+  function handleOption(mode: CompareMode) {
+    compareViewMode.set(mode);
+    isOpen = !isOpen;
+  }
 </script>
 
 <div class="flex items-center pb-5">
@@ -27,9 +36,9 @@
     <Label>{$_('sidebar.verify.compare.dropdown')}</Label>
   </div>
   <div class="relative">
-    <DropdownButton {isOpen} on:toggleDropdown={() => (isOpen = !isOpen)} />
+    <DropdownButton {compareViewMode} on:click={() => (isOpen = !isOpen)} />
     {#if isOpen}
-      <DropDownOptions {isOpen} on:closeDropdown={() => (isOpen = !isOpen)}
+      <DropDownOptions on:click={(e) => handleOption(e.detail.mode)}
       ></DropDownOptions>
     {/if}
   </div>

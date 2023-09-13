@@ -16,26 +16,16 @@
 <script lang="ts">
   import DownArrow from '$assets/svg/monochrome/down-arrow.svg?component';
   import Body from '$src/components/typography/Body.svelte';
-  import { compareMode } from '$src/routes/verify/stores/compareView';
-  import { createEventDispatcher } from 'svelte';
+
   import { _ } from 'svelte-i18n';
 
-  export let isOpen = false;
-  const dispatch = createEventDispatcher();
-
-  function toggleDropdown() {
-    dispatch('toggleDropdown', {
-      isOpen,
-    });
-  }
+  export let compareViewMode;
 </script>
 
-<button
-  class="h-7 w-44 border border-gray-500 pe-2 ps-2"
-  on:click={toggleDropdown}>
+<button class="h-7 w-44 border border-gray-500 pe-2 ps-2" on:click>
   <div class="flex justify-between">
     <Body>
-      {#if $compareMode === 'Slider'}
+      {#if $compareViewMode === 'slider'}
         {$_('sidebar.verify.compare.slider')}
       {:else}
         {$_('sidebar.verify.compare.sideBySide')}

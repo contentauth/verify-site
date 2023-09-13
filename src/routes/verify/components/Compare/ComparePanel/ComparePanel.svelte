@@ -32,7 +32,7 @@
       <Header>{$_('sidebar.verify.compare')}</Header>
     </div>
   </button>
-  <Dropdown></Dropdown>
+  <Dropdown />
   <div class="h-screen overflow-auto">
     <CompareAsset compareAssetStoreMap={assetStoreMap} />
   </div>
