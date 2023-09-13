@@ -19,9 +19,7 @@
   import { _ } from 'svelte-i18n';
 
   const dispatch = createEventDispatcher();
-  const slider: CompareMode = 'slider';
-  const sideBySide: CompareMode = 'sideBySide';
-  const compareModeArray: CompareMode[] = [sideBySide, slider];
+  const compareModeArray: CompareMode[] = ['sideBySide', 'slider'];
 
   function selectOption(mode: CompareMode) {
     dispatch('click', {
