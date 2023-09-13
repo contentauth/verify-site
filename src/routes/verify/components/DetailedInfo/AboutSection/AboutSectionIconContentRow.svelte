@@ -13,14 +13,11 @@
   from Adobe.
 -->
 <script lang="ts">
-  import { fly } from 'svelte/transition';
-
-  export let showPanel: boolean;
+  import Body from '$src/components/typography/Body.svelte';
+  import IconContentRow from '../../IconContentRow/IconContentRow.svelte';
 </script>
 
-<div
-  class="relative z-10 h-screen overflow-auto bg-gray-50 transition-transform sm:h-[calc(100vh-theme(spacing.header))] sm:transform-none sm:border-s-2 lg:h-screen"
-  class:-translate-y-full={showPanel}
-  transition:fly={{ duration: 300, opacity: 0, x: 200 }}>
-  <slot />
-</div>
+<IconContentRow>
+  <slot slot="icon" name="icon" />
+  <Body slot="content"><slot name="content" /></Body>
+</IconContentRow>

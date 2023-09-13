@@ -23,7 +23,7 @@
 
 <div class="flex flex-col">
   <Link><a class="break-all" href={link}>{username}</a></Link>
-  <div class="pt-1">
+  <div class="pt-0.5">
     <SmallDescription>{appName}</SmallDescription>
   </div>
 </div>

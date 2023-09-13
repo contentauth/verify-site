@@ -24,13 +24,11 @@
 <SubSection>
   <svelte:fragment slot="title">
     {$_('sidebar.verify.process.ingredients')}</svelte:fragment>
-  <svelte:fragment slot="content">
+  <div slot="content" class="flex flex-col gap-3">
     {#each ingredients as ingredient}
-      <div class="pt-3">
-        <SmallAssetInfo assetData={ingredient}>
-          <svelte:fragment slot="name"
-            >{ingredient.title ?? $_('asset.defaultTitle')}</svelte:fragment
-          ></SmallAssetInfo>
-      </div>
+      <SmallAssetInfo assetData={ingredient}>
+        <svelte:fragment slot="name"
+          >{ingredient.title ?? $_('asset.defaultTitle')}</svelte:fragment
+        ></SmallAssetInfo>
     {/each}
-  </svelte:fragment></SubSection>
+  </div></SubSection>
