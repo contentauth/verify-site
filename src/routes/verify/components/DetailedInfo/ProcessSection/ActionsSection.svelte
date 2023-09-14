@@ -18,8 +18,8 @@
   import type { ManifestData } from '$src/lib/asset';
   import { DATA_PRIVACY_URL } from '$src/lib/config';
   import { _ } from 'svelte-i18n';
-  import IconContentRow from '../../../components/IconContentRow/IconContentRow.svelte';
   import SubSection from '../../../components/SubSection/SubSection.svelte';
+  import AboutSectionIconContentRow from '../AboutSection/AboutSectionIconContentRow.svelte';
 
   export let editsAndActivity: NonNullable<ManifestData['editsAndActivity']>;
   export let reviewRatings: ManifestData['reviewRatings'];
@@ -28,18 +28,18 @@
 <SubSection>
   <svelte:fragment slot="title">
     {$_('sidebar.verify.process.actions')}</svelte:fragment>
-  <svelte:fragment slot="content">
-    {#if reviewRatings?.hasUnknownActions || reviewRatings?.wasPossiblyModified}
-      <IconContentRow>
+  <div class="flex flex-col gap-2.5" slot="content">
+    {#if reviewRatings.hasUnknownActions || reviewRatings.wasPossiblyModified}
+      <AboutSectionIconContentRow>
         <AlertOutlineIcon slot="icon" width="1rem" height="1rem" />
         <div slot="content" class="italic text-gray-900">
           <span>{$_('reviewRatings.unknownActions')}</span>
           <a href={DATA_PRIVACY_URL} target="_blank" rel="noreferrer"
             ><Link>{$_('linkText.learnMore')}</Link></a>
-        </div></IconContentRow>
+        </div></AboutSectionIconContentRow>
     {/if}
     {#each editsAndActivity as category}
-      <IconContentRow>
+      <AboutSectionIconContentRow>
         <svelte:fragment slot="icon">
           {#if category.icon}
             <img
@@ -51,7 +51,7 @@
         <div slot="content" class="flex flex-col">
           <span>{category.label}</span>
           <span class="text-gray-600">{category.description}</span>
-        </div></IconContentRow>
+        </div></AboutSectionIconContentRow>
     {/each}
-  </svelte:fragment>
+  </div>
 </SubSection>

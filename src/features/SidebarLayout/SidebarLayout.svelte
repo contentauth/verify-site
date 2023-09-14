@@ -23,7 +23,7 @@
 
 <div
   class={[
-    'grid h-screen grid-cols-[100vw_100vw] overflow-x-hidden transition-colors duration-100',
+    'grid h-screen grid-cols-[100vw_100vw] overflow-hidden transition-colors duration-100',
     leftColumnTakeover
       ? 'bg-gray-100'
       : 'bg-white lg:grid-cols-[theme(spacing.sidebar)_auto]',
@@ -32,7 +32,7 @@
     <Header><slot name="header" /></Header>
     <div
       class={[
-        'relative z-0 flex-grow border-t-2 transition-colors duration-100',
+        'relative flex-grow border-t-2 transition-colors duration-100',
         leftColumnTakeover ? 'border-transparent' : 'border-gray-200',
       ].join(' ')}>
       <slot name="sidebar" />
@@ -40,7 +40,7 @@
   </div>
   {#if !leftColumnTakeover}
     <div
-      class="h-screen overflow-hidden transition-transform lg:transform-none"
+      class="z-0 h-screen overflow-hidden transition-transform lg:transform-none"
       class:-translate-x-full={$sidebarLayoutPageState === 1}>
       <div
         class="flex h-header items-center border-b bg-gray-50 px-6 lg:hidden">

@@ -8,7 +8,8 @@
   "contentSummary.trainedAlgorithmicMedia": "This image was generated with an AI tool.",
   "emptyState.dropFile": "Drag and drop anywhere or",
   "emptyState.dropFile.linkText": "select a file from your computer",
-  "error.generic": "",
+  "error.incomplete": "The current Content Credential can't be viewed because changes occurred that couldn't be or weren't recorded. Previous Content Credentials may be available.",
+  "error.invalid": "The following information is not valid. This Content Credential was issued by an unrecognized source.",
   "footer.contactUs": "Contact us",
   "footer.copyright": "Copyright © {year} Adobe. All rights reserved.",
   "footer.privacy": "Privacy",
@@ -85,6 +86,13 @@
   "sidebar.verify.legal.part1": "Content Credentials are a set of history, edit, and attribution data that can help you make more informed decisions about how to interpret a piece of content.",
   "sidebar.verify.legal.part2": "Content Credentials are also tamper-evident. Because they get cryptographically bound to their respective content, changes to either can be identified.",
   "sidebar.verify.legal.part3": "Each set of Content Credentials gets digitally signed by a trusted authority, ensuring that they are securely bound to new and updated content.",
+  "sidebar.verify.compare": "Compare",
+  "sidebar.verify.compare.dropdown": "Compare view",
+  "sidebar.verify.compare.slider": "Slider",
+  "sidebar.verify.compare.sideBySide": "Side by Side",
+  "sidebar.verify.compare.null.title": "Select files to compare",
+  "sidebar.verify.compare.null.picture": "Select another asset to compare",
+  "sidebar.verify.compare.null.description": "Compare two files side-by-side or overlapping.",
   "sidebar.verify.noCC": "No Content Credential",
   "sidebar.verify.noCCFile": "There is no Content Credential for this file",
   "sidebar.verify.process.actions": "Actions",
@@ -98,5 +106,8 @@
   "sidebar.verify.search.tooltip.help": "Help",
   "sidebar.verify.summary": "Content Summary",
   "sidebar.verify.title": "Content Credentials",
-  "spinner.loading": "Loading"
+  "spinner.loading": "Loading",
+  "dialog.error.manifestSearchConnectionIssue.title": "Connection issue",
+  "dialog.error.manifestSearchConnectionIssue.message": "Manifest search can't be completed right now due to connection issues with another service. Try again later.",
+  "dialog.OK": "OK"
 }

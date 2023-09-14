@@ -8,6 +8,9 @@ dependencies:
   '@ccx-public/ingest':
     specifier: file:etc/packages/ingest-4.3.0.tgz
     version: file:etc/packages/ingest-4.3.0.tgz
+  '@interactjs/types':
+    specifier: ^1.10.18
+    version: 1.10.18
   '@intl/adobe-locales':
     specifier: file:etc/packages/adobe-locales-2.35.2.tgz
     version: file:etc/packages/adobe-locales-2.35.2.tgz
@@ -74,6 +77,9 @@ dependencies:
   image-blob-reduce:
     specifier: ^4.1.0
     version: 4.1.0
+  interactjs:
+    specifier: ^1.10.18
+    version: 1.10.18
   lodash:
     specifier: ^4.17.20
     version: 4.17.21
@@ -86,12 +92,24 @@ dependencies:
   p-memoize:
     specifier: ^4.0.4
     version: 4.0.4
+  store2:
+    specifier: ^2.14.2
+    version: 2.14.2
   svelte:
     specifier: ^4.2.0
     version: 4.2.0
+  svelte-css-vars:
+    specifier: ^0.0.3
+    version: 0.0.3
+  svelte-focus-trap:
+    specifier: ^1.2.0
+    version: 1.2.0
   svelte-i18n:
     specifier: ^3.7.4
     version: 3.7.4(svelte@4.2.0)
+  svelte-modals:
+    specifier: ^1.3.0
+    version: 1.3.0(svelte@4.2.0)
   tippy.js:
     specifier: ^6.2.6
     version: 6.3.7
@@ -3815,6 +3833,10 @@ packages:
   /@humanwhocodes/object-schema@1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
+
+  /@interactjs/types@1.10.18:
+    resolution: {integrity: sha512-3a+2Kx6PhA60ekxImRQJl+EyT4lD0/kd3/PveyaLtgfNxkxnSWdUq7Ixo3Y/t1lon4EqVGZQgp+qj/QNaEs6qA==}
+    dev: false
 
   /@isaacs/cliui@8.0.2:
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -11392,6 +11414,12 @@ packages:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
     dev: true
 
+  /interactjs@1.10.18:
+    resolution: {integrity: sha512-ho+Qgr5U3b3oz23Iv7MkIZGoWaTsSCRnrCL34Dtjzs5eFghwpESJeiPj9RhYKc/SgRJL9anR+2OQxFsCg4PmLA==}
+    dependencies:
+      '@interactjs/types': 1.10.18
+    dev: false
+
   /internal-slot@1.0.5:
     resolution: {integrity: sha512-Y+R5hJrzs52QCG2laLn4udYVnxsfny9CpOhNhUvk/SSSVyF6T27FzRbF0sroPidSu3X8oEAkOn2K804mjpt6UQ==}
     engines: {node: '>= 0.4'}
@@ -13112,6 +13140,10 @@ packages:
       pkg-types: 1.0.2
       ufo: 1.1.1
     dev: true
+
+  /mousetrap@1.6.5:
+    resolution: {integrity: sha512-QNo4kEepaIBwiT8CDhP98umTetp+JNfQYBWvC1pc6/OAibuXtRcxZ58Qz8skvEHYvURne/7R8T5VoOI7rDsEUA==}
+    dev: false
 
   /mri@1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
@@ -15330,7 +15362,6 @@ packages:
 
   /store2@2.14.2:
     resolution: {integrity: sha512-siT1RiqlfQnGqgT/YzXVUNsom9S0H1OX+dpdGN1xkyYATo4I6sep5NmsRD/40s3IIOvlCq6akxkqG82urIZW1w==}
-    dev: true
 
   /storybook-addon-designs@7.0.0-beta.2(@storybook/addon-docs@7.4.1)(@storybook/addons@7.4.1)(@storybook/api@7.4.1)(@storybook/components@7.4.1)(@storybook/theming@7.4.1)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-ljBNmyCJdPTXhiBSfA1S+GBxtMooW2M7nxlt49OoCRH7jcxZOYQdiI8JYQiMF5Ur0MGakbSci0Xm+JzAvcm02g==}
@@ -15597,6 +15628,10 @@ packages:
       - sugarss
     dev: true
 
+  /svelte-css-vars@0.0.3:
+    resolution: {integrity: sha512-B7SLi7HGICpHI5oAx+NJRDsQChAIJ6wISwEUWN4CTU0h9WygKhcYwastnIoRkfdGE7tLfiKvEm+d102RRc8zwQ==}
+    dev: false
+
   /svelte-eslint-parser@0.33.0(svelte@4.2.0):
     resolution: {integrity: sha512-5awZ6Bs+Tb/zQwa41PSdcLynAVQTwW0HGyCBjtbAQ59taLZqDgQSMzRlDmapjZdDtzERm0oXDZNE0E+PKJ6ryg==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
@@ -15613,6 +15648,12 @@ packages:
       postcss-scss: 4.0.7(postcss@8.4.29)
       svelte: 4.2.0
     dev: true
+
+  /svelte-focus-trap@1.2.0:
+    resolution: {integrity: sha512-/hIUHgKcFlewsQreq8v7DYNBkQe7rR0c94PNBOCsmeUwoIYAy6iXJ1pH0k3rWpjwZHKtUxeXbX1iRFlFhipbeg==}
+    dependencies:
+      mousetrap: 1.6.5
+    dev: false
 
   /svelte-hmr@0.15.3(svelte@4.2.0):
     resolution: {integrity: sha512-41snaPswvSf8TJUhlkoJBekRrABDXDMdpNpT2tfHIv4JuhgvHqLMhEPGtaQn0BmbNSTkuz2Ed20DF2eHw0SmBQ==}
@@ -15638,6 +15679,14 @@ packages:
       sade: 1.8.1
       svelte: 4.2.0
       tiny-glob: 0.2.9
+    dev: false
+
+  /svelte-modals@1.3.0(svelte@4.2.0):
+    resolution: {integrity: sha512-b1Ylnyv9O6b7VYeWGJVToaVU2lw7GtErVwiEdojyfnOuZcrhNlQ5eDqbTrL3xyKz8j2VTy/QiGUl1lm/6SnQ2A==}
+    peerDependencies:
+      svelte: ^3.0.0 || ^4.0.0
+    dependencies:
+      svelte: 4.2.0
     dev: false
 
   /svelte-preprocess@5.0.4(@babel/core@7.22.10)(postcss-load-config@2.1.2)(postcss@8.4.21)(svelte@4.2.0)(typescript@5.2.2):

@@ -45,7 +45,7 @@
 </script>
 
 <script lang="ts">
-  import info from '$assets/svg/color/logos/info.svg';
+  import info from '$assets/svg/monochrome/info-outline.svg';
   import Section from '$src/components/SidebarSection/Section.svelte';
   import BodyBold from '$src/components/typography/BodyBold.svelte';
   import Description from '$src/components/typography/Description.svelte';

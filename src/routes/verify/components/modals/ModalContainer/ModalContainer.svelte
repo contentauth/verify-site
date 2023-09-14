@@ -2,7 +2,6 @@
   ADOBE CONFIDENTIAL
   Copyright 2023 Adobe
   All Rights Reserved.
-
   NOTICE: All information contained herein is, and remains
   the property of Adobe and its suppliers, if any. The intellectual
   and technical concepts contained herein are proprietary to Adobe
@@ -14,16 +13,23 @@
 -->
 
 <script lang="ts">
-  import type { CompareAssetStore } from '../../stores/compareAsset';
+  import { Modals, closeModal } from 'svelte-modals';
+  import { fade } from 'svelte/transition';
 
-  export let compareAssetStore: CompareAssetStore;
+  function handleKeyDown({ key }: KeyboardEvent) {
+    if (key === 'Escape') {
+      closeModal();
+    }
+  }
 </script>
 
-<div
-  class="m-2 rounded border p-2"
-  class:bg-blue-100={$compareAssetStore.isSelected}
-  class:border-gray-900={$compareAssetStore.isActive}>
-  <button on:click={$compareAssetStore.select}>
-    {$compareAssetStore.id} - {$compareAssetStore.title}
-  </button>
-</div>
+<svelte:window on:keydown={handleKeyDown} />
+
+<Modals>
+  <!--  svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
+  <div
+    slot="backdrop"
+    class="fixed inset-0 bg-gray-900 opacity-30"
+    transition:fade={{ duration: 100 }}
+    on:click={closeModal} />
+</Modals>

@@ -12,16 +12,21 @@
   is strictly forbidden unless prior written permission is obtained
   from Adobe.
 -->
-<script lang="ts">
-  import '@spectrum-web-components/button/sp-button.js';
 
-  export let size: string;
-  export let variant = 'accent';
-  export let treatment = 'fill';
+<script lang="ts">
+  import { compareViewMode } from '$src/routes/verify/stores/compareView';
+  import type { Readable } from 'svelte/store';
+  import type { CompareSelectedAssetStore } from '../../../stores/compareSelectedAsset';
+  import SideBySide from './Side-by-Side.svelte';
+  import Slider from './Slider/SliderView.svelte';
+
+  export let selectedAssets: Readable<(CompareSelectedAssetStore | null)[]>;
 </script>
 
-<sp-theme color="lightest" scale="medium">
-  <sp-button {size} {variant} {treatment}>
-    <slot />
-  </sp-button>
-</sp-theme>
+<div class="flex h-full flex-col justify-center">
+  {#if $compareViewMode === 'slider'}
+    <Slider {selectedAssets} />
+  {:else}
+    <SideBySide {selectedAssets} />
+  {/if}
+</div>

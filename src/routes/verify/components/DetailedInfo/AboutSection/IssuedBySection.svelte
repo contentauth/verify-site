@@ -17,9 +17,9 @@
   import ProviderIcon from '$src/components/ProviderIcon/ProviderIcon.svelte';
   import Link from '$src/components/typography/Link.svelte';
   import { _ } from 'svelte-i18n';
-  import IconContentRow from '../../../components/IconContentRow/IconContentRow.svelte';
   import SubSection from '../../../components/SubSection/SubSection.svelte';
   import Tooltip from '../../Tooltip/Tooltip.svelte';
+  import AboutSectionIconContentRow from './AboutSectionIconContentRow.svelte';
 
   let showTooltip = false;
   export let issuedBy: string;
@@ -30,14 +30,12 @@
     {$_('sidebar.verify.about.issuedby')}</svelte:fragment>
   <div slot="content">
     <div class="flex justify-between">
-      <IconContentRow>
-        <div slot="icon">
-          <ProviderIcon provider={issuedBy} />
-        </div>
+      <AboutSectionIconContentRow>
+        <ProviderIcon slot="icon" provider={issuedBy} />
         <svelte:fragment slot="content">
           {issuedBy}
         </svelte:fragment>
-      </IconContentRow>
+      </AboutSectionIconContentRow>
       <button on:click={() => (showTooltip = !showTooltip)}
         ><img
           src={help}

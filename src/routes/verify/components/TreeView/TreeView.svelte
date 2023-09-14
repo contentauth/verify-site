@@ -14,13 +14,16 @@
 -->
 
 <script lang="ts">
+  import Compare from '$assets/svg/monochrome/compare.svg?component';
   import ZoomIn from '$assets/svg/monochrome/zoom-in.svg?component';
   import ZoomOut from '$assets/svg/monochrome/zoom-out.svg?component';
+  import Body from '$src/components/typography/Body.svelte';
   import type { AssetData } from '$src/lib/asset';
   import { select as d3Select } from 'd3-selection';
   import type { ZoomTransform } from 'd3-zoom';
   import { zoom as d3Zoom, zoomIdentity } from 'd3-zoom';
   import { onMount } from 'svelte';
+  import { _ } from 'svelte-i18n';
   import type { Readable } from 'svelte/store';
   import {
     calculateTransforms,
@@ -33,6 +36,7 @@
     type SVGSelection,
     type TreeViewConfig,
   } from '../../lib/treeView';
+  import { verifyStore } from '../../stores';
   import type { ReadableAssetStore } from '../../stores/asset';
   import type { ReadableAssetMap } from '../../stores/hierarchyView';
   import SvgTreeNode from './SVGTreeNode.svelte';
@@ -125,8 +129,9 @@
       {/each}
     </div>
   </div>
+
   <div
-    class="absolute bottom-5 right-5 z-20 flex h-8 items-center rounded-full bg-white shadow-md">
+    class="absolute bottom-16 right-5 z-20 flex h-8 items-center rounded-full bg-white shadow-md">
     <button
       class="h-full pe-2 ps-2.5 transition-opacity"
       class:opacity-40={!transforms.canZoomIn}
@@ -149,5 +154,13 @@
         })}>
       <ZoomOut width="1rem" height="1rem" class="text-gray-800" />
     </button>
+  </div>
+  <div
+    class="absolute bottom-5 right-5 z-20 flex h-8 items-center rounded-full bg-white shadow-md">
+    <button on:click={() => verifyStore.setCompareView()}
+      ><div class="mx-4 my-2 flex">
+        <Compare class="me-2 h-4 w-4" />
+        <Body>{$_('sidebar.verify.compare')}</Body>
+      </div></button>
   </div>
 </figure>

@@ -12,20 +12,12 @@
   is strictly forbidden unless prior written permission is obtained
   from Adobe.
 -->
-
 <script lang="ts">
-  import type { AssetData } from '$src/lib/asset';
-  import type { Readable } from 'svelte/store';
-  import DetailedInfo from '../DetailedInfo/DetailedInfo.svelte';
-
-  export let assetData: Readable<AssetData | null>;
-
-  // It's horrible, only necessary because Svelte doesn't support TS expressions in templates (no casting)
-  const assetDataNonNull = assetData as Readable<AssetData>;
+  import Body from '$src/components/typography/Body.svelte';
+  import IconContentRow from '../../IconContentRow/IconContentRow.svelte';
 </script>
 
-{#if $assetData !== null}
-  <DetailedInfo on:close assetData={assetDataNonNull} />
-{:else}
-  Null state pls implement
-{/if}
+<IconContentRow>
+  <slot slot="icon" name="icon" />
+  <Body slot="content"><slot name="content" /></Body>
+</IconContentRow>

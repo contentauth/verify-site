@@ -16,8 +16,8 @@
   import signedOn from '$assets/svg/color/logos/date.svg';
   import FormattedDateTime from '$src/components/FormattedDateTime/FormattedDateTime.svelte';
   import { _ } from 'svelte-i18n';
-  import IconContentRow from '../../../components/IconContentRow/IconContentRow.svelte';
   import SubSection from '../../../components/SubSection/SubSection.svelte';
+  import AboutSectionIconContentRow from './AboutSectionIconContentRow.svelte';
 
   export let date: Date;
 </script>
@@ -25,9 +25,10 @@
 <SubSection>
   <svelte:fragment slot="title">
     {$_('sidebar.verify.about.issuedon')}</svelte:fragment>
-  <IconContentRow slot="content">
+  <AboutSectionIconContentRow slot="content">
     <img slot="icon" src={signedOn} alt="" class="w-4" />
     <svelte:fragment slot="content"
       ><FormattedDateTime {date} />
     </svelte:fragment></IconContentRow>
+  </AboutSectionIconContentRow>
 </SubSection>
