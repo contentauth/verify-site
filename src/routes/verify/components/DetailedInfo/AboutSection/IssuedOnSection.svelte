@@ -29,6 +29,6 @@
     <img slot="icon" src={signedOn} alt="" class="w-4" />
     <svelte:fragment slot="content"
       ><FormattedDateTime {date} />
-    </svelte:fragment></IconContentRow>
+    </svelte:fragment>
   </AboutSectionIconContentRow>
 </SubSection>
