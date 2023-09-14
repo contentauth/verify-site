@@ -31,6 +31,11 @@ jobs:
           node-version: 18
           cache: pnpm
 
+      - name: Install test image service
+        run: |
+          npm install -g c2pa-test-image-service
+          which c2pa-test-image-service
+
       - name: Install dependencies
         run: pnpm install
 

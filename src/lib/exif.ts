@@ -41,19 +41,12 @@ declare module 'c2pa' {
   }
 }
 
-const exifTagRegExp = /^(exif(ex)?|dc|tiff|xmp):/i;
-
 function findExifValue(exif: ExifTags, locations: string[]) {
-  const value =
+  return (
     locations
       .map((key) => exif[key as keyof ExifTags])
-      .filter((x) => !!x)?.[0] ?? null;
-
-  if (typeof value === 'string') {
-    return value;
-  } else if (Object.getPrototypeOf(value) == Object.prototype) {
-    return value?.['$serde_json::private::Number'];
-  }
+      .filter((x) => !!x)?.[0] ?? null
+  );
 }
 
 interface CaptureDetails {
@@ -63,7 +56,10 @@ interface CaptureDetails {
   lensModel?: string;
   exposureTime?: string;
   fNumber?: string;
+  focalLength?: string;
   iso?: string;
+  width?: number;
+  height?: number;
 }
 
 function getCaptureDetails(exif: ExifTags) {
@@ -97,16 +93,29 @@ function getCaptureDetails(exif: ExifTags) {
       value: findExifValue(exif, ['exif:fnumber']),
     },
     {
+      label: 'focalLength',
+      value: findExifValue(exif, ['exif:focallength'])?.toString() ?? null,
+    },
+    {
       label: 'iso',
-      value: findExifValue(exif, [
-        'exifex:photographicsensitivity',
-        'exif:isospeed',
-        'exif:isospeedratings',
-      ]),
+      value:
+        findExifValue(exif, [
+          'exifex:photographicsensitivity',
+          'exif:isospeed',
+          'exif:isospeedratings',
+        ])?.toString() ?? null,
+    },
+    {
+      label: 'width',
+      value: findExifValue(exif, ['exif:imagewidth', 'exif:pixelxdimension']),
+    },
+    {
+      label: 'height',
+      value: findExifValue(exif, ['exif:imageheight', 'exif:pixelydimension']),
     },
   ];
 
-  return mapping
+  const details = mapping
     .filter(({ value }) => !!value)
     .reduce((acc, { label, value }) => {
       return {
@@ -114,6 +123,10 @@ function getCaptureDetails(exif: ExifTags) {
         [label]: value,
       };
     }, {}) as CaptureDetails;
+
+  dbg('Got capture details', details);
+
+  return details;
 }
 
 interface ApproximateLocation {
@@ -149,7 +162,7 @@ export function selectExif(manifest: Manifest): ExifSummary | null {
     .get('stds.exif')
     ?.reduce((acc, exif) => {
       const caseInsensitiveData = mapKeys(exif?.data, (_, key) => {
-        return exifTagRegExp.test(key) ? key.toLowerCase() : key;
+        return key.toLowerCase();
       });
 
       return merge({}, acc, caseInsensitiveData);
