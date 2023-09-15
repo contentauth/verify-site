@@ -148,6 +148,13 @@ export default {
           lineHeight: '75px',
         },
       ],
+      heroNew: [
+        '6rem',
+        {
+          fontWeight: '700',
+          lineHeight: '100px',
+        },
+      ],
       secondaryTitle: [
         '2.25rem',
         {
@@ -191,6 +198,14 @@ export default {
     extend: {
       backgroundImage: {
         'hero-pattern': "url('/assets/png/Circles.png')",
+      },
+      backgroundColor: {
+        brandRed: '#fe818b',
+        brandGreen: '#5ac97d',
+        brandYellow: '#fbe756',
+        brandOrange: '#ef9449',
+        brandViolet: '#888ef8',
+        brandBlue: '84c7fc',
       },
       spacing: {
         sidebar: '20rem',

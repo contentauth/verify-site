@@ -1,11 +1,12 @@
 <script>
     import Circles from '../../../assets/png/Circles.png'
+    import { _ } from 'svelte-i18n';
 </script>
 
-<div class="h-screen w-screen flex items-center justify-center bg-hero-pattern">
+<div class="h-screen w-screen flex items-center justify-center">
     <div class="flex flex-col items-center justify-start">
         <div class="flex flex-col items-center justify-center text-center flex-wrap max-w-[720px] pb-10">
-            <div class="text-hero text-sm pb-6 h-225px">Authentic Storytelling Through Digital Content Provenance</div>
+            <div class="text-hero text-sm pb-6 h-225px">{$_('page.hero.title')}</div>
             <div class="text-m">Promote adoption of an open industry standard for content authenticity and provenance.</div>
         </div>
         <div class="flex flex-row items-center justify-between w-[250px]">
@@ -14,6 +15,3 @@
         </div>
     </div>
 </div>
-
-<style
-></style>
