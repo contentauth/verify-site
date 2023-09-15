@@ -14,17 +14,11 @@
 import { test } from '@playwright/test';
 import { VerifyPage } from './page';
 
-test.describe('Verify - base functionality', () => {
-  test('zero state loads', async ({ page }) => {
+test.describe('Verify - assertion display', () => {
+  test('exif data should be displayed correctly', async ({ page }) => {
     const verify = new VerifyPage(page);
-    await verify.goto();
-    await verify.takeSnapshot(`zero state`);
-  });
-
-  test('specifying an image via source should work', async ({ page }) => {
-    const verify = new VerifyPage(page);
-    const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
+    const source = VerifyPage.getFixtureUrl('exif');
     await verify.goto(source);
-    await verify.takeTallSnapshot(`result for CAICAI.jpg via source`);
+    await verify.takeTallSnapshot(`result for generated exif image`);
   });
 });

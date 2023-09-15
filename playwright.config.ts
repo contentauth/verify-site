@@ -12,6 +12,7 @@
 // from Adobe.
 
 import type { PlaywrightTestConfig } from '@playwright/test';
+import testImageConfig from './e2e/c2pa-test-image-service.config';
 
 export const port = 4173;
 export const fixturesPort = 8080;
@@ -36,6 +37,11 @@ const config: PlaywrightTestConfig = {
     {
       command: `pnpm http-server e2e/fixtures --port=${fixturesPort} --cors --gzip`,
       port: fixturesPort,
+      reuseExistingServer: !process.env.CI,
+    },
+    {
+      command: `pnpm run test-image-service`,
+      port: testImageConfig.port,
       reuseExistingServer: !process.env.CI,
     },
   ],
