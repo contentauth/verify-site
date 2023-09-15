@@ -13,9 +13,9 @@
   from Adobe.
 -->
 <script lang="ts">
-  import L1Incomplete from '$assets/svg/color/cc-incomplete.svg?component';
-  import L1Invalid from '$assets/svg/color/cc-invalid.svg?component';
-  import L1Icon from '$assets/svg/monochrome/cr-fill.svg?component';
+  import L1Incomplete from '$assets/svg/color/cr-icon-incomplete.svg?component';
+  import L1Invalid from '$assets/svg/color/cr-icon-invalid.svg?component';
+  import L1Icon from '$assets/svg/monochrome/cr-icon.svg?component';
   import FormattedDateTime from '$src/components/FormattedDateTime/FormattedDateTime.svelte';
   import Body from '$src/components/typography/Body.svelte';
   import Truncate from '$src/components/typography/Truncate.svelte';
