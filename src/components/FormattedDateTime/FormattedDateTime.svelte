@@ -12,7 +12,7 @@
   from Adobe.
 -->
 <script lang="ts">
-  import { _, date as fDate, time } from 'svelte-i18n';
+  import { _, date as formatDate, time } from 'svelte-i18n';
 
   export let date: Date;
   export let noTime = false;
@@ -22,8 +22,8 @@
   {#if date.toString() === 'Invalid Date'}
     {$_('comp.date.invalid')}
   {:else if noTime}
-    {$fDate(date, { format: 'medium' })}
-  {:else}{$fDate(date, { format: 'medium' })}
+    {$formatDate(date, { format: 'medium' })}
+  {:else}{$formatDate(date, { format: 'medium' })}
     <span>{$_('comp.date.at')}</span>
     {$time(date, {
       hour: 'numeric',
