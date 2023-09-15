@@ -42,7 +42,7 @@ jobs:
       - name: Get Playwright version
         id: playwright-version
         run: |
-          PLAYWRIGHT_VERSION=$(npm ls @playwright/test | grep @playwright | sed 's/.*@//' | sed 's/ /-/')
+          PLAYWRIGHT_VERSION=$(pnpm ls @playwright/test | grep @playwright | sed 's/.*@//' | sed 's/\//-/g' | sed 's/ /-/g')
           echo "Playwright version: $PLAYWRIGHT_VERSION"
           echo "version=$PLAYWRIGHT_VERSION" >> ${GITHUB_OUTPUT}
 
