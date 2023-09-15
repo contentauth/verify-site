@@ -38,7 +38,12 @@
           width="1rem"
           height="1rem"
           class="me-1.5 h-4 w-4 text-gray-600" />
-        <Truncate><Body><FormattedDateTime {date} noTime /></Body></Truncate>
+        <Truncate
+          ><Body
+            ><span aria-label={$_('aria.label.signedOn')}
+              ><FormattedDateTime {date} noTime /></span
+            ></Body
+          ></Truncate>
       {:else if statusCode === 'incomplete'}
         <L1Incomplete
           width="1.25rem"

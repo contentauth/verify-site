@@ -168,7 +168,9 @@ export function selectExif(manifest: Manifest): ExifSummary | null {
       return merge({}, acc, caseInsensitiveData);
     }, {});
 
-  dbg('Got EXIF tags', exif);
+  if (Object.keys(exif).length > 0) {
+    dbg('Got EXIF tags', exif);
+  }
 
   if (Object.keys(exif).length > 0) {
     const captureDate = exif['exif:datetimeoriginal'];

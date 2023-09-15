@@ -103,7 +103,14 @@ export class VerifyPage {
       await this.takeDebugSnapshot(name, options);
     }
 
-    await percySnapshot(this.page, `Verify: ${name}`, options);
+    const domTransformation = `(documentElement) => Array.from(documentElement.querySelectorAll('span[aria-label="Signed on"]')).forEach((el) => el.innerText = 'PERCY_DATE_REPLACEMENT');`;
+
+    await percySnapshot(this.page, `Verify: ${name}`, {
+      ...options,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore - not included in TS definition
+      domTransformation,
+    });
   }
 
   async takeTallSnapshot(name: string, options: SnapshotOptions = {}) {

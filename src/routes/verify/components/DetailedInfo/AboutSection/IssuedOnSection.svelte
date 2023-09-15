@@ -28,7 +28,8 @@
   <AboutSectionIconContentRow slot="content">
     <img slot="icon" src={signedOn} alt="" class="w-4" />
     <svelte:fragment slot="content"
-      ><FormattedDateTime {date} />
+      ><span aria-label={$_('aria.label.signedOn')}
+        ><FormattedDateTime {date} /></span>
     </svelte:fragment>
   </AboutSectionIconContentRow>
 </SubSection>
