@@ -73,14 +73,6 @@ jobs:
       - name: Run end-to-end tests
         run: npx percy exec -- playwright test
 
-      - name: Upload Playwright report
-        uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 30
-
       - name: Upload Playwright trace
         uses: actions/upload-artifact@v3
         if: failure()
