@@ -14,6 +14,7 @@ jobs:
     timeout-minutes: 60
     env:
       PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+      VITE_MAPBOX_TOKEN: ${{ secrets.VITE_MAPBOX_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
