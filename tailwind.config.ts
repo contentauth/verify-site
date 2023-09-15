@@ -61,7 +61,8 @@ export default {
       base: defs['family-base'],
     },
     colors: {
-      yellow: 'FCE458',
+      "brand-yellow": '#FCE458',
+      "sub-heading": "#757575",
       white: defs['gray-50'],
       'gray-50': defs['gray-50'],
       'gray-75': defs['gray-75'],
@@ -176,11 +177,11 @@ export default {
           lineHeight: '24px',
         },
       ],
-      subHeading: [
-        '1.25rem',
+      "sub-heading": [
+        '1.875rem',
         {
-          fontWeight: '700',
-          lineHeight: '24px',
+          fontWeight: '400',
+          lineHeight: '40px',
         },
       ],
       footerText: [
@@ -190,6 +191,7 @@ export default {
           lineHeight: '18px',
         },
       ],
+
     },
     boxShadow: {
       DEFAULT: '0px 4px 20px rgba(0, 0, 0, 0.3)',
@@ -200,12 +202,12 @@ export default {
         'hero-pattern': "url('/assets/png/Circles.png')",
       },
       backgroundColor: {
-        brandRed: '#fe818b',
-        brandGreen: '#5ac97d',
-        brandYellow: '#fbe756',
-        brandOrange: '#ef9449',
-        brandViolet: '#888ef8',
-        brandBlue: '#84c7fc',
+        "brand-red": '#fe818b',
+        "brand-green": '#5ac97d',
+        "brand-yellow": '#fbe756',
+        "brand-orange": '#ef9449',
+        "brand-violet": '#888ef8',
+        "brand-blue": '#84c7fc',
       },
       spacing: {
         sidebar: '20rem',

@@ -1,6 +1,6 @@
 <script>
     import { _ } from 'svelte-i18n';
-    import PolarBear from '../../../../../assets/png/polarbear.png'
+    import PolarBear from '../../../../assets/png/polarbear.png'
 </script>
 
 <div class="h-[screen - 100px] w-screen flex items-center justify-center">
@@ -8,7 +8,7 @@
         <div class="w-[50%] h-full  flex items-center justify-center">
             <div class="w-[575px] flex flex-col items-center justify-center">
                 <div class="text-heroNew text-center pb-6">Wait, where did this image come from?</div>
-                <div class="text-xl text-center">Deepfakes. Voice Cloning. It's hard to tell what's accurate and authentic online these days.</div>
+                <div class="text-sub-heading text-subheading text-center">Deepfakes. Voice Cloning. It's hard to tell what's accurate and authentic online these days.</div>
             </div>
         </div>
         <div class="w-[50%] h-full  flex flex-col items-start justify-center">
