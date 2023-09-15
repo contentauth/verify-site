@@ -3,5 +3,8 @@
   "snapshot": {
     "widths": [375, 768, 1280],
     "min-height": 1024
+  },
+  "discovery": {
+    "allowed-hostnames": ["api.mapbox.com"]
   }
 }

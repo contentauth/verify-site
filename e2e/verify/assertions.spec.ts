@@ -19,11 +19,13 @@ test.describe('Verify - assertion display', () => {
     const verify = new VerifyPage(page);
     const source = VerifyPage.getFixtureUrl('exif');
     await verify.goto(source);
-    await this.page.waitForFunction(
-      () =>
-        document.querySelector('img[alt="Map showing approximate location"]')
-          .complete === true,
-    );
+    await this.page.waitForFunction(() => {
+      const exifMap = document.querySelector(
+        'img[alt="Map showing approximate location"]',
+      );
+
+      return exifMap && exifMap.complete;
+    });
     await verify.takeTallSnapshot(`result for generated exif image`);
   });
 });
