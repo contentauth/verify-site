@@ -184,6 +184,20 @@ export default {
           lineHeight: '40px',
         },
       ],
+      "sub-title": [
+        '2.5rem',
+        {
+          fontWeight: '700',
+          lineHeight: '44px',
+        },
+      ],
+      "sub-text": [
+        '1.3125rem',
+        {
+          fontWeight: '400',
+          lineHeight: '28px',
+        },
+      ],
       footerText: [
         '0.75rem',
         {
