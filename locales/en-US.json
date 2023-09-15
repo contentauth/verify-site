@@ -79,6 +79,7 @@
   "sidebar.verify.cameraCapture.creator": "Creator",
   "sidebar.verify.cameraCapture.copyright": "Copyright",
   "sidebar.verify.cameraCapture.description": "Additional data sourced from the camera used to take an image or video. EXIF data can be edited by the content producer.",
+  "sidebar.verify.cameraCapture.mapAltText": "Map showing approximate location",
   "sidebar.verify.cameraCapture.secondSuffix": "s",
   "sidebar.verify.credit.AI": "AI model used",
   "sidebar.verify.credit.AI.description": "Do not use my content to train AI models",

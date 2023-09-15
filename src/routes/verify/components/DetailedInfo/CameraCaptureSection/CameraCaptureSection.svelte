@@ -100,7 +100,10 @@
             {$_('sidebar.verify.cameraCapture.approximateLocation')}
           </svelte:fragment>
           <div slot="content">
-            <img src={exif.mapUrl} alt="" class="h-auto w-full rounded" />
+            <img
+              src={exif.mapUrl}
+              alt={$_('sidebar.verify.cameraCapture.mapAltText')}
+              class="h-auto w-full rounded" />
           </div>
         </SubSection>
       {/if}
