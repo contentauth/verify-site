@@ -21,12 +21,14 @@ const baseURL = `${base ?? `http://localhost`}:${port}/`;
 
 const config: PlaywrightTestConfig = {
   testDir: 'e2e',
+  retries: 1,
   use: {
     baseURL,
     headless: true,
     locale: 'en-US',
     timezoneId: 'America/New_York',
     ignoreHTTPSErrors: true,
+    trace: 'on-first-retry',
   },
   webServer: [
     {
