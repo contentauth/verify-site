@@ -21,6 +21,17 @@ test.describe('Verify - base functionality', () => {
     await verify.takeSnapshot(`zero state`);
   });
 
+  test('sidebar opens', async ({ page }) => {
+    const verify = new VerifyPage(page);
+    await verify.goto();
+    await page
+      .locator('header')
+      .filter({ hasText: 'Verify' })
+      .getByLabel('Menu toggle')
+      .click();
+    await verify.takeSnapshot(`sidebar open`);
+  });
+
   test('specifying an image via source should work', async ({ page }) => {
     const verify = new VerifyPage(page);
     const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');

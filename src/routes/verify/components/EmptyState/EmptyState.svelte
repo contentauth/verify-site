@@ -41,7 +41,7 @@
   });
 </script>
 
-<div class="flex h-full w-full items-center justify-center bg-white">
+<div class="flex h-full w-full items-center justify-center bg-white px-5">
   <input
     type="file"
     bind:this={fileInput}
@@ -49,7 +49,7 @@
     class="hidden" />
   <div class="flex flex-col items-center space-y-5">
     <DropFile class="h-16 w-10 text-gray-500" />
-    <div class="text-body">
+    <div class="text-center text-body">
       <span>{$_('emptyState.dropFile')}</span>
       <button class="underline" on:click={browseFile}
         >{$_('emptyState.dropFile.linkText')}</button>

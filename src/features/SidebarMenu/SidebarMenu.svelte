@@ -26,36 +26,23 @@
   class:shadow={$sidebarMenuState}>
   <Header burgerOpen={true} />
   <div class="border-t-2 py-4">
-    <MenuSection>
-      <MenuItem href="/">{$_('menu.home')}</MenuItem>
-    </MenuSection>
-    <MenuSection title={$_('menu.section.overview')}>
-      <MenuItem href="/">
-        {$_('menu.section.overview.what')}
-      </MenuItem>
-    </MenuSection>
-    <MenuSection title={$_('menu.section.features')}>
-      <MenuItem href="/verify">
-        {$_('menu.section.features.verify')}
-      </MenuItem>
-      <MenuItem href="/apply">
-        {$_('menu.section.features.apply')}
-      </MenuItem>
-      <MenuItem href="/">
-        {$_('menu.section.features.embed')}
-      </MenuItem>
-    </MenuSection>
+    <MenuItem href="/">{$_('menu.home')}</MenuItem>
+    <MenuItem href="/verify">
+      {$_('menu.section.features.verify')}
+    </MenuItem>
     <MenuSection title={$_('menu.section.getInvolved')}>
-      <MenuItem href="/">
+      <MenuItem href="https://contentauthenticity.org/" target="_blank">
         {$_('menu.section.getInvolved.CAI')}
       </MenuItem>
-      <MenuItem href="/">
+      <MenuItem
+        href="https://opensource.contentauthenticity.org/"
+        target="_blank">
         {$_('menu.section.getInvolved.OSS')}
       </MenuItem>
-      <MenuItem href="/">
+      <MenuItem href="https://discord.gg/CAI" target="_blank">
         {$_('menu.section.getInvolved.discord')}
       </MenuItem>
-      <MenuItem href="/">
+      <MenuItem href="https://github.com/contentauth" target="_blank">
         {$_('menu.section.getInvolved.github')}
       </MenuItem>
     </MenuSection>
