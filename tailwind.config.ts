@@ -61,7 +61,7 @@ export default {
       base: defs['family-base'],
     },
     colors: {
-      brandYellow: 'FCE458',
+      yellow: 'FCE458',
       white: defs['gray-50'],
       'gray-50': defs['gray-50'],
       'gray-75': defs['gray-75'],
@@ -205,7 +205,7 @@ export default {
         brandYellow: '#fbe756',
         brandOrange: '#ef9449',
         brandViolet: '#888ef8',
-        brandBlue: '84c7fc',
+        brandBlue: '#84c7fc',
       },
       spacing: {
         sidebar: '20rem',
