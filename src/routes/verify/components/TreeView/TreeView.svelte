@@ -158,7 +158,7 @@
   <div
     class="absolute bottom-5 right-5 z-20 flex h-8 items-center rounded-full bg-white shadow-md">
     <button on:click={() => verifyStore.setCompareView()}
-      ><div class="mx-4 my-2 flex">
+      ><div class="mx-4 my-2 flex items-center">
         <Compare class="me-2 h-4 w-4" />
         <Body>{$_('sidebar.verify.compare')}</Body>
       </div></button>

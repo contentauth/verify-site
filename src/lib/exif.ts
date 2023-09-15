@@ -202,11 +202,11 @@ export type ExifSummary = {
 const defaultMapConfig = {
   ownerId: 'mapbox',
   styleId: 'light-v10',
-  width: 271,
-  height: 280,
+  width: 280,
+  height: 160,
   zoom: 9,
   highRes: true,
-  highlightRadiusMeters: 10000,
+  highlightRadiusMeters: 8500,
   highlightEdges: 64,
   path: {
     strokeWidth: 3,

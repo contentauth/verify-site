@@ -15,7 +15,6 @@
 <script lang="ts">
   import help from '$assets/svg/color/logos/help.svg';
   import ProviderIcon from '$src/components/ProviderIcon/ProviderIcon.svelte';
-  import Link from '$src/components/typography/Link.svelte';
   import { _ } from 'svelte-i18n';
   import SubSection from '../../../components/SubSection/SubSection.svelte';
   import Tooltip from '../../Tooltip/Tooltip.svelte';
@@ -45,7 +44,6 @@
       <Tooltip showTooltip on:showToolip={() => (showTooltip = !showTooltip)}
         ><div slot="tooltip">
           {$_('sidebar.verify.about.issuedby.tooltip')}
-          <Link>{$_('sidebar.verify.about.issuedby.tooltip.link')}</Link>
         </div>
       </Tooltip>
     {/if}

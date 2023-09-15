@@ -24,12 +24,10 @@
 
   $: exif = manifestData.exif;
   $: captureDetails = exif?.captureDetails;
-  $: lensInfo = [
-    captureDetails?.lensMake ?? '',
-    captureDetails?.lensModel ?? '',
-  ]
-    .join(' ')
-    .trim();
+  $: dimensions =
+    captureDetails?.width && captureDetails?.height
+      ? [captureDetails.width, captureDetails.height].join(' x ')
+      : null;
 </script>
 
 {#if exif}
@@ -44,7 +42,7 @@
           ><svelte:fragment slot="title">
             {$_('sidebar.verify.cameraCapture.creator')}
           </svelte:fragment>
-          <div class="break-word mt-2.5" slot="content">{exif.creator}</div>
+          <div class="break-word" slot="content">{exif.creator}</div>
         </SubSection>
       {/if}
       {#if exif.copyright}
@@ -52,7 +50,7 @@
           ><svelte:fragment slot="title">
             {$_('sidebar.verify.cameraCapture.copyright')}
           </svelte:fragment>
-          <div class="break-word mt-2.5" slot="content">{exif.copyright}</div>
+          <div class="break-word" slot="content">{exif.copyright}</div>
         </SubSection>
       {/if}
       {#if exif.captureDate}
@@ -60,34 +58,52 @@
           ><svelte:fragment slot="title">
             {$_('sidebar.verify.cameraCapture.captureDate')}
           </svelte:fragment>
-          <div class="break-word mt-2.5" slot="content">
+          <div class="break-word" slot="content">
             <FormattedDateTime date={exif.captureDate} />
           </div>
         </SubSection>
       {/if}
-      <div class="rounded bg-gray-50 p-3 text-gray-600">
-        <div>{captureDetails?.cameraMake}</div>
-        {#if lensInfo}
-          <div>{lensInfo}</div>
-        {/if}
-        <!-- <div class="flex">
-          <div class="flex-grow">{dimensions.replace('x', ' x ')}</div>
-          <div class="flex-grow">{fileSize} MB</div>
-          <div class="flex-shrink">
-            <div
-              class="text-xs inline-block rounded bg-gray-400 px-1 text-white">
-              JPEG
-            </div>
+      {#if captureDetails?.cameraModel || captureDetails?.lensModel || dimensions}
+        <div class="mt-5 space-y-2 rounded bg-gray-100 p-3">
+          {#if captureDetails?.cameraModel}
+            <div>{captureDetails.cameraModel}</div>
+          {/if}
+          {#if captureDetails?.lensModel}
+            <div>{captureDetails.lensModel}</div>
+          {/if}
+          {#if dimensions}
+            <div>{dimensions}</div>
+          {/if}
+          <div
+            class="mt-2 flex w-full justify-between border-t border-gray-200 pt-2">
+            {#if captureDetails?.iso}
+              <div>ISO {captureDetails.iso}</div>
+            {/if}
+            {#if captureDetails?.focalLength}
+              <div>{captureDetails.focalLength}mm</div>
+            {/if}
+            {#if captureDetails?.fNumber}
+              <div>f/{captureDetails.fNumber}</div>
+            {/if}
+            {#if captureDetails?.exposureTime}
+              <div>
+                {captureDetails.exposureTime}
+                {$_('sidebar.verify.cameraCapture.secondSuffix')}
+              </div>
+            {/if}
           </div>
         </div>
-        <div
-          class="mt-2 flex w-full justify-between border-t border-gray-300 pt-2">
-          <div>ISO {iso}</div>
-          <div>{focalLength}mm</div>
-          <div>f/{aperture}</div>
-          <div>{shutterSpeed} s</div>
-        </div> -->
-      </div>
+      {/if}
+      {#if exif.mapUrl}
+        <SubSection
+          ><svelte:fragment slot="title">
+            {$_('sidebar.verify.cameraCapture.approximateLocation')}
+          </svelte:fragment>
+          <div slot="content">
+            <img src={exif.mapUrl} alt="" class="h-auto w-full rounded" />
+          </div>
+        </SubSection>
+      {/if}
     </svelte:fragment>
   </CollapsibleSection>
 {/if}
