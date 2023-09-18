@@ -5,7 +5,7 @@
   const data = [
     {
       id: 1,
-      label: 'Content Credentails are created',
+      label: 'Content Credentials are created',
       labelNumber: 1,
       labelBg: 'bg-brand-orange',
       Image: Hiw1,
