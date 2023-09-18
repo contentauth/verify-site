@@ -7,7 +7,7 @@
       id: 1,
       label: 'Content Credentials are created',
       labelNumber: 1,
-      labelBg: 'bg-brand-orange',
+      labelBg: '#EF9349',
       Image: Hiw1,
       description:
         'Creators choose to digitally sign their work by creating Content Credentials, which might include things like whether they used AI or not. Voila—this information gets attached to what they create!',
@@ -16,6 +16,7 @@
       id: 2,
       label: 'Once content is published, Content Credentials are too',
       labelNumber: 2,
+      labelBg: '#FCE458',
       Image: Hiw2,
       description:
         'Once the content is published, anyone can view the information by clicking on the pin. You can also access the information through a tool called Verify, which allows you to upload content and view associated Content Credentials.',
@@ -25,6 +26,7 @@
       label:
         'As content is edited, Content Credentials are updated to reflect what’s new',
       labelNumber: 3,
+      labelBg: '#fe818b',
       Image: Hiw3,
       description:
         'Digital content is constantly being edited and remixed. Content Credentials capture the full edit history of any piece of content, so you can see how it has changed over time.',
@@ -41,7 +43,7 @@
           <div class="flex flex-row items-start justify-between pt-20">
             <div class="flex flex-row gap-3">
               <div
-                class="flex h-[22px] w-[22px] items-center justify-center rounded-full bg-brand-orange">
+                class="flex h-[22px] w-[22px] items-center justify-center rounded-full px-4 py-4" style={`background-color: ${item.labelBg}`}>
                 {item.labelNumber}
               </div>
               <div class="text-sub-label pr-10">{item.label}</div>

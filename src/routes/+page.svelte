@@ -38,15 +38,18 @@
     <HeaderLink href="/">Embed</HeaderLink>
   </svelte:fragment>
 </Header> -->
-<Header />
-<div class="flex flex-col items-center justify-center overflow-x-hidden">
-  <Hero />
-  <Home1 />
-  <KeyPoints />
-  <HowItWorks />
-  <Trust />
-  <Movement />
-  <Orgs />
-  <Stories />
+<div class="overflow-x-hidden overflow-y-hidden">
+  <Header />
+  <div
+    class="flex flex-col items-center justify-center">
+    <Hero />
+    <Home1 />
+    <KeyPoints />
+    <HowItWorks />
+    <Trust />
+    <Movement />
+    <Orgs />
+    <Stories />
+  </div>
+  <NewFooter />
 </div>
-<NewFooter />
