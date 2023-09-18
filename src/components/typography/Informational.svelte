@@ -2,6 +2,7 @@
   ADOBE CONFIDENTIAL
   Copyright 2023 Adobe
   All Rights Reserved.
+
   NOTICE: All information contained herein is, and remains
   the property of Adobe and its suppliers, if any. The intellectual
   and technical concepts contained herein are proprietary to Adobe
@@ -12,4 +13,4 @@
   from Adobe.
 -->
 
-<span class="cursor-pointer text-body text-blue-900 underline"><slot /></span>
+<span class="text-informational text-gray-800"><slot /></span>

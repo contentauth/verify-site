@@ -149,7 +149,6 @@ async function fetchManifests(
   const params = new URLSearchParams({
     ...baseParams,
     filename: filename,
-    real_search: '1',
   });
   const response = await fetch(`${baseUrl}/manifests/v1?${params.toString()}`);
 

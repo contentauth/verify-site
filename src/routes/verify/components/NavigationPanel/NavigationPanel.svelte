@@ -14,7 +14,6 @@
 -->
 <script lang="ts">
   import LegalSection from '$src/components/LegalSection/LegalSection.svelte';
-  import { sidebarLayoutPageState } from '$src/features/SidebarLayout';
   import { _ } from 'svelte-i18n';
   import { verifyStore } from '../../stores';
   import ManifestRecoverySection from './ManifestRecovery/ManifestRecoverySection.svelte';
@@ -34,6 +33,3 @@
     <p class="pt-2">{$_('sidebar.verify.legal.part3')}</p>
   </svelte:fragment>
 </LegalSection>
-<button
-  class="m-2 bg-blue-600 p-2 text-white lg:hidden"
-  on:click={() => sidebarLayoutPageState.next()}>NEXT</button>
