@@ -25,6 +25,7 @@
   import Home4 from './components/homepage/home4.svelte';
   import HowItWorks from './components/homepage/HowItWorks.svelte';
   import Trust from './components/homepage/Trust.svelte';
+  import Movement from './components/homepage/Movement.svelte';
 </script>
 
 <!-- <Header>
@@ -43,5 +44,6 @@
   <Home4 />
   <HowItWorks />
   <Trust />
+  <Movement />
 </div>
 <NewFooter />
