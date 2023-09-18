@@ -17,7 +17,7 @@
 
 <div class="relative border-t-2 border-gray-200 px-5 py-4">
   <div class="pointer-events-none flex items-center">
-    <label for="language" class=" pe-1"
+    <label for="language" class="pe-1"
       ><Informational
         ><span class="cursor-pointer select-none underline"
           >{$_('languagePicker.changeLanguage')}</span
@@ -32,6 +32,7 @@
     <select
       id="language"
       class="bg-transparent text-transparent"
+      aria-label={$_('aria.label.languageSelector')}
       on:change={handleLanguageChange}>
       {#each languageNames as { locale, name }}
         <option value={locale} selected={currentLocale === locale}

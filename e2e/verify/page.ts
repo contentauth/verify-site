@@ -15,7 +15,7 @@
 
 import type { SnapshotOptions } from '@percy/core';
 import percySnapshot from '@percy/playwright';
-import { type Page } from '@playwright/test';
+import { type Locator, type Page } from '@playwright/test';
 import { mkdirp } from 'mkdirp';
 import { writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -32,8 +32,12 @@ type FixtureType = 'file' | 'generated';
 export class VerifyPage {
   readonly page: Page;
 
+  readonly languagePicker: Locator;
+
   constructor(page: Page) {
     this.page = page;
+
+    this.languagePicker = page.getByLabel('Language selector');
   }
 
   static getFixtureUrl(filename: string, type: FixtureType = 'generated') {
@@ -42,13 +46,20 @@ export class VerifyPage {
     return `http://localhost:${port}/${filename}`;
   }
 
-  async goto(source: string | null = null) {
+  async goto(
+    source: string | null = null,
+    otherParams: Record<string, string> = {},
+  ) {
+    const params = new URLSearchParams(otherParams);
+
     if (source) {
-      const params = new URLSearchParams({ source });
+      params.set('source', source);
       await this.page.goto(`/verify?${params.toString()}`);
       await this.waitForTreeView();
     } else {
-      await this.page.goto('/verify');
+      await this.page.goto(
+        `/verify${params.keys.length > 0 ? `?${params.toString()}` : ``}`,
+      );
       await this.page
         .locator('span', { hasText: 'Drag and drop anywhere' })
         .waitFor();
