@@ -24,12 +24,10 @@
 
 <div
   class={[
-    'grid h-screen grid-cols-[100vw_100vw] overflow-hidden transition-colors duration-100',
-    leftColumnTakeover
-      ? 'bg-gray-100'
-      : 'bg-white lg:grid-cols-[theme(spacing.sidebar)_auto]',
+    'bg-gray-40 grid h-screen grid-cols-[100vw_100vw] overflow-hidden transition-colors duration-100',
+    !leftColumnTakeover ? 'lg:grid-cols-[theme(spacing.sidebar)_auto]' : '',
   ].join(' ')}>
-  <div class="flex flex-col border-gray-100 lg:border-e-2">
+  <div class="flex flex-col border-gray-100 bg-white lg:border-e-2">
     <Header><slot name="header" /></Header>
     <div
       class={[
@@ -42,10 +40,10 @@
   </div>
   {#if !leftColumnTakeover}
     <div
-      class="z-0 h-screen overflow-hidden bg-white transition-transform lg:transform-none"
+      class="z-0 h-screen overflow-hidden transition-transform lg:transform-none"
       class:-translate-x-full={$sidebarLayoutPageState === 1}>
       <div
-        class="flex h-header items-center border-b border-gray-100 bg-gray-50 px-6 lg:hidden">
+        class="flex h-header items-center border-b border-gray-100 px-6 lg:hidden">
         <button
           class="flex items-center"
           on:click={() => sidebarLayoutPageState.back()}>
@@ -54,7 +52,7 @@
         </button>
       </div>
 
-      <div class="bg-gray-40 h-full border-t border-gray-100 lg:border-none">
+      <div class="h-full border-t border-gray-100 lg:border-none">
         <slot name="content" />
       </div>
     </div>

@@ -19,7 +19,7 @@
 </script>
 
 <div
-  class="relative z-10 h-screen overflow-auto bg-white transition-transform sm:h-[calc(100vh-theme(spacing.header))] sm:transform-none sm:border-s-2 lg:h-screen"
+  class="relative z-10 h-screen overflow-auto border-gray-100 bg-white transition-transform sm:h-[calc(100vh-theme(spacing.header))] sm:transform-none sm:border-s-2 lg:h-screen"
   class:-translate-y-full={showPanel}
   transition:fly={{ duration: 300, opacity: 0, x: 200 }}>
   <slot />
