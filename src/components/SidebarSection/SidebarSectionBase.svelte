@@ -16,7 +16,7 @@
   export let expanded = true;
 </script>
 
-<div class="border-b py-5">
+<div class="border-b border-gray-100 py-5">
   <slot name="headerSection" />
   <div class:hidden={!expanded}>
     <slot name="content" />

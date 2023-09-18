@@ -14,7 +14,7 @@
 -->
 <script lang="ts">
   import DownArrow from '$assets/svg/monochrome/down-arrow.svg?component';
-  import BodyBold from '../typography/BodyBold.svelte';
+  import Header from '../typography/Header.svelte';
   import SmallDescription from '../typography/SmallDescription.svelte';
   import SidebarSectionBase from './SidebarSectionBase.svelte';
 
@@ -25,8 +25,8 @@
   <SidebarSectionBase {expanded}>
     <svelte:fragment slot="headerSection">
       <button class="w-full" on:click={() => (expanded = !expanded)}>
-        <div class="flex items-baseline justify-between">
-          <BodyBold><slot name="header" /></BodyBold>
+        <div class="flex items-center justify-between">
+          <Header><slot name="header" /></Header>
           <DownArrow
             class="h-2 w-3 transform duration-100 {expanded
               ? 'rotate-0'

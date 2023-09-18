@@ -14,7 +14,30 @@ from Adobe. */
 @import 'tippy.js/dist/tippy.css';
 @import './vars.css';
 @import './preflight.css';
-/* @import './spectrum-vars.css'; */
+
+@font-face {
+  font-family: 'Store Norske Ja';
+  src: url('../assets/fonts/JaSN-Light.woff2') format(woff2);
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'Store Norske Ja';
+  src: url('../assets/fonts/JaSN-Regular.woff2') format(woff2);
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Store Norske Ja';
+  src: url('../assets/fonts/JaSN-Medium.woff2') format(woff2);
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Store Norske Ja';
+  src: url('../assets/fonts/JaSN-Bold.woff2') format(woff2);
+  font-weight: 700;
+}
 
 @tailwind base;
 @tailwind components;

@@ -32,10 +32,30 @@ test.describe('Verify - base functionality', () => {
     await verify.takeSnapshot(`sidebar open`);
   });
 
-  test('specifying an image via source should work', async ({ page }) => {
+  test('specifying an image via source should work (CAICAI.jpg)', async ({
+    page,
+  }) => {
     const verify = new VerifyPage(page);
     const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
     await verify.goto(source);
     await verify.takeTallSnapshot(`result for CAICAI.jpg via source`);
+  });
+
+  test('specifying an image via source should work (fake-news.jpg)', async ({
+    page,
+  }) => {
+    const verify = new VerifyPage(page);
+    const source = VerifyPage.getFixtureUrl('fake-news.jpg', 'file');
+    await verify.goto(source);
+    await verify.takeTallSnapshot(`result for fake-news.jpg via source`);
+  });
+
+  test('specifying an image via source should work (moonrise.jpg)', async ({
+    page,
+  }) => {
+    const verify = new VerifyPage(page);
+    const source = VerifyPage.getFixtureUrl('moonrise.jpg', 'file');
+    await verify.goto(source);
+    await verify.takeTallSnapshot(`result for moonrise.jpg via source`);
   });
 });

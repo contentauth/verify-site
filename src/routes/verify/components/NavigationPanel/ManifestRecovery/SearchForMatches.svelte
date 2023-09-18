@@ -23,7 +23,8 @@
 
 <div class="flex flex-col">
   <div class="flex justify-between">
-    <button on:click><Link>{$_('sidebar.verify.search')}</Link></button>
+    <button on:click class="text-left"
+      ><Link>{$_('sidebar.verify.search')}</Link></button>
     <button on:click={() => (showTooltip = !showTooltip)}
       ><img
         src={help}
