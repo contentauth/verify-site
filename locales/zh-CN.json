@@ -1,4 +1,5 @@
 {
+  "aria.label.languageSelector": "Language selector",
   "aria.label.menuToggle": "Menu toggle",
   "aria.label.signedOn": "Signed on",
   "asset.defaultTitle": "无标题资产",
@@ -17,6 +18,7 @@
   "footer.privacy": "隐私",
   "footer.rights": "不得出售或共享我的个人信息",
   "footer.termsOfUse": "使用条款",
+  "languagePicker.changeLanguage": "Change language",
   "linkText.learnMore": "了解详情",
   "menu.home": "主页",
   "menu.section.features": "功能",
@@ -105,6 +107,7 @@
   "sidebar.verify.process.description": "用于生成此内容的应用程序或设备已记录以下信息：",
   "sidebar.verify.process.ingredients": "成分",
   "sidebar.verify.recovery.possibleMatches": "可能的匹配项",
+  "sidebar.verify.recovery.noMatches": "No matches found",
   "sidebar.verify.search": "搜索可能的匹配项",
   "sidebar.verify.search.tooltip": "根据内容凭据的内容与您的内容的视觉相似性，查找可能与您的文件相关的内容凭据。",
   "sidebar.verify.search.tooltip.close": "关闭",

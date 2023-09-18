@@ -1,4 +1,5 @@
 {
+  "aria.label.languageSelector": "Language selector",
   "aria.label.menuToggle": "Menu toggle",
   "aria.label.signedOn": "Signed on",
   "asset.defaultTitle": "Безымянный ресурс",
@@ -17,6 +18,7 @@
   "footer.privacy": "Конфиденциальность",
   "footer.rights": "Запрет на продажу и передачу личной информации",
   "footer.termsOfUse": "Условия использования",
+  "languagePicker.changeLanguage": "Change language",
   "linkText.learnMore": "Дополнительные сведения",
   "menu.home": "Главная",
   "menu.section.features": "Возможности",
@@ -105,6 +107,7 @@
   "sidebar.verify.process.description": "Данные, зарегистрированные приложением или устройством, с помощью которого создан этот контент:",
   "sidebar.verify.process.ingredients": "Ингредиенты",
   "sidebar.verify.recovery.possibleMatches": "Возможные совпадения",
+  "sidebar.verify.recovery.noMatches": "No matches found",
   "sidebar.verify.search": "Поиск возможных совпадений",
   "sidebar.verify.search.tooltip": "Найдите учетные данные для содержимого, которые могут быть связаны с вашим файлом, на основе визуального сходства их содержимого с вашим.",
   "sidebar.verify.search.tooltip.close": "Закрыть",

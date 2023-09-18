@@ -1,4 +1,5 @@
 {
+  "aria.label.languageSelector": "Language selector",
   "aria.label.menuToggle": "Menu toggle",
   "aria.label.signedOn": "Signed on",
   "asset.defaultTitle": "Név nélküli eszköz",
@@ -17,6 +18,7 @@
   "footer.privacy": "Adatvédelem",
   "footer.rights": "Ne értékesítse vagy ossza meg személyes adataimat",
   "footer.termsOfUse": "Használati feltételek",
+  "languagePicker.changeLanguage": "Change language",
   "linkText.learnMore": "További tudnivalók",
   "menu.home": "Kezdőlap",
   "menu.section.features": "Funkciók",
@@ -105,6 +107,7 @@
   "sidebar.verify.process.description": "A tartalom előállításához használt alkalmazás vagy eszköz a következő információkat rögzítette:",
   "sidebar.verify.process.ingredients": "Összetevők",
   "sidebar.verify.recovery.possibleMatches": "Lehetséges egyezések",
+  "sidebar.verify.recovery.noMatches": "No matches found",
   "sidebar.verify.search": "Keressen lehetséges egyezéseket",
   "sidebar.verify.search.tooltip": "Keresse meg azokat a tartalom hitelesítő adatokat, amelyek kapcsolódhatnak az Ön fájljához, tartalmuk vizuális hasonlósága alapján.",
   "sidebar.verify.search.tooltip.close": "Bezárás",

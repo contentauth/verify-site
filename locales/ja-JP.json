@@ -1,4 +1,5 @@
 {
+  "aria.label.languageSelector": "Language selector",
   "aria.label.menuToggle": "Menu toggle",
   "aria.label.signedOn": "署名日",
   "asset.defaultTitle": "名称未設定アセット",
@@ -17,6 +18,7 @@
   "footer.privacy": "プライバシー",
   "footer.rights": "個人情報の販売または共有を禁じます",
   "footer.termsOfUse": "利用条件",
+  "languagePicker.changeLanguage": "Change language",
   "linkText.learnMore": "詳細",
   "menu.home": "ホーム",
   "menu.section.features": "機能",
@@ -105,6 +107,7 @@
   "sidebar.verify.process.description": "このコンテンツの作成に使用されたアプリまたはデバイスには、次の情報が記録されました。",
   "sidebar.verify.process.ingredients": "構成要素",
   "sidebar.verify.recovery.possibleMatches": "一致候補",
+  "sidebar.verify.recovery.noMatches": "No matches found",
   "sidebar.verify.search": "一致候補を検索",
   "sidebar.verify.search.tooltip": "コンテンツの視覚的な類似性に基づいてファイルに関連している可能性のあるコンテンツ認証情報を検索します。",
   "sidebar.verify.search.tooltip.close": "閉じる",

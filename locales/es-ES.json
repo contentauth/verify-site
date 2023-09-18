@@ -1,4 +1,5 @@
 {
+  "aria.label.languageSelector": "Language selector",
   "aria.label.menuToggle": "Menu toggle",
   "aria.label.signedOn": "Signed on",
   "asset.defaultTitle": "Recurso sin título",
@@ -17,6 +18,7 @@
   "footer.privacy": "Privacidad",
   "footer.rights": "No vender ni compartir mi información personal",
   "footer.termsOfUse": "Condiciones de uso",
+  "languagePicker.changeLanguage": "Change language",
   "linkText.learnMore": "Más información",
   "menu.home": "Inicio",
   "menu.section.features": "Funciones",
@@ -105,6 +107,7 @@
   "sidebar.verify.process.description": "La aplicación o dispositivo utilizado para producir este contenido ha registrado la siguiente información:",
   "sidebar.verify.process.ingredients": "Ingredientes",
   "sidebar.verify.recovery.possibleMatches": "Posibles coincidencias",
+  "sidebar.verify.recovery.noMatches": "No matches found",
   "sidebar.verify.search": "Buscar posibles coincidencias",
   "sidebar.verify.search.tooltip": "Busca Credenciales de contenido que puedan estar relacionadas con tu archivo en función de la similitud visual del contenido con el tuyo.",
   "sidebar.verify.search.tooltip.close": "Cerrar",
