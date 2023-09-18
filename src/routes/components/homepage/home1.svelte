@@ -4,7 +4,7 @@
         <div class="text-secondary-title text-center w-[900px]">Content Credentials reveals helpful information that's usually hidden</div>
         <div class="w-[850px] pt-10 flex flex-col items-center justify-center">
             <div class="text-sub-heading text-center">Important information about the content you see is invisible to most users of the internet. Content Credentials is a new open-source tool that exposes answers to all the questions you have about content—like if it was made with AI or not, who made it and when, and how it was made—with a simple click.</div>
-            <button class="bg-brand-blue rounded-full px-3 py-3 mt-10 font-bold">See how it works</button>
+            <a href="/" class="bg-brand-blue rounded-full px-3 py-3 mt-10 font-bold">See how it works</a>
         </div>
     </div>
 </div>
