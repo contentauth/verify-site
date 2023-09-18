@@ -65,8 +65,7 @@
       slot="content"
       class="relative top-0.5 origin-left scale-125"
       aria-label={$_('spinner.loading')}
-      aria-live="polite"
-      aria-busy="true">
+      aria-live="polite">
       <Spinner size="s" />
     </div>
   </ClosedBorderSection>
