@@ -12,17 +12,17 @@
   ];
 </script>
 
-<div class="h-[75px] w-screen border-t-2 border-solid border-gray-200 flex flex-row items-center">
-  <div class="w-full flex flex-row justify-between px-6 text-gray-500 ">
-    <div class="flex flex-row items-center gap-6 ">
+<div
+  class="flex h-[75px] w-screen flex-row items-center border-t-2 border-solid border-gray-200">
+  <div class="flex w-full flex-row justify-between px-6 text-gray-500">
+    <div class="flex flex-row items-center gap-6">
       <div>Copyright 2023 Content Credentials</div>
+
       <div>All rights reserved</div>
-      <div>Privacy</div>
-      <div>Terms of use</div>
+      <a href="/privacy"> <div>Privacy</div> </a>
+      <a href="/terms-of-use"> <div>Terms of use</div> </a>
     </div>
-    <div>
-      Top of page
-    </div>
+    <a href="/"> <div>Top of page</div> </a>
   </div>
 </div>
 

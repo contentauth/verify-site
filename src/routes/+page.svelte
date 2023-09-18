@@ -38,7 +38,7 @@
   </svelte:fragment>
 </Header> -->
 <Header />
-<div class="flex flex-col items-center justify-center">
+<div class="flex flex-col items-center justify-center overflow-x-hidden">
   <Hero />
   <Home1 />
   <Home2 />
