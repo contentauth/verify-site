@@ -2,7 +2,7 @@
   import WashPost from '../../../../assets/png/WashPost.png';
   import BBC from '../../../../assets/png/BBC-Logo.png';
   import AFP from '../../../../assets/png/Agence_France-Presse_logo.png';
-  import Leica from '../../../../assets/png/Leica.png';
+  import Leica from '../../../../assets/svg/Leica.svg';
   import Canon from '../../../../assets/png/Canon.png';
 
   const data = [
