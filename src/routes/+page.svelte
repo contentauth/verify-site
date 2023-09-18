@@ -28,6 +28,7 @@
   import Movement from './components/homepage/Movement.svelte';
   import Orgs from './components/homepage/Orgs.svelte';
   import Stories from './components/homepage/Stories.svelte';
+  import KeyPoints from './components/homepage/KeyPoints.svelte';
 </script>
 
 <!-- <Header>
@@ -41,9 +42,7 @@
 <div class="flex flex-col items-center justify-center overflow-x-hidden">
   <Hero />
   <Home1 />
-  <Home2 />
-  <Home3 />
-  <Home4 />
+  <KeyPoints />
   <HowItWorks />
   <Trust />
   <Movement />
