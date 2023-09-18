@@ -61,8 +61,10 @@ export default {
       base: defs['family-base'],
     },
     colors: {
-      "brand-yellow": '#FCE458',
-      "sub-heading": "#757575",
+      'brand-yellow': '#FCE458',
+      'brand-orange': '#EF9349',
+      'sub-heading': '#757575',
+      'sub-desc': '#757575',
       white: defs['gray-50'],
       'gray-50': defs['gray-50'],
       'gray-75': defs['gray-75'],
@@ -177,27 +179,42 @@ export default {
           lineHeight: '24px',
         },
       ],
-      "sub-heading": [
+      'sub-heading': [
         '1.875rem',
         {
           fontWeight: '400',
           lineHeight: '40px',
         },
       ],
-      "sub-title": [
+      'sub-title': [
         '2.5rem',
         {
           fontWeight: '700',
           lineHeight: '44px',
         },
       ],
-      "sub-text": [
+      'sub-text': [
         '1.3125rem',
         {
           fontWeight: '400',
           lineHeight: '28px',
         },
       ],
+      'sub-desc': [
+        '1rem',
+        {
+          fontWeight: '400',
+          lineHeight: '28px',
+        },
+      ],
+      'sub-label': [
+        '20px',
+        {
+          fontWeight: '400',
+          lineHeight: '28px',
+        },
+      ],
+      'secondary-title': ['4.5rem', { fontWeight: '700', lineHeight: '75px' }],
       footerText: [
         '0.75rem',
         {
@@ -205,7 +222,6 @@ export default {
           lineHeight: '18px',
         },
       ],
-
     },
     boxShadow: {
       DEFAULT: '0px 4px 20px rgba(0, 0, 0, 0.3)',
@@ -216,12 +232,12 @@ export default {
         'hero-pattern': "url('/assets/png/Circles.png')",
       },
       backgroundColor: {
-        "brand-red": '#fe818b',
-        "brand-green": '#5ac97d',
-        "brand-yellow": '#fbe756',
-        "brand-orange": '#ef9449',
-        "brand-violet": '#888ef8',
-        "brand-blue": '#84c7fc',
+        'brand-red': '#fe818b',
+        'brand-green': '#5ac97d',
+        'brand-yellow': '#fbe756',
+        'brand-orange': '#ef9449',
+        'brand-violet': '#888ef8',
+        'brand-blue': '#84c7fc',
       },
       spacing: {
         sidebar: '20rem',

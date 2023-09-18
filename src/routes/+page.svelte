@@ -22,6 +22,9 @@
   import Home1 from './components/homepage/home1.svelte';
   import Home2 from './components/homepage/home2.svelte';
   import Home3 from './components/homepage/home3.svelte';
+  import Home4 from './components/homepage/home4.svelte';
+  import HowItWorks from './components/homepage/HowItWorks.svelte';
+  import Trust from './components/homepage/Trust.svelte';
 </script>
 
 <!-- <Header>
@@ -37,5 +40,8 @@
   <Home1 />
   <Home2 />
   <Home3 />
+  <Home4 />
+  <HowItWorks />
+  <Trust />
 </div>
 <NewFooter />
