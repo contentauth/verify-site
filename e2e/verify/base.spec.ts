@@ -57,6 +57,7 @@ test.describe('Verify - base functionality', () => {
     const source = VerifyPage.getFixtureUrl('moonrise.jpg', 'file');
     await verify.goto(source);
     await verify.takeTallSnapshot(`result for moonrise.jpg via source`);
+  });
 
   test('specifying a different language via dropdown should work', async ({
     page,
