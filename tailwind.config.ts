@@ -140,6 +140,13 @@ export default {
           fontWeight: '700',
         },
       ],
+      informational: [
+        '0.75rem',
+        {
+          lineHeight: '0.875rem',
+          fontWeight: '400',
+        },
+      ],
     },
     boxShadow: {
       DEFAULT: '0px 4px 20px rgba(0, 0, 0, 0.3)',

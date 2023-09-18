@@ -15,6 +15,7 @@
 <script>
   import ChevronLeft from '$assets/svg/monochrome/chevron-left.svg?component';
   import Header from '$src/components/Header/Header.svelte';
+  import LanguagePicker from '$src/components/LanguagePicker/LanguagePicker.svelte';
   import HeaderTypo from '$src/components/typography/Header.svelte';
   import { sidebarLayoutPageState } from './store/sidebarLayoutPageState';
 
@@ -37,6 +38,7 @@
       ].join(' ')}>
       <slot name="sidebar" />
     </div>
+    <LanguagePicker />
   </div>
   {#if !leftColumnTakeover}
     <div
