@@ -13,7 +13,7 @@
 </script>
 
 <div
-  class="flex h-[75px] w-screen flex-row items-center border-t-2 border-solid border-gray-200" >
+  class="flex h-[75px] w-screen flex-row items-center border-t-2 border-solid border-gray-200 " >
   <div class="flex w-full flex-row justify-between px-6 text-gray-500">
     <div class="flex flex-row items-center gap-6">
       <div>Copyright 2023 Content Credentials</div>

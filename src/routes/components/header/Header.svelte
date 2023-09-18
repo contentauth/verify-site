@@ -3,7 +3,7 @@
 </script>
 
 <div class="h-[100px] w-screen">
-  <div class="flex flex-row items-center justify-between px-8 pt-6">
+  <div class="flex flex-row items-center justify-between px-6 pt-6">
     <div class="pr-6">
       <a href="/">
         <img
