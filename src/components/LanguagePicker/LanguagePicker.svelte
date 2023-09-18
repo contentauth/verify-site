@@ -20,7 +20,7 @@
     <label for="language" class=" pe-1"
       ><Informational
         ><span class="cursor-pointer select-none underline"
-          >{$_('languagePicker.changeRegion')}</span
+          >{$_('languagePicker.changeLanguage')}</span
         ></Informational
       ></label>
     <DownArrow
