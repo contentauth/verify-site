@@ -31,7 +31,9 @@
 <div class="flex items-center">
   <slot name="thumbnail" />
   <div class="w-full px-2">
-    <div class="flex pb-0.5"><Truncate><slot name="name" /></Truncate></div>
+    <div class="flex pb-0.5">
+      <Truncate><slot name="name" /></Truncate>
+    </div>
     <div class="flex">
       {#if statusCode === 'valid' && date}
         <img src={L1Icon} class="me-2 h-4 w-4" alt={$_('page.apply.hasCC')} />

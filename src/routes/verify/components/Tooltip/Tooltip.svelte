@@ -27,8 +27,8 @@
     });
   }
   $: ariaLabel = showTooltip
-    ? $_('sidebar.verify.search.showTooltip')
-    : $_('sidebar.verify.search.hideTooltip');
+    ? $_('sidebar.verify.search.hideTooltip')
+    : $_('sidebar.verify.search.showTooltip');
 </script>
 
 <div class="h-30 mt-5 flex w-full justify-between rounded bg-gray-100">

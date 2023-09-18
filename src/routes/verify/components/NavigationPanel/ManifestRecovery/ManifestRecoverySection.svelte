@@ -61,7 +61,12 @@
   </ClosedBorderSection>
 {:else if $recoveredManifestResults.state === 'loading'}
   <ClosedBorderSection>
-    <div slot="content" class="relative top-0.5 origin-left scale-125">
+    <div
+      slot="content"
+      class="relative top-0.5 origin-left scale-125"
+      aria-label={$_('spinner.loading')}
+      aria-live="polite"
+      aria-busy="true">
       <Spinner size="s" />
     </div>
   </ClosedBorderSection>

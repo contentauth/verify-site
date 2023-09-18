@@ -42,7 +42,7 @@
 
 <g transform={`translate(${x}, ${y})`}>
   <rect
-    tabindex="0"
+    tabindex="-1"
     role="button"
     on:click={$assetStore.select}
     on:keypress={handleKeyPress($assetStore.select)}
@@ -59,7 +59,7 @@
       handleMobileTap();
       $assetStore.select();
     }}
-    tabindex="0"
+    tabindex="-1"
     role="button"
     height={nodeHeight}
     width={nodeWidth}

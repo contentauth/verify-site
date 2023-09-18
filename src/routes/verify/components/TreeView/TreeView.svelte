@@ -19,6 +19,7 @@
   import ZoomOut from '$assets/svg/monochrome/zoom-out.svg?component';
   import Body from '$src/components/typography/Body.svelte';
   import type { AssetData } from '$src/lib/asset';
+  import type { HierarchyPointNode } from 'd3-hierarchy';
   import { select as d3Select } from 'd3-selection';
   import type { ZoomTransform } from 'd3-zoom';
   import { zoom as d3Zoom, zoomIdentity } from 'd3-zoom';
@@ -89,6 +90,10 @@
     // Set the proper scaleExtent whenever the width/height changes
     zoom.scaleExtent([transforms.minScale, 1]);
   }
+
+  function getParents(node: HierarchyPointNode<ReadableAssetStore>) {
+    return node.ancestors();
+  }
 </script>
 
 <figure
@@ -125,7 +130,8 @@
           {x}
           {y}
           width={nodeWidth}
-          height={nodeHeight} />
+          height={nodeHeight}
+          parents={getParents(descendants[key])} />
       {/each}
     </div>
   </div>
@@ -135,13 +141,15 @@
     <button
       class="h-full pe-2 ps-2.5 transition-opacity"
       class:opacity-40={!transforms.canZoomIn}
-      on:click={() => transforms.canZoomIn && zoomIn({ svgSel, zoom })}>
+      on:click={() => transforms.canZoomIn && zoomIn({ svgSel, zoom })}
+      aria-roledescription={$_('page.verify.zoomIn')}>
       <ZoomIn width="1rem" height="1rem" class="text-gray-800" />
     </button>
     <div class="h-[85%] w-px bg-gray-200" />
     <button
       class="h-full pe-2.5 ps-2 transition-opacity"
       class:opacity-40={!transforms.canZoomOut}
+      aria-roledescription={$_('page.verify.zoomOut')}
       on:click={() =>
         transforms.canZoomOut &&
         zoomOut({

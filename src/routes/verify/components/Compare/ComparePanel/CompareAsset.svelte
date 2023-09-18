@@ -15,6 +15,7 @@
 
 <script lang="ts">
   import type { CompareAssetStoreMap } from '$src/routes/verify/stores/compareView';
+  import { _ } from 'svelte-i18n';
   import type { CompareAssetStore } from '../../../stores/compareAsset';
   import CollapsibleSmallAssetInfo from '../../AssetInfo/CollapsibleSmallAssetInfo.svelte';
 
@@ -29,19 +30,19 @@
     ariaHidden = !ariaHidden;
   }
 
-  $: alt =
+  $: ariaLabel =
     compareAssetStore === compareAssetStoreMap[0]
-      ? 'root'
-      : 'child of' + $parent.title;
+      ? $_('sidebar.verify.compare.root')
+      : $_('sidebar.verify.compare.child') + $parent.title;
 </script>
 
-<div aria-label={alt}>
+<div aria-label={ariaLabel}>
   <CollapsibleSmallAssetInfo
     {compareAssetStore}
     {expanded}
     on:showChildren={showChildren}
     ><span slot="name">
-      {$compareAssetStore.title}</span
+      {$compareAssetStore.title ?? $_('asset.defaultTitle')}</span
     ></CollapsibleSmallAssetInfo>
 </div>
 {#if expanded}

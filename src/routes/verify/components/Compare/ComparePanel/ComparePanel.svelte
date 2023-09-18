@@ -25,7 +25,10 @@
 </script>
 
 <div class="z-1">
-  <button class="me-2" on:click={() => verifyStore.setHierarchyView()}>
+  <button
+    class="me-2"
+    on:click={() => verifyStore.setHierarchyView()}
+    aria-roledescription={$_('sidebar.verify.compare.back')}>
     <div class="flex px-2 py-5">
       <BackArrow class="me-2" />
       <Header>{$_('sidebar.verify.compare')}</Header>

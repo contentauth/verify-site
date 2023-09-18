@@ -27,7 +27,7 @@
       <SmallDescription>
         <slot name="legal-text-visible" />
         {#if readMore}
-          <slot name="legal-text-more" />
+          <div aria-live="polite"><slot name="legal-text-more" /></div>
         {/if}
       </SmallDescription>
     </div>

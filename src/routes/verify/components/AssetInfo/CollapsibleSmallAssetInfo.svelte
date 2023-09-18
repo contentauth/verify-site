@@ -33,10 +33,10 @@
   $: expandAriaLabel = expanded
     ? $_('sidebar.verify.compare.aria-hide') + $compareAssetStore.title
     : $_('sidebar.verify.compare.aria-expand') + $compareAssetStore.title;
-
+  ('');
   $: selectAriaLabel = $compareAssetStore.isSelected
-    ? 'The asset is selected'
-    : 'Click to select this asset';
+    ? $_('sidebar.verify.compare.assetSelected')
+    : $_('sidebar.verify.compare.ClickAssetSelected');
 </script>
 
 <div class="p-2" class:bg-blue-100={$compareAssetStore.isSelected}>
