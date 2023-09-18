@@ -21,22 +21,38 @@
   export let expanded = true;
   export let compareAssetStoreMap: CompareAssetStoreMap;
   export let compareAssetStore: CompareAssetStore = compareAssetStoreMap[0];
+  export let parent: CompareAssetStore = compareAssetStoreMap[0];
+  let ariaHidden = false;
+
+  function showChildren() {
+    expanded = !expanded;
+    ariaHidden = !ariaHidden;
+  }
+
+  $: alt =
+    compareAssetStore === compareAssetStoreMap[0]
+      ? 'root'
+      : 'child of' + $parent.title;
 </script>
 
-<CollapsibleSmallAssetInfo
-  {compareAssetStore}
-  {expanded}
-  on:showChildren={() => (expanded = !expanded)}
-  ><svelte:fragment slot="name">
-    {$compareAssetStore.title}</svelte:fragment
-  ></CollapsibleSmallAssetInfo>
-
+<div aria-label={alt}>
+  <CollapsibleSmallAssetInfo
+    {compareAssetStore}
+    {expanded}
+    on:showChildren={showChildren}
+    ><span slot="name">
+      {$compareAssetStore.title}</span
+    ></CollapsibleSmallAssetInfo>
+</div>
 {#if expanded}
-  {#each $compareAssetStore.children as child}
-    <div class="ps-8">
-      <svelte:self
-        compareAssetStore={compareAssetStoreMap[child]}
-        {compareAssetStoreMap} />
-    </div>
-  {/each}
+  <div aria-hidden={ariaHidden} aria-live="off">
+    {#each $compareAssetStore.children as child}
+      <div class="ps-8">
+        <svelte:self
+          parent={compareAssetStore}
+          compareAssetStore={compareAssetStoreMap[child]}
+          {compareAssetStoreMap} />
+      </div>
+    {/each}
+  </div>
 {/if}
