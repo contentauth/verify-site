@@ -26,7 +26,7 @@
 
 <div class="w-screen">
   <div class="px-6">
-    <div class="w-[300px]">Content Credentials is used by the world’s leading organizations</div>
+    <div class="w-[350px] text-sub-label pb-4">Content Credentials is used by the world’s leading organizations</div>
     <div class="flex h-[200px] w-full items-center rounded-xl bg-gray-200">
       <div class="w-full flex flex-row items-center justify-evenly">
         {#each data as item}
