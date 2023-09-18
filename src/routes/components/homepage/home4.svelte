@@ -6,7 +6,7 @@
   <div class="flex w-1/2 items-center justify-center pr-8">
     <img src={Image} class="max-h-full max-w-full rounded-xl" alt="hi" />
   </div>
-  <div class="flex w-1/2 flex-col  items-center justify-center pl-8">
+  <div class="flex w-1/2 flex-col  items-center justify-start pl-8">
     <div class="w-[442px] pb-4 text-sub-title">
       Introducing the Content Credentials pin
     </div>

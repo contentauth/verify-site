@@ -3,7 +3,7 @@
 </script>
 
 <div class="flex px-10">
-  <div class="flex w-1/2 flex-col items-center justify-center pr-4">
+  <div class="flex w-1/2 flex-col items-center justify-start pr-4">
     <div class="w-[442px] pb-4 text-sub-title">
       Empowering creators to get credit for their work
     </div>
