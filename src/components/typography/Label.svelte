@@ -13,4 +13,4 @@
   from Adobe.
 -->
 
-<span class="text-label uppercase text-gray-600"><slot /></span>
+<span class="text-label text-gray-900"><slot /></span>

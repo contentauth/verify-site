@@ -1,4 +1,5 @@
 {
+  "aria.label.languageSelector": "Language selector",
   "aria.label.menuToggle": "Menu toggle",
   "aria.label.signedOn": "Signed on",
   "asset.defaultTitle": "未命名的資產",
@@ -17,6 +18,7 @@
   "footer.privacy": "隱私權",
   "footer.rights": "請勿販售或分享我的個人資訊",
   "footer.termsOfUse": "使用條款",
+  "languagePicker.changeLanguage": "Change language",
   "linkText.learnMore": "了解更多",
   "menu.home": "首頁",
   "menu.section.features": "功能",
@@ -105,6 +107,7 @@
   "sidebar.verify.process.description": "用於製作此內容的應用程式或裝置記錄了以下資訊:",
   "sidebar.verify.process.ingredients": "元素",
   "sidebar.verify.recovery.possibleMatches": "可能的相符項目",
+  "sidebar.verify.recovery.noMatches": "No matches found",
   "sidebar.verify.search": "搜尋可能的相符項目",
   "sidebar.verify.search.tooltip": "根據其內容與您內容的視覺相似性，尋找可能與您的檔案相關的內容憑證。",
   "sidebar.verify.search.tooltip.close": "關閉",

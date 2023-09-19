@@ -41,7 +41,7 @@
   });
 </script>
 
-<div class="flex h-full w-full items-center justify-center bg-white px-5">
+<div class="flex h-full w-full items-center justify-center px-5">
   <input
     type="file"
     bind:this={fileInput}

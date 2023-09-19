@@ -12,13 +12,24 @@
   is strictly forbidden unless prior written permission is obtained
   from Adobe.
 -->
+
 <script lang="ts">
-  export let expanded = true;
+  import { flip } from 'svelte/animate';
+  import { fade, fly } from 'svelte/transition';
+  import Toast from './Toast.svelte';
+  import { toast } from './store/toastState';
 </script>
 
-<div class="border-b border-gray-100 py-5">
-  <slot name="headerSection" />
-  <div class:hidden={!expanded}>
-    <slot name="content" />
-  </div>
-</div>
+<ul
+  class="pointer-events-none absolute inset-0 flex flex-col items-center justify-end overflow-hidden px-4 pb-10"
+  role="alert">
+  {#each $toast as toastItem (toastItem.id)}
+    <li
+      class="mt-2"
+      in:fly={{ y: 128 }}
+      out:fade={{ duration: 100 }}
+      animate:flip={{ duration: 100 }}>
+      <Toast {toastItem} />
+    </li>
+  {/each}
+</ul>

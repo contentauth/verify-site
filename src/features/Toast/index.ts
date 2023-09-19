@@ -11,12 +11,6 @@
 // is strictly forbidden unless prior written permission is obtained
 // from Adobe.
 
-export interface ErrorDescriptor {
-  messageStringId: string;
-  duration?: number;
-}
-
-export const createGenericError = (): ErrorDescriptor => ({
-  messageStringId: 'error.generic',
-  duration: 5000,
-});
+export { default as ToastContainer } from './ToastContainer.svelte';
+export * from './lib/toasts';
+export { toast } from './store/toastState';

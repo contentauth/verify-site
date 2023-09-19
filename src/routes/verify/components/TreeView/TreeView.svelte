@@ -171,7 +171,10 @@
         class:opacity-40={!canCompare}
         ><div class="mx-3 my-2 flex items-center">
           <Compare class="me-2 h-4 w-4" />
-          <Body>{$_('sidebar.verify.compare')}</Body>
+          <Body
+            ><div class="relative top-px">
+              {$_('sidebar.verify.compare')}
+            </div></Body>
         </div></button>
     </div>
   </div>

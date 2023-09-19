@@ -14,9 +14,15 @@
 import { resultToAssetMap, type AssetDataMap } from '$lib/asset';
 import { getLegacySdk, getSdk } from '$lib/sdk';
 import type { Loadable } from '$lib/types';
-import { createGenericError, error } from '$src/features/errors';
+import {
+  somethingWentWrong,
+  toast,
+  unsupportedFileType,
+} from '$src/features/Toast';
 import type { Source as C2paSource, C2paSourceType } from 'c2pa';
+import { openModal } from 'svelte-modals';
 import { writable, type Readable } from 'svelte/store';
+import LegacyCredentialModal from '../components/modals/LegacyCredentialModal/LegacyCredentialModal.svelte';
 
 interface SourceData {
   assetMap: AssetDataMap;
@@ -51,13 +57,6 @@ export function createC2paReader(): C2paReaderStore {
 
         const result = await sdk.read(source);
 
-        if (!result.manifestStore && (await hasLegacyCredentials(source))) {
-          // @TODO handle legacy credentials
-          set({ state: 'none' });
-
-          return;
-        }
-
         const { assetMap, dispose: assetMapDisposer } =
           await resultToAssetMap(result);
         dispose = assetMapDisposer;
@@ -68,8 +67,18 @@ export function createC2paReader(): C2paReaderStore {
           data: result.source,
         });
       } catch (e) {
+        if ((e as Record<string, unknown>)?.name === 'InvalidMimeTypeError') {
+          toast.trigger(unsupportedFileType());
+        } else if (
+          (e as Record<string, unknown>)?.name === 'C2pa(PrereleaseError)' &&
+          (await hasLegacyCredentials(source))
+        ) {
+          openModal(LegacyCredentialModal);
+        } else {
+          toast.trigger(somethingWentWrong());
+        }
+
         console.error('createC2paReader.read() error:', e);
-        error.trigger(createGenericError());
         set({ state: 'none' });
       }
     },

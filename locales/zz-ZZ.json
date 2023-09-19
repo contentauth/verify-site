@@ -1,4 +1,5 @@
 {
+  "aria.label.languageSelector": "[B2] _üLanguage selector",
   "aria.label.menuToggle": "[Bq] _üMenu toggle",
   "aria.label.signedOn": "[Br] _üSigned on",
   "asset.defaultTitle": "[BO] _üUntitled asset",
@@ -17,6 +18,7 @@
   "footer.privacy": "[D] _üPrivacy",
   "footer.rights": "[E] _üDo not sell or share my personal information",
   "footer.termsOfUse": "[F] _üTerms of use",
+  "languagePicker.changeLanguage": "[B3] _üChange language",
   "linkText.learnMore": "[BT] _üLearn more",
   "menu.home": "[G] _üHome",
   "menu.section.features": "[H] _üFeatures",
@@ -105,6 +107,7 @@
   "sidebar.verify.process.description": "[8] _üThe app or device used to produce this content recorded the following info:",
   "sidebar.verify.process.ingredients": "[9] _üIngredients",
   "sidebar.verify.recovery.possibleMatches": "[Bf] _üPossible matches",
+  "sidebar.verify.recovery.noMatches": "[B4] _üNo matches found",
   "sidebar.verify.search": "[BI] _üSearch for possible matches",
   "sidebar.verify.search.tooltip": "[BJ] _üFind Content Credentials that may be related to your file based on their content's visual similarity to yours.",
   "sidebar.verify.search.tooltip.close": "[BK] _üClose",

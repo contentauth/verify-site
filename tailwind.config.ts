@@ -11,6 +11,7 @@
 // is strictly forbidden unless prior written permission is obtained
 // from Adobe.
 
+import tailwindForms from '@tailwindcss/forms';
 import css from 'css';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -57,13 +58,11 @@ export default {
   theme: {
     fontFamily: {
       home: defs['family-home'],
-      homeWide: defs['family-home-wide'],
       base: defs['family-base'],
     },
     colors: {
-      white: defs['gray-50'],
-      'gray-50': defs['gray-50'],
-      'gray-75': defs['gray-75'],
+      white: '#ffffff',
+      'gray-40': defs['gray-40'],
       'gray-100': defs['gray-100'],
       'gray-200': defs['gray-200'],
       'gray-300': defs['gray-300'],
@@ -102,25 +101,25 @@ export default {
         '1.125rem',
         {
           lineHeight: '1.5rem',
-          fontWeight: '700',
+          fontWeight: '500',
         },
       ],
       'body-bold': [
-        '0.9375rem',
+        '0.875rem',
         {
           lineHeight: '1.25rem',
           fontWeight: '700',
         },
       ],
       body: [
-        '0.9375rem',
+        '0.875rem',
         {
           lineHeight: '1.25rem',
           fontWeight: '400',
         },
       ],
       description: [
-        '0.9375rem',
+        '0.875rem',
         {
           lineHeight: '1.25rem',
           fontWeight: '400',
@@ -166,5 +165,9 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    tailwindForms({
+      strategy: 'class',
+    }),
+  ],
 } satisfies Config;
