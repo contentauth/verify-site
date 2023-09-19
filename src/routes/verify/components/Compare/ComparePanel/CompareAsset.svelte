@@ -23,12 +23,9 @@
   export let compareAssetStoreMap: CompareAssetStoreMap;
   export let compareAssetStore: CompareAssetStore = compareAssetStoreMap[0];
   export let parent: CompareAssetStore = compareAssetStoreMap[0];
-  
-  let ariaHidden = false;
 
   function showChildren() {
     expanded = !expanded;
-    ariaHidden = !ariaHidden;
   }
 
   $: ariaLabel =
@@ -47,7 +44,7 @@
     ></CollapsibleSmallAssetInfo>
 </div>
 {#if expanded}
-  <div aria-hidden={ariaHidden} aria-live="off">
+  <div aria-hidden={!expanded} aria-live="off">
     {#each $compareAssetStore.children as child}
       <div class="ps-8">
         <svelte:self
