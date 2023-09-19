@@ -25,6 +25,7 @@ import {
 import debug from 'debug';
 import { locale } from 'svelte-i18n';
 import { get } from 'svelte/store';
+import { selectExif } from './exif';
 import { DEFAULT_LOCALE } from './i18n';
 import { MANIFEST_STORE_MIME_TYPE } from './manifestRecovery';
 import {
@@ -57,6 +58,7 @@ export type ManifestData = {
   claimGenerator: string;
   date: Date | null;
   editsAndActivity: TranslatedDictionaryCategory[] | null;
+  exif: ReturnType<typeof selectExif>;
   generativeInfo: GenerativeInfo | null;
   producer: string | null;
   reviewRatings: ReturnType<typeof selectReviewRatings>;
@@ -238,6 +240,7 @@ export async function resultToAssetMap({
       ),
       socialAccounts: selectSocialAccounts(manifest),
       generativeInfo: selectGenerativeInfo(manifest),
+      exif: selectExif(manifest),
       reviewRatings: selectReviewRatings(manifest),
     };
   }
@@ -257,7 +260,10 @@ export async function resultToAssetMap({
     return Promise.all(ingredientIds);
   }
 
-  dbg('resultToAssetMap result:', assetMap);
+  dbg('resultToAssetMap result:', {
+    assetMap,
+    activeManifestData: assetMap[ROOT_ID]?.manifestData,
+  });
 
   return {
     assetMap,

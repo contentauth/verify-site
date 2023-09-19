@@ -14,7 +14,6 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import fs from 'fs';
 import path from 'path';
-import { replaceCodePlugin } from 'vite-plugin-replace';
 import svelteSvg from './etc/rollup/plugins/svelte-svg';
 
 function getSupportedLocales() {
@@ -39,6 +38,15 @@ const config = {
       compress: { evaluate: false },
     },
   },
+  define: {
+    __SUPPORTED_LOCALES__: JSON.stringify(getSupportedLocales()),
+    __OVERRIDE_MANIFEST_RECOVERY_BASE_URL__: JSON.stringify(
+      process.env.OVERRIDE_MANIFEST_RECOVERY_BASE_URL ?? '',
+    ),
+    __THUMBNAIL_DATA_TYPE__: JSON.stringify(
+      process.env.THUMBNAIL_DATA_TYPE ?? 'blob',
+    ),
+  },
   experimental: {
     // Hack to make sure Svelte(Kit)/Vite doesn't try to automatically prepend the hostname to
     // our asset URLs. This breaks snapshot testing on Percy/Browserstack due to them not being
@@ -53,28 +61,7 @@ const config = {
       }
     },
   },
-  plugins: [
-    sveltekit(),
-    svelteSvg(),
-    replaceCodePlugin({
-      replacements: [
-        {
-          from: '__SUPPORTED_LOCALES__', // type defined in global.d.ts
-          to: JSON.stringify(getSupportedLocales()),
-        },
-        {
-          from: '__OVERRIDE_MANIFEST_RECOVERY_BASE_URL__', // type defined in global.d.ts
-          to: JSON.stringify(
-            process.env.OVERRIDE_MANIFEST_RECOVERY_BASE_URL ?? '',
-          ),
-        },
-        {
-          from: '__THUMBNAIL_DATA_TYPE__', // type defined in global.d.ts
-          to: JSON.stringify(process.env.THUMBNAIL_DATA_TYPE ?? 'blob'),
-        },
-      ],
-    }),
-  ],
+  plugins: [sveltekit(), svelteSvg()],
   test: {
     include: ['src/**/*.spec.ts'],
     environment: 'jsdom',

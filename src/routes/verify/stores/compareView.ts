@@ -13,7 +13,7 @@
 
 import type { Loadable } from '$lib/types';
 import type { AssetData } from '$src/lib/asset';
-import { derived, type Readable, type Writable } from 'svelte/store';
+import { derived, writable, type Readable, type Writable } from 'svelte/store';
 import type { C2paReaderStore } from './c2paReader';
 import {
   createCompareAssetStore,
@@ -23,6 +23,8 @@ import {
   createCompareSelectedAssetStore,
   type CompareSelectedAssetStore,
 } from './compareSelectedAsset';
+
+const STORAGE_MODE_KEY = 'compareMode';
 
 export type CompareAssetStoreMap = Record<string, CompareAssetStore>;
 
@@ -78,3 +80,22 @@ export function createCompareView(
     };
   });
 }
+
+export type CompareMode = 'sideBySide' | 'slider';
+
+function createCompareViewMode() {
+  const local: CompareMode = localStorage.getItem(
+    STORAGE_MODE_KEY,
+  ) as CompareMode;
+  const compareMode = writable<CompareMode>(local || 'sideBySide');
+
+  return {
+    subscribe: compareMode.subscribe,
+    set: (mode: CompareMode) => {
+      compareMode.set(mode);
+      localStorage.setItem(STORAGE_MODE_KEY, 'sideBySide');
+    },
+  };
+}
+
+export const compareViewMode = createCompareViewMode();

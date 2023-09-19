@@ -15,8 +15,8 @@
 <script lang="ts">
   import ProviderIcon from '$src/components/ProviderIcon/ProviderIcon.svelte';
   import { _ } from 'svelte-i18n';
-  import IconContentRow from '../../../components/IconContentRow/IconContentRow.svelte';
   import SubSection from '../../../components/SubSection/SubSection.svelte';
+  import AboutSectionIconContentRow from '../AboutSection/AboutSectionIconContentRow.svelte';
 
   export let generator: string;
 </script>
@@ -24,8 +24,8 @@
 <SubSection>
   <svelte:fragment slot="title">
     {$_('sidebar.verify.process.app')}</svelte:fragment>
-  <IconContentRow slot="content">
+  <AboutSectionIconContentRow slot="content">
     <ProviderIcon slot="icon" provider={generator} />
     <div slot="content" class="break-all">{generator}</div>
-  </IconContentRow>
+  </AboutSectionIconContentRow>
 </SubSection>

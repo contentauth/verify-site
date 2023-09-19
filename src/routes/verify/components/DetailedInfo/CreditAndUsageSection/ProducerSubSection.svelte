@@ -15,8 +15,8 @@
 <script lang="ts">
   import producerIcon from '$assets/svg/color/logos/producer.svg';
   import { _ } from 'svelte-i18n';
-  import IconContentRow from '../../IconContentRow/IconContentRow.svelte';
   import SubSection from '../../SubSection/SubSection.svelte';
+  import AboutSectionIconContentRow from '../AboutSection/AboutSectionIconContentRow.svelte';
 
   export let producer: string;
 </script>
@@ -25,8 +25,8 @@
   ><svelte:fragment slot="title">
     {$_('sidebar.verify.credit.producer')}
   </svelte:fragment>
-  <IconContentRow slot="content">
+  <AboutSectionIconContentRow slot="content">
     <img slot="icon" src={producerIcon} alt="" class="w-4" />
     <div class="break-all" slot="content">{producer}</div>
-  </IconContentRow>
+  </AboutSectionIconContentRow>
 </SubSection>

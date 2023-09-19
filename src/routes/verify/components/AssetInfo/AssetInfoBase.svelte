@@ -13,9 +13,9 @@
   from Adobe.
 -->
 <script lang="ts">
-  import L1Incomplete from '$assets/svg/color/cc-incomplete.svg';
-  import L1Invalid from '$assets/svg/color/cc-invalid.svg';
-  import L1Icon from '$assets/svg/color/logos/L1Grey.svg';
+  import L1Incomplete from '$assets/svg/color/cr-icon-incomplete.svg?component';
+  import L1Invalid from '$assets/svg/color/cr-icon-invalid.svg?component';
+  import L1Icon from '$assets/svg/monochrome/cr-icon.svg?component';
   import FormattedDateTime from '$src/components/FormattedDateTime/FormattedDateTime.svelte';
   import Body from '$src/components/typography/Body.svelte';
   import Truncate from '$src/components/typography/Truncate.svelte';
@@ -31,16 +31,24 @@
 <div class="flex items-center">
   <slot name="thumbnail" />
   <div class="w-full px-2">
-    <div class="flex pb-0.5">
-      <Truncate><slot name="name" /></Truncate>
-    </div>
-    <div class="flex">
+    <div class="flex pb-0.5"><Truncate><slot name="name" /></Truncate></div>
+    <div class="flex items-center text-gray-600">
       {#if statusCode === 'valid' && date}
-        <img src={L1Icon} class="me-2 h-4 w-4" alt={$_('page.apply.hasCC')} />
+        <L1Icon
+          width="1rem"
+          height="1rem"
+          class="me-1.5 h-4 w-4 text-gray-600" />
         <Truncate
-          ><Body><FormattedDateTime sigDate={date} noTime /></Body></Truncate>
+          ><Body
+            ><span aria-label={$_('aria.label.signedOn')} class="text-gray-600"
+              ><FormattedDateTime {date} noTime /></span
+            ></Body
+          ></Truncate>
       {:else if statusCode === 'incomplete'}
-        <img src={L1Incomplete} class="me-1 h-4 w-6" alt="" />
+        <L1Incomplete
+          width="1.25rem"
+          height="1rem"
+          class="me-1.5 h-4 w-4 text-gray-600" />
         <div class="min-w-0 truncate">
           <Truncate
             ><Body
@@ -49,7 +57,10 @@
             ></Truncate>
         </div>
       {:else if statusCode === 'invalid'}
-        <img src={L1Invalid} class="me-1 h-4 w-6" alt="" />
+        <L1Invalid
+          width="1.25rem"
+          height="1rem"
+          class="me-1.5 h-4 w-4 text-gray-600" />
         <Truncate
           ><Body
             ><span class="text-gray-600">{$_('assetInfo.invalid')}</span></Body

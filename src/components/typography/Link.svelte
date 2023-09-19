@@ -12,4 +12,4 @@
   from Adobe.
 -->
 
-<span class="text-body text-blue-900 underline"><slot /></span>
+<span class="cursor-pointer text-body text-blue-900 underline"><slot /></span>

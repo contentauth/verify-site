@@ -20,6 +20,7 @@
   import { verifyStore } from '../../../stores';
   import type { CompareAssetStoreMap } from '../../../stores/compareView';
   import CompareAsset from './CompareAsset.svelte';
+  import Dropdown from './Dropdown/Dropdown.svelte';
 
   export let assetStoreMap: CompareAssetStoreMap;
 </script>
@@ -34,6 +35,7 @@
       <Header>{$_('sidebar.verify.compare')}</Header>
     </div>
   </button>
+  <Dropdown />
   <div class="h-screen overflow-auto">
     <CompareAsset compareAssetStoreMap={assetStoreMap} />
   </div>

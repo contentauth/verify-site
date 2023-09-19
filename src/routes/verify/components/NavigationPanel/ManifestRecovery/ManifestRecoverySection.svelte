@@ -17,6 +17,7 @@
   import ClosedBorderSection from '$src/components/SidebarSection/ClosedBorderSection.svelte';
   import Spinner from '$src/components/Spinner/Spinner.svelte';
   import BodyBold from '$src/components/typography/BodyBold.svelte';
+  import { sidebarLayoutPageState } from '$src/features/SidebarLayout';
   import { _ } from 'svelte-i18n';
   import { verifyStore } from '../../../stores';
   import AssetInfoButton from '../../AssetInfoButton.svelte';
@@ -39,7 +40,10 @@
     {#if $mostRecentlyLoaded.assetData}
       <AssetInfoButton
         assetData={$mostRecentlyLoaded.assetData}
-        on:click={$mostRecentlyLoaded.select}
+        on:click={() => {
+          $mostRecentlyLoaded.select?.();
+          sidebarLayoutPageState.next();
+        }}
         isSelected={$mostRecentlyLoaded.isSelected} />
     {/if}
   </svelte:fragment>

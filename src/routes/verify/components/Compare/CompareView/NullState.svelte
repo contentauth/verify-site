@@ -22,7 +22,7 @@
 <div class="flex h-[45vh] flex-col justify-center">
   <EmptyImage class="h-40 w-40 self-center text-gray-300"></EmptyImage>
   <Body
-    ><span class=" text-center text-gray-500">
+    ><span class="text-center text-gray-500">
       {$_('sidebar.verify.compare.null.picture')}</span
     ></Body>
 </div>

@@ -11,12 +11,15 @@ Running this repo requires the following tools installed on your system:
 - **[Node.js](https://nodejs.org/)** - needed for the installation of packages, development tools, and build process
 - **[pnpm](https://pnpm.io/)** - package manager for Node.js with efficiency and speed in mind
 - **[Git LFS](https://git-lfs.com/)** - large file storage for Git
+- **[Rust](https://www.rust-lang.org/)** - needed to build the C2PA test image service
 
 We recommend [nvm](https://github.com/nvm-sh) for managing your Node.js install. You can follow [their instructions](https://github.com/nvm-sh/nvm#installing-and-updating) for installation.
 
 Once Node.js is installed, you can install pnpm by running `npm install -g pnpm`, or by one of the methods described on their [installation page](https://pnpm.io/installation).
 
 Git LFS can be installed by following the instructions on their [home page](https://git-lfs.com/).
+
+Rust can be installed by following the instructions on their [installation page](https://www.rust-lang.org/tools/install).
 
 ### Running locally
 
@@ -95,3 +98,15 @@ pnpm build
 # Run the test suite
 pnpm test
 ```
+
+### Local Percy debugging
+
+Since we get a set number of screenshots with Percy, often is is both faster and more economical to preview screenshots
+locally. To do this, you can run the snapshot tests with:
+
+```shell
+SNAPSHOT_DEBUG_MODE=1 pnpm run test:e2e
+```
+
+This will render all snapshots locally using Chrome with all of the widths declared in the Percy config and write the
+rendered snapshots to the `snapshot-debug` directory.

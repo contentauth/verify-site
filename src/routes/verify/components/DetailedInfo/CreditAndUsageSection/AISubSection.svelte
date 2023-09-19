@@ -16,8 +16,8 @@
   import AiModelIcon from '$assets/svg/monochrome/ai-model.svg?component';
   import ProviderIcon from '$src/components/ProviderIcon/ProviderIcon.svelte';
   import { _ } from 'svelte-i18n';
-  import IconContentRow from '../../IconContentRow/IconContentRow.svelte';
   import SubSection from '../../SubSection/SubSection.svelte';
+  import AboutSectionIconContentRow from '../AboutSection/AboutSectionIconContentRow.svelte';
 
   export let softwareAgents: string[];
 </script>
@@ -27,14 +27,14 @@
     {$_('sidebar.verify.credit.AI')}</svelte:fragment>
   <svelte:fragment slot="content">
     {#each softwareAgents as softwareAgent}
-      <IconContentRow>
+      <AboutSectionIconContentRow>
         <ProviderIcon
           slot="icon"
           provider={softwareAgent}
           fallbackIcon={AiModelIcon} />
         <svelte:fragment slot="content">
           {softwareAgent}</svelte:fragment>
-      </IconContentRow>
+      </AboutSectionIconContentRow>
     {/each}
   </svelte:fragment>
 </SubSection>
