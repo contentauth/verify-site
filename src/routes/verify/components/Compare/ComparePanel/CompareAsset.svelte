@@ -31,7 +31,9 @@
   $: ariaLabel =
     compareAssetStore === compareAssetStoreMap[0]
       ? $_('sidebar.verify.compare.root')
-      : $_('sidebar.verify.compare.child') + $parent.title;
+      : $_('sidebar.verify.compare.child', {
+          values: { parentTitle: $parent.title },
+        });
 </script>
 
 <div aria-label={ariaLabel}>

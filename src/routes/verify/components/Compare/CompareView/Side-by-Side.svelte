@@ -33,14 +33,9 @@
     ? $secondaryAsset.title
     : $_('sidebar.verify.compare.noAssetSelected');
 
-  $: ariaLabel =
-    primaryTitle +
-    ' ' +
-    $_('sidebar.verify.compare.view.ariaLabel.part1') +
-    '' +
-    secondaryTitle +
-    '' +
-    $_('sidebar.verify.compare.view.ariaLabel.part2');
+  $: ariaLabel = $_('sidebar.verify.compare.view.ariaLabel', {
+    values: { primaryTitle: primaryTitle, secondaryTitle: secondaryTitle },
+  });
 </script>
 
 <div class="flex w-full flex-col" aria-label={ariaLabel}>

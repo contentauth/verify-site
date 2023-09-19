@@ -24,13 +24,15 @@
   const dispatch = createEventDispatcher();
   $: hasChildren = $compareAssetStore.children.length > 0;
   $: expandAriaLabel = expanded
-    ? $_('sidebar.verify.compare.aria-hide') + ' ' + $compareAssetStore.title
-    : $_('sidebar.verify.compare.ariaLabel.expand') +
-      ' ' +
-      $compareAssetStore.title;
+    ? $_('sidebar.verify.compare.ariaLabel.hide', {
+        values: { title: $compareAssetStore.title },
+      })
+    : $_('sidebar.verify.compare.ariaLabel.expand', {
+        values: { title: $compareAssetStore.title },
+      });
   $: selectAriaLabel = $compareAssetStore.isSelected
     ? $_('sidebar.verify.compare.assetSelected')
-    : $_('sidebar.verify.compare.ClickAssetSelected');
+    : $_('sidebar.verify.compare.clickAssetSelected');
 
   function showChildren() {
     dispatch('showChildren', {

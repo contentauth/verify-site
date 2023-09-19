@@ -40,8 +40,9 @@
           class="me-1.5 h-4 w-4 text-gray-600" />
         <Truncate
           ><Body
-            ><span aria-label={$_('aria.label.signedOn')} class="text-gray-600"
-              ><FormattedDateTime {date} noTime /></span
+            ><span
+              aria-roledescription={$_('aria.label.signedOn')}
+              class="text-gray-600"><FormattedDateTime {date} noTime /></span
             ></Body
           ></Truncate>
       {:else if statusCode === 'incomplete'}
