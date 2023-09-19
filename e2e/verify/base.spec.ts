@@ -18,6 +18,7 @@ test.describe('Verify - base functionality', () => {
   test('zero state loads', async ({ page }) => {
     const verify = new VerifyPage(page);
     await verify.goto();
+    await verify.testAccessibility();
     await verify.takeSnapshot(`zero state`);
   });
 
@@ -36,6 +37,7 @@ test.describe('Verify - base functionality', () => {
     const verify = new VerifyPage(page);
     const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
     await verify.goto(source);
+    await verify.testAccessibility();
     await verify.takeTallSnapshot(`result for CAICAI.jpg via source`);
   });
 

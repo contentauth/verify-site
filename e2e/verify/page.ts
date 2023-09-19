@@ -13,9 +13,10 @@
 
 /// <reference lib="dom"/>
 
+import AxeBuilder from '@axe-core/playwright';
 import type { SnapshotOptions } from '@percy/core';
 import percySnapshot from '@percy/playwright';
-import { type Locator, type Page } from '@playwright/test';
+import { expect, type Locator, type Page } from '@playwright/test';
 import { mkdirp } from 'mkdirp';
 import { writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -77,6 +78,14 @@ export class VerifyPage {
         treeViewThumbnails.every((x) => x.complete)
       );
     });
+  }
+
+  async testAccessibility() {
+    const accessibilityScanResults = await new AxeBuilder({
+      page: this.page,
+    }).analyze();
+
+    expect(accessibilityScanResults.violations).toEqual([]);
   }
 
   async takeDebugSnapshot(name: string, options: SnapshotOptions = {}) {
