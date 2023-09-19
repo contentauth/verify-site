@@ -124,7 +124,7 @@
   "sidebar.verify.recovery.noMatches": "No matches found",
   "sidebar.verify.search": "Search for possible matches",
   "sidebar.verify.search.tooltip": "Find Content Credentials that may be related to your file based on their content's visual similarity to yours.",
-  "sidebar.verify.search.showTooltip": "Show  tooltip.",
+  "sidebar.verify.search.showTooltip": "Show tooltip.",
   "sidebar.verify.search.hideTooltip": "Hide tootlip",
   "sidebar.verify.search.tooltip.close": "Close",
   "sidebar.verify.search.tooltip.help": "Click to show more information",
