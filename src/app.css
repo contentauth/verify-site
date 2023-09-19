@@ -20,6 +20,14 @@ from Adobe. */
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Store Norske Ja";
+  src: url("/fonts/Store Norske Ja.woff2") format("woff2"),
+       url("/fonts/Store Norske Ja.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 .tippy-box[data-theme~='cai'] {
   @apply bg-white p-0 text-body text-gray-900;
   filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.3));

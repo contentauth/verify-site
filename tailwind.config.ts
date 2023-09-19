@@ -56,9 +56,10 @@ export default {
   },
   theme: {
     fontFamily: {
-      home: defs['family-home'],
-      homeWide: defs['family-home-wide'],
-      base: defs['family-base'],
+      // home: defs['family-home'],
+      // homeWide: defs['family-home-wide'],
+      // base: defs['family-base'],
+      base: ['Store Norske Ja', 'sans-serif'],
     },
     colors: {
       'brand-yellow': '#FCE458',
@@ -151,11 +152,18 @@ export default {
           lineHeight: '75px',
         },
       ],
-      heroNew: [
-        '6rem',
+      "hero-title": [
+        '96px',
         {
           fontWeight: '700',
           lineHeight: '100px',
+        },
+      ],
+      "hero-sub": [
+        '30px',
+        {
+          fontWeight: '400',
+          lineHeight: '40.5px',
         },
       ],
       secondaryTitle: [
@@ -242,6 +250,9 @@ export default {
       md: '0px 2px 6px 0px rgba(0, 0, 0, 0.15)',
     },
     extend: {
+      fontFamily: {
+        "Norske": ['Store Norske Ja', 'sans-serif'],
+      },
       backgroundImage: {
         'hero-pattern': "url('/assets/png/Circles.png')",
       },

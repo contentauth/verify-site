@@ -9,8 +9,8 @@
   <div
     class="flex h-full w-full flex-row items-center justify-center p-6 ">
     <div class="flex h-full w-[50%] items-center justify-center">
-      <div class="flex w-[575px] flex-col items-center justify-center">
-        <div class="pb-6 text-center text-heroNew">
+      <div class="flex w-[676px] flex-col items-center justify-center">
+        <div class="pb-6 text-center text-hero-title">
           Wait, where did this image come from?
         </div>
         <div class="text-subheading text-center text-sub-heading">
