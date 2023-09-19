@@ -13,8 +13,8 @@
   from Adobe.
 -->
 
-<div class="flex items-baseline space-x-2">
-  <div class="relative top-0.5 shrink-0">
+<div class="flex items-baseline gap-x-2">
+  <div class="relative top-0.5 shrink-0 empty:hidden">
     <slot name="icon" />
   </div>
 
