@@ -11,6 +11,7 @@
 // is strictly forbidden unless prior written permission is obtained
 // from Adobe.
 
+import tailwindForms from '@tailwindcss/forms';
 import css from 'css';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -164,5 +165,9 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    tailwindForms({
+      strategy: 'class',
+    }),
+  ],
 } satisfies Config;
