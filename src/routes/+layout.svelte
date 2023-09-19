@@ -16,15 +16,16 @@
   import { afterNavigate } from '$app/navigation';
   import { postEvent } from '$lib/analytics';
   import { SITE_VERSION } from '$lib/config';
+  import { ToastContainer } from '$src/features/Toast';
   import { lang } from '@intl/adobe-locales';
   import debug from 'debug';
   import { onMount } from 'svelte';
   import { locale } from 'svelte-i18n';
   import SidebarMenu from '../features/SidebarMenu/SidebarMenu.svelte';
+  import ModalContainer from './verify/components/modals/ModalContainer/ModalContainer.svelte';
 
   import '../app.css';
   import '../globalWebComponents';
-  import ModalContainer from './verify/components/modals/ModalContainer/ModalContainer.svelte';
 
   afterNavigate(() => {
     let duration: number | null = null;
@@ -65,4 +66,5 @@
   <SidebarMenu />
 
   <ModalContainer />
+  <ToastContainer />
 </div>

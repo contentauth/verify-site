@@ -115,7 +115,11 @@
   "sidebar.verify.summary": "Content Summary",
   "sidebar.verify.title": "Content Credentials",
   "spinner.loading": "Loading",
-  "dialog.error.manifestSearchConnectionIssue.title": "Connection issue",
-  "dialog.error.manifestSearchConnectionIssue.message": "Manifest search can't be completed right now due to connection issues with another service. Try again later.",
-  "dialog.OK": "OK"
+  "dialog.error.legacyCredential.title": "Legacy Verify",
+  "dialog.error.legacyCredential.message": "This asset was created with an older version of Content Credentials. Click continue to view the legacy version.",
+  "dialog.cancel": "Cancel",
+  "dialog.continue": "Continue",
+  "toast.matchesUnavailable": "Possible matches are currently unavailable",
+  "toast.unsupportedFileType": "That file type isn't supported",
+  "toast.somethingWentWrong": "Something went wrong"
 }

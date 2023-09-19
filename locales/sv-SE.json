@@ -1,4 +1,5 @@
 {
+  "aria.label.languageSelector": "Language selector",
   "aria.label.menuToggle": "Menu toggle",
   "aria.label.signedOn": "Signed on",
   "asset.defaultTitle": "Namnlös fil",
@@ -17,6 +18,7 @@
   "footer.privacy": "Integritet",
   "footer.rights": "Sälj eller dela inte mina personuppgifter",
   "footer.termsOfUse": "Användningsvillkor",
+  "languagePicker.changeLanguage": "Change language",
   "linkText.learnMore": "Mer information",
   "menu.home": "Startsida",
   "menu.section.features": "Innehåll",
@@ -105,6 +107,7 @@
   "sidebar.verify.process.description": "Appen eller enheten som användes för att producera detta innehåll registrerade följande information:",
   "sidebar.verify.process.ingredients": "Ingredienser",
   "sidebar.verify.recovery.possibleMatches": "Möjliga matchningar",
+  "sidebar.verify.recovery.noMatches": "No matches found",
   "sidebar.verify.search": "Sök efter möjliga matchningar",
   "sidebar.verify.search.tooltip": "Hitta innehållsuppgifter som kan vara relaterade till din fil givet att innehållet i dem liknar den visuellt.",
   "sidebar.verify.search.tooltip.close": "Stäng",

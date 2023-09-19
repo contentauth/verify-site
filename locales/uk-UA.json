@@ -1,4 +1,5 @@
 {
+  "aria.label.languageSelector": "Language selector",
   "aria.label.menuToggle": "Menu toggle",
   "aria.label.signedOn": "Signed on",
   "asset.defaultTitle": "Ресурс без назви",
@@ -17,6 +18,7 @@
   "footer.privacy": "Конфіденційність",
   "footer.rights": "Не продавайте та не передавайте мою особисту інформацію",
   "footer.termsOfUse": "Умови використання",
+  "languagePicker.changeLanguage": "Change language",
   "linkText.learnMore": "Докладніші відомості",
   "menu.home": "Головна",
   "menu.section.features": "Можливості",
@@ -105,6 +107,7 @@
   "sidebar.verify.process.description": "Програма або пристрій, використані для створення цього вмісту, записали таку інформацію:",
   "sidebar.verify.process.ingredients": "Компоненти",
   "sidebar.verify.recovery.possibleMatches": "Можливі збіги",
+  "sidebar.verify.recovery.noMatches": "No matches found",
   "sidebar.verify.search": "Пошук можливих збігів",
   "sidebar.verify.search.tooltip": "Знайдіть облікові дані вмісту, які можуть бути пов’язані з вашим файлом, базуючись на візуальній схожості їхнього вмісту з вашим.",
   "sidebar.verify.search.tooltip.close": "Закрити",

@@ -1,4 +1,5 @@
 {
+  "aria.label.languageSelector": "Language selector",
   "aria.label.menuToggle": "Menu toggle",
   "aria.label.signedOn": "Signed on",
   "asset.defaultTitle": "제목 없는 자산",
@@ -17,6 +18,7 @@
   "footer.privacy": "개인정보",
   "footer.rights": "내 개인 정보를 판매하거나 공유하지 말 것",
   "footer.termsOfUse": "이용 약관",
+  "languagePicker.changeLanguage": "Change language",
   "linkText.learnMore": "자세히 알아보기",
   "menu.home": "홈",
   "menu.section.features": "기능",
@@ -105,6 +107,7 @@
   "sidebar.verify.process.description": "이 콘텐츠를 제작하는 데 사용된 앱 또는 디바이스가 다음 정보를 기록했습니다.",
   "sidebar.verify.process.ingredients": "요소",
   "sidebar.verify.recovery.possibleMatches": "가능한 일치 항목",
+  "sidebar.verify.recovery.noMatches": "No matches found",
   "sidebar.verify.search": "잠재적 일치 항목 검색",
   "sidebar.verify.search.tooltip": "콘텐츠의 시각적 유사성을 기반으로 파일과 관련이 있을 수 있는 콘텐츠 자격 증명을 찾아보세요.",
   "sidebar.verify.search.tooltip.close": "닫기",

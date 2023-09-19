@@ -1,6 +1,6 @@
 <script>
   import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
-  import ManifestSearchConnectionIssueModal from './ManifestSearchConnectionIssueModal.svelte';
+  import LegacyCredentialModal from './LegacyCredentialModal.svelte';
 
   const design = {
     type: 'figma',
@@ -17,12 +17,12 @@
 </script>
 
 <Meta
-  title="Verify/Modals/ManifestSearchConnectionIssueModal"
-  component={ManifestSearchConnectionIssueModal}
+  title="Verify/Modals/LegacyCredentialModal"
+  component={LegacyCredentialModal}
   parameters={{ design, backgrounds }} />
 
 <Template let:args>
-  <ManifestSearchConnectionIssueModal {...args} />
+  <LegacyCredentialModal {...args} />
 </Template>
 
 <Story name="Default" args={{ isOpen: true }} />

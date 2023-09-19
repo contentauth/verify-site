@@ -1,4 +1,5 @@
 {
+  "aria.label.languageSelector": "Language selector",
   "aria.label.menuToggle": "Menu toggle",
   "aria.label.signedOn": "Signed on",
   "asset.defaultTitle": "Naamloos asset",
@@ -17,6 +18,7 @@
   "footer.privacy": "Privacy",
   "footer.rights": "Mijn persoonlijke gegevens niet verkopen of delen",
   "footer.termsOfUse": "Gebruiksvoorwaarden",
+  "languagePicker.changeLanguage": "Change language",
   "linkText.learnMore": "Meer informatie",
   "menu.home": "Start",
   "menu.section.features": "Functies",
@@ -105,6 +107,7 @@
   "sidebar.verify.process.description": "De app of het apparaat dat is gebruikt om deze content te produceren, heeft de volgende informatie vastgelegd:",
   "sidebar.verify.process.ingredients": "Ingrediënten",
   "sidebar.verify.recovery.possibleMatches": "Mogelijke overeenkomsten",
+  "sidebar.verify.recovery.noMatches": "No matches found",
   "sidebar.verify.search": "Zoeken naar mogelijke overeenkomsten",
   "sidebar.verify.search.tooltip": "Vind inhoudsreferenties die mogelijk verband houden met jouw bestand op basis van de visuele gelijkenis van hun inhoud met die van jou.",
   "sidebar.verify.search.tooltip.close": "Sluiten",

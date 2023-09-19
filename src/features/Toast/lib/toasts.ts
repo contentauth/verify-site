@@ -11,7 +11,19 @@
 // is strictly forbidden unless prior written permission is obtained
 // from Adobe.
 
-import { createError } from './errorState';
+import type { ToastOptions } from '../store/toastState';
 
-export const error = createError();
-export * from './errors';
+export const matchesUnavailable = (): ToastOptions => ({
+  messageId: 'toast.matchesUnavailable',
+  duration: 5000,
+});
+
+export const unsupportedFileType = (): ToastOptions => ({
+  messageId: 'toast.unsupportedFileType',
+  duration: 5000,
+});
+
+export const somethingWentWrong = (): ToastOptions => ({
+  messageId: 'toast.somethingWentWrong',
+  duration: 5000,
+});
