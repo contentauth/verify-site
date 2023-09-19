@@ -112,7 +112,7 @@
   "sidebar.verify.compare.view.ariaLabel.part2": "are being compared",
   "sidebar.verify.compare.noAssetSelected": "no other asset selected",
   "sidebar.verify.compare.assetSelected": "This asset is selected",
-  "sidebar.verify.compare.ClickAssetSelected": "Click to select this asset",
+  "sidebar.verify.compare.clickAssetSelected": "Click to select this asset",
   "sidebar.verify.compare.back": "Click to return to the previous section",
   "sidebar.verify.noCC": "No Content Credential",
   "sidebar.verify.noCCFile": "There is no Content Credential for this file",
