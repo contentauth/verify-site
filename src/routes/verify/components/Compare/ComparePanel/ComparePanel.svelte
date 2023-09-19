@@ -17,9 +17,10 @@
   import BackArrow from '$assets/svg/monochrome/back-arrow.svg?component';
   import Header from '$src/components/typography/Header.svelte';
   import Label from '$src/components/typography/Label.svelte';
-  import type {
-    CompareAssetStoreMap,
-    CompareMode,
+  import {
+    compareViewMode,
+    type CompareAssetStoreMap,
+    type CompareMode,
   } from '$src/routes/verify/stores/compareView';
   import { _ } from 'svelte-i18n';
   import { verifyStore } from '../../../stores';
@@ -28,6 +29,11 @@
   export let assetStoreMap: CompareAssetStoreMap;
 
   const compareModeArray: CompareMode[] = ['sideBySide', 'slider'];
+
+  function handleViewChange(evt: Event) {
+    const value = (evt.target as HTMLSelectElement).value as CompareMode;
+    compareViewMode.set(value);
+  }
 </script>
 
 <div class="z-1">
@@ -42,6 +48,7 @@
       <Label>{$_('sidebar.verify.compare.dropdown')}</Label>
     </div>
     <select
+      on:change={handleViewChange}
       class="form-select back w-full rounded-sm border border-gray-400 bg-[center_right_0.25rem] px-2 text-[0.8125rem] leading-3">
       {#each compareModeArray as item (item)}
         <option value={item}>{$_(`sidebar.verify.compare.${item}`)}</option>
