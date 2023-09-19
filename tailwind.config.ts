@@ -59,7 +59,7 @@ export default {
       // home: defs['family-home'],
       // homeWide: defs['family-home-wide'],
       // base: defs['family-base'],
-      base: ['Store Norske Ja', 'sans-serif'],
+      Norske: ['Norske', 'sans-serif'],
     },
     colors: {
       'brand-yellow': '#FCE458',

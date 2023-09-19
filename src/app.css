@@ -21,9 +21,10 @@ from Adobe. */
 @tailwind utilities;
 
 @font-face {
-  font-family: "Store Norske Ja";
-  src: url("../assets/fonts/StoreNorske//Store Norske Ja Regular/JaSN-Regular.woff2") format("woff2"),
-       url("../assets/fonts/StoreNorske/JaSN-Regular.woff") format("woff");
+  font-family: 'Norske';
+  src: url('../assets/fonts/JaSN-Regular.otf')
+    format('opentype');
+
   font-weight: normal;
   font-style: normal;
 }

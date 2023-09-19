@@ -9,11 +9,11 @@
   <div
     class="flex h-full w-full flex-row items-center justify-center p-6 gap-[20px] ">
     <div class="flex h-full w-[50%] items-center justify-center">
-      <div class="flex w-[676px] flex-col items-center justify-center">
+      <div class="flex w-[670px] max-w-[670px] flex-col items-center justify-center">
         <div class="pb-6 text-center text-hero-title">
           Wait, where did this image come from?
         </div>
-        <div class="text-subheading text-center text-sub-heading">
+        <div class="text-sub-heading text-center text-brand-gray">
           Deepfakes. Voice Cloning. It's hard to tell what's accurate and
           authentic online these days.
         </div>
