@@ -34,7 +34,7 @@
         <div>
           <div class="h-[400px] w-[445px]">
             <div
-              class="text-sub-label rounded-t-xl px-[32px] py-[20px]"
+              class="text-trust-title rounded-t-xl px-[32px] py-[20px] font-bold"
               style={`background-color: ${item.bgColor}`}>
               {item.label}
             </div>

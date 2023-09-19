@@ -3,7 +3,7 @@
     <div class="text-secondary-title text-center">
       Join the movement for content authenticity
     </div>
-    <div class="text-center text-sub-text text-sub-heading">
+    <div class="text-center text-sub-text text-sub-heading w-[90%]">
       If we want to make the internet a more safe and useful place, we need new
       ways to bolster trust in digital content. The Content Authenticity
       Initiative is a cross-industry organization behind Content Credentials. It

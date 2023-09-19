@@ -33,7 +33,7 @@
         <div class="">
           <div class="flex w-[445px] flex-col">
             <img src={item.image} alt="" class="pb-6" />
-            <div class="pb-6 text-sub-title">
+            <div class="pb-6 text-story-title">
               {item.title}
             </div>
             <div class="text-sub-text text-sub-heading">

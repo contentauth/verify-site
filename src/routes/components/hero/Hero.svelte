@@ -24,7 +24,7 @@
         src={PolarBear}
         alt="hi"
         class="w-[full - 20px] h-[full - 20px] rounded-xl" />
-      <div class="text-small-description text-gray-500">
+      <div class="text-small-description text-gray-500 pt-1">
         Click on the pin to see the Content Credentials.
       </div>
     </div>

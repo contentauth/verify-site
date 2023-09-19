@@ -204,7 +204,7 @@ export default {
         '1rem',
         {
           fontWeight: '400',
-          lineHeight: '28px',
+          lineHeight: '24px',
         },
       ],
       'sub-label': [
@@ -222,6 +222,20 @@ export default {
           lineHeight: '18px',
         },
       ],
+      'story-title': [
+        '2rem',
+        {
+          fontWeight: '700',
+          lineHeight: '35px',
+        }
+      ],
+      'trust-title': [
+        '1.75rem',
+        {
+          fontWeight: '400',
+
+        }
+      ]
     },
     boxShadow: {
       DEFAULT: '0px 4px 20px rgba(0, 0, 0, 0.3)',
