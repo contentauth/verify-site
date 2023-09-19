@@ -7,8 +7,8 @@
     <img src={Trust} class="max-h-full max-w-full rounded-xl" alt="hi" />
   </div>
   <div class="w-1/2 flex flex-col items-center justify-start pl-8">
-    <div class="text-sub-title pb-4 w-[442px]">Building trust in what you see online</div>
-    <div class="text-sub-text text-sub-heading w-[442px]">
+    <div class="text-home-third-title pb-4 w-[492px]">Building trust in what you see online</div>
+    <div class="text-home-sub-text text-brand-gray w-[492px]">
       With Content Credentials, the edit history of any piece of content is
       available for everyone to access, anytime. With this information at
       your fingertips, you have the ability to decide if you trust the

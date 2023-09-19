@@ -64,7 +64,7 @@ export default {
     colors: {
       'brand-yellow': '#FCE458',
       'brand-orange': '#EF9349',
-      'sub-heading': '#757575',
+      'brand-gray': '#757575',
       'sub-desc': '#757575',
       white: defs['gray-50'],
       'gray-50': defs['gray-50'],
@@ -152,19 +152,61 @@ export default {
           lineHeight: '75px',
         },
       ],
-      "hero-title": [
+      'hero-title': [
         '96px',
         {
           fontWeight: '700',
           lineHeight: '100px',
         },
       ],
-      "hero-sub": [
+      'hero-sub': [
         '30px',
         {
           fontWeight: '400',
           lineHeight: '40.5px',
         },
+      ],
+      'home-secondary-title': [
+        '68px',
+        {
+          fontWeight: '700',
+          lineHeight: '79.2px',
+        },
+      ],
+      'home-sub': [
+        '30px',
+        {
+          fontWeight: '400',
+          lineHeight: '40.5px',
+        }
+      ],
+      'home-third-title': [
+        '40px',
+        {
+          fontWeight: '700',
+          lineHeight: '44px',
+        }
+      ],
+      'home-sub-text': [
+        '1.3125rem',
+        {
+          fontWeight: '400',
+          lineHeight: '28.35px',
+        }
+      ],
+      'hiw-label': [
+        '28px',
+        {
+          fontWeight: '400',
+          lineHeight: '35px',
+        }
+      ],
+      'hiw-desc': [
+        '21px',
+        {
+          fontWeight: '400',
+          lineHeight: '28.35px',
+        }
       ],
       secondaryTitle: [
         '2.25rem',
@@ -235,15 +277,14 @@ export default {
         {
           fontWeight: '700',
           lineHeight: '35px',
-        }
+        },
       ],
       'trust-title': [
         '1.75rem',
         {
           fontWeight: '400',
-
-        }
-      ]
+        },
+      ],
     },
     boxShadow: {
       DEFAULT: '0px 4px 20px rgba(0, 0, 0, 0.3)',
@@ -251,7 +292,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        "Norske": ['Store Norske Ja', 'sans-serif'],
+        Norske: ['Store Norske Ja', 'sans-serif'],
       },
       backgroundImage: {
         'hero-pattern': "url('/assets/png/Circles.png')",
