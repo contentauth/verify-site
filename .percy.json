@@ -1,11 +1,15 @@
 {
   "version": 2,
   "snapshot": {
-    "widths": [375, 768, 1280],
+    "widths": [375, 1280],
     "min-height": 1024
   },
   "discovery": {
-    "allowed-hostnames": ["api.mapbox.com"]
+    "allowed-hostnames": [
+      "api.mapbox.com",
+      "proxyme.percy.io",
+      "render.percy.local"
+    ]
   },
   "upload": {
     "files": "**/*.{png,jpg,jpeg,svg,woff,woff2}"

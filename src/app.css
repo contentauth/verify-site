@@ -17,25 +17,25 @@ from Adobe. */
 
 @font-face {
   font-family: 'Store Norske Ja';
-  src: url('../assets/fonts/JaSN-Light.woff2') format(woff2);
+  src: url('../assets/fonts/JaSN-Light.woff2') format('woff2');
   font-weight: 300;
 }
 
 @font-face {
   font-family: 'Store Norske Ja';
-  src: url('../assets/fonts/JaSN-Regular.woff2') format(woff2);
+  src: url('../assets/fonts/JaSN-Regular.woff2') format('woff2');
   font-weight: 400;
 }
 
 @font-face {
   font-family: 'Store Norske Ja';
-  src: url('../assets/fonts/JaSN-Medium.woff2') format(woff2);
+  src: url('../assets/fonts/JaSN-Medium.woff2') format('woff2');
   font-weight: 500;
 }
 
 @font-face {
   font-family: 'Store Norske Ja';
-  src: url('../assets/fonts/JaSN-Bold.woff2') format(woff2);
+  src: url('../assets/fonts/JaSN-Bold.woff2') format('woff2');
   font-weight: 700;
 }
 
