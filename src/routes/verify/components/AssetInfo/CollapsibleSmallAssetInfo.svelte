@@ -25,7 +25,9 @@
   $: hasChildren = $compareAssetStore.children.length > 0;
   $: expandAriaLabel = expanded
     ? $_('sidebar.verify.compare.aria-hide') + ' ' + $compareAssetStore.title
-    : $_('sidebar.verify.compare.aria-expand') + ' ' + $compareAssetStore.title;
+    : $_('sidebar.verify.compare.ariaLabel.expand') +
+      ' ' +
+      $compareAssetStore.title;
   $: selectAriaLabel = $compareAssetStore.isSelected
     ? $_('sidebar.verify.compare.assetSelected')
     : $_('sidebar.verify.compare.ClickAssetSelected');

@@ -97,7 +97,7 @@
   "sidebar.verify.legal.part3": "Each set of Content Credentials gets digitally signed by a trusted authority, ensuring that they are securely bound to new and updated content.",
   "sidebar.verify.showCollapsible": "Click to show the section",
   "sidebar.verify.hideCollapsible": "Click to hide the section",
-  "sidebar.verify.compare.aria-expand": "Show children of",
+  "sidebar.verify.compare.ariaLabel.expand": "Show children of",
   "sidebar.verify.compare.aria-hide": "Hide children of",
   "sidebar.verify.compare.root": "This element is the root of the tree",
   "sidebar.verify.compare.child": "This element is a child of",
