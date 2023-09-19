@@ -18,8 +18,8 @@
   import SocialMediaInfo from '$src/components/SocialMediaInfo/SocialMediaInfo.svelte';
   import type { ManifestData } from '$src/lib/asset';
   import { _ } from 'svelte-i18n';
-  import IconContentRow from '../../IconContentRow/IconContentRow.svelte';
   import SubSection from '../../SubSection/SubSection.svelte';
+  import AboutSectionIconContentRow from '../AboutSection/AboutSectionIconContentRow.svelte';
 
   export let socialAccounts: NonNullable<ManifestData['socialAccounts']>;
 </script>
@@ -27,20 +27,19 @@
 <SubSection>
   <svelte:fragment slot="title">
     {$_('sidebar.verify.credit.social')}</svelte:fragment>
-  <svelte:fragment slot="content">
+  <div class="flex flex-col gap-2.5" slot="content">
     {#each socialAccounts as account (account['@id'])}
-      <IconContentRow>
+      <AboutSectionIconContentRow>
         <div slot="icon">
           <ProviderIcon provider={account['@id'] ?? ''} />
         </div>
-        <span slot="content">
-          <SocialMediaInfo
-            link={account['@id'] ?? ''}
-            username={account['name']}
-            appName={providerInfoFromSocialId(account['@id'] ?? '')?.name ??
-              ''} />
-        </span>
-      </IconContentRow>
+        <SocialMediaInfo
+          slot="content"
+          link={account['@id'] ?? ''}
+          username={account['name']}
+          appName={providerInfoFromSocialId(account['@id'] ?? '')?.name ??
+            ''} />
+      </AboutSectionIconContentRow>
     {/each}
-  </svelte:fragment>
+  </div>
 </SubSection>

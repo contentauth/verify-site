@@ -17,11 +17,6 @@ const config: StorybookConfig = {
   docs: {
     autodocs: true,
   },
-  previewHead: (head) => `
-    ${head}
-    <link rel="stylesheet" href="https://use.typekit.net/dnb4eqs.css" />
-    <link rel="stylesheet" href="https://use.typekit.net/pxo7ebs.css" />
-  `,
   viteFinal: async (config) => {
     return mergeConfig(config, {
       server: {

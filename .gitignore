@@ -15,8 +15,14 @@ test-results
 *.terraform*
 .dccache
 .env
+.env.*
+snapshot-debug
+
 # Local Netlify folder
 .netlify
 
 # sveltekit
 .svelte-kit
+
+# vite
+vite.config.js.timestamp-*

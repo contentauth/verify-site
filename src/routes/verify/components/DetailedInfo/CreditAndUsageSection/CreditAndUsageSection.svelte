@@ -21,22 +21,29 @@
   import SocialSubSection from './SocialSubSection.svelte';
 
   export let manifestData: ManifestData;
+
+  $: shouldShowSection =
+    manifestData.producer ||
+    manifestData.socialAccounts?.length ||
+    manifestData.generativeInfo?.softwareAgents?.length;
 </script>
 
-<CollapsibleSection>
-  <svelte:fragment slot="header">{$_('sidebar.credit')}</svelte:fragment>
-  <svelte:fragment slot="description">
-    {$_('sidebar.verify.credit.description')}</svelte:fragment>
-  <svelte:fragment slot="content">
-    {#if manifestData.producer}
-      <ProducerSubSection producer={manifestData.producer} />
-    {/if}
-    {#if manifestData.socialAccounts?.length}
-      <SocialSubSection socialAccounts={manifestData.socialAccounts} />
-    {/if}
-    {#if manifestData.generativeInfo?.softwareAgents?.length}
-      <AiSubSection
-        softwareAgents={manifestData.generativeInfo.softwareAgents} />
-    {/if}
-  </svelte:fragment>
-</CollapsibleSection>
+{#if shouldShowSection}
+  <CollapsibleSection>
+    <svelte:fragment slot="header">{$_('sidebar.credit')}</svelte:fragment>
+    <svelte:fragment slot="description">
+      {$_('sidebar.verify.credit.description')}</svelte:fragment>
+    <svelte:fragment slot="content">
+      {#if manifestData.producer}
+        <ProducerSubSection producer={manifestData.producer} />
+      {/if}
+      {#if manifestData.socialAccounts?.length}
+        <SocialSubSection socialAccounts={manifestData.socialAccounts} />
+      {/if}
+      {#if manifestData.generativeInfo?.softwareAgents?.length}
+        <AiSubSection
+          softwareAgents={manifestData.generativeInfo.softwareAgents} />
+      {/if}
+    </svelte:fragment>
+  </CollapsibleSection>
+{/if}

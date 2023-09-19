@@ -11,11 +11,16 @@ jobs:
   build-test:
     name: Build and test
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     env:
+      PERCY_POSTINSTALL_BROWSER: true
       PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+      VITE_MAPBOX_TOKEN: ${{ secrets.VITE_MAPBOX_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          lfs: true
 
       - name: Install pnpm
         run: |
@@ -36,14 +41,43 @@ jobs:
           pnpm run lint
           pnpm run check
 
-      - name: Install Playwright browsers
+      - name: Get Playwright version
+        id: playwright-version
+        run: |
+          PLAYWRIGHT_VERSION=$(pnpm ls @playwright/test | grep @playwright | sed 's/.*@//' | sed 's/\//-/g' | sed 's/ /-/g')
+          echo "Playwright version: $PLAYWRIGHT_VERSION"
+          echo "version=$PLAYWRIGHT_VERSION" >> ${GITHUB_OUTPUT}
+
+      - name: Cache Playwright browsers
+        id: cache-playwright-browsers
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-browsers-${{ steps.playwright-version.outputs.version }}
+
+      - name: Setup Playwright (cache miss)
+        if: steps.cache-playwright-browsers.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps
 
-      - name: Run build script
+      - name: Setup Playwright (cache hit)
+        if: steps.cache-playwright-browsers.outputs.cache-hit == 'true'
+        run: npx playwright install
+
+      - name: Run build script for test output
         run: pnpm run build
+        env:
+          THUMBNAIL_DATA_TYPE: datauri
 
       - name: Run unit tests
         run: pnpm run test:unit
 
       - name: Run end-to-end tests
         run: npx percy exec -- playwright test
+
+      - name: Upload Playwright trace
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: test-results
+          path: test-results/
+          retention-days: 7

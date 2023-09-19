@@ -13,10 +13,16 @@
   from Adobe.
 -->
 <script lang="ts">
+  import { _ } from 'svelte-i18n';
+
   export let open = false;
 </script>
 
-<button on:click class="flex flex-col gap-1 p-4" class:open>
+<button
+  on:click
+  aria-label={$_('aria.label.menuToggle')}
+  class="flex flex-col gap-1 p-4"
+  class:open>
   <span class="burger-line top" />
   <span class="burger-line middle" />
   <span class="burger-line bottom" />

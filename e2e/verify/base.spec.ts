@@ -11,14 +11,77 @@
 // is strictly forbidden unless prior written permission is obtained
 // from Adobe.
 
-import percySnapshot from '@percy/playwright';
-import { expect, test } from '@playwright/test';
+import { test } from '@playwright/test';
+import { VerifyPage } from './page';
 
-test.describe('Base functionality', () => {
-  test('Verify site loads', async ({ page }) => {
-    await page.goto('/verify');
-    await page.locator('header').filter({ hasText: 'Verify' }).waitFor();
-    await expect(page).toHaveTitle(/Content Credentials/);
-    await percySnapshot(page, 'Verify zero state');
+test.describe('Verify - base functionality', () => {
+  test('zero state loads', async ({ page }) => {
+    const verify = new VerifyPage(page);
+    await verify.goto();
+    await verify.takeSnapshot(`zero state`);
+  });
+
+  test('sidebar opens', async ({ page }) => {
+    const verify = new VerifyPage(page);
+    await verify.goto();
+    await page
+      .locator('header')
+      .filter({ hasText: 'Verify' })
+      .getByLabel('Menu toggle')
+      .click();
+    await verify.takeSnapshot(`sidebar open`);
+  });
+
+  test('specifying an image via source should work (CAICAI.jpg)', async ({
+    page,
+  }) => {
+    const verify = new VerifyPage(page);
+    const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
+    await verify.goto(source);
+    await verify.takeTallSnapshot(`result for CAICAI.jpg via source`);
+  });
+
+  test('specifying an image via source should work (fake-news.jpg)', async ({
+    page,
+  }) => {
+    const verify = new VerifyPage(page);
+    const source = VerifyPage.getFixtureUrl('fake-news.jpg', 'file');
+    await verify.goto(source);
+    await verify.takeTallSnapshot(`result for fake-news.jpg via source`);
+  });
+
+  test('specifying an image via source should work (moonrise.jpg)', async ({
+    page,
+  }) => {
+    const verify = new VerifyPage(page);
+    const source = VerifyPage.getFixtureUrl('moonrise.jpg', 'file');
+    await verify.goto(source);
+    await verify.takeTallSnapshot(`result for moonrise.jpg via source`);
+  });
+
+  test('specifying a different language via dropdown should work', async ({
+    page,
+  }) => {
+    const verify = new VerifyPage(page);
+    const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
+    await verify.goto(source);
+    await verify.languagePicker.click();
+    verify.languagePicker.selectOption('Français');
+
+    await verify.takeTallSnapshot(
+      `result setting language as fr-FR via dropdown`,
+    );
+  });
+
+  test('specifying a different language via URL parameter should work', async ({
+    page,
+  }) => {
+    const verify = new VerifyPage(page);
+    const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
+    await verify.goto(source, { lang: 'ja-JP' });
+
+    await verify.takeTallSnapshot(
+      `result setting language as ja-JP via URL parameter`,
+    );
   });
 });

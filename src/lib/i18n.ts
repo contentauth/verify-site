@@ -21,12 +21,15 @@ import {
   locale,
   register,
 } from 'svelte-i18n';
+import { get } from 'svelte/store';
 
 const dbg = debug('i18n');
 
-export const DEFAULT_LOCALE = 'en-US';
 const LOCALSTORAGE_KEY = 'locale';
+const WELSH_LOCALE = 'cy-GB';
+const WELSH_LANG = 'Cymraeg';
 
+export const DEFAULT_LOCALE = 'en-US';
 export const supportedLocales = __SUPPORTED_LOCALES__;
 export const supportedLanguages = groupBy(supportedLocales, lang);
 
@@ -86,4 +89,53 @@ export async function initI18n() {
 export function setLanguage(lang: string) {
   locale.set(lang);
   window.localStorage.setItem(LOCALSTORAGE_KEY, lang);
+}
+
+/**
+ * Logic adapted from @intl/language-region-switcher
+ */
+function getLocaleLanguageName(locale: string) {
+  let localLanguageName: string | undefined = '';
+
+  // Handle edge case of always returning translated Welsh.
+  if (locale === WELSH_LOCALE) {
+    return WELSH_LANG;
+  }
+
+  try {
+    const intlLocale = new Intl.Locale(locale);
+    const languageNames = new Intl.DisplayNames([locale], {
+      type: 'language',
+    });
+
+    if (['zh-CN', 'zh-TW'].includes(locale)) {
+      localLanguageName = languageNames.of(locale);
+    } else {
+      localLanguageName = languageNames.of(intlLocale.language ?? '');
+    }
+  } catch {
+    console.error(locale, ' is not a valid locale code');
+
+    return getLocaleLanguageName(DEFAULT_LOCALE);
+  }
+
+  return `${localLanguageName
+    ?.charAt(0)
+    .toLocaleUpperCase()
+    .concat(localLanguageName?.slice(1).toLocaleLowerCase())}`;
+}
+
+export function getLanguageNames() {
+  const currLocale = get(locale) ?? DEFAULT_LOCALE;
+  const compare = new Intl.Collator(currLocale).compare;
+
+  return supportedLocales
+    .filter((locale) => locale !== 'zz-ZZ')
+    .map((locale) => {
+      return {
+        locale,
+        name: getLocaleLanguageName(locale),
+      };
+    })
+    .sort((a, b) => compare(a.name, b.name));
 }

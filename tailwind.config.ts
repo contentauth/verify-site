@@ -11,6 +11,7 @@
 // is strictly forbidden unless prior written permission is obtained
 // from Adobe.
 
+import tailwindForms from '@tailwindcss/forms';
 import css from 'css';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -67,6 +68,8 @@ export default {
       'brand-gray': '#757575',
       'sub-desc': '#757575',
       white: defs['gray-50'],
+      white: '#ffffff',
+      'gray-40': defs['gray-40'],
       'gray-50': defs['gray-50'],
       'gray-75': defs['gray-75'],
       'gray-100': defs['gray-100'],
@@ -91,7 +94,7 @@ export default {
       'blue-1100': defs['blue-1100'],
       'blue-1200': defs['blue-1200'],
       'blue-1300': defs['blue-1300'],
-      black: defs['black'],
+      'red-900': defs['red-900'],
       transparent: 'transparent',
       current: 'currentColor',
     },
@@ -107,25 +110,25 @@ export default {
         '1.125rem',
         {
           lineHeight: '1.5rem',
-          fontWeight: '700',
+          fontWeight: '500',
         },
       ],
       'body-bold': [
-        '0.9375rem',
+        '0.875rem',
         {
           lineHeight: '1.25rem',
           fontWeight: '700',
         },
       ],
       body: [
-        '0.9375rem',
+        '0.875rem',
         {
           lineHeight: '1.25rem',
           fontWeight: '400',
         },
       ],
       description: [
-        '0.9375rem',
+        '0.875rem',
         {
           lineHeight: '1.25rem',
           fontWeight: '400',
@@ -346,5 +349,9 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    tailwindForms({
+      strategy: 'class',
+    }),
+  ],
 } satisfies Config;

@@ -14,13 +14,16 @@
 -->
 
 <script lang="ts">
+  import Compare from '$assets/svg/monochrome/compare.svg?component';
   import ZoomIn from '$assets/svg/monochrome/zoom-in.svg?component';
   import ZoomOut from '$assets/svg/monochrome/zoom-out.svg?component';
+  import Body from '$src/components/typography/Body.svelte';
   import type { AssetData } from '$src/lib/asset';
   import { select as d3Select } from 'd3-selection';
   import type { ZoomTransform } from 'd3-zoom';
   import { zoom as d3Zoom, zoomIdentity } from 'd3-zoom';
   import { onMount } from 'svelte';
+  import { _ } from 'svelte-i18n';
   import type { Readable } from 'svelte/store';
   import {
     calculateTransforms,
@@ -33,6 +36,7 @@
     type SVGSelection,
     type TreeViewConfig,
   } from '../../lib/treeView';
+  import { verifyStore } from '../../stores';
   import type { ReadableAssetStore } from '../../stores/asset';
   import type { ReadableAssetMap } from '../../stores/hierarchyView';
   import SvgTreeNode from './SVGTreeNode.svelte';
@@ -81,13 +85,17 @@
   });
   $: links = createLinks(tree, $selectedAsset);
   $: descendants = tree.descendants();
+  $: canCompare = descendants.length > 1;
   $: {
     // Set the proper scaleExtent whenever the width/height changes
     zoom.scaleExtent([transforms.minScale, 1]);
   }
 </script>
 
-<div class="h-full w-full" bind:clientWidth={width} bind:clientHeight={height}>
+<figure
+  class="h-full w-full"
+  bind:clientWidth={width}
+  bind:clientHeight={height}>
   <svg bind:this={svgElement} viewBox={`0 0 ${width} ${height}`}>
     <g bind:this={boundsElement} transform={transforms.gTransform ?? ''}>
       {#each links as { link, idx, isAncestor } (idx)}
@@ -106,7 +114,9 @@
   </svg>
   <!-- Layer the HTML nodes over the SVG paths and sync the transformations so we don't have
     to use SVG `foreignObject`, which doesn't always work great in different browsers. -->
-  <div class="pointer-events-none absolute left-0 top-0 z-0 select-none">
+  <div
+    role="tree"
+    class="pointer-events-none absolute left-0 top-0 z-0 select-none">
     <div
       class="absolute left-0 top-0"
       style={`transform: ${transforms.htmlTransform ?? ''};`}>
@@ -120,29 +130,44 @@
       {/each}
     </div>
   </div>
+
   <div
-    class="absolute bottom-5 right-5 z-20 flex h-8 items-center rounded-full bg-white shadow-md">
-    <button
-      class="h-full pe-2 ps-2.5 transition-opacity"
-      class:opacity-40={!transforms.canZoomIn}
-      on:click={() => transforms.canZoomIn && zoomIn({ svgSel, zoom })}>
-      <ZoomIn width="1rem" height="1rem" class="text-gray-800" />
-    </button>
-    <div class="h-[85%] w-px bg-gray-200" />
-    <button
-      class="h-full pe-2.5 ps-2 transition-opacity"
-      class:opacity-40={!transforms.canZoomOut}
-      on:click={() =>
-        transforms.canZoomOut &&
-        zoomOut({
-          svgSel,
-          zoom,
-          boundsElement,
-          width,
-          height,
-          minZoomScale: transforms.minZoomScale,
-        })}>
-      <ZoomOut width="1rem" height="1rem" class="text-gray-800" />
-    </button>
+    class="absolute bottom-5 right-5 z-20 flex flex-col items-end justify-end space-y-5">
+    <div class="flex h-8 items-center rounded-full bg-white shadow-md">
+      <button
+        class="h-full pe-2 ps-2.5 transition-opacity"
+        class:opacity-40={!transforms.canZoomIn}
+        on:click={() => transforms.canZoomIn && zoomIn({ svgSel, zoom })}>
+        <ZoomIn width="1rem" height="1rem" class="text-gray-800" />
+      </button>
+      <div class="h-[85%] w-px bg-gray-200" />
+      <button
+        class="h-full pe-2.5 ps-2 transition-opacity"
+        class:opacity-40={!transforms.canZoomOut}
+        on:click={() =>
+          transforms.canZoomOut &&
+          zoomOut({
+            svgSel,
+            zoom,
+            boundsElement,
+            width,
+            height,
+            minZoomScale: transforms.minZoomScale,
+          })}>
+        <ZoomOut width="1rem" height="1rem" class="text-gray-800" />
+      </button>
+    </div>
+    <div class="flex h-8 items-center rounded-full bg-white shadow-md">
+      <button
+        on:click={() => canCompare && verifyStore.setCompareView()}
+        class:opacity-40={!canCompare}
+        ><div class="mx-3 my-2 flex items-center">
+          <Compare class="me-2 h-4 w-4" />
+          <Body
+            ><div class="relative top-px">
+              {$_('sidebar.verify.compare')}
+            </div></Body>
+        </div></button>
+    </div>
   </div>
-</div>
+</figure>
