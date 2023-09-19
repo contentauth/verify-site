@@ -35,8 +35,11 @@
 
   $: ariaLabel =
     primaryTitle +
+    ' ' +
     $_('sidebar.verify.compare.view.ariaLabel.part1') +
+    '' +
     secondaryTitle +
+    '' +
     $_('sidebar.verify.compare.view.ariaLabel.part2');
 </script>
 

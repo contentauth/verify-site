@@ -39,7 +39,7 @@
   $: hasContentCredentials =
     $assetStore.validationResult?.statusCode === 'valid' &&
     $assetStore.manifestData?.date
-      ? $_('page.apply.hasCC') + $assetStore.manifestData.date
+      ? $_('page.apply.hasCC') + '' + $assetStore.manifestData.date
       : $_('sidebar.verify.noCC');
 
   $: parentData = get(parents[1]?.data);
@@ -48,9 +48,7 @@
     parents.length === 1
       ? $_('sidebar.verify.compare.root')
       : $_('sidebar.verify.compare.child') + parentTitle;
-  $: ariaLabel = title + hasContentCredentials + parent;
-  console.log('$assetStore', $assetStore);
-  console.log('parents', parents);
+  $: ariaLabel = title + '' + hasContentCredentials + '' + parent;
 </script>
 
 .
