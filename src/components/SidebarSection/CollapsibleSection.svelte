@@ -28,7 +28,10 @@
 <div class="px-5">
   <SidebarSectionBase {expanded}>
     <svelte:fragment slot="headerSection">
-      <button class="w-full" on:click={() => (expanded = !expanded)} aria-roledescription={ariaLabel}>
+      <button
+        class="w-full"
+        on:click={() => (expanded = !expanded)}
+        aria-roledescription={ariaLabel}>
         <div class="flex items-center justify-between">
           <Header><slot name="header" /></Header>
 

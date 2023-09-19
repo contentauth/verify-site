@@ -31,10 +31,6 @@
   $: tx = x - width / 2;
   $: ty = y - height / 2;
   $: style = `width: ${width}px; height: ${height}px; transform: translate3d(${tx}px, ${ty}px, 0)`;
-  $: selectedAriaLabel =
-    $assetStore.state === 'selected'
-      ? $_('sidebar.verify.compare.assetSelected')
-      : $_('sidebar.verify.compare.clickAssetSelected');
   $: title = $assetStore.title ?? $_('asset.defaultTitle');
   $: hasContentCredentials =
     $assetStore.validationResult?.statusCode === 'valid' &&
@@ -60,7 +56,8 @@
 .
 
 <button
-  aria-roledescription={selectedAriaLabel}
+  role="treeitem"
+  aria-selected={$assetStore.state === 'selected' ? 'true' : 'false'}
   class={`absolute left-0 top-0 flex flex-col overflow-hidden rounded border-2 bg-white transition`}
   class:border-gray-400={$assetStore.state === 'none'}
   class:border-gray-700={$assetStore.state === 'path'}
