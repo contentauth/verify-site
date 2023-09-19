@@ -23,6 +23,7 @@
   export let compareAssetStoreMap: CompareAssetStoreMap;
   export let compareAssetStore: CompareAssetStore = compareAssetStoreMap[0];
   export let parent: CompareAssetStore = compareAssetStoreMap[0];
+  
   let ariaHidden = false;
 
   function showChildren() {
