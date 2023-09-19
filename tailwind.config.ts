@@ -208,6 +208,34 @@ export default {
           lineHeight: '28.35px',
         }
       ],
+      'movement-text': [
+        '1.8rem',
+        {
+          fontWeight: '400',
+          lineHeight: '2.53125rem',
+        }
+      ],
+      'stories-title': [
+        '2rem',
+        {
+          fontWeight: '700',
+          lineHeight: '2.2rem',
+        }
+      ],
+      'stories-desc': [
+        '1.3125rem',
+        {
+          fontWeight: '400',
+          lineHeight: '1.77188rem',
+        }
+      ],
+      'footer-text': [
+        '1rem',
+        {
+          fontWeight: '400',
+          lineHeight: '1.1rem',
+        }
+      ],
       secondaryTitle: [
         '2.25rem',
         {
