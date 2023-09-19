@@ -6,5 +6,8 @@
   },
   "discovery": {
     "allowed-hostnames": ["api.mapbox.com"]
+  },
+  "upload": {
+    "files": "**/*.{png,jpg,jpeg,svg,woff,woff2}"
   }
 }
