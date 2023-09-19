@@ -22,8 +22,8 @@ from Adobe. */
 
 @font-face {
   font-family: "Store Norske Ja";
-  src: url("/fonts/Store Norske Ja.woff2") format("woff2"),
-       url("/fonts/Store Norske Ja.woff") format("woff");
+  src: url("../assets/fonts/Store Norske Ja.woff2") format("woff2"),
+       url("../assets/fonts/Store Norske Ja.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
