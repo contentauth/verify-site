@@ -21,7 +21,7 @@
   export let producer: string;
 </script>
 
-\<SubSection
+<SubSection
   ><svelte:fragment slot="title">
     {$_('sidebar.verify.credit.producer')}
   </svelte:fragment>
