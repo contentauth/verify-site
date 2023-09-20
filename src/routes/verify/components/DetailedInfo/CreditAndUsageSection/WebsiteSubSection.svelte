@@ -13,20 +13,25 @@
   from Adobe.
 -->
 <script lang="ts">
-  import producerIcon from '$assets/svg/color/logos/producer.svg';
+  import websiteIcon from '$assets/svg/monochrome/website.svg';
+  import Link from '$src/components/typography/Link.svelte';
   import { _ } from 'svelte-i18n';
   import SubSection from '../../SubSection/SubSection.svelte';
   import AboutSectionIconContentRow from '../AboutSection/AboutSectionIconContentRow.svelte';
 
-  export let producer: string;
+  export let website: string | null;
 </script>
 
-\<SubSection
-  ><svelte:fragment slot="title">
-    {$_('sidebar.verify.credit.producer')}
-  </svelte:fragment>
+<SubSection>
+  <svelte:fragment slot="title">
+    {$_('sidebar.verify.website')}</svelte:fragment>
   <AboutSectionIconContentRow slot="content">
-    <img slot="icon" src={producerIcon} alt="" class="w-4" />
-    <div class="break-all" slot="content">{producer}</div>
+    <img slot="icon" src={websiteIcon} alt="" class="w-4" />
+    <svelte:fragment slot="content">
+      <Link>
+        <a href={website}>
+          {website}
+        </a></Link
+      ></svelte:fragment>
   </AboutSectionIconContentRow>
 </SubSection>

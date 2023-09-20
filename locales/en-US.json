@@ -89,6 +89,7 @@
   "sidebar.verify.credit.description": "The producer chose to share the following info:",
   "sidebar.verify.credit.producer": "Produced by",
   "sidebar.verify.credit.social": "Social media",
+  "sidebar.verify.website": "Website",
   "sidebar.verify.hideInfo": "Hide info",
   "sidebar.verify.legal.part1": "Content Credentials are a set of history, edit, and attribution data that can help you make more informed decisions about how to interpret a piece of content.",
   "sidebar.verify.legal.part2": "Content Credentials are also tamper-evident. Because they get cryptographically bound to their respective content, changes to either can be identified.",

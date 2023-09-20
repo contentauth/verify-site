@@ -52,7 +52,7 @@
 </script>
 
 <div class="sticky top-0 z-30 bg-white shadow">
-  <div class="flex h-20 shrink-0 items-center justify-between bg-gray-50 px-6">
+  <div class="bg-gray-50 flex h-20 shrink-0 items-center justify-between px-6">
     {#if $assetData}
       <BigAssetInfo assetData={$assetData}>
         <svelte:fragment slot="name">{$assetData.title}</svelte:fragment

@@ -33,6 +33,7 @@ import {
   type GenerativeInfo,
 } from './selectors/generativeInfo';
 import { selectReviewRatings } from './selectors/reviewRatings';
+import { selectWebsite } from './selectors/stockWebsite';
 import {
   selectValidationResult,
   type ValidationStatusResult,
@@ -64,6 +65,7 @@ export type ManifestData = {
   reviewRatings: ReturnType<typeof selectReviewRatings>;
   signatureInfo: Manifest['signatureInfo'];
   socialAccounts: ReturnType<typeof selectSocialAccounts>;
+  website: string | null;
 };
 
 export type AssetDataMap = Record<string, AssetData>;
@@ -242,6 +244,7 @@ export async function resultToAssetMap({
       generativeInfo: selectGenerativeInfo(manifest),
       exif: selectExif(manifest),
       reviewRatings: selectReviewRatings(manifest),
+      website: selectWebsite(manifest),
     };
   }
 
