@@ -32,7 +32,6 @@
   $: secondaryTitle = $secondaryAsset
     ? $secondaryAsset.title
     : $_('sidebar.verify.compare.noAssetSelected');
-
   $: ariaLabel = $_('sidebar.verify.compare.view.ariaLabel', {
     values: { primaryTitle: primaryTitle, secondaryTitle: secondaryTitle },
   });
