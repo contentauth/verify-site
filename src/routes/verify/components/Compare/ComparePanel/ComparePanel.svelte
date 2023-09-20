@@ -40,7 +40,6 @@
   <button
     class="me-2"
     on:click={() => verifyStore.setHierarchyView()}
-    id="compareButtonID"
     aria-roledescription={$_('sidebar.verify.compare.back')}>
     <div class="flex px-5 py-5 pb-2">
       <BackArrow class="me-2" />

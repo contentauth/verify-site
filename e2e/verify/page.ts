@@ -40,10 +40,6 @@ export class VerifyPage {
     this.page = page;
 
     this.languagePicker = page.getByLabel('Language selector');
-
-    // this.signedOn = page
-    //   .locator('aria-roledescription')
-    //   .filter({ hasText: 'signed On' });
   }
 
   static getFixtureUrl(filename: string, type: FixtureType = 'generated') {

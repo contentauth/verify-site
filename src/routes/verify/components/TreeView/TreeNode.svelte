@@ -32,13 +32,11 @@
   $: ty = y - height / 2;
   $: style = `width: ${width}px; height: ${height}px; transform: translate3d(${tx}px, ${ty}px, 0)`;
   $: title = $assetStore.title ?? $_('asset.defaultTitle');
-  $: hasContentCredentials =
-    $assetStore.validationResult?.statusCode === 'valid' &&
-    $assetStore.manifestData?.date
-      ? $_('page.verify.hasCC.date', {
-          values: { date: $assetStore.manifestData?.date },
-        })
-      : $_('sidebar.verify.noCC');
+  $: hasContentCredentials = $assetStore.manifestData
+    ? $_('page.verify.hasCC.date', {
+        values: { date: $assetStore.manifestData?.date },
+      })
+    : $_('sidebar.verify.noCC');
 
   $: parentData = get(parents[1]?.data);
   $: parentTitle = parentData?.title;
