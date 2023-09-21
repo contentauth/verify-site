@@ -20,12 +20,12 @@
 
   export let type: string;
   export let address: string;
-  
+
   let hidden = true;
   const HIDE_DELAY = 800;
 
   $: truncatedAddress = `${address.slice(0, 6)}...${address.slice(-5)}`;
-  
+
   function handleClick(address: string) {
     navigator.clipboard.writeText(address);
     hidden = false;

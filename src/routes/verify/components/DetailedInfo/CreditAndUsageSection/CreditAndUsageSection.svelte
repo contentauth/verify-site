@@ -20,6 +20,7 @@
   import ProducerSubSection from './ProducerSubSection.svelte';
   import SocialSubSection from './SocialSubSection.svelte';
   import Web3SubSection from './Web3/Web3SubSection.svelte';
+  import WebsiteSubSection from './WebsiteSubSection.svelte';
 
   export let manifestData: ManifestData;
 
@@ -27,7 +28,7 @@
     manifestData.producer ||
     manifestData.socialAccounts?.length ||
     manifestData.generativeInfo?.softwareAgents?.length ||
-    manifestData.web3Accounts.length || 
+    manifestData.web3Accounts.length ||
     manifestData.website;
 </script>
 
