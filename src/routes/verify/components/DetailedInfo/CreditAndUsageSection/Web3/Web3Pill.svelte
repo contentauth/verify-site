@@ -21,6 +21,7 @@
   export let type: string;
   export let address: string;
   let hidden = true;
+  const HIDE_DELAY = 800;
 
   $: truncatedAddress = `${address.slice(0, 6)}...${address.slice(-5)}`;
   function handleClick(address: string) {
@@ -28,7 +29,7 @@
     hidden = false;
     setTimeout(() => {
       hidden = true;
-    }, 500);
+    }, HIDE_DELAY);
   }
 </script>
 
@@ -46,24 +47,17 @@
     on:click={() => handleClick(address)}>
     <Body>{truncatedAddress}</Body>
   </button>
-  {#if !hidden}
-    <div
-      aria-live="assertive"
-      class={[
-        'pt-0.5',
-        hidden
-          ? 'duration-200 ease-in'
-          : 'duration-200s transition-opacity ease-out',
-      ].join(' ')}>
-      <SmallDescription
-        >{$_('sidebar.verify.credit.web3.copied')}</SmallDescription>
-    </div>
-    <div />
-  {:else}
-    <div />
-    <div />
-  {/if}
-  <div class="pt-2 capitalize">
+  <div
+    aria-live="assertive"
+    aria-label={hidden ? '' : $_('sidebar.verify.credit.web3.copied')}
+    class={[
+      'pt-0.5 transition  duration-200 ease-in-out',
+      hidden ? 'opacity-0' : 'opacity-100',
+    ].join(' ')}>
+    <SmallDescription
+      >{$_('sidebar.verify.credit.web3.copied')}</SmallDescription>
+  </div>
+  <div class="col-start-2 pt-2 capitalize">
     <SmallDescription>{type}</SmallDescription>
   </div>
 </dd>
