@@ -15,6 +15,7 @@
 <script lang="ts">
   import websiteIcon from '$assets/svg/monochrome/website.svg';
   import Link from '$src/components/typography/Link.svelte';
+  import Truncate from '$src/components/typography/Truncate.svelte';
   import { _ } from 'svelte-i18n';
   import SubSection from '../../SubSection/SubSection.svelte';
   import AboutSectionIconContentRow from '../AboutSection/AboutSectionIconContentRow.svelte';
@@ -29,9 +30,11 @@
     <img slot="icon" src={websiteIcon} alt="" class="w-4" />
     <svelte:fragment slot="content">
       <Link>
-        <a href={website}>
-          {website}
-        </a></Link
-      ></svelte:fragment>
+        <Truncate>
+          <a href={website}>
+            {website}
+          </a></Truncate
+        ></Link>
+    </svelte:fragment>
   </AboutSectionIconContentRow>
 </SubSection>
