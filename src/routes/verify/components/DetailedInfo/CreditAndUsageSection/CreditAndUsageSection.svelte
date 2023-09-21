@@ -19,13 +19,17 @@
   import AiSubSection from './AISubSection.svelte';
   import ProducerSubSection from './ProducerSubSection.svelte';
   import SocialSubSection from './SocialSubSection.svelte';
+  import Web3SubSection from './Web3/Web3SubSection.svelte';
 
   export let manifestData: ManifestData;
+
+  console.log('manifestData', manifestData);
 
   $: shouldShowSection =
     manifestData.producer ||
     manifestData.socialAccounts?.length ||
-    manifestData.generativeInfo?.softwareAgents?.length;
+    manifestData.generativeInfo?.softwareAgents?.length ||
+    manifestData.web3Accounts.length;
 </script>
 
 {#if shouldShowSection}
@@ -43,6 +47,9 @@
       {#if manifestData.generativeInfo?.softwareAgents?.length}
         <AiSubSection
           softwareAgents={manifestData.generativeInfo.softwareAgents} />
+      {/if}
+      {#if manifestData.web3Accounts.length}
+        <Web3SubSection web3Accounts={manifestData.web3Accounts} />
       {/if}
     </svelte:fragment>
   </CollapsibleSection>

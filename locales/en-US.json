@@ -89,6 +89,8 @@
   "sidebar.verify.credit.description": "The producer chose to share the following info:",
   "sidebar.verify.credit.producer": "Produced by",
   "sidebar.verify.credit.web3": "Web3 addresses",
+  "sidebar.verify.credit.web3.copy": "Click to copy",
+  "sidebar.verify.credit.web3.copied": "Copied!",
   "sidebar.verify.credit.social": "Social media",
   "sidebar.verify.hideInfo": "Hide info",
   "sidebar.verify.legal.part1": "Content Credentials are a set of history, edit, and attribution data that can help you make more informed decisions about how to interpret a piece of content.",

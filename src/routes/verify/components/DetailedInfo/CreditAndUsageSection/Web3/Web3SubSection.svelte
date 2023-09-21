@@ -13,20 +13,22 @@
   from Adobe.
 -->
 <script lang="ts">
-  import producerIcon from '$assets/svg/color/logos/producer.svg';
   import { _ } from 'svelte-i18n';
-  import SubSection from '../../SubSection/SubSection.svelte';
-  import AboutSectionIconContentRow from '../AboutSection/AboutSectionIconContentRow.svelte';
+  import SubSection from '../../../SubSection/SubSection.svelte';
+  import Web3Pill from './Web3Pill.svelte';
 
-  export let producer: string;
+  export let web3Accounts: [string, string[]][];
 </script>
 
 <SubSection
   ><svelte:fragment slot="title">
     {$_('sidebar.verify.credit.web3')}
   </svelte:fragment>
-  <AboutSectionIconContentRow slot="content">
-    <img slot="icon" src={producerIcon} alt="" class="w-4" />
-    <div class="break-all" slot="content">{producer}</div>
-  </AboutSectionIconContentRow>
+  <svelte:fragment slot="content">
+    {#each web3Accounts as [type, [address]]}
+      <div class="pb-1">
+        <Web3Pill {type} {address} />
+      </div>
+    {/each}
+  </svelte:fragment>
 </SubSection>

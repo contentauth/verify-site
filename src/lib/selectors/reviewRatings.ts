@@ -18,7 +18,6 @@ type ReviewRating = NonNullable<
 >[0];
 
 export function selectReviewRatings(manifest: Manifest) {
-  console.log('manifest', manifest);
   const ingredientRatings = manifest.ingredients?.reduce<ReviewRating[]>(
     (acc, ingredient: Ingredient) => {
       return [...acc, ...(ingredient.metadata?.reviewRatings ?? [])];
