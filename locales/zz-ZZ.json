@@ -115,7 +115,11 @@
   "sidebar.verify.summary": "[+] _üContent Summary",
   "sidebar.verify.title": "[BH] _üContent Credentials",
   "spinner.loading": "[Bg] _üLoading",
-  "dialog.error.manifestSearchConnectionIssue.title": "[Be] _üConnection issue",
-  "dialog.error.manifestSearchConnectionIssue.message": "[Bd] _üManifest search can't be completed right now due to connection issues with another service. Try again later.",
-  "dialog.OK": "[Bc] _üOK"
+  "dialog.error.legacyCredential.title": "[B7] _üLegacy Verify",
+  "dialog.error.legacyCredential.message": "[B6] _üThis asset was created with an older version of Content Credentials. Click continue to view the legacy version.",
+  "dialog.cancel": "[B/] _üCancel",
+  "dialog.continue": "[B5] _üContinue",
+  "toast.matchesUnavailable": "[B8] _üPossible matches are currently unavailable",
+  "toast.unsupportedFileType": "[B+] _üThat file type isn't supported",
+  "toast.somethingWentWrong": "[B9] _üSomething went wrong"
 }

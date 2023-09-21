@@ -122,6 +122,7 @@
   "dialog.error.legacyCredential.message": "This asset was created with an older version of Content Credentials. Click continue to view the legacy version.",
   "dialog.cancel": "Cancel",
   "dialog.continue": "Continue",
+  "dialog.close": "Close",
   "toast.matchesUnavailable": "Possible matches are currently unavailable",
   "toast.unsupportedFileType": "That file type isn't supported",
   "toast.somethingWentWrong": "Something went wrong"

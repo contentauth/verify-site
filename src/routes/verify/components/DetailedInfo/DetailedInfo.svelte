@@ -18,11 +18,13 @@
   import type { AssetData } from '$src/lib/asset';
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
+  import { openModal } from 'svelte-modals';
   import type { Readable } from 'svelte/store';
   import { verifyStore } from '../../stores';
   import BigAssetInfo from '../AssetInfo/BigAssetInfo.svelte';
   import ErrorBanner from '../ErrorBanner/ErrorBanner.svelte';
   import ThumbnailSection from '../Thumbnail/ThumbnailSection.svelte';
+  import LightboxModal from '../modals/LightboxModal/LightboxModal.svelte';
   import AboutSection from './AboutSection/AboutSection.svelte';
   import AdvancedSection from './AdvancedSection/AdvancedSection.svelte';
   import CameraCaptureSection from './CameraCaptureSection/CameraCaptureSection.svelte';
@@ -49,6 +51,15 @@
   function handleCloseClick() {
     dispatch('close');
   }
+
+  function handleThumbnailClick() {
+    if ($assetData.thumbnail) {
+      openModal(LightboxModal, {
+        src: $assetData.thumbnail,
+        label: $assetData.title ?? $_('asset.defaultTitle'),
+      });
+    }
+  }
 </script>
 
 <div class="sticky top-0 z-30 bg-white shadow">
@@ -74,7 +85,9 @@
       ></ErrorBanner>
   {/if}
 </div>
-<ThumbnailSection thumbnail={$assetData.thumbnail} />
+<ThumbnailSection
+  thumbnail={$assetData.thumbnail}
+  on:click={handleThumbnailClick} />
 {#if $assetData.manifestData && isValid}
   <ContentSummarySection {...assetDataToContentSummaryProps($assetData)} />
   <CreditAndUsage manifestData={$assetData.manifestData} />
