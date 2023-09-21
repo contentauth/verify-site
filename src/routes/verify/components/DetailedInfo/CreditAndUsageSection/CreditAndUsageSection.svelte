@@ -27,7 +27,8 @@
     manifestData.producer ||
     manifestData.socialAccounts?.length ||
     manifestData.generativeInfo?.softwareAgents?.length ||
-    manifestData.web3Accounts.length;
+    manifestData.web3Accounts.length || 
+    manifestData.website;
 </script>
 
 {#if shouldShowSection}
@@ -48,6 +49,9 @@
       {/if}
       {#if manifestData.web3Accounts.length}
         <Web3SubSection web3Accounts={manifestData.web3Accounts} />
+      {/if}
+      {#if manifestData.website}
+        <WebsiteSubSection website={manifestData.website} />
       {/if}
     </svelte:fragment>
   </CollapsibleSection>
