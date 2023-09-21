@@ -20,6 +20,7 @@
 
   export let type: string;
   export let address: string;
+  
   let hidden = true;
   const HIDE_DELAY = 800;
 
