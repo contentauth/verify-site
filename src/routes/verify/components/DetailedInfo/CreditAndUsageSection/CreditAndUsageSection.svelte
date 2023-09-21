@@ -23,8 +23,6 @@
 
   export let manifestData: ManifestData;
 
-  console.log('manifestData', manifestData);
-
   $: shouldShowSection =
     manifestData.producer ||
     manifestData.socialAccounts?.length ||
