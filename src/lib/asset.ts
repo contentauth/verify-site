@@ -33,11 +33,11 @@ import {
   type GenerativeInfo,
 } from './selectors/generativeInfo';
 import { selectReviewRatings } from './selectors/reviewRatings';
-import { selectWebsite } from './selectors/stockWebsite';
 import {
   selectValidationResult,
   type ValidationStatusResult,
 } from './selectors/validationResult';
+import { selectWebsite } from './selectors/website';
 import { formatThumbnail } from './thumbnail';
 import type { Disposable } from './types';
 
