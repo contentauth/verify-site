@@ -25,7 +25,7 @@ const dbg = debug('exif');
 // See precision values here: https://en.wikipedia.org/wiki/Decimal_degrees
 export const LOCATION_PRECISION = 2;
 
-const EXIF_DATE_FORMAT_STRING = 'yyyy:MM:dd HH:mm:ss';
+const EXIF_DATE_FORMAT_STRING = 'yyyy:MM:dd HH:mm:ss X';
 
 export interface ExifTags {
   'dc:creator'?: string;
@@ -186,7 +186,7 @@ export function parseDateTime(exif: ExifTags): Date | null {
     exif['exif:offsettime'] ?? exif['exif:offsettimeoriginal'] ?? '+00:00';
   const parsedOffset = /^(\+|-)(\d{2}):(\d{2})$/.exec(dateTimeOffset);
   const captureDate = dateTimeOriginal
-    ? parse(dateTimeOriginal, EXIF_DATE_FORMAT_STRING, new Date())
+    ? parse(`${dateTimeOriginal} Z`, EXIF_DATE_FORMAT_STRING, new Date())
     : null;
 
   if (!captureDate || !isValid(captureDate)) {

@@ -38,34 +38,34 @@ describe('lib/exif', () => {
       parseDateTime({
         'exif:datetimeoriginal': '2023:08:30 19:46:27',
       }),
-    ).toEqual(new Date('2023-08-30T23:46:27.000Z'));
+    ).toEqual(new Date('2023-08-30T19:46:27.000Z'));
 
     expect(
       parseDateTime({
         'exif:datetimeoriginal': '2023:08:30 19:46:27',
         'exif:offsettime': '+02:00',
       }),
-    ).toEqual(new Date('2023-08-31T01:46:27.000Z'));
+    ).toEqual(new Date('2023-08-30T21:46:27.000Z'));
 
     expect(
       parseDateTime({
         'exif:datetimeoriginal': '2023:08:30 19:46:27',
-        'exif:offsettime': '+02:30',
+        'exif:offsettime': '+04:30',
       }),
-    ).toEqual(new Date('2023-08-31T02:16:27.000Z'));
+    ).toEqual(new Date('2023-08-31T00:16:27.000Z'));
 
     expect(
       parseDateTime({
         'exif:datetimeoriginal': '2023:08:30 19:46:27',
         'exif:offsettime': '-04:30',
       }),
-    ).toEqual(new Date('2023-08-30T19:16:27.000Z'));
+    ).toEqual(new Date('2023-08-30T15:16:27.000Z'));
 
     expect(
       parseDateTime({
         'exif:datetimeoriginal': '2023:08:30 19:46:27',
         'exif:offsettimeoriginal': '-02:00',
       }),
-    ).toEqual(new Date('2023-08-30T21:46:27.000Z'));
+    ).toEqual(new Date('2023-08-30T17:46:27.000Z'));
   });
 });
