@@ -29,7 +29,7 @@
   <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions  -->
   <div
     slot="backdrop"
-    class="fixed inset-0 bg-gray-900 opacity-30"
+    class="fixed inset-0 bg-gray-900/80"
     transition:fade={{ duration: 100 }}
     on:click={closeModal} />
 </Modals>

@@ -35,28 +35,28 @@
   <slot name="thumbnail" />
   <div class="min-w-0 px-2">
     <div class="flex pb-0.5"><Truncate><slot name="name" /></Truncate></div>
-    <div class="flex items-center text-gray-600">
+    <div class="flex items-center text-gray-900">
       {#if statusCode === 'valid' && hasCredentials}
         <L1Icon
           width="1rem"
           height="1rem"
-          class="me-1.5 h-4 w-4 text-gray-600" />
+          class="me-1.5 h-4 w-4 text-gray-900" />
         <Truncate
           ><Body
             >{#if date}<span
                 aria-label={$_('aria.label.signedOn')}
-                class="text-gray-600"><FormattedDateTime {date} noTime /></span
-              >{:else}<span class="text-gray-600">{issuer}</span>{/if}</Body
+                class="text-gray-900"><FormattedDateTime {date} noTime /></span
+              >{:else}<span class="text-gray-900">{issuer}</span>{/if}</Body
           ></Truncate>
       {:else if statusCode === 'incomplete'}
         <L1Incomplete
           width="1.25rem"
           height="1rem"
-          class="me-1.5 h-4 w-4 text-gray-600" />
+          class="me-1.5 h-4 w-4 text-gray-900" />
         <div class="min-w-0 truncate">
           <Truncate
             ><Body
-              ><span class="text-gray-600">{$_('assetInfo.incomplete')}</span
+              ><span class="text-gray-900">{$_('assetInfo.incomplete')}</span
               ></Body
             ></Truncate>
         </div>
@@ -64,10 +64,10 @@
         <L1Invalid
           width="1.25rem"
           height="1rem"
-          class="me-1.5 h-4 w-4 text-gray-600" />
+          class="me-1.5 h-4 w-4 text-gray-900" />
         <Truncate
           ><Body
-            ><span class="text-gray-600">{$_('assetInfo.invalid')}</span></Body
+            ><span class="text-gray-900">{$_('assetInfo.invalid')}</span></Body
           ></Truncate>
       {:else}
         <Truncate
