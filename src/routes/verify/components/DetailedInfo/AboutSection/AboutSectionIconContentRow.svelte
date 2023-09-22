@@ -19,5 +19,5 @@
 
 <IconContentRow>
   <slot slot="icon" name="icon" />
-  <Body slot="content"><slot name="content" /></Body>
+  <div class="min-w-0" slot="content"><Body><slot name="content" /></Body></div>
 </IconContentRow>

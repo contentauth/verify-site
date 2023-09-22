@@ -13,14 +13,22 @@
   from Adobe.
 -->
 <script lang="ts">
-  import { fly } from 'svelte/transition';
+  import { _ } from 'svelte-i18n';
+  import SubSection from '../../../SubSection/SubSection.svelte';
+  import Web3Pill from './Web3Pill.svelte';
 
-  export let showPanel: boolean;
+  export let web3Accounts: [string, string[]][];
 </script>
 
-<div
-  class="relative z-10 h-screen overflow-auto overflow-x-hidden border-gray-100 bg-white transition-transform sm:h-[calc(100vh-theme(spacing.header))] sm:transform-none sm:border-s-2 lg:h-screen"
-  class:-translate-y-full={showPanel}
-  transition:fly={{ duration: 300, opacity: 0, x: 200 }}>
-  <slot />
-</div>
+<SubSection
+  ><svelte:fragment slot="title">
+    {$_('sidebar.verify.credit.web3')}
+  </svelte:fragment>
+  <svelte:fragment slot="content">
+    {#each web3Accounts as [type, [address]]}
+      <div class="pb-1">
+        <Web3Pill {type} {address} />
+      </div>
+    {/each}
+  </svelte:fragment>
+</SubSection>

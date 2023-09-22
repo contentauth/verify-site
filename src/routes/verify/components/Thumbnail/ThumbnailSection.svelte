@@ -21,6 +21,6 @@
 
 <div class="flex justify-center">
   <Section>
-    <BigThumbnail slot="content" {thumbnail} />
+    <BigThumbnail on:click slot="content" {thumbnail} />
   </Section>
 </div>

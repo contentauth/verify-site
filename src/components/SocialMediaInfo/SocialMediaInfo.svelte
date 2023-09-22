@@ -15,6 +15,7 @@
 <script lang="ts">
   import Link from '../typography/Link.svelte';
   import SmallDescription from '../typography/SmallDescription.svelte';
+  import Truncate from '../typography/Truncate.svelte';
 
   export let link: string;
   export let username: string;
@@ -22,7 +23,8 @@
 </script>
 
 <div class="flex flex-col">
-  <Link><a class="break-all" href={link}>{username}</a></Link>
+  <Link>
+    <Truncate><a class="break-all" href={link}>{username}</a></Truncate></Link>
   <div class="pt-0.5">
     <SmallDescription>{appName}</SmallDescription>
   </div>

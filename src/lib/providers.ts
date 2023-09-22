@@ -20,6 +20,7 @@ import FacebookLogo from '$assets/svg/color/logos/facebook.svg?component';
 import InstagramLogo from '$assets/svg/color/logos/instagram.svg?component';
 import LeicaLogo from '$assets/svg/color/logos/leica_logo.svg?component';
 import LightroomLogo from '$assets/svg/color/logos/lightroom.svg?component';
+import LinkedInLogo from '$assets/svg/color/logos/linkedin.svg?component';
 import NikonLogo from '$assets/svg/color/logos/nikon.svg?component';
 import PhotoshopLogo from '$assets/svg/color/logos/photoshop.svg?component';
 import PinterestLogo from '$assets/svg/color/logos/pinterest.svg?component';
@@ -36,6 +37,7 @@ const matchers = [
   { pattern: /behance\.net/i, icon: BehanceLogo, name: 'Behance' },
   { pattern: /facebook\.com/i, icon: FacebookLogo, name: 'Facebook' },
   { pattern: /instagram\.com/i, icon: InstagramLogo, name: 'Instagram' },
+  { pattern: /linkedin\.com/i, icon: LinkedInLogo, name: 'LinkedIn' },
   // Behance staging
   {
     pattern: /net\.s2stagehance\.com/i,
