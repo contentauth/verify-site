@@ -83,7 +83,7 @@
   "sidebar.verify.cameraCapture.copyright": "版权",
   "sidebar.verify.cameraCapture.description": "来自用于拍摄图像或视频的相机的附加数据。EXIF 数据可由内容制作者编辑。",
   "sidebar.verify.cameraCapture.mapAltText": "显示大致位置的地图",
-  "sidebar.verify.cameraCapture.secondSuffix": "s",
+  "sidebar.verify.cameraCapture.secondSuffix": "秒",
   "sidebar.verify.credit.AI": "使用的人工智能模型",
   "sidebar.verify.credit.AI.description": "不要使用我的内容来训练人工智能模型",
   "sidebar.verify.credit.description": "制作者已选择共享以下信息：",
