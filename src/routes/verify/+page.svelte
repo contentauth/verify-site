@@ -71,9 +71,10 @@
   <DragDropOverlay visible={showDropOverlay} />
   <LoadingOverlay visible={showLoadingOverlay} />
   <FilePicker bind:this={filePicker} />
-  <SidebarLayout leftColumnTakeover={hasEmptyState}>
+  <SidebarLayout
+    leftColumnTakeover={hasEmptyState}
+    showHeader={$viewState !== 'compare'}>
     <!-- Left panel -->
-    <svelte:fragment slot="header">{$_('page.verify.title')}</svelte:fragment>
     <svelte:fragment slot="sidebar">
       {#if $viewState === 'hierarchy'}
         {#if hasEmptyState}

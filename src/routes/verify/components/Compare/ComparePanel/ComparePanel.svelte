@@ -37,26 +37,28 @@
 </script>
 
 <div class="z-1">
-  <button class="me-2" on:click={() => verifyStore.setHierarchyView()}>
-    <div class="flex px-5 py-5 pb-2">
-      <BackArrow class="me-2" />
-      <Header>{$_('sidebar.verify.compare')}</Header>
+  <div class="sticky top-0 z-10 bg-white">
+    <button class="me-2" on:click={() => verifyStore.setHierarchyView()}>
+      <div class="flex px-5 py-5 pb-2">
+        <BackArrow class="me-2" />
+        <Header>{$_('sidebar.verify.compare')}</Header>
+      </div>
+    </button>
+    <div class="flex items-center px-5 pb-4 pt-2">
+      <div class="shrink-0 pe-2">
+        <Label>{$_('sidebar.verify.compare.dropdown')}</Label>
+      </div>
+      <select
+        on:change={handleViewChange}
+        class="back form-select w-full rounded-sm border border-gray-400 bg-[center_right_0.25rem] px-2 text-[0.8125rem] leading-3">
+        {#each compareModeArray as item (item)}
+          <option value={item}>{$_(`sidebar.verify.compare.${item}`)}</option>
+        {/each}
+      </select>
     </div>
-  </button>
-  <div class="flex items-center px-5 pb-4 pt-2">
-    <div class="shrink-0 pe-2">
-      <Label>{$_('sidebar.verify.compare.dropdown')}</Label>
-    </div>
-    <select
-      on:change={handleViewChange}
-      class="back form-select w-full rounded-sm border border-gray-400 bg-[center_right_0.25rem] px-2 text-[0.8125rem] leading-3">
-      {#each compareModeArray as item (item)}
-        <option value={item}>{$_(`sidebar.verify.compare.${item}`)}</option>
-      {/each}
-    </select>
   </div>
 
-  <div class="relative h-screen overflow-auto">
+  <div class="relative">
     <CompareAsset compareAssetStoreMap={assetStoreMap} />
   </div>
 </div>

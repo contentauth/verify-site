@@ -20,6 +20,7 @@
   import { sidebarLayoutPageState } from './store/sidebarLayoutPageState';
 
   export let leftColumnTakeover = false;
+  export let showHeader = true;
 </script>
 
 <div
@@ -27,9 +28,17 @@
     'grid h-screen grid-cols-[100vw_100vw] overflow-hidden bg-gray-40 transition-colors duration-100',
     !leftColumnTakeover ? 'lg:grid-cols-[theme(spacing.sidebar)_auto]' : '',
   ].join(' ')}>
-  <div class="flex flex-col border-gray-100 bg-white lg:border-e-2">
-    <Header><slot name="header" /></Header>
-    <div class="relative flex-grow transition-colors duration-100">
+  <div class="flex h-screen flex-col border-gray-100 bg-white lg:border-e-2">
+    <div
+      class={[
+        'overflow-hidden transition-all duration-300',
+        showHeader
+          ? 'max-h-16 opacity-100 ease-in'
+          : 'max-h-0 opacity-0 ease-out',
+      ].join(' ')}>
+      <Header><slot name="header" /></Header>
+    </div>
+    <div class="min-height-0 relative flex-grow overflow-auto">
       <slot name="sidebar" />
     </div>
     <LanguagePicker />
@@ -38,8 +47,9 @@
     <div
       class="z-0 h-screen overflow-hidden transition-transform lg:transform-none"
       class:-translate-x-full={$sidebarLayoutPageState === 1}>
+      <!-- Mobile header -->
       <div
-        class="flex items-center border-b border-gray-100 bg-white px-6 lg:hidden">
+        class="flex items-center border-b border-gray-100 bg-white px-5 py-4 lg:hidden">
         <button
           class="flex items-center"
           on:click={() => sidebarLayoutPageState.back()}>
