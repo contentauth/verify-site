@@ -49,14 +49,14 @@
     </div>
     <select
       on:change={handleViewChange}
-      class="form-select back w-full rounded-sm border border-gray-400 bg-[center_right_0.25rem] px-2 text-[0.8125rem] leading-3">
+      class="back form-select w-full rounded-sm border border-gray-400 bg-[center_right_0.25rem] px-2 text-[0.8125rem] leading-3">
       {#each compareModeArray as item (item)}
         <option value={item}>{$_(`sidebar.verify.compare.${item}`)}</option>
       {/each}
     </select>
   </div>
 
-  <div class="h-screen overflow-auto">
+  <div class="relative h-screen overflow-auto">
     <CompareAsset compareAssetStoreMap={assetStoreMap} />
   </div>
 </div>

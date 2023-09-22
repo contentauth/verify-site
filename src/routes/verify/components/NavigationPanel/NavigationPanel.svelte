@@ -13,8 +13,6 @@
   from Adobe.
 -->
 <script lang="ts">
-  import LegalSection from '$src/components/LegalSection/LegalSection.svelte';
-  import { _ } from 'svelte-i18n';
   import { verifyStore } from '../../stores';
   import ManifestRecoverySection from './ManifestRecovery/ManifestRecoverySection.svelte';
 
@@ -24,12 +22,3 @@
 {#if $hierarchyView.state === 'success'}
   <ManifestRecoverySection />
 {/if}
-<LegalSection>
-  <svelte:fragment slot="legal-text-visible">
-    <p>{$_('sidebar.verify.legal.part1')}</p>
-  </svelte:fragment>
-  <svelte:fragment slot="legal-text-more">
-    <p class="pt-2">{$_('sidebar.verify.legal.part2')}</p>
-    <p class="pt-2">{$_('sidebar.verify.legal.part3')}</p>
-  </svelte:fragment>
-</LegalSection>

@@ -30,8 +30,12 @@
   }
 </script>
 
-<div class="p-2" class:bg-blue-100={$compareAssetStore.isSelected}>
-  <button on:click={$compareAssetStore.select} class="w-full">
+<div>
+  <div
+    class="absolute left-0 right-0 z-0 h-16 p-2 transition-colors duration-200"
+    class:bg-blue-100={$compareAssetStore.isSelected}>
+  </div>
+  <button on:click={$compareAssetStore.select} class="relative w-full p-2">
     <div class="flex">
       {#if hasChildren}
         <button on:click={showChildren} class="px-2">

@@ -64,6 +64,7 @@
   <DragDropOverlay visible={showDropOverlay} />
   <LoadingOverlay visible={showLoadingOverlay} />
   <SidebarLayout leftColumnTakeover={hasEmptyState}>
+    <!-- Left panel -->
     <svelte:fragment slot="header">{$_('page.verify.title')}</svelte:fragment>
     <svelte:fragment slot="sidebar">
       {#if $viewState === 'hierarchy'}
@@ -76,9 +77,11 @@
         <ComparePanel assetStoreMap={$compareView.compareAssetMap} />
       {/if}
     </svelte:fragment>
+    <!-- Content (main 2/3rds) -->
     <div
       slot="content"
-      class="h-full grid-cols-[auto_theme(spacing.sidebar)] sm:grid">
+      class="h-full grid-cols-[auto_theme(spacing.sidebar)] bg-gray-40 sm:grid">
+      <!-- Center panel -->
       <div class="h-full lg:h-screen">
         {#if $viewState === 'hierarchy' && $hierarchyView.state === 'success'}
           <TreeView
@@ -92,6 +95,7 @@
           class="m-2 bg-blue-600 p-2 text-white sm:hidden"
           on:click={() => (showPanel = !showPanel)}>Reveal</button>
       </div>
+      <!-- Right panel -->
       <RevealablePanel {showPanel}>
         {#if $viewState === 'hierarchy' && $hierarchyView.state === 'success'}
           <DetailedInfo
