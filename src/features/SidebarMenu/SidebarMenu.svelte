@@ -24,7 +24,7 @@
   class="fixed top-0 h-screen w-sidebar border-e-2 bg-white transition"
   class:-translate-x-full={!$sidebarMenuState}
   class:shadow={$sidebarMenuState}>
-  <Header burgerOpen={true} />
+  <Header />
   <div class="border-t-2 py-4">
     <MenuItem href="/">{$_('menu.home')}</MenuItem>
     <MenuItem href="/verify">

@@ -16,8 +16,6 @@
 
 <Story name="Default" />
 
-<Story name="Open" source args={{ burgerOpen: true }} />
-
 <Story name="Custom slot">
   <Header>
     <div>My site</div>

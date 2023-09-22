@@ -16,6 +16,7 @@
 <script lang="ts">
   import { afterNavigate } from '$app/navigation';
   import { SidebarLayout } from '$src/features/SidebarLayout';
+  import type { SvelteComponent } from 'svelte';
   import { _ } from 'svelte-i18n';
   import CompareDetailedInfo from './components/Compare/CompareInfo/CompareInfo.svelte';
   import ComparePanel from './components/Compare/ComparePanel/ComparePanel.svelte';
@@ -23,6 +24,7 @@
   import DetailedInfo from './components/DetailedInfo/DetailedInfo.svelte';
   import DragDropOverlay from './components/DragDropOverlay/DragDropOverlay.svelte';
   import EmptyState from './components/EmptyState/EmptyState.svelte';
+  import FilePicker from './components/FilePicker/FilePicker.svelte';
   import LoadingOverlay from './components/LoadingOverlay/LoadingOverlay.svelte';
   import NavigationPanel from './components/NavigationPanel/NavigationPanel.svelte';
   import RevealablePanel from './components/RevealablePanel/RevealablePanel.svelte';
@@ -32,6 +34,7 @@
 
   let showDropOverlay = false;
   let showPanel = false;
+  let filePicker: SvelteComponent<{ launch?: () => void }>;
   const { hierarchyView, compareView, viewState } = verifyStore;
 
   const dragDropParams: DragDropActionParams = {
@@ -58,11 +61,16 @@
       return;
     }
   });
+
+  function handleLaunchFilePicker() {
+    filePicker?.launch();
+  }
 </script>
 
 <div use:dragDropAction={dragDropParams}>
   <DragDropOverlay visible={showDropOverlay} />
   <LoadingOverlay visible={showLoadingOverlay} />
+  <FilePicker bind:this={filePicker} />
   <SidebarLayout leftColumnTakeover={hasEmptyState}>
     <!-- Left panel -->
     <svelte:fragment slot="header">{$_('page.verify.title')}</svelte:fragment>
@@ -71,7 +79,7 @@
         {#if hasEmptyState}
           <EmptyState />
         {:else}
-          <NavigationPanel />
+          <NavigationPanel on:launchFilePicker={handleLaunchFilePicker} />
         {/if}
       {:else if $viewState === 'compare' && $compareView.state === 'success'}
         <ComparePanel assetStoreMap={$compareView.compareAssetMap} />

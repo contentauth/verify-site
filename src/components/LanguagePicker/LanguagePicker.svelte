@@ -15,7 +15,7 @@
   }
 </script>
 
-<div class="relative px-5 py-4">
+<div class="relative border-t border-gray-100 px-5 py-5">
   <div class="pointer-events-none flex items-center">
     <label for="language" class="pe-1"
       ><Informational

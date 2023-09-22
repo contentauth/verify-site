@@ -14,7 +14,7 @@
 -->
 <script lang="ts">
   import CloseIcon from '$assets/svg/monochrome/close.svg?component';
-  import ClosedBorderSection from '$src/components/SidebarSection/ClosedBorderSection.svelte';
+  import Section from '$src/components/SidebarSection/Section.svelte';
   import Spinner from '$src/components/Spinner/Spinner.svelte';
   import BodyBold from '$src/components/typography/BodyBold.svelte';
   import { sidebarLayoutPageState } from '$src/features/SidebarLayout';
@@ -32,10 +32,7 @@
   }
 </script>
 
-<ClosedBorderSection>
-  <div slot="title" class="pb-2">
-    {$_('sidebar.verify.title')}
-  </div>
+<Section hasPadding={false} hasBorder={false}>
   <svelte:fragment slot="content">
     {#if $mostRecentlyLoaded.assetData}
       <AssetInfoButton
@@ -47,9 +44,9 @@
         isSelected={$mostRecentlyLoaded.isSelected} />
     {/if}
   </svelte:fragment>
-</ClosedBorderSection>
+</Section>
 {#if $recoveredManifestResults.state === 'success'}
-  <ClosedBorderSection>
+  <Section hasBorder={false}>
     <div slot="title" class="mb-5 flex justify-between">
       <div class="text-md">
         <BodyBold>
@@ -62,15 +59,15 @@
     <div slot="content">
       <SearchResults results={$recoveredManifestResults.manifests} />
     </div>
-  </ClosedBorderSection>
+  </Section>
 {:else if $recoveredManifestResults.state === 'loading'}
-  <ClosedBorderSection>
+  <Section hasBorder={false}>
     <div slot="content" class="relative top-0.5 origin-left scale-125">
       <Spinner size="s" />
     </div>
-  </ClosedBorderSection>
+  </Section>
 {:else}
-  <ClosedBorderSection>
+  <Section hasBorder={false}>
     <SearchForMatches on:click={handleRecovery} slot="content" />
-  </ClosedBorderSection>
+  </Section>
 {/if}

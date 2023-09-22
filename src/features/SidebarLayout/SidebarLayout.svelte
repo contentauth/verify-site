@@ -29,11 +29,7 @@
   ].join(' ')}>
   <div class="flex flex-col border-gray-100 bg-white lg:border-e-2">
     <Header><slot name="header" /></Header>
-    <div
-      class={[
-        'relative flex-grow border-t-2 transition-colors duration-100',
-        leftColumnTakeover ? 'border-transparent' : 'border-gray-100',
-      ].join(' ')}>
+    <div class="relative flex-grow transition-colors duration-100">
       <slot name="sidebar" />
     </div>
     <LanguagePicker />
@@ -43,7 +39,7 @@
       class="z-0 h-screen overflow-hidden transition-transform lg:transform-none"
       class:-translate-x-full={$sidebarLayoutPageState === 1}>
       <div
-        class="flex h-header items-center border-b border-gray-100 bg-white px-6 lg:hidden">
+        class="flex items-center border-b border-gray-100 bg-white px-6 lg:hidden">
         <button
           class="flex items-center"
           on:click={() => sidebarLayoutPageState.back()}>

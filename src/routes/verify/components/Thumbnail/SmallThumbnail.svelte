@@ -21,7 +21,7 @@
 </script>
 
 <div
-  class="h-12 w-12 shrink-0 overflow-hidden rounded-sm bg-gray-100 transition"
+  class="h-12 w-12 shrink-0 overflow-hidden rounded-sm bg-gray-40 transition"
   class:ring-2={highlighted}
   class:ring-blue-800={highlighted}>
   <ThumbnailImage {thumbnail} {mimeType} size="1.75rem" />

@@ -13,22 +13,9 @@
   from Adobe.
 -->
 <script lang="ts">
-  import { sidebarMenuState } from '$src/features/SidebarMenu';
-  import { _ } from 'svelte-i18n';
-  import Hamburger from '../Hamburger/Hamburger.svelte';
-  import Title from '../typography/Title.svelte';
-
-  function handleBurgerClick() {
-    sidebarMenuState.toggle();
-  }
-
-  export let burgerOpen = false;
+  import TextLogo from '$assets/svg/monochrome/text-logo.svg?component';
 </script>
 
-<header class="flex h-header items-center px-2">
-  <Hamburger on:click={handleBurgerClick} open={burgerOpen} />
-  <Title><slot>{$_('page.home.title')}</slot></Title>
-  <div class="ms-auto hidden md:block">
-    <slot name="links" />
-  </div>
+<header class="flex items-center px-5 pt-5">
+  <TextLogo width="12.1rem" />
 </header>

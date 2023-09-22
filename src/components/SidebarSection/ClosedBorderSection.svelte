@@ -15,9 +15,11 @@
 <script lang="ts">
   import Header from '../typography/Header.svelte';
   import SidebarSectionBase from './SidebarSectionBase.svelte';
+
+  export let hasPadding = true;
 </script>
 
-<SidebarSectionBase>
+<SidebarSectionBase {hasPadding}>
   <div slot="headerSection" class="px-5">
     <Header><slot name="title" /></Header>
   </div>
