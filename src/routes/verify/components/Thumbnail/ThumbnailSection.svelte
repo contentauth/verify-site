@@ -17,10 +17,11 @@
   import BigThumbnail from './BigThumbnail.svelte';
 
   export let thumbnail: string | null;
+  export let mimeType: string;
 </script>
 
 <div class="flex justify-center">
   <Section>
-    <BigThumbnail on:click slot="content" {thumbnail} />
+    <BigThumbnail on:click slot="content" {thumbnail} {mimeType} />
   </Section>
 </div>

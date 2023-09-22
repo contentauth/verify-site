@@ -13,7 +13,7 @@
   from Adobe.
 -->
 <script lang="ts">
-  import close from '$assets/svg/color/logos/close.svg';
+  import close from '$assets/svg/monochrome/close.svg';
   import Description from '$src/components/typography/Description.svelte';
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';

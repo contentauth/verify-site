@@ -14,7 +14,7 @@
 -->
 
 <script lang="ts">
-  import EmptyImage from '$assets/svg/monochrome/emptyImage.svg?component';
+  import EmptyImage from '$assets/svg/monochrome/missing-thumb-image.svg?component';
   import Body from '$src/components/typography/Body.svelte';
   import { _ } from 'svelte-i18n';
 </script>

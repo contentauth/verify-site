@@ -13,20 +13,53 @@
   from Adobe.
 -->
 <script lang="ts">
-  import fallback from '$assets/svg/monochrome/emptyImage.svg';
+  import AudioFallback from '$assets/svg/monochrome/missing-thumb-audio.svg?component';
+  import ImageFallback from '$assets/svg/monochrome/missing-thumb-image.svg?component';
+  import VideoFallback from '$assets/svg/monochrome/missing-thumb-video.svg?component';
+  import Body from '$src/components/typography/Body.svelte';
+  import {
+    getMediaCategoryFromMimeType,
+    type MediaCategory,
+  } from '$src/lib/asset';
+  import type { ComponentType } from 'svelte';
   import { _ } from 'svelte-i18n';
 
   export let thumbnail: string | null;
   export let fillMode: 'contain' | 'cover' = 'contain';
+  export let mimeType: string;
+  export let size = '4rem';
+  export let showMissingText = false;
 
-  $: thumbnailImg = thumbnail ?? fallback;
-  $: thumbnailAltText =
-    thumbnailImg == fallback ? $_('page.verify.emptyThumbnail') : '';
+  const fallbackMap: Record<MediaCategory, ComponentType> = {
+    audio: AudioFallback,
+    image: ImageFallback,
+    video: VideoFallback,
+    unknown: ImageFallback,
+  };
+
+  $: category = getMediaCategoryFromMimeType(mimeType);
+  $: alt = thumbnail ? $_('page.verify.emptyThumbnail') : '';
+  $: fallback = fallbackMap[category];
 </script>
 
-<img
-  src={thumbnailImg}
-  class="h-full w-full"
-  class:object-contain={fillMode === 'contain'}
-  class:object-cover={fillMode === 'cover'}
-  alt={thumbnailAltText} />
+{#if thumbnail}
+  <img
+    src={thumbnail}
+    class="h-full w-full"
+    class:object-contain={fillMode === 'contain'}
+    class:object-cover={fillMode === 'cover'}
+    {alt} />
+{:else}
+  <div
+    role="img"
+    class="flex h-full w-full flex-col items-center justify-center bg-gray-40">
+    <svelte:component
+      this={fallback}
+      width={size}
+      height={size}
+      class="text-gray-900" />
+    {#if showMissingText}
+      <Body>{$_('page.verify.noThumbnailAvailable')}</Body>
+    {/if}
+  </div>
+{/if}

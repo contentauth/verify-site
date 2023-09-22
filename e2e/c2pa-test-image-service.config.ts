@@ -102,5 +102,44 @@ export default {
         ],
       },
     },
+    missingThumbnails: {
+      image: { r: 10, g: 10, b: 240, width: 300, height: 600 },
+      manifest: {
+        claim_generator: 'test-image-service',
+        title: 'missing-thumbnails.jpg',
+        format: 'image/jpeg',
+        instance_id: 'xmp:iid:ddb36a5e-d59a-4cc9-a6dd-057ba8da4e0e',
+        ingredients: [
+          {
+            title: 'image.jpg',
+            format: 'image/jpeg',
+            document_id: 'xmp.did:813ee422-9736-4cdc-9be6-4e35ed8e41cb',
+            instance_id: 'xmp.iid:813ee422-9736-4cdc-9be6-4e35ed8e41cb',
+            relationship: 'parentOf',
+          },
+          {
+            title: 'audio.m4a',
+            format: 'audio/mp4',
+            document_id: 'xmp.did:8a00de7a-e694-43b2-a7e6-ed950421a21a',
+            instance_id: 'xmp.iid:8a00de7a-e694-43b2-a7e6-ed950421a21a',
+            relationship: 'componentOf',
+          },
+          {
+            title: 'video.mp4',
+            format: 'video/mp4',
+            document_id: 'xmp.did:8a00de7a-e694-43b2-a7e6-ed950421a21a',
+            instance_id: 'xmp.iid:8a00de7a-e694-43b2-a7e6-ed950421a21a',
+            relationship: 'componentOf',
+          },
+          {
+            title: 'unknown.bin',
+            format: 'application/octet-stream',
+            document_id: 'xmp.did:8a00de7a-e694-43b2-a7e6-ed950421a21a',
+            instance_id: 'xmp.iid:8a00de7a-e694-43b2-a7e6-ed950421a21a',
+            relationship: 'componentOf',
+          },
+        ],
+      },
+    },
   },
 } satisfies C2paTestImageServiceConfig;

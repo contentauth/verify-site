@@ -82,7 +82,7 @@ export class VerifyPage {
   async takeDebugSnapshot(name: string, options: SnapshotOptions = {}) {
     const type = 'jpeg';
     const height = options.minHeight ?? percyConfig.snapshot['min-height'];
-    const widths = percyConfig.snapshot['widths'];
+    const widths = options.widths ?? percyConfig.snapshot['widths'];
     const outputDir = resolve('.', 'snapshot-debug');
     await mkdirp(outputDir);
 

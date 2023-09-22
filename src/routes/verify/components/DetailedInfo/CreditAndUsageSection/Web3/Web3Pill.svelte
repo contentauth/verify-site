@@ -44,7 +44,7 @@
     {/if}
   </div>
   <button
-    class="w-28 cursor-pointer break-all rounded-full bg-gray-100 px-2 py-0.5"
+    class="cursor-pointer whitespace-nowrap rounded-full bg-gray-100 py-0.5"
     aria-roledescription={$_('sidebar.verify.credit.web3.copy')}
     on:click={() => handleClick(address)}>
     <Body>{truncatedAddress}</Body>

@@ -1,7 +1,7 @@
 <svg id="arrow_back" data-name="arrow/back" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
   <g id="icon_CAI-2" data-name="icon/CAI-2">
     <g id="Smock_Location_18_N">
-      <rect id="Canvas" width="20" height="20" fill="#ff13dc" opacity="0"/>
+      <rect id="Canvas" width="20" height="20" fill="currentColor" opacity="0"/>
     </g>
   </g>
   <path id="Combined_Shape" data-name="Combined Shape" d="M6.317,14.317,6.181,14.2.421,8.636A1.358,1.358,0,0,1,.257,6.86l.107-.132L6.124.467A1.475,1.475,0,0,1,8.157.352a1.358,1.358,0,0,1,.231,1.826l-.112.138L4.648,6.261h5.32a1.411,1.411,0,0,1,.182-.012h6.2a1.4,1.4,0,0,1,0,2.8h-6.2a1.416,1.416,0,0,1-.143-.007H4.918l3.3,3.191a1.357,1.357,0,0,1,.12,1.837l-.12.13a1.479,1.479,0,0,1-1.9.116Z" transform="translate(18.75 17.75) rotate(180)"/>

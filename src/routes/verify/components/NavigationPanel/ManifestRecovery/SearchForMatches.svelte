@@ -13,7 +13,7 @@
   from Adobe.
 -->
 <script lang="ts">
-  import help from '$assets/svg/color/logos/help.svg';
+  import help from '$assets/svg/monochrome/help.svg';
   import Link from '$src/components/typography/Link.svelte';
   import { _ } from 'svelte-i18n';
   import Tooltip from '../../Tooltip/Tooltip.svelte';

@@ -33,12 +33,15 @@
 <button
   role="treeitem"
   aria-selected={$assetStore.state === 'selected' ? 'true' : 'false'}
+  data-testid={`tree-node-${$assetStore.id}`}
   class={`absolute left-0 top-0 flex flex-col overflow-hidden rounded border-2 bg-white transition`}
   class:border-gray-400={$assetStore.state === 'none'}
   class:border-gray-700={$assetStore.state === 'path'}
   class:border-blue-900={$assetStore.state === 'selected'}
   {style}>
-  <TreeThumbnail thumbnail={$assetStore.thumbnail} />
+  <TreeThumbnail
+    thumbnail={$assetStore.thumbnail}
+    mimeType={$assetStore.mimeType} />
   <div class="pt-2" style:width={`${width}px`}>
     <AssetInfoBase assetData={$assetStore}>
       <Body slot="name">{$assetStore.title ?? $_('asset.defaultTitle')}</Body>

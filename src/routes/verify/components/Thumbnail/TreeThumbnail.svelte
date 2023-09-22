@@ -16,8 +16,9 @@
   import ThumbnailImage from './ThumbnailImage.svelte';
 
   export let thumbnail: string | null = null;
+  export let mimeType: string;
 </script>
 
 <div class="h-[6.5rem] w-full bg-gray-100">
-  <ThumbnailImage {thumbnail} fillMode="cover" />
+  <ThumbnailImage {thumbnail} {mimeType} fillMode="cover" />
 </div>

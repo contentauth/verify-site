@@ -44,6 +44,12 @@ import type { Disposable } from './types';
 
 const dbg = debug('lib:asset');
 
+const BROWSER_VIEWABLE_SOURCE_TYPES = [
+  'image/jpeg',
+  'image/png',
+  'image/svg+xml',
+];
+
 /**
  * Asset data required for the verify UI.
  */
@@ -52,6 +58,7 @@ export type AssetData = {
   children: string[];
   manifestData: ManifestData | null;
   thumbnail: string | null;
+  mimeType: string;
   title: string | null;
   validationResult: ValidationStatusResult | null;
 };
@@ -78,6 +85,30 @@ export type DisposableAssetDataMap = Disposable<{
 }>;
 
 export const ROOT_ID = '0';
+
+export type MediaCategory = 'audio' | 'image' | 'video' | 'unknown';
+
+export function getMediaCategoryFromMimeType(mimeType: string): MediaCategory {
+  const prefix = mimeType?.split('/')[0];
+
+  switch (prefix) {
+    case 'audio':
+      return 'audio';
+    case 'image':
+      return 'image';
+    case 'video':
+      return 'video';
+
+    default:
+      switch (mimeType) {
+        case 'application/mp4':
+        case 'application-msvideo':
+          return 'video';
+        default:
+          return 'unknown';
+      }
+  }
+}
 
 /**
  *
@@ -125,6 +156,7 @@ export async function resultToAssetMap({
       id,
       title: source.metadata.filename ?? null,
       thumbnail: thumbnail?.url ?? null,
+      mimeType: source.type,
       children,
       manifestData: null,
       validationResult: rootValidationResult,
@@ -168,8 +200,12 @@ export async function resultToAssetMap({
     let thumbnail = await formatThumbnail(manifest.thumbnail?.getUrl());
 
     // If no thumbnail exists on the claim and we have a valid manifest,
-    // we can use the source thumbnail
-    if (!thumbnail && validationResult.statusCode === 'valid') {
+    // we can use the source thumbnail if it is viewable by the browser
+    if (
+      !thumbnail &&
+      validationResult.statusCode === 'valid' &&
+      BROWSER_VIEWABLE_SOURCE_TYPES.includes(source.type)
+    ) {
       thumbnail = source.thumbnail?.getUrl();
     }
 
@@ -177,6 +213,7 @@ export async function resultToAssetMap({
       id,
       title: manifest.title,
       thumbnail: thumbnail?.url ?? null,
+      mimeType: manifest.format,
       children: await processIngredients(manifest.ingredients, id),
       manifestData: await getManifestData(manifest),
       validationResult,
@@ -206,6 +243,7 @@ export async function resultToAssetMap({
       id,
       title: ingredient.title,
       thumbnail: thumbnail?.url ?? null,
+      mimeType: ingredient.format,
       children: showChildren
         ? await processIngredients(ingredient.manifest?.ingredients ?? [], id)
         : [],

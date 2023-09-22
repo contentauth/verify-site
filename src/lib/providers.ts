@@ -11,14 +11,13 @@
 // is strictly forbidden unless prior written permission is obtained
 // from Adobe.
 
-import YouTubeLogo from '$assets/svg/color/logos/YT.svg?component';
 import AdobeExpressLogo from '$assets/svg/color/logos/adobe-express.svg?component';
 import AdobeStockLogo from '$assets/svg/color/logos/adobe-stock.svg?component';
 import AdobeLogo from '$assets/svg/color/logos/adobe.svg?component';
 import BehanceLogo from '$assets/svg/color/logos/behance.svg?component';
 import FacebookLogo from '$assets/svg/color/logos/facebook.svg?component';
 import InstagramLogo from '$assets/svg/color/logos/instagram.svg?component';
-import LeicaLogo from '$assets/svg/color/logos/leica_logo.svg?component';
+import LeicaLogo from '$assets/svg/color/logos/leica.svg?component';
 import LightroomLogo from '$assets/svg/color/logos/lightroom.svg?component';
 import LinkedInLogo from '$assets/svg/color/logos/linkedin.svg?component';
 import NikonLogo from '$assets/svg/color/logos/nikon.svg?component';
@@ -27,6 +26,7 @@ import PinterestLogo from '$assets/svg/color/logos/pinterest.svg?component';
 import TruepicLogo from '$assets/svg/color/logos/truepic.svg?component';
 import TwitterLogo from '$assets/svg/color/logos/twitter.svg?component';
 import VimeoLogo from '$assets/svg/color/logos/vimeo.svg?component';
+import YouTubeLogo from '$assets/svg/color/logos/youtube.svg?component';
 
 const matchers = [
   { pattern: /nikon/i, icon: NikonLogo, name: 'Nikon' },

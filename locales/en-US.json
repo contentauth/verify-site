@@ -42,6 +42,7 @@
   "page.home.title": "Content Credentials",
   "page.verify.emptyThumbnail": "This image does not have a thumbnail",
   "page.verify.title": "Verify",
+  "page.verify.noThumbnailAvailable": "No thumbnail available",
   "reviewRatings.unknownActions": "Some edits or activity may not have been recorded.",
   "sidebar.apply.advanced": "Advanced",
   "sidebar.apply.advanced.attach": "Attach to files (JPG & PNG)",

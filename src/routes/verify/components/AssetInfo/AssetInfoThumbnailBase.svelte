@@ -24,6 +24,7 @@
 <AssetInfoBase {assetData}>
   <SmallThumbnail
     thumbnail={assetData.thumbnail}
+    mimeType={assetData.mimeType}
     {highlighted}
     slot="thumbnail" />
   <slot slot="name" name="name" />
