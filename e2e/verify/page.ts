@@ -68,11 +68,15 @@ export class VerifyPage {
 
   async waitForTreeView() {
     await this.page.waitForFunction(() => {
+      const loadingOverlay = document.querySelector(
+        'div[data-testid="loading-overlay"]',
+      );
       const treeViewThumbnails = Array.from<HTMLImageElement>(
         document.querySelectorAll('button[role="treeitem"] img'),
       );
 
       return (
+        loadingOverlay === null &&
         treeViewThumbnails.length > 0 &&
         treeViewThumbnails.every((x) => x.complete)
       );

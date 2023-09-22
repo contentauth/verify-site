@@ -22,7 +22,8 @@
 
 {#if visible}
   <div
-    class="text-black bg-gray-40/90 fixed inset-0 z-50 flex select-none p-10"
+    data-testid="loading-overlay"
+    class="text-black fixed inset-0 z-50 flex select-none bg-gray-40/90 p-10"
     transition:fade={{ duration: 100 }}>
     <div
       class="align-center flex w-full flex-col items-center justify-center space-y-5">
