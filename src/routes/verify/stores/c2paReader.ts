@@ -55,6 +55,15 @@ export function createC2paReader(): C2paReaderStore {
       try {
         const sdk = await getSdk();
 
+        if (
+          source instanceof File &&
+          !source.type &&
+          source.name?.toLowerCase().endsWith('.dng')
+        ) {
+          const buffer = await source.arrayBuffer();
+          source = new Blob([buffer], { type: 'image/x-adobe-dng' });
+        }
+
         const result = await sdk.read(source);
 
         const { assetMap, dispose: assetMapDisposer } =

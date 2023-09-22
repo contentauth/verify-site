@@ -34,6 +34,7 @@
   "menu.section.overview.what": "What are Content Credentials?",
   "overlay.dragDrop.subtitle": "Inspect your file by dropping it anywhere in this window",
   "overlay.dragDrop.title": "Ready to inspect…",
+  "overlay.loading.title": "Loading…",
   "page.apply.backToSettings": "Back to settings",
   "page.apply.hasCC": "This asset has content credentials",
   "page.apply.title": "Apply",

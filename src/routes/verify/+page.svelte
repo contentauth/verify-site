@@ -23,6 +23,7 @@
   import DetailedInfo from './components/DetailedInfo/DetailedInfo.svelte';
   import DragDropOverlay from './components/DragDropOverlay/DragDropOverlay.svelte';
   import EmptyState from './components/EmptyState/EmptyState.svelte';
+  import LoadingOverlay from './components/LoadingOverlay/LoadingOverlay.svelte';
   import NavigationPanel from './components/NavigationPanel/NavigationPanel.svelte';
   import RevealablePanel from './components/RevealablePanel/RevealablePanel.svelte';
   import TreeView from './components/TreeView/TreeView.svelte';
@@ -40,6 +41,7 @@
   };
 
   $: hasEmptyState = $hierarchyView.state === 'none';
+  $: showLoadingOverlay = $hierarchyView.state === 'loading';
 
   // Check for `source` parameter and load that asset if it exists
   afterNavigate((nav: import('@sveltejs/kit').AfterNavigate) => {
@@ -60,6 +62,7 @@
 
 <div use:dragDropAction={dragDropParams}>
   <DragDropOverlay visible={showDropOverlay} />
+  <LoadingOverlay visible={showLoadingOverlay} />
   <SidebarLayout leftColumnTakeover={hasEmptyState}>
     <svelte:fragment slot="header">{$_('page.verify.title')}</svelte:fragment>
     <svelte:fragment slot="sidebar">

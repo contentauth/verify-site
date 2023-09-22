@@ -15,7 +15,7 @@ import mapbox from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
 import mapboxStatic from '@mapbox/mapbox-sdk/services/static';
 import type { Manifest } from 'c2pa';
 import circleToPolygon from 'circle-to-polygon';
-import parseISO from 'date-fns/parseISO';
+import { add as addDate, isValid, parse } from 'date-fns';
 import debug from 'debug';
 import { convert as convertGeo } from 'geo-coordinates-parser';
 import { mapKeys, merge } from 'lodash';
@@ -25,6 +25,8 @@ const dbg = debug('exif');
 // See precision values here: https://en.wikipedia.org/wiki/Decimal_degrees
 export const LOCATION_PRECISION = 2;
 
+const EXIF_DATE_FORMAT_STRING = 'yyyy:MM:dd HH:mm:ss';
+
 export interface ExifTags {
   'dc:creator'?: string;
   'dc:rights'?: string;
@@ -33,6 +35,8 @@ export interface ExifTags {
   'exif:fnumber'?: number;
   'exif:gpslatitude'?: string;
   'exif:gpslongitude'?: string;
+  'exif:offsettime'?: string;
+  'exif:offsettimeoriginal'?: string;
 }
 
 declare module 'c2pa' {
@@ -47,6 +51,24 @@ function findExifValue(exif: ExifTags, locations: string[]) {
       .map((key) => exif[key as keyof ExifTags])
       .filter((x) => !!x)?.[0] ?? null
   );
+}
+
+export function formatExposureTime(time: string | null) {
+  if (time === null) {
+    return time;
+  }
+
+  if (time.indexOf('.') > -1) {
+    const secs = parseFloat(time);
+
+    if (secs < 1 && secs > 0) {
+      return `1/${Math.round(1 / secs)}`;
+    }
+
+    return secs.toFixed(1).replace(/\.0$/, '');
+  }
+
+  return time;
 }
 
 interface CaptureDetails {
@@ -85,8 +107,9 @@ function getCaptureDetails(exif: ExifTags) {
     },
     {
       label: 'exposureTime',
-      // TODO: Convert this to a fraction if not
-      value: findExifValue(exif, ['exif:exposuretime']),
+      value: formatExposureTime(
+        findExifValue(exif, ['exif:exposuretime'])?.toString() ?? null,
+      ),
     },
     {
       label: 'fNumber',
@@ -157,6 +180,34 @@ function getApproximateLocation(exif: ExifTags): ApproximateLocation | null {
   return null;
 }
 
+export function parseDateTime(exif: ExifTags): Date | null {
+  const dateTimeOriginal = exif['exif:datetimeoriginal'];
+  const dateTimeOffset =
+    exif['exif:offsettime'] ?? exif['exif:offsettimeoriginal'] ?? '+00:00';
+  const parsedOffset = /^(\+|-)(\d{2}):(\d{2})$/.exec(dateTimeOffset);
+  const captureDate = dateTimeOriginal
+    ? parse(dateTimeOriginal, EXIF_DATE_FORMAT_STRING, new Date())
+    : null;
+
+  if (!captureDate || !isValid(captureDate)) {
+    return null;
+  }
+
+  if (parsedOffset !== null) {
+    const [, prefix, hStr, mStr] = parsedOffset;
+    const multiplier = prefix === '-' ? -1 : 1;
+    const hours = parseInt(hStr, 10);
+    const minutes = parseInt(mStr, 10);
+
+    return addDate(captureDate, {
+      hours: hours * multiplier,
+      minutes: minutes * multiplier,
+    });
+  }
+
+  return captureDate;
+}
+
 export function selectExif(manifest: Manifest): ExifSummary | null {
   const exif: ExifTags = manifest.assertions
     .get('stds.exif')
@@ -173,12 +224,12 @@ export function selectExif(manifest: Manifest): ExifSummary | null {
   }
 
   if (Object.keys(exif).length > 0) {
-    const captureDate = exif['exif:datetimeoriginal'];
+    const captureDate = parseDateTime(exif);
 
     const summary: Omit<ExifSummary, 'mapUrl'> = {
       creator: exif['dc:creator'] ?? null,
       copyright: exif['dc:rights'] ?? null,
-      captureDate: captureDate ? parseISO(captureDate) : null,
+      captureDate: isValid(captureDate) ? captureDate : null,
       captureDetails: getCaptureDetails(exif),
       location: getApproximateLocation(exif),
     };
