@@ -36,8 +36,8 @@
   }
 </script>
 
-<div class="z-1">
-  <div class="sticky top-0 z-10 bg-white">
+<div>
+  <div class="sticky left-0 right-0 top-0 z-10 bg-white">
     <button
       class="me-2"
       on:click={() => verifyStore.setHierarchyView()}
@@ -47,7 +47,7 @@
         <Header>{$_('sidebar.verify.compare')}</Header>
       </div>
     </button>
-    <div class="flex items-center px-5 pb-4 pt-2">
+    <div class="flex w-full items-center px-5 pb-4 pt-2">
       <div class="shrink-0 pe-2">
         <Label>{$_('sidebar.verify.compare.dropdown')}</Label>
       </div>
