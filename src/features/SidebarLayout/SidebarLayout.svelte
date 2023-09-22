@@ -38,7 +38,7 @@
       ].join(' ')}>
       <Header><slot name="header" /></Header>
     </div>
-    <div class="min-height-0 relative w-full flex-grow overflow-auto">
+    <div class="min-height-0 relative w-full flex-grow overflow-hidden">
       <slot name="sidebar" />
     </div>
     <LanguagePicker />

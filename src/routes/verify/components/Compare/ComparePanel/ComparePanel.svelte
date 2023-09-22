@@ -36,8 +36,8 @@
   }
 </script>
 
-<div>
-  <div class="sticky left-0 right-0 top-0 z-10 bg-white">
+<div class="min-height-0 relative flex h-full flex-col">
+  <div>
     <button
       class="me-2"
       on:click={() => verifyStore.setHierarchyView()}
@@ -61,7 +61,7 @@
     </div>
   </div>
 
-  <div class="relative">
+  <div class="relative min-h-0 flex-1 overflow-auto">
     <CompareAsset compareAssetStoreMap={assetStoreMap} />
   </div>
 </div>
