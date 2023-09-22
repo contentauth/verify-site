@@ -26,7 +26,7 @@
   import ThumbnailSection from '../Thumbnail/ThumbnailSection.svelte';
   import LightboxModal from '../modals/LightboxModal/LightboxModal.svelte';
   import AboutSection from './AboutSection/AboutSection.svelte';
-  import AdvancedSection from './AdvancedSection/AdvancedSection.svelte';
+  // import AdvancedSection from './AdvancedSection/AdvancedSection.svelte';
   import CameraCaptureSection from './CameraCaptureSection/CameraCaptureSection.svelte';
   import ContentSummarySection, {
     assetDataToProps as assetDataToContentSummaryProps,
@@ -95,7 +95,7 @@
   <ProcessSection manifestData={$assetData.manifestData} {ingredients} />
   <CameraCaptureSection manifestData={$assetData.manifestData} />
   <AboutSection manifestData={$assetData.manifestData} />
-  <AdvancedSection />
+  <!-- <AdvancedSection /> -->
 {:else}
   <div class="p-5">
     <Body>

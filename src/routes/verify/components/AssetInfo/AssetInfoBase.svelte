@@ -25,7 +25,10 @@
   export let assetData: AssetData;
 
   $: statusCode = assetData.validationResult?.statusCode;
+  $: hasCredentials =
+    !!assetData.manifestData?.signatureInfo?.cert_serial_number;
   $: date = assetData.manifestData?.date;
+  $: issuer = assetData.manifestData?.signatureInfo?.issuer;
 </script>
 
 <div class="flex min-w-0 items-center">
@@ -33,16 +36,17 @@
   <div class="min-w-0 px-2">
     <div class="flex pb-0.5"><Truncate><slot name="name" /></Truncate></div>
     <div class="flex items-center text-gray-600">
-      {#if statusCode === 'valid' && date}
+      {#if statusCode === 'valid' && hasCredentials}
         <L1Icon
           width="1rem"
           height="1rem"
           class="me-1.5 h-4 w-4 text-gray-600" />
         <Truncate
           ><Body
-            ><span aria-label={$_('aria.label.signedOn')} class="text-gray-600"
-              ><FormattedDateTime {date} noTime /></span
-            ></Body
+            >{#if date}<span
+                aria-label={$_('aria.label.signedOn')}
+                class="text-gray-600"><FormattedDateTime {date} noTime /></span
+              >{:else}<span class="text-gray-600">{issuer}</span>{/if}</Body
           ></Truncate>
       {:else if statusCode === 'incomplete'}
         <L1Incomplete

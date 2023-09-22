@@ -64,7 +64,7 @@
         </SubSection>
       {/if}
       {#if captureDetails?.cameraModel || captureDetails?.lensModel || dimensions}
-        <div class="mt-5 space-y-2 rounded bg-gray-100 p-3">
+        <div class="mt-5 space-y-2 rounded bg-gray-40 p-3">
           {#if captureDetails?.cameraModel}
             <div>{captureDetails.cameraModel}</div>
           {/if}
