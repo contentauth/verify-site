@@ -62,7 +62,11 @@
   </Section>
 {:else if $recoveredManifestResults.state === 'loading'}
   <Section hasBorder={false}>
-    <div slot="content" class="relative top-0.5 origin-left scale-125">
+    <div
+      slot="content"
+      class="relative top-0.5 origin-left scale-125"
+      aria-label={$_('spinner.loading')}
+      aria-live="polite">
       <Spinner size="s" />
     </div>
   </Section>

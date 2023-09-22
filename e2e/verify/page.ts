@@ -118,7 +118,7 @@ export class VerifyPage {
       await this.takeDebugSnapshot(name, options);
     }
 
-    const domTransformation = `(documentElement) => Array.from(documentElement.querySelectorAll('span[aria-label="Signed on"]')).forEach((el) => el.innerText = 'PERCY_DATE_REPLACEMENT');`;
+    const domTransformation = `(documentElement) => Array.from(documentElement.querySelectorAll('span[data-testid="signedOn"]')).forEach((el) => el.innerText = 'PERCY_DATE_REPLACEMENT');`;
 
     await percySnapshot(this.page, `Verify: ${name}`, {
       ...options,

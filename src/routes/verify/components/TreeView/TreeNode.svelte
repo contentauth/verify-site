@@ -14,7 +14,9 @@
 -->
 <script lang="ts">
   import Body from '$src/components/typography/Body.svelte';
+  import type { HierarchyPointNode } from 'd3-hierarchy';
   import { _ } from 'svelte-i18n';
+  import { get } from 'svelte/store';
   import type { ReadableAssetStore } from '../../stores/asset';
   import AssetInfoBase from '../AssetInfo/AssetInfoBase.svelte';
   import TreeThumbnail from '../Thumbnail/TreeThumbnail.svelte';
@@ -24,10 +26,28 @@
   export let y: number;
   export let width: number;
   export let height: number;
+  export let parent: HierarchyPointNode<ReadableAssetStore> | null;
 
   $: tx = x - width / 2;
   $: ty = y - height / 2;
   $: style = `width: ${width}px; height: ${height}px; transform: translate3d(${tx}px, ${ty}px, 0)`;
+  $: title = $assetStore.title ?? $_('asset.defaultTitle');
+  $: hasContentCredentials = $assetStore.manifestData
+    ? $_('page.verify.hasCC.date', {
+        values: { date: $assetStore.manifestData?.date },
+      })
+    : $_('sidebar.verify.noCC');
+  $: parentData = parent?.data ? get(parent?.data) : null;
+  $: parentTitle = parentData?.title;
+  $: parentLabel =
+    parent == null
+      ? $_('sidebar.verify.compare.root')
+      : $_('sidebar.verify.compare.child', {
+          values: { parentTitle },
+        });
+  $: ariaLabel = $_('page.verify.treeNode.ariaLabel', {
+    values: { title, hasContentCredentials, parentLabel },
+  });
 </script>
 
 <button
@@ -42,7 +62,7 @@
   <TreeThumbnail
     thumbnail={$assetStore.thumbnail}
     mimeType={$assetStore.mimeType} />
-  <div class="pt-2" style:width={`${width}px`}>
+  <div class="pt-2" style:width={`${width}px`} aria-label={ariaLabel}>
     <AssetInfoBase assetData={$assetStore}>
       <Body slot="name">{$assetStore.title ?? $_('asset.defaultTitle')}</Body>
     </AssetInfoBase>

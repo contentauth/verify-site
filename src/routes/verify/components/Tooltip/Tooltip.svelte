@@ -23,20 +23,23 @@
 
   function toggleTooltip() {
     dispatch('showToolip', {
-      showTooltip: showTooltip,
+      showTooltip,
     });
   }
+  $: ariaLabel = showTooltip
+    ? $_('sidebar.verify.search.hideTooltip')
+    : $_('sidebar.verify.search.showTooltip');
 </script>
 
 <div class="h-30 mt-5 flex w-full justify-between rounded bg-gray-100">
-  <div class="py-5 ps-5">
+  <div class="py-5 ps-5" aria-live="polite">
     <Description>
       <slot name="tooltip" /></Description>
   </div>
   <button
     class="box-content h-4 w-4 shrink-0 self-start py-6 pe-5 ps-3"
     on:click={toggleTooltip}
-    ><img
-      src={close}
-      alt={$_('sidebar.verify.search.tooltip.close')} /></button>
+    aria-label={ariaLabel}
+    ><img src={close} alt={$_('sidebar.verify.search.tooltip.close')} />
+  </button>
 </div>

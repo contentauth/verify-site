@@ -43,9 +43,8 @@
           class="me-1.5 h-4 w-4 text-gray-900" />
         <Truncate
           ><Body
-            >{#if date}<span
-                aria-label={$_('aria.label.signedOn')}
-                class="text-gray-900"><FormattedDateTime {date} noTime /></span
+            >{#if date}<span data-testid="signedOn" class="text-gray-900"
+                ><FormattedDateTime {date} noTime /></span
               >{:else}<span class="text-gray-900">{issuer}</span>{/if}</Body
           ></Truncate>
       {:else if statusCode === 'incomplete'}

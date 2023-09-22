@@ -14,29 +14,47 @@
 -->
 
 <script lang="ts">
+  import { ROOT_ID } from '$lib/asset';
   import type { CompareAssetStoreMap } from '$src/routes/verify/stores/compareView';
+  import { _ } from 'svelte-i18n';
   import type { CompareAssetStore } from '../../../stores/compareAsset';
   import CollapsibleSmallAssetInfo from '../../AssetInfo/CollapsibleSmallAssetInfo.svelte';
 
   export let expanded = true;
   export let compareAssetStoreMap: CompareAssetStoreMap;
   export let compareAssetStore: CompareAssetStore = compareAssetStoreMap[0];
+  export let parent: CompareAssetStore = compareAssetStoreMap[0];
+
+  function showChildren() {
+    expanded = !expanded;
+  }
+
+  $: ariaLabel =
+    $compareAssetStore.id === ROOT_ID
+      ? $_('sidebar.verify.compare.root')
+      : $_('sidebar.verify.compare.child', {
+          values: { parentTitle: $parent.title },
+        });
 </script>
 
-<CollapsibleSmallAssetInfo
-  {compareAssetStore}
-  {expanded}
-  on:showChildren={() => (expanded = !expanded)}
-  ><svelte:fragment slot="name">
-    {$compareAssetStore.title}</svelte:fragment
-  ></CollapsibleSmallAssetInfo>
-
+<div aria-label={ariaLabel}>
+  <CollapsibleSmallAssetInfo
+    {compareAssetStore}
+    {expanded}
+    on:showChildren={showChildren}
+    ><span slot="name">
+      {$compareAssetStore.title ?? $_('asset.defaultTitle')}</span
+    ></CollapsibleSmallAssetInfo>
+</div>
 {#if expanded}
-  {#each $compareAssetStore.children as child}
-    <div class="ps-8">
-      <svelte:self
-        compareAssetStore={compareAssetStoreMap[child]}
-        {compareAssetStoreMap} />
-    </div>
-  {/each}
+  <div aria-hidden={!expanded}>
+    {#each $compareAssetStore.children as child}
+      <div class="ps-8">
+        <svelte:self
+          parent={compareAssetStore}
+          compareAssetStore={compareAssetStoreMap[child]}
+          {compareAssetStoreMap} />
+      </div>
+    {/each}
+  </div>
 {/if}

@@ -120,13 +120,14 @@
     <div
       class="absolute left-0 top-0"
       style={`transform: ${transforms.htmlTransform ?? ''};`}>
-      {#each descendants as { x, y, data }, key (key)}
+      {#each descendants as { x, y, data, parent }, key (key)}
         <TreeNode
           assetStore={data}
           {x}
           {y}
           width={nodeWidth}
-          height={nodeHeight} />
+          height={nodeHeight}
+          {parent} />
       {/each}
     </div>
   </div>
@@ -137,13 +138,15 @@
       <button
         class="h-full pe-2 ps-2.5 transition-opacity"
         class:opacity-40={!transforms.canZoomIn}
-        on:click={() => transforms.canZoomIn && zoomIn({ svgSel, zoom })}>
+        on:click={() => transforms.canZoomIn && zoomIn({ svgSel, zoom })}
+        aria-roledescription={$_('page.verify.zoomIn')}>
         <ZoomIn width="1rem" height="1rem" class="text-gray-800" />
       </button>
       <div class="h-[85%] w-px bg-gray-200" />
       <button
         class="h-full pe-2.5 ps-2 transition-opacity"
         class:opacity-40={!transforms.canZoomOut}
+        aria-roledescription={$_('page.verify.zoomOut')}
         on:click={() =>
           transforms.canZoomOut &&
           zoomOut({

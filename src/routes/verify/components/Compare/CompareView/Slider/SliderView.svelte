@@ -17,6 +17,7 @@
   import interact from 'interactjs';
   import { onMount } from 'svelte';
   import cssVars from 'svelte-css-vars';
+  import { _ } from 'svelte-i18n';
   import type { Readable } from 'svelte/store';
   import type { CompareSelectedAssetStore } from '../../../../stores/compareSelectedAsset';
   import NullState from '../NullState.svelte';
@@ -79,9 +80,18 @@
 
     return () => interact(slider).unset();
   });
+  $: primaryTitle = $primaryAsset
+    ? $primaryAsset.title
+    : $_('sidebar.verify.compare.noAssetSelected');
+  $: secondaryTitle = $secondaryAsset
+    ? $secondaryAsset.title
+    : $_('sidebar.verify.compare.noAssetSelected');
+  $: ariaLabel = $_('sidebar.verify.compare.view.ariaLabel', {
+    values: { primaryTitle: primaryTitle, secondaryTitle: secondaryTitle },
+  });
 </script>
 
-<div class="flex justify-center px-6">
+<div class="flex justify-center px-6" aria-label={ariaLabel}>
   <div
     class="pointer-events-none relative h-[--height] w-[--width] select-none"
     use:cssVars={styles}>
@@ -91,11 +101,16 @@
       <div
         class="pointer-events-auto absolute top-1/2 flex h-8 w-8 -translate-x-3.5 translate-y-[-15px] select-none items-center justify-center rounded-full border border-gray-300 bg-white">
         <div class="relative flex">
-          <ChevronLeft width="16px" height="16px" class="text-gray-700" />
           <ChevronLeft
             width="16px"
             height="16px"
-            class="rotate-180 text-gray-700" />
+            class="text-gray-700"
+            aria-hidden="true" />
+          <ChevronLeft
+            width="16px"
+            height="16px"
+            class="rotate-180 text-gray-700"
+            aria-hidden="true" />
         </div>
       </div>
     </div>
@@ -108,6 +123,7 @@
             style="width: var(--width);
         height: var(--height)"
             alt=""
+            aria-hidden="true"
             class="h-[--height] w-[--width] object-contain object-center" />
         {:else}
           <div class="flex w-[50%] flex-col items-center self-center">
@@ -126,6 +142,7 @@
             style="width: var(--width);
             height: var(--height)"
             alt=""
+            aria-hidden="true"
             class="h-[--height] w-[--width] object-contain object-center" />
         {:else}
           <div class="ms-[376px] flex w-1/2 flex-col items-center self-center">

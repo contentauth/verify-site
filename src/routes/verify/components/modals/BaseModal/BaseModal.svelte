@@ -22,6 +22,7 @@
 <div
   role="dialog"
   aria-modal="true"
+  aria-live="polite"
   aria-label={label}
   class="pointer-events-none fixed inset-0 flex items-center justify-center"
   transition:fade|global={{ duration: 100 }}
