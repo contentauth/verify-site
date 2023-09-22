@@ -88,7 +88,11 @@
   "sidebar.verify.credit.AI.description": "[1] _üDo not use my content to train AI models",
   "sidebar.verify.credit.description": "[2] _üThe producer chose to share the following info:",
   "sidebar.verify.credit.producer": "[3] _üProduced by",
+  "sidebar.verify.credit.web3": "[CB] _üWeb3 addresses",
+  "sidebar.verify.credit.web3.copy": "[CD] _üClick to copy",
+  "sidebar.verify.credit.web3.copied": "[CC] _üCopied!",
   "sidebar.verify.credit.social": "[4] _üSocial media",
+  "sidebar.verify.website": "[CE] _üWebsite",
   "sidebar.verify.hideInfo": "[BM] _üHide info",
   "sidebar.verify.legal.part1": "[BE] _üContent Credentials are a set of history, edit, and attribution data that can help you make more informed decisions about how to interpret a piece of content.",
   "sidebar.verify.legal.part2": "[BF] _üContent Credentials are also tamper-evident. Because they get cryptographically bound to their respective content, changes to either can be identified.",
@@ -115,7 +119,12 @@
   "sidebar.verify.summary": "[+] _üContent Summary",
   "sidebar.verify.title": "[BH] _üContent Credentials",
   "spinner.loading": "[Bg] _üLoading",
-  "dialog.error.manifestSearchConnectionIssue.title": "[Be] _üConnection issue",
-  "dialog.error.manifestSearchConnectionIssue.message": "[Bd] _üManifest search can't be completed right now due to connection issues with another service. Try again later.",
-  "dialog.OK": "[Bc] _üOK"
+  "dialog.error.legacyCredential.title": "[B7] _üLegacy Verify",
+  "dialog.error.legacyCredential.message": "[B6] _üThis asset was created with an older version of Content Credentials. Click continue to view the legacy version.",
+  "dialog.cancel": "[B/] _üCancel",
+  "dialog.continue": "[B5] _üContinue",
+  "dialog.close": "[CA] _üClose",
+  "toast.matchesUnavailable": "[B8] _üPossible matches are currently unavailable",
+  "toast.unsupportedFileType": "[B+] _üThat file type isn't supported",
+  "toast.somethingWentWrong": "[B9] _üSomething went wrong"
 }

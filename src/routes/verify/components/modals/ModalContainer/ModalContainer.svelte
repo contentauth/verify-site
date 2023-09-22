@@ -26,7 +26,7 @@
 <svelte:window on:keydown={handleKeyDown} />
 
 <Modals>
-  <!--  svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
+  <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions  -->
   <div
     slot="backdrop"
     class="fixed inset-0 bg-gray-900 opacity-30"

@@ -56,11 +56,24 @@ export default {
     preflight: false,
   },
   theme: {
+    screens: {
+      sm: '640px',
+      md: '768px',
+      lg: '991px',
+      xl: '1280px',
+      '2xl': '1281px',
+      '3xl': '1441px',
+    },
     fontFamily: {
       home: defs['family-home'],
       base: defs['family-base'],
+      Norske: ['Norske', 'sans-serif'],
     },
     colors: {
+      'brand-yellow': '#FCE458',
+      'brand-orange': '#EF9349',
+      'brand-gray': '#757575',
+      'sub-desc': '#757575',
       white: '#ffffff',
       'gray-40': defs['gray-40'],
       'gray-100': defs['gray-100'],
@@ -146,12 +159,276 @@ export default {
           fontWeight: '400',
         },
       ],
+      hero: [
+        '3.75rem',
+        {
+          fontWeight: '700',
+          lineHeight: '75px',
+        },
+      ],
+      // For the Homepage
+      'hero-title': [
+        '3.5rem',
+        {
+          fontWeight: '700',
+          lineHeight: '3.85rem',
+        },
+      ],
+      'hero-title-desktop': [
+        '6rem',
+        {
+          fontWeight: '700',
+          lineHeight: '6rem',
+          letterSpacing: '-0.24rem',
+        },
+      ],
+      'hero-sub': [
+        '1.3125rem',
+        {
+          fontWeight: '400',
+          lineHeight: '1.77188rem',
+        },
+      ],
+      'hero-sub-desktop': [
+        '1.875rem',
+        {
+          fontWeight: '400',
+          lineHeight: ' 2.53125rem',
+          letterSpacing: '-0.01875rem',
+        },
+      ],
+      'home-secondary-title': [
+        '2.5rem',
+        {
+          fontWeight: '700',
+          lineHeight: '2.75rem',
+          letterSpacing: '-0.075rem',
+        },
+      ],
+      'home-title-md': [
+        '3rem',
+        {
+          fontWeight: '700',
+          lineHeight: '3.3rem',
+        },
+      ],
+      'home-title-xl': [
+        '3.5rem',
+        {
+          fontWeight: '700',
+          lineHeight: '3.85rem',
+          letterSpacing: '-0.105rem',
+        },
+      ],
+      'home-title-2xl': [
+        '4.5rem',
+        {
+          fontWeight: '700',
+          lineHeight: '4.95rem',
+          letterSpacing: '-0.135rem',
+        },
+      ],
+      'home-sub': [
+        '1.3125rem',
+        {
+          fontWeight: '400',
+          lineHeight: '1.77188rem',
+          letterSpacing: '-0.01313rem',
+        },
+      ],
+      'home-sub-XL': [
+        '1.5rem',
+        {
+          fontWeight: '400',
+          lineHeight: '2.025rem',
+          letterSpacing: '-0.015rem',
+        },
+      ],
+      'home-sub-2xl': [
+        '1.875rem',
+        {
+          fontWeight: '400',
+          lineHeight: '2.53125rem',
+          letterSpacing: '-0.01875rem',
+        },
+      ],
+      'key-title': [
+        '1.875rem',
+        {
+          fontWeight: '700',
+          lineHeight: '2.0625rem',
+          letterSpacing: '-0.01875rem',
+        },
+      ],
+      'key-title-xl': [
+        '2.5rem',
+        {
+          fontWeight: '700',
+          lineHeight: '2.75rem',
+          letterSpacing: '-0.075rem',
+        },
+      ],
+      'key-sub-text': [
+        '1rem',
+        {
+          fontWeight: '400',
+          lineHeight: '1.35rem ',
+        },
+      ],
+      'key-sub-text-xl': [
+        '1.125rem',
+        {
+          fontWeight: '400',
+          lineHeight: '1.51875rem',
+        },
+      ],
+      'key-sub-text-2xl': [
+        '1.3125rem',
+        {
+          fontWeight: '400',
+          lineHeight: '1.77188rem',
+          letterSpacing: '-0.01313rem',
+        },
+      ],
+      'hiw-label': [
+        '28px',
+        {
+          fontWeight: '400',
+          lineHeight: '35px',
+        },
+      ],
+      'hiw-desc': [
+        '21px',
+        {
+          fontWeight: '400',
+          lineHeight: '28.35px',
+        },
+      ],
+      'movement-text': [
+        '1.8rem',
+        {
+          fontWeight: '400',
+          lineHeight: '2.53125rem',
+        },
+      ],
+      'stories-title': [
+        '2rem',
+        {
+          fontWeight: '700',
+          lineHeight: '2.2rem',
+        },
+      ],
+      'stories-desc': [
+        '1.3125rem',
+        {
+          fontWeight: '400',
+          lineHeight: '1.77188rem',
+        },
+      ],
+      'footer-text': [
+        '1rem',
+        {
+          fontWeight: '400',
+          lineHeight: '1.1rem',
+        },
+      ],
+      secondaryTitle: [
+        '2.25rem',
+        {
+          fontWeight: '700',
+          lineHeight: '43px',
+        },
+      ],
+      general: [
+        '1.125rem',
+        {
+          fontWeight: '400',
+          lineHeight: '24px',
+        },
+      ],
+      generalSm: [
+        '1rem',
+        {
+          fontWeight: '400',
+          lineHeight: '24px',
+        },
+      ],
+      'sub-heading': [
+        '1.875rem',
+        {
+          fontWeight: '400',
+          lineHeight: '40px',
+        },
+      ],
+      'sub-title': [
+        '2.5rem',
+        {
+          fontWeight: '700',
+          lineHeight: '44px',
+        },
+      ],
+      'sub-text': [
+        '1.3125rem',
+        {
+          fontWeight: '400',
+          lineHeight: '28px',
+        },
+      ],
+      'sub-desc': [
+        '1rem',
+        {
+          fontWeight: '400',
+          lineHeight: '24px',
+        },
+      ],
+      'sub-label': [
+        '20px',
+        {
+          fontWeight: '400',
+          lineHeight: '28px',
+        },
+      ],
+      'secondary-title': ['4.5rem', { fontWeight: '700', lineHeight: '75px' }],
+      footerText: [
+        '0.75rem',
+        {
+          fontWeight: '400',
+          lineHeight: '18px',
+        },
+      ],
+      'story-title': [
+        '2rem',
+        {
+          fontWeight: '700',
+          lineHeight: '35px',
+        },
+      ],
+      'trust-title': [
+        '1.75rem',
+        {
+          fontWeight: '400',
+        },
+      ],
+
+      // For the Homepage
     },
     boxShadow: {
       DEFAULT: '0px 4px 20px rgba(0, 0, 0, 0.3)',
       md: '0px 2px 6px 0px rgba(0, 0, 0, 0.15)',
+      sm: '0px 1px 3px 0px rgba(0, 0, 0, 0.35)',
     },
     extend: {
+      fontFamily: {
+        Norske: ['Store Norske Ja', 'sans-serif'],
+      },
+      backgroundColor: {
+        'brand-red': '#fe818b',
+        'brand-green': '#5ac97d',
+        'brand-yellow': '#fbe756',
+        'brand-orange': '#ef9449',
+        'brand-violet': '#888ef8',
+        'brand-blue': '#84c7fc',
+      },
       spacing: {
         sidebar: '20rem',
         header: '3.5rem',

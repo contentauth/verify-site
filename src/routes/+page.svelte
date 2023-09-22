@@ -12,22 +12,38 @@
   from Adobe.
 -->
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
-  import Footer from '../components/Footer/Footer.svelte';
-  import Header from '../components/Header/Header.svelte';
-  import HeaderLink from '../components/Header/HeaderLink.svelte';
+  // import { _ } from 'svelte-i18n';
+  // import Footer from '../components/Footer/Footer.svelte';
+  // import Header from './components/header/Header.svelte';
+  import Header from './components/header/Header.svelte';
+  // import HeaderLink from '../components/Header/HeaderLink.svelte';
+  import Hero from './components/hero/NewHero.svelte';
+  import NewFooter from '$src/components/Footer/NewFooter.svelte';
+  import Home1 from './components/homepage/home1.svelte';
+  import HowItWorks from './components/homepage/HowItWorks.svelte';
+  import Trust from './components/homepage/Trust.svelte';
+  import Movement from './components/homepage/Movement.svelte';
+  import Orgs from './components/homepage/Orgs.svelte';
+  // import Stories from './components/homepage/Stories.svelte';
 </script>
 
-<Header>
+<!-- <Header>
   <svelte:fragment slot="links">
     <HeaderLink href="/verify">Verify</HeaderLink>
     <HeaderLink href="/apply">Apply</HeaderLink>
     <HeaderLink href="/">Embed</HeaderLink>
   </svelte:fragment>
-</Header>
-<div class="flex h-screen items-center justify-center">
-  <h1 class="w-[47.5rem] text-center text-[5rem]/tight font-black">
-    {$_('page.home.cta')}
-  </h1>
+</Header> -->
+<div class="overflow-x-hidden overflow-y-hidden">
+  <Header />
+  <div class="flex flex-col items-center justify-center">
+    <Hero />
+    <Home1 />
+    <HowItWorks />
+    <Trust />
+    <Movement />
+    <Orgs />
+    <!-- <Stories /> -->
+  </div>
+  <NewFooter />
 </div>
-<Footer />

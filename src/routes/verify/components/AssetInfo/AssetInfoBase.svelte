@@ -28,9 +28,9 @@
   $: date = assetData.manifestData?.date;
 </script>
 
-<div class="flex items-center">
+<div class="flex min-w-0 items-center">
   <slot name="thumbnail" />
-  <div class="w-full px-2">
+  <div class="min-w-0 px-2">
     <div class="flex pb-0.5"><Truncate><slot name="name" /></Truncate></div>
     <div class="flex items-center text-gray-600">
       {#if statusCode === 'valid' && date}
