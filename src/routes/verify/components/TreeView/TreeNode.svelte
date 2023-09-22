@@ -38,7 +38,6 @@
       })
     : $_('sidebar.verify.noCC');
   $: parentData = parent?.data ? get(parent?.data) : null;
-
   $: parentTitle = parentData?.title;
   $: parentLabel =
     parent == null
