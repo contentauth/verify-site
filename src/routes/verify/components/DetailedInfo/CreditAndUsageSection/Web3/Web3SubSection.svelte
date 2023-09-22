@@ -26,7 +26,7 @@
   </svelte:fragment>
   <svelte:fragment slot="content">
     {#each web3Accounts as [type, [address]]}
-      <div class="pb-1">
+      <div class="pb-2 last:pb-0">
         <Web3Pill {type} {address} />
       </div>
     {/each}

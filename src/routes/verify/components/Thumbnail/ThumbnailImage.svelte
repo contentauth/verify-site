@@ -52,7 +52,7 @@
 {:else}
   <div
     role="img"
-    class="flex h-full w-full flex-col items-center justify-center bg-gray-40">
+    class="flex h-full w-full select-none flex-col items-center justify-center bg-gray-40">
     <svelte:component
       this={fallback}
       width={size}

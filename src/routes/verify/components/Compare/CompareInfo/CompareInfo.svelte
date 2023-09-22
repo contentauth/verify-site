@@ -27,7 +27,7 @@
   const assetDataNonNull = assetData as Readable<AssetData>;
 </script>
 
-{#if $assetData !== null}
+{#if $assetData}
   <DetailedInfo on:close assetData={assetDataNonNull} />
 {:else}
   <div class="flex flex-col pe-8 ps-4 pt-4">
