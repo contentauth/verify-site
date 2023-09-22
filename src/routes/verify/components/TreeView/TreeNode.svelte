@@ -26,7 +26,7 @@
   export let y: number;
   export let width: number;
   export let height: number;
-  export let parents: HierarchyPointNode<ReadableAssetStore>[];
+  export let parent: HierarchyPointNode<ReadableAssetStore> | null;
 
   $: tx = x - width / 2;
   $: ty = y - height / 2;
@@ -37,21 +37,19 @@
         values: { date: $assetStore.manifestData?.date },
       })
     : $_('sidebar.verify.noCC');
+  $: parentData = parent?.data ? get(parent?.data) : null;
 
-  $: parentData = get(parents[1]?.data);
   $: parentTitle = parentData?.title;
-  $: parent =
-    parents.length === 1
+  $: parentLabel =
+    parent == null
       ? $_('sidebar.verify.compare.root')
       : $_('sidebar.verify.compare.child', {
           values: { parentTitle },
         });
   $: ariaLabel = $_('page.verify.treeNode.ariaLabel', {
-    values: { title, hasContentCredentials, parent },
+    values: { title, hasContentCredentials, parentLabel },
   });
 </script>
-
-.
 
 <button
   role="treeitem"

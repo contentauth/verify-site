@@ -42,7 +42,7 @@
   "page.verify.emptyThumbnail": "This image does not have a thumbnail",
   "page.verify.title": "Verify",
   "page.verify.hasCC.date": "This asset has content credentials + {date}",
-  "page.verify.treeNode.ariaLabel": "{title} {hasContentCredentials} {parent}",
+  "page.verify.treeNode.ariaLabel": "{title} {hasContentCredentials} {parentLabel}",
   "page.verify.zoomIn": "Click to zoom in on the tree",
   "page.verify.zoomOut": "Click to zoom out on the tree",
   "reviewRatings.unknownActions": "Some edits or activity may not have been recorded.",

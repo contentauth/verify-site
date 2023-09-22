@@ -40,7 +40,7 @@
           class="me-1.5 h-4 w-4 text-gray-600" />
         <Truncate
           ><Body
-            ><span data-testid="Signed on" class="text-gray-600"
+            ><span data-testid="signedOn" class="text-gray-600"
               ><FormattedDateTime {date} noTime /></span
             ></Body
           ></Truncate>
