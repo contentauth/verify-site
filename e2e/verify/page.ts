@@ -61,7 +61,7 @@ export class VerifyPage {
         `/verify${params.keys.length > 0 ? `?${params.toString()}` : ``}`,
       );
       await this.page
-        .locator('span', { hasText: 'Drag and drop anywhere' })
+        .locator('h1', { hasText: 'Inspect content to dig deeper' })
         .waitFor();
     }
   }
