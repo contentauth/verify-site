@@ -50,6 +50,114 @@ const BROWSER_VIEWABLE_SOURCE_TYPES = [
   'image/svg+xml',
 ];
 
+export const MEDIA_CATEGORIES = ['audio', 'image', 'video', 'unknown'] as const;
+
+export type MediaCategory = (typeof MEDIA_CATEGORIES)[number];
+
+export interface FormatDefinition {
+  name: string;
+  category: MediaCategory;
+  browserViewable: () => Promise<boolean>;
+  searchable: boolean;
+}
+
+export const SUPPORTED_FORMATS: Record<string, FormatDefinition> = {
+  'image/jpeg': {
+    name: 'JPEG',
+    category: 'image',
+    browserViewable: async () => true,
+    searchable: true,
+  },
+  'image/png': {
+    name: 'PNG',
+    category: 'image',
+    browserViewable: async () => true,
+    searchable: true,
+  },
+  'image/svg+xml': {
+    name: 'SVG',
+    category: 'image',
+    browserViewable: async () => true,
+    searchable: false,
+  },
+  'image/x-adobe-dng': {
+    name: 'DNG',
+    category: 'image',
+    browserViewable: async () => false,
+    searchable: false,
+  },
+  'image/tiff': {
+    name: 'TIFF',
+    category: 'image',
+    browserViewable: async () => false,
+    searchable: false,
+  },
+  'image/webp': {
+    name: 'WebP',
+    category: 'image',
+    browserViewable: async () => true,
+    searchable: false,
+  },
+  'image/avif': {
+    name: 'AVIF',
+    category: 'image',
+    browserViewable: async () =>
+      testImageSupport(
+        'data:image/avif;base64,AAAAHGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZgAAAOptZXRhAAAAAAAAACFoZGxyAAAAAAAAAABwaWN0AAAAAAAAAAAAAAAAAAAAAA5waXRtAAAAAAABAAAAImlsb2MAAAAAREAAAQABAAAAAAEOAAEAAAAAAAAAFAAAACNpaW5mAAAAAAABAAAAFWluZmUCAAAAAAEAAGF2MDEAAAAAamlwcnAAAABLaXBjbwAAABNjb2xybmNseAACAAIABoAAAAAMYXYxQ4EgAgAAAAAUaXNwZQAAAAAAAAABAAAAAQAAABBwaXhpAAAAAAMICAgAAAAXaXBtYQAAAAAAAAABAAEEgYIDhAAAABxtZGF0EgAKBDgABgkyChgAAABABfXvZOg=',
+      ),
+    searchable: false,
+  },
+  'image/heic': {
+    name: 'HEIC',
+    category: 'image',
+    browserViewable: async () =>
+      testImageSupport(
+        'data:image/heic;base64,AAAAGGZ0eXBoZWljAAAAAGhlaWNtaWYxAAAB4G1ldGEAAAAAAAAAIWhkbHIAAAAAAAAAAHBpY3QAAAAAAAAAAAAAAAAAAAAAJGRpbmYAAAAcZHJlZgAAAAAAAAABAAAADHVybCAAAAABAAAADnBpdG0AAAAAAAEAAAA4aWluZgAAAAAAAgAAABVpbmZlAgAAAAABAABodmMxAAAAABVpbmZlAgAAAQACAABFeGlmAAAAABppcmVmAAAAAAAAAA5jZHNjAAIAAQABAAABA2lwcnAAAADiaXBjbwAAABNjb2xybmNseAACAAIABoAAAAByaHZjQwEDcAAAALAAAAAAAB7wAPz9+PgAAAsDoAABABdAAQwB//8DcAAAAwCwAAADAAADAB5wJKEAAQAkQgEBA3AAAAMAsAAAAwAAAwAeoBQgQcChBBiHuRZVNwICBgCAogABAAlEAcBgwLIQFMkAAAAUaXNwZQAAAAAAAAACAAAAAgAAAChjbGFwAAAAAQAAAAEAAAABAAAAAf/AAAAAgAAA/8AAAACAAAAAAAAJaXJvdAAAAAAQcGl4aQAAAAADCAgIAAAAGWlwbWEAAAAAAAAAAQABBoGCA4SFBgAAACxpbG9jAAAAAEQAAAIAAQAAAAEAAAJgAAAAHQACAAAAAQAAAggAAABYAAAAAW1kYXQAAAAAAAAAhQAAAAZFeGlmAABNTQAqAAAACAAEARIAAwAAAAEAAQAAARoABQAAAAEAAAA+ARsABQAAAAEAAABGASgAAwAAAAEAAgAAAAAAAAAAAEgAAAABAAAASAAAAAEAAAAZKAGvolT7bB+6j/ITt/QLyKMvD2Rus1+lQA==',
+      ),
+    searchable: false,
+  },
+  'audio/mp4': {
+    name: 'M4A',
+    category: 'audio',
+    browserViewable: async () => false,
+    searchable: false,
+  },
+  'audio/x-wav': {
+    name: 'WAV',
+    category: 'audio',
+    browserViewable: async () => false,
+    searchable: false,
+  },
+  'application/mp4': {
+    name: 'MP4',
+    category: 'video',
+    browserViewable: async () => true,
+    searchable: false,
+  },
+  'video/mp4': {
+    name: 'MP4',
+    category: 'video',
+    browserViewable: async () => true,
+    searchable: false,
+  },
+};
+
+function testImageSupport(dataUri: string): Promise<boolean> {
+  return new Promise((resolve) => {
+    const img = document.createElement('img');
+
+    img.onload = () => {
+      resolve(true);
+    };
+
+    img.onerror = () => {
+      resolve(false);
+    };
+
+    img.src = dataUri;
+  });
+}
+
 /**
  * Asset data required for the verify UI.
  */
@@ -86,28 +194,13 @@ export type DisposableAssetDataMap = Disposable<{
 
 export const ROOT_ID = '0';
 
-export type MediaCategory = 'audio' | 'image' | 'video' | 'unknown';
-
 export function getMediaCategoryFromMimeType(mimeType: string): MediaCategory {
-  const prefix = mimeType?.split('/')[0];
+  const prefix = mimeType?.split('/')[0] as MediaCategory;
 
-  switch (prefix) {
-    case 'audio':
-      return 'audio';
-    case 'image':
-      return 'image';
-    case 'video':
-      return 'video';
-
-    default:
-      switch (mimeType) {
-        case 'application/mp4':
-        case 'application-msvideo':
-          return 'video';
-        default:
-          return 'unknown';
-      }
-  }
+  return (
+    SUPPORTED_FORMATS[mimeType]?.category ??
+    (MEDIA_CATEGORIES.includes(prefix) ? prefix : 'unknown')
+  );
 }
 
 /**

@@ -13,4 +13,4 @@
   from Adobe.
 -->
 
-<span class="text-body-bold text-gray-800"><slot /></span>
+<span class="text-body-bold text-gray-900"><slot /></span>

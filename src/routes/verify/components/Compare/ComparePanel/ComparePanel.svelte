@@ -29,10 +29,15 @@
   export let assetStoreMap: CompareAssetStoreMap;
 
   const compareModeArray: CompareMode[] = ['sideBySide', 'slider'];
+  let highlightOffset = 0;
 
   function handleViewChange(evt: Event) {
     const value = (evt.target as HTMLSelectElement).value as CompareMode;
     compareViewMode.set(value);
+  }
+
+  function handleScroll(evt: Event) {
+    highlightOffset = (evt.target as HTMLDivElement).scrollLeft;
   }
 </script>
 
@@ -61,7 +66,7 @@
     </div>
   </div>
 
-  <div class="relative min-h-0 flex-1 overflow-auto">
-    <CompareAsset compareAssetStoreMap={assetStoreMap} />
+  <div class="relative min-h-0 flex-1 overflow-auto" on:scroll={handleScroll}>
+    <CompareAsset compareAssetStoreMap={assetStoreMap} {highlightOffset} />
   </div>
 </div>

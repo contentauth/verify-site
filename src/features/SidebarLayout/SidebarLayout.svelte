@@ -41,7 +41,12 @@
     <div class="min-height-0 relative w-full flex-grow overflow-hidden">
       <slot name="sidebar" />
     </div>
-    <LanguagePicker />
+    <div
+      class="relative border-t px-5 py-5 transition-colors duration-100"
+      class:border-transparent={leftColumnTakeover}
+      class:border-gray-100={!leftColumnTakeover}>
+      <LanguagePicker />
+    </div>
   </div>
   {#if !leftColumnTakeover}
     <div

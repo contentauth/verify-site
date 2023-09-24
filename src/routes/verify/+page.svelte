@@ -78,7 +78,7 @@
     <svelte:fragment slot="sidebar">
       {#if $viewState === 'hierarchy'}
         {#if hasEmptyState}
-          <EmptyState />
+          <EmptyState on:launchFilePicker={handleLaunchFilePicker} />
         {:else}
           <NavigationPanel on:launchFilePicker={handleLaunchFilePicker} />
         {/if}

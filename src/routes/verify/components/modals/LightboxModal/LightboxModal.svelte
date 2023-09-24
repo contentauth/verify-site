@@ -13,11 +13,11 @@
 -->
 
 <script lang="ts">
+  import CloseIcon from '$assets/svg/monochrome/close.svg?component';
   import { focusTrap } from 'svelte-focus-trap';
   import { _ } from 'svelte-i18n';
   import { closeModal } from 'svelte-modals';
   import { fade } from 'svelte/transition';
-  import Button from '../../Button/Button.svelte';
 
   export let label: string;
   export let src: string;
@@ -34,11 +34,15 @@
     class="pointer-events-none fixed inset-0 flex items-center justify-center"
     transition:fade|global={{ duration: 100 }}
     use:focusTrap>
-    <div class="pointer-events-auto absolute right-5 top-5">
-      <Button variant="secondary" size="m" on:click={closeModal}
-        >{$_('dialog.close')}</Button>
+    <div class="pointer-events-auto absolute right-0 top-0">
+      <button
+        class="flex cursor-pointer items-center gap-x-2 p-5 text-white transition-colors duration-100 hover:text-gray-100"
+        on:click={closeModal}>
+        <span><CloseIcon class="h-5 w-5"></CloseIcon></span>
+        <span class="text-[1.125rem]">{$_('dialog.close')}</span>
+      </button>
     </div>
-    <div class="flex max-h-screen p-4">
+    <div class="flex max-h-screen p-4 pt-14">
       <img class="object-scale-down" {src} alt={label} />
     </div>
   </div>

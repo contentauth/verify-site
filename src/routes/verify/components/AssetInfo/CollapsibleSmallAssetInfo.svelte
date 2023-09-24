@@ -21,7 +21,11 @@
 
   export let compareAssetStore: CompareAssetStore;
   export let expanded = true;
+  // This offsets the highlight area during scroll so no scrollbar-related gaps appear
+  export let highlightOffset = 0;
+
   const dispatch = createEventDispatcher();
+
   $: hasChildren = $compareAssetStore.children.length > 0;
   $: expandAriaLabel = expanded
     ? $_('sidebar.verify.compare.ariaLabel.hide', {
@@ -43,7 +47,8 @@
 
 <div>
   <div
-    class="absolute left-0 right-0 z-0 h-16 p-2 transition-colors duration-200"
+    class="absolute left-0 z-0 h-16 p-2 transition-colors duration-200"
+    style:right={`${highlightOffset * -1}px`}
     class:bg-blue-100={$compareAssetStore.isSelected}>
   </div>
   <div class="relative flex p-2">

@@ -65,14 +65,13 @@ export default {
       '3xl': '1441px',
     },
     fontFamily: {
-      home: defs['family-home'],
       base: defs['family-base'],
-      Norske: ['Norske', 'sans-serif'],
     },
     colors: {
       'brand-yellow': '#FCE458',
       'brand-orange': '#EF9349',
       'brand-gray': '#757575',
+      'brand-blue': '#84c7fc',
       'sub-desc': '#757575',
       white: '#ffffff',
       'gray-40': defs['gray-40'],
@@ -104,30 +103,37 @@ export default {
     },
     fontSize: {
       title: [
-        '1.5rem',
+        '2rem',
         {
-          lineHeight: '1.875rem',
-          fontWeight: '900',
+          lineHeight: '1.1',
+          fontWeight: '700',
+        },
+      ],
+      subtitle: [
+        '1.3125rem',
+        {
+          lineHeight: '1.3',
+          fontWeight: '400',
         },
       ],
       header: [
         '1.125rem',
         {
-          lineHeight: '1.5rem',
-          fontWeight: '500',
+          lineHeight: '1.4625rem',
+          fontWeight: '600',
         },
       ],
       'body-bold': [
         '0.875rem',
         {
-          lineHeight: '1.25rem',
+          lineHeight: '1.4',
           fontWeight: '700',
         },
       ],
       body: [
         '0.875rem',
         {
-          lineHeight: '1.25rem',
+          lineHeight: '1.4',
           fontWeight: '400',
         },
       ],
@@ -153,12 +159,14 @@ export default {
         },
       ],
       informational: [
-        '0.75rem',
+        '0.875rem',
         {
-          lineHeight: '0.875rem',
+          lineHeight: '1.3',
           fontWeight: '400',
         },
       ],
+
+      // For the Homepage
       hero: [
         '3.75rem',
         {
@@ -166,7 +174,6 @@ export default {
           lineHeight: '75px',
         },
       ],
-      // For the Homepage
       'hero-title': [
         '3.5rem',
         {
@@ -409,7 +416,6 @@ export default {
           fontWeight: '400',
         },
       ],
-
       // For the Homepage
     },
     boxShadow: {
@@ -418,9 +424,6 @@ export default {
       sm: '0px 1px 3px 0px rgba(0, 0, 0, 0.35)',
     },
     extend: {
-      fontFamily: {
-        Norske: ['Store Norske Ja', 'sans-serif'],
-      },
       backgroundColor: {
         'brand-red': '#fe818b',
         'brand-green': '#5ac97d',
@@ -436,6 +439,9 @@ export default {
       borderColor: ({ theme }) => ({
         DEFAULT: theme('colors.gray-200'),
       }),
+      borderRadius: {
+        '3xl': '1.25rem',
+      },
       gridTemplateColumns: {
         table: '38% 28% 28% 6%',
         mobiletable: '67% 22% 10%',

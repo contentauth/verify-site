@@ -26,7 +26,7 @@
 
 <div class="flex h-[1000px] w-screen items-center justify-center">
   <div class="flex flex-col items-center justify-center text-sub-title">
-    <div class="text-home-secondary-title w-[910px] pb-20 text-center">
+    <div class="w-[910px] pb-20 text-center text-home-secondary-title">
       What makes Content Credential trustworthy
     </div>
     <div class="flex w-full flex-row gap-6">
@@ -34,12 +34,12 @@
         <div>
           <div class="h-[400px] w-[445px]">
             <div
-              class="text-hiw-label font-Norske rounded-t-xl px-[32px] py-[20px]"
+              class="rounded-t-xl px-[32px] py-[20px] font-base text-hiw-label"
               style={`background-color: ${item.bgColor}`}>
               {item.label}
             </div>
             <div
-              class="text-sub-label h-full rounded-b-xl bg-gray-200 px-[32px] py-[20px]">
+              class="h-full rounded-b-xl bg-gray-200 px-[32px] py-[20px] text-sub-label">
               {item.description}
             </div>
           </div>

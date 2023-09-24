@@ -17,5 +17,7 @@
 </script>
 
 <header class="flex items-center px-5 pt-5">
-  <TextLogo width="12.1rem" />
+  <a href="/">
+    <TextLogo width="12.1rem" />
+  </a>
 </header>

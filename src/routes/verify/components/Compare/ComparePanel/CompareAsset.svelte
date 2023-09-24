@@ -24,6 +24,7 @@
   export let compareAssetStoreMap: CompareAssetStoreMap;
   export let compareAssetStore: CompareAssetStore = compareAssetStoreMap[0];
   export let parent: CompareAssetStore = compareAssetStoreMap[0];
+  export let highlightOffset = 0;
 
   function showChildren() {
     expanded = !expanded;
@@ -41,6 +42,7 @@
   <CollapsibleSmallAssetInfo
     {compareAssetStore}
     {expanded}
+    {highlightOffset}
     on:showChildren={showChildren}
     ><span slot="name">
       {$compareAssetStore.title ?? $_('asset.defaultTitle')}</span
@@ -53,6 +55,7 @@
         <svelte:self
           parent={compareAssetStore}
           compareAssetStore={compareAssetStoreMap[child]}
+          {highlightOffset}
           {compareAssetStoreMap} />
       </div>
     {/each}

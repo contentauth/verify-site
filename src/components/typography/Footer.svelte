@@ -13,4 +13,4 @@
   from Adobe.
 -->
 
-<div class="min-w-0 truncate"><slot /></div>
+<span class="text-informational text-gray-900"><slot /></span>
