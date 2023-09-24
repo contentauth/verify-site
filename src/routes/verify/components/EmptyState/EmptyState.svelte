@@ -37,7 +37,7 @@
     .join(delimiter);
 </script>
 
-<div class="flex h-full w-full items-center justify-center px-5">
+<div class="flex h-full min-h-[30rem] w-full items-center justify-center px-5">
   <div
     class="flex max-w-[36rem] flex-col items-center space-y-5 text-center lg:max-w-[72.9rem] lg:flex-row lg:gap-x-12 lg:text-left">
     <div class="space-y-5">

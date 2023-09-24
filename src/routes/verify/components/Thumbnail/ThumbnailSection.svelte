@@ -20,10 +20,8 @@
   export let mimeType: string;
 </script>
 
-<div class="flex justify-center">
-  <Section hasBorder={false} hasPadding={false}>
-    <div slot="content" class="border-b border-gray-100 pb-5">
-      <BigThumbnail on:click {thumbnail} {mimeType} />
-    </div>
-  </Section>
-</div>
+<Section hasBorder={false} hasPadding={false}>
+  <div slot="content" class="flex justify-center border-b border-gray-100 pb-5">
+    <BigThumbnail on:click {thumbnail} {mimeType} />
+  </div>
+</Section>

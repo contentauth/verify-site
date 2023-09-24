@@ -27,10 +27,10 @@
 
 <div class="p-5">
   <Body>
-    <span class="hidden text-gray-600 lg:inline"
-      >{$_('sidebar.verify.dragDrop')}</span>
     <button on:click={() => dispatch('launchFilePicker')}
       ><Link>{$_('sidebar.verify.selectFileLink')}</Link></button>
+    <span class="hidden text-gray-600 lg:inline"
+      >{$_('sidebar.verify.dragDrop')}</span>
   </Body>
 </div>
 {#if $hierarchyView.state === 'success'}

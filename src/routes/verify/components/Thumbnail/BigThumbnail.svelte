@@ -20,7 +20,7 @@
   export let mimeType: string;
 </script>
 
-<div class="relative h-[17.5rem] w-full max-w-[17.5rem] rounded bg-gray-40">
+<div class="relative flex h-[17.5rem] rounded bg-gray-40 lg:max-w-[17.5rem]">
   {#if thumbnail}
     <button
       data-testid="lightbox-button"
