@@ -35,6 +35,9 @@
   let showDropOverlay = false;
   let showPanel = false;
   let filePicker: SvelteComponent<{ launch?: () => void }>;
+  let rightPanel: SvelteComponent<{
+    getElement?: () => HTMLDivElement | undefined;
+  }>;
   const { hierarchyView, compareView, viewState } = verifyStore;
 
   const dragDropParams: DragDropActionParams = {
@@ -105,11 +108,12 @@
           on:click={() => (showPanel = !showPanel)}>Reveal</button>
       </div>
       <!-- Right panel -->
-      <RevealablePanel {showPanel}>
+      <RevealablePanel {showPanel} bind:this={rightPanel}>
         {#if $viewState === 'hierarchy' && $hierarchyView.state === 'success'}
           <DetailedInfo
             on:close={() => (showPanel = false)}
-            assetData={$hierarchyView.selectedAssetStore} />
+            assetData={$hierarchyView.selectedAssetStore}
+            viewportElement={rightPanel?.getElement()} />
         {:else if $viewState === 'compare' && $compareView.state === 'success'}
           {#if $compareView.activeAssetData}
             <CompareDetailedInfo

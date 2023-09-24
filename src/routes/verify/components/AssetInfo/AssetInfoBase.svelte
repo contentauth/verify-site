@@ -23,6 +23,7 @@
   import { _ } from 'svelte-i18n';
 
   export let assetData: AssetData;
+  export let hideThumbnail = false;
 
   $: statusCode = assetData.validationResult?.statusCode;
   $: hasCredentials =
@@ -32,8 +33,16 @@
 </script>
 
 <div class="flex min-w-0 items-center">
-  <slot name="thumbnail" />
-  <div class="min-w-0 px-2">
+  <div
+    class={[
+      `transition-all duration-300 ease-in-out`,
+      hideThumbnail
+        ? `me-0 w-0 overflow-hidden opacity-0`
+        : `me-2 w-auto opacity-100`,
+    ].join(' ')}>
+    <slot name="thumbnail" />
+  </div>
+  <div class="min-w-0">
     <div class="flex pb-0.5"><Truncate><slot name="name" /></Truncate></div>
     <div class="flex items-center text-gray-900">
       {#if statusCode === 'valid' && hasCredentials}

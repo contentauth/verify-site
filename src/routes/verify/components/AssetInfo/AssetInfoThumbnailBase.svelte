@@ -19,9 +19,10 @@
 
   export let assetData: AssetData;
   export let highlighted = false;
+  export let hideThumbnail = false;
 </script>
 
-<AssetInfoBase {assetData}>
+<AssetInfoBase {assetData} {hideThumbnail}>
   <SmallThumbnail
     thumbnail={assetData.thumbnail}
     mimeType={assetData.mimeType}

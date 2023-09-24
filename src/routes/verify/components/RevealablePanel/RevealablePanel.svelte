@@ -16,9 +16,15 @@
   import { fly } from 'svelte/transition';
 
   export let showPanel: boolean;
+  let element: HTMLDivElement;
+
+  export function getElement() {
+    return element;
+  }
 </script>
 
 <div
+  bind:this={element}
   class="relative z-10 h-screen overflow-auto overflow-x-hidden border-gray-100 bg-white transition-transform sm:h-[calc(100vh-theme(spacing.header))] sm:transform-none sm:border-s-2 lg:h-screen"
   class:-translate-y-full={showPanel}
   transition:fly={{ duration: 300, opacity: 0, x: 200 }}>

@@ -16,7 +16,7 @@
   import close from '$assets/svg/monochrome/close.svg';
   import Body from '$src/components/typography/Body.svelte';
   import type { AssetData } from '$src/lib/asset';
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, onMount } from 'svelte';
   import { _ } from 'svelte-i18n';
   import { openModal } from 'svelte-modals';
   import type { Readable } from 'svelte/store';
@@ -26,7 +26,6 @@
   import ThumbnailSection from '../Thumbnail/ThumbnailSection.svelte';
   import LightboxModal from '../modals/LightboxModal/LightboxModal.svelte';
   import AboutSection from './AboutSection/AboutSection.svelte';
-  // import AdvancedSection from './AdvancedSection/AdvancedSection.svelte';
   import CameraCaptureSection from './CameraCaptureSection/CameraCaptureSection.svelte';
   import ContentSummarySection, {
     assetDataToProps as assetDataToContentSummaryProps,
@@ -35,6 +34,12 @@
   import ProcessSection from './ProcessSection/ProcessSection.svelte';
 
   export let assetData: Readable<AssetData>;
+  export let viewportElement: HTMLElement | undefined = undefined;
+
+  let thumbnailElement: HTMLDivElement;
+  let headerHeight: number;
+  let hideHeaderThumbnail = true;
+
   $: statusCode = $assetData.validationResult?.statusCode;
   $: isValid = statusCode === 'valid';
   $: isIncomplete = statusCode === 'incomplete';
@@ -47,6 +52,30 @@
     $hierarchyView.state === 'success'
       ? $hierarchyView.ingredientsForAssetId($assetData.id)
       : [];
+
+  onMount(() => {
+    let observer: IntersectionObserver;
+
+    if (viewportElement && thumbnailElement) {
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            hideHeaderThumbnail = entry.isIntersecting;
+          });
+        },
+        {
+          root: viewportElement,
+          rootMargin: `${headerHeight}px 0px 0px 0px`,
+          threshold: 0.8,
+        },
+      );
+      observer.observe(thumbnailElement);
+    }
+
+    return () => {
+      observer?.disconnect();
+    };
+  });
 
   function handleCloseClick() {
     dispatch('close');
@@ -62,10 +91,13 @@
   }
 </script>
 
-<div class="sticky top-0 z-30 bg-white shadow">
+<div
+  bind:offsetHeight={headerHeight}
+  class="sticky top-0 z-30 bg-white transition-shadow duration-300"
+  class:shadow={!hideHeaderThumbnail}>
   <div class="bg-gray-50 flex h-20 shrink-0 items-center justify-between px-6">
     {#if $assetData}
-      <BigAssetInfo assetData={$assetData}>
+      <BigAssetInfo assetData={$assetData} hideThumbnail={hideHeaderThumbnail}>
         <svelte:fragment slot="name">{$assetData.title}</svelte:fragment
         ></BigAssetInfo>
     {/if}
@@ -85,17 +117,18 @@
       ></ErrorBanner>
   {/if}
 </div>
-<ThumbnailSection
-  thumbnail={$assetData.thumbnail}
-  mimeType={$assetData.mimeType}
-  on:click={handleThumbnailClick} />
+<div bind:this={thumbnailElement}>
+  <ThumbnailSection
+    thumbnail={$assetData.thumbnail}
+    mimeType={$assetData.mimeType}
+    on:click={handleThumbnailClick} />
+</div>
 {#if $assetData.manifestData && isValid}
   <ContentSummarySection {...assetDataToContentSummaryProps($assetData)} />
   <CreditAndUsage manifestData={$assetData.manifestData} />
   <ProcessSection manifestData={$assetData.manifestData} {ingredients} />
   <CameraCaptureSection manifestData={$assetData.manifestData} />
   <AboutSection manifestData={$assetData.manifestData} />
-  <!-- <AdvancedSection /> -->
 {:else}
   <div class="p-5">
     <Body>

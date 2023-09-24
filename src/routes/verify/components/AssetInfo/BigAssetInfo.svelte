@@ -18,8 +18,9 @@
   import AssetInfoThumbnailBase from './AssetInfoThumbnailBase.svelte';
 
   export let assetData: AssetData;
+  export let hideThumbnail = false;
 </script>
 
-<AssetInfoThumbnailBase {assetData}>
+<AssetInfoThumbnailBase {assetData} {hideThumbnail}>
   <Header slot="name"><slot name="name" /></Header>
 </AssetInfoThumbnailBase>

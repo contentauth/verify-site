@@ -21,7 +21,9 @@
 </script>
 
 <div class="flex justify-center">
-  <Section>
-    <BigThumbnail on:click slot="content" {thumbnail} {mimeType} />
+  <Section hasBorder={false} hasPadding={false}>
+    <div slot="content" class="border-b border-gray-100 pb-5">
+      <BigThumbnail on:click {thumbnail} {mimeType} />
+    </div>
   </Section>
 </div>
