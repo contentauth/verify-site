@@ -15,7 +15,7 @@ import mapbox from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
 import mapboxStatic from '@mapbox/mapbox-sdk/services/static';
 import type { Manifest } from 'c2pa';
 import circleToPolygon from 'circle-to-polygon';
-import { add as addDate, isValid, parse } from 'date-fns';
+import { add as addDate, isValid, parse, parseISO } from 'date-fns';
 import debug from 'debug';
 import { convert as convertGeo } from 'geo-coordinates-parser';
 import { mapKeys, merge } from 'lodash';
@@ -185,15 +185,20 @@ export function parseDateTime(exif: ExifTags): Date | null {
   const dateTimeOffset =
     exif['exif:offsettime'] ?? exif['exif:offsettimeoriginal'] ?? '+00:00';
   const parsedOffset = /^(\+|-)(\d{2}):(\d{2})$/.exec(dateTimeOffset);
-  const captureDate = dateTimeOriginal
+  let captureDate = dateTimeOriginal
     ? parse(`${dateTimeOriginal} Z`, EXIF_DATE_FORMAT_STRING, new Date())
     : null;
+
+  // If the official EXIF format doesn't work, try with ISO 8601
+  if (!isValid(captureDate) && dateTimeOriginal) {
+    captureDate = parseISO(dateTimeOriginal);
+  }
 
   if (!captureDate || !isValid(captureDate)) {
     return null;
   }
 
-  if (parsedOffset !== null) {
+  if (captureDate && parsedOffset !== null) {
     const [, prefix, hStr, mStr] = parsedOffset;
     const multiplier = prefix === '-' ? -1 : 1;
     const hours = parseInt(hStr, 10);
