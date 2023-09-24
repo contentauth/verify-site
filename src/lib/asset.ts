@@ -44,12 +44,6 @@ import type { Disposable } from './types';
 
 const dbg = debug('lib:asset');
 
-const BROWSER_VIEWABLE_SOURCE_TYPES = [
-  'image/jpeg',
-  'image/png',
-  'image/svg+xml',
-];
-
 export const MEDIA_CATEGORIES = ['audio', 'image', 'video', 'unknown'] as const;
 
 export type MediaCategory = (typeof MEDIA_CATEGORIES)[number];
@@ -156,6 +150,16 @@ function testImageSupport(dataUri: string): Promise<boolean> {
 
     img.src = dataUri;
   });
+}
+
+async function isBrowserViewable(mimeType: string) {
+  const format = SUPPORTED_FORMATS[mimeType];
+
+  if (format) {
+    return format.browserViewable();
+  }
+
+  return false;
 }
 
 /**
@@ -297,7 +301,7 @@ export async function resultToAssetMap({
     if (
       !thumbnail &&
       validationResult.statusCode === 'valid' &&
-      BROWSER_VIEWABLE_SOURCE_TYPES.includes(source.type)
+      (await isBrowserViewable(source.type))
     ) {
       thumbnail = source.thumbnail?.getUrl();
     }

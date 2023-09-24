@@ -27,13 +27,14 @@
   const dispatch = createEventDispatcher();
 
   $: compare = new Intl.Collator($locale ?? DEFAULT_LOCALE).compare;
+  $: delimiter = $_('wordListDelimiter');
   $: formats = uniq(
     Object.keys(SUPPORTED_FORMATS).map(
       (mimeType) => SUPPORTED_FORMATS[mimeType].name,
     ),
   )
     .sort(compare)
-    .join(', ');
+    .join(delimiter);
 </script>
 
 <div class="flex h-full w-full items-center justify-center px-5">

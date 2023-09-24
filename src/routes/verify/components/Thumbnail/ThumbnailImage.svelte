@@ -30,6 +30,8 @@
   export let size = '4rem';
   export let showMissingText = false;
 
+  let thumbnailError = false;
+
   const fallbackMap: Record<MediaCategory, ComponentType> = {
     audio: AudioFallback,
     image: ImageFallback,
@@ -38,13 +40,14 @@
   };
 
   $: category = getMediaCategoryFromMimeType(mimeType);
-  $: alt = thumbnail ? $_('page.verify.emptyThumbnail') : '';
+  $: alt = thumbnail ? '' : $_('page.verify.emptyThumbnail');
   $: fallback = fallbackMap[category];
 </script>
 
-{#if thumbnail}
+{#if thumbnail && !thumbnailError}
   <img
     src={thumbnail}
+    on:error={() => (thumbnailError = true)}
     class="h-full w-full"
     class:object-contain={fillMode === 'contain'}
     class:object-cover={fillMode === 'cover'}
@@ -59,7 +62,9 @@
       height={size}
       class="text-gray-900" />
     {#if showMissingText}
-      <Body>{$_('page.verify.noThumbnailAvailable')}</Body>
+      <div class="pt-5">
+        <Body>{$_('page.verify.noThumbnailAvailable')}</Body>
+      </div>
     {/if}
   </div>
 {/if}
