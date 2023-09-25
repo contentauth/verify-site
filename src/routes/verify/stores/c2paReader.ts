@@ -59,6 +59,8 @@ export function createC2paReader(): C2paReaderStore {
           const ext = source.name?.toLowerCase();
           let correctedType: string | undefined = undefined;
 
+          // TODO: Transition to detection with magic numbers so that this works when
+          // passed in as a URL
           if (ext.endsWith('.dng')) {
             correctedType = 'image/x-adobe-dng';
           } else if (ext.endsWith('.heic')) {
