@@ -22,6 +22,7 @@
     type MediaCategory,
   } from '$src/lib/asset';
   import type { ComponentType } from 'svelte';
+  import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
 
   export let thumbnail: string | null;
@@ -30,6 +31,7 @@
   export let size = '4rem';
   export let showMissingText = false;
 
+  const dispatch = createEventDispatcher();
   let thumbnailError = false;
 
   const fallbackMap: Record<MediaCategory, ComponentType> = {
@@ -42,12 +44,18 @@
   $: category = getMediaCategoryFromMimeType(mimeType);
   $: alt = thumbnail ? '' : $_('page.verify.emptyThumbnail');
   $: fallback = fallbackMap[category];
+
+  function handleImageError() {
+    thumbnailError = true;
+    dispatch('imageLoadingError');
+    console.error('Error loading thumbnail:', thumbnail);
+  }
 </script>
 
 {#if thumbnail && !thumbnailError}
   <img
     src={thumbnail}
-    on:error={() => (thumbnailError = true)}
+    on:error={handleImageError}
     class="h-full w-full"
     class:object-contain={fillMode === 'contain'}
     class:object-cover={fillMode === 'cover'}
@@ -62,9 +70,7 @@
       height={size}
       class="text-gray-900" />
     {#if showMissingText}
-      <div class="pt-5">
-        <Body>{$_('page.verify.noThumbnailAvailable')}</Body>
-      </div>
+      <Body>{$_('page.verify.noThumbnailAvailable')}</Body>
     {/if}
   </div>
 {/if}

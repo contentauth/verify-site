@@ -18,10 +18,13 @@
 
   export let thumbnail: string | null;
   export let mimeType: string;
+
+  let showLightboxButton = !!thumbnail;
 </script>
 
-<div class="relative flex h-[17.5rem] rounded bg-gray-40 lg:max-w-[17.5rem]">
-  {#if thumbnail}
+<div
+  class="relative flex h-[17.5rem] w-full rounded bg-gray-40 lg:max-w-[17.5rem]">
+  {#if showLightboxButton}
     <button
       data-testid="lightbox-button"
       on:click
@@ -32,5 +35,10 @@
       </div>
     </button>
   {/if}
-  <ThumbnailImage {thumbnail} {mimeType} size="8rem" showMissingText />
+  <ThumbnailImage
+    {thumbnail}
+    {mimeType}
+    size="8rem"
+    showMissingText
+    on:imageLoadingError={() => (showLightboxButton = false)} />
 </div>
