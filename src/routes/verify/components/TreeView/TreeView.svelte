@@ -85,7 +85,7 @@
   });
   $: links = createLinks(tree, $selectedAsset);
   $: descendants = tree.descendants();
-  $: canCompare = descendants.length > 1;
+  $: canCompare = descendants.length > 1 && !!$selectedAsset.thumbnail;
   $: {
     // Set the proper scaleExtent whenever the width/height changes
     zoom.scaleExtent([transforms.minScale, 1]);
@@ -138,6 +138,7 @@
       <button
         class="h-full pe-2 ps-2.5 transition-opacity"
         class:opacity-40={!transforms.canZoomIn}
+        class:cursor-not-allowed={!transforms.canZoomIn}
         on:click={() => transforms.canZoomIn && zoomIn({ svgSel, zoom })}
         aria-roledescription={$_('page.verify.zoomIn')}>
         <ZoomIn width="1rem" height="1rem" class="text-gray-800" />
@@ -146,6 +147,7 @@
       <button
         class="h-full pe-2.5 ps-2 transition-opacity"
         class:opacity-40={!transforms.canZoomOut}
+        class:cursor-not-allowed={!transforms.canZoomOut}
         aria-roledescription={$_('page.verify.zoomOut')}
         on:click={() =>
           transforms.canZoomOut &&
@@ -163,7 +165,9 @@
     <div class="flex h-8 items-center rounded-full bg-white shadow-md">
       <button
         on:click={() => canCompare && verifyStore.setCompareView()}
+        class="transition-opacity"
         class:opacity-40={!canCompare}
+        class:cursor-not-allowed={!canCompare}
         ><div class="mx-3 my-2 flex items-center">
           <Compare class="me-2 h-4 w-4" />
           <Body

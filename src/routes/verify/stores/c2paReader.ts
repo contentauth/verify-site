@@ -55,13 +55,20 @@ export function createC2paReader(): C2paReaderStore {
       try {
         const sdk = await getSdk();
 
-        if (
-          source instanceof File &&
-          !source.type &&
-          source.name?.toLowerCase().endsWith('.dng')
-        ) {
-          const buffer = await source.arrayBuffer();
-          source = new Blob([buffer], { type: 'image/x-adobe-dng' });
+        if (source instanceof File && !source.type) {
+          const ext = source.name?.toLowerCase();
+          let correctedType: string | undefined = undefined;
+
+          if (ext.endsWith('.dng')) {
+            correctedType = 'image/x-adobe-dng';
+          } else if (ext.endsWith('.heic')) {
+            correctedType = 'image/heic';
+          }
+
+          if (correctedType) {
+            const buffer = await source.arrayBuffer();
+            source = new Blob([buffer], { type: correctedType });
+          }
         }
 
         const result = await sdk.read(source);

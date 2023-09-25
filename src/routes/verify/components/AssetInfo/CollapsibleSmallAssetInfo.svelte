@@ -27,6 +27,7 @@
   const dispatch = createEventDispatcher();
 
   $: hasChildren = $compareAssetStore.children.length > 0;
+  $: disabled = !$compareAssetStore.thumbnail;
   $: expandAriaLabel = expanded
     ? $_('sidebar.verify.compare.ariaLabel.hide', {
         values: { title: $compareAssetStore.title },
@@ -63,8 +64,10 @@
       <span class="ms-4" />
     {/if}
     <button
-      on:click={$compareAssetStore.select}
+      on:click={() => !disabled && $compareAssetStore.select()}
       class="w-full"
+      class:opacity-40={disabled}
+      class:cursor-not-allowed={disabled}
       aria-roledescription={selectAriaLabel}>
       <SmallAssetInfo
         assetData={$compareAssetStore}
