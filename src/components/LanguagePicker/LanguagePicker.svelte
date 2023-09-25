@@ -27,7 +27,7 @@
       ? 'rotate-180'
       : '-rotate-0'}" />
 </div>
-<div class="absolute inset-0 z-10 p-4">
+<div class="absolute inset-0 z-0 p-4">
   <select
     id="language"
     class="bg-transparent text-transparent"

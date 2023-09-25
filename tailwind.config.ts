@@ -436,6 +436,9 @@ export default {
         sidebar: '20rem',
         header: '3.5rem',
       },
+      translate: {
+        'h-screen': '100vh',
+      },
       borderColor: ({ theme }) => ({
         DEFAULT: theme('colors.gray-200'),
       }),
