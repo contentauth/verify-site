@@ -30,7 +30,7 @@
 <div class="absolute inset-0 z-0 p-4">
   <select
     id="language"
-    class="bg-transparent text-transparent"
+    class="relative bottom-1 appearance-none bg-transparent px-5 py-2 text-transparent"
     aria-label={$_('aria.label.languageSelector')}
     on:change={handleLanguageChange}>
     {#each languageNames as { locale, name }}
