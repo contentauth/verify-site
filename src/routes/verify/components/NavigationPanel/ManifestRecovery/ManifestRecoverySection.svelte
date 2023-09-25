@@ -60,12 +60,10 @@
 </Section>
 {#if $recoveredManifestResults.state === 'success'}
   <Section hasBorder={false}>
-    <div slot="title" class="mb-5 flex justify-between">
-      <div class="text-md">
-        <BodyBold>
-          {$_('sidebar.verify.recovery.possibleMatches')}
-        </BodyBold>
-      </div>
+    <div slot="title" class="text-md mb-5 flex justify-between">
+      <BodyBold>
+        {$_('sidebar.verify.recovery.possibleMatches')}
+      </BodyBold>
       <button class="-me-1" on:click={clearManifestResults}
         ><CloseIcon width="1rem" height="1rem" /></button>
     </div>
