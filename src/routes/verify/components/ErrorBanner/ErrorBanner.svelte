@@ -22,7 +22,7 @@
 </script>
 
 <div
-  class="p-2 text-white"
+  class="mb-5 p-2 text-white"
   class:bg-gray-600={type === 'info'}
   class:bg-red-900={type === 'warning'}>
   <IconContentRow>
