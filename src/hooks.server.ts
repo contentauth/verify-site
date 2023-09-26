@@ -19,9 +19,20 @@ export const handle = (async ({ event, resolve }) => {
     encoding: 'utf-8',
   });
 
+  const siteConfig =
+    process.env.SITE_CONFIG ||
+    (await readFile('etc/site-config.json', { encoding: 'utf-8' }));
+  const siteConfigScript = `
+    <script type="text/javascript">
+      window.siteConfig = ${siteConfig.trim()};
+    </script>
+  `;
+
   const response = await resolve(event, {
     transformPageChunk: ({ html }) =>
-      html.replace('%newrelic%', newrelicScript),
+      html
+        .replace('%newrelic%', newrelicScript)
+        .replace('%siteConfig%', siteConfigScript),
   });
 
   return response;

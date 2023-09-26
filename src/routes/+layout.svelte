@@ -14,7 +14,7 @@
 -->
 <script lang="ts">
   import { afterNavigate } from '$app/navigation';
-  import { postEvent } from '$lib/analytics';
+  import { analytics } from '$lib/analytics';
   import { SITE_VERSION } from '$lib/config';
   import { ToastContainer } from '$src/features/Toast';
   import { lang } from '@intl/adobe-locales';
@@ -35,7 +35,7 @@
       duration = navPerf?.duration;
     }
 
-    postEvent({
+    analytics.track('pageLoad', {
       'event.type': 'render',
       'event.subtype': 'page',
       ...(duration ? { 'event.value': duration } : {}),

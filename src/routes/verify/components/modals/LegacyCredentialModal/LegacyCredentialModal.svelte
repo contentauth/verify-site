@@ -16,7 +16,7 @@
   import { page } from '$app/stores';
   import Body from '$src/components/typography/Body.svelte';
   import BodyBold from '$src/components/typography/BodyBold.svelte';
-  import { getConfig } from '$src/lib/config';
+  import { SITE_ENV } from '$src/lib/config';
   import Button from '$src/routes/verify/components/Button/Button.svelte';
   import { _ } from 'svelte-i18n';
   import { closeModal } from 'svelte-modals';
@@ -28,9 +28,8 @@
 
   async function handleContinue() {
     closeModal();
-    const config = await getConfig();
     const legacyVerifyUrl =
-      config.env === 'stage'
+      SITE_ENV === 'stage'
         ? 'https://verify-beta-stage.contentauthenticity.org'
         : 'https://verify-beta.contentauthenticity.org';
 

@@ -14,7 +14,7 @@
 import type { Source } from 'c2pa';
 import pLimit from 'p-limit';
 import { resultToAssetMap, type DisposableAssetDataMap } from './asset';
-import { getConfig } from './config';
+import { SITE_ENV } from './config';
 import {
   CloudManifestError,
   ManifestRecoveryError,
@@ -49,10 +49,9 @@ export async function recoverManifests(
   sourceImage: Blob,
 ): Promise<DisposableManifestRecoveryResult[]> {
   // @TODO force-stage functionality?
-  const config = await getConfig();
   const baseUrl =
     overrideBaseUrl ||
-    (config.env === 'prod'
+    (SITE_ENV === 'prod'
       ? `https://cai-msb.adobe.io`
       : `https://cai-msb-stage.adobe.io`);
   const searchImage = await resizeImage(sourceImage);

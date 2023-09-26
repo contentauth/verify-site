@@ -13,7 +13,7 @@
 
 import { version } from '$app/environment';
 import debug from 'debug';
-import memoize from 'lodash/memoize';
+import { memoize, merge } from 'lodash';
 
 const dbg = debug('config');
 
@@ -23,7 +23,7 @@ export const DATA_PRIVACY_URL =
 export const LEARN_MORE_URL = 'https://contentauthenticity.org/';
 
 interface EnvConfig {
-  env: 'dev' | 'stage' | 'prod';
+  env: 'local' | 'dev' | 'stage' | 'prod';
   config: Record<string, unknown>;
 }
 
@@ -32,20 +32,11 @@ const defaultConfig: EnvConfig = {
   config: {},
 };
 
-export const getConfig = memoize<() => Promise<EnvConfig>>(async () => {
-  try {
-    const res = await fetch('/env.json');
-    const data = await res.json();
-    dbg(
-      'Retrieved config with environment %s',
-      data?.env ?? defaultConfig.env,
-      data,
-    );
+export const getConfig = memoize<() => EnvConfig>(() => {
+  const config = merge({}, defaultConfig, window.siteConfig);
+  dbg('Loaded config', config);
 
-    return data ?? defaultConfig;
-  } catch (err) {
-    dbg('No env file found, defaulting to prod');
-
-    return defaultConfig;
-  }
+  return config;
 });
+
+export const SITE_ENV = getConfig().env;
