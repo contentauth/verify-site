@@ -114,7 +114,8 @@
         </div>
       </div>
     </div>
-    <div
+    <button
+      on:click={$primaryAsset?.select}
       class={[
         'pointer-events-none absolute left-0 top-0 h-full w-[--leftWidth] overflow-hidden',
         $primaryAsset?.isActive
@@ -134,8 +135,9 @@
           </div>
         {/if}
       </div>
-    </div>
-    <div
+    </button>
+    <button
+      on:click={$secondaryAsset?.select}
       class={[
         'pointer-events-none absolute right-0 top-0 h-full w-[--rightWidth] overflow-hidden',
         $secondaryAsset?.isActive
@@ -156,6 +158,6 @@
           </div>
         {/if}
       </div>
-    </div>
+    </button>
   </div>
 </div>

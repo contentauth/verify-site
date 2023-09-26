@@ -109,7 +109,7 @@
       </div>
       <!-- Right panel -->
       <RevealablePanel {showPanel} bind:this={rightPanel}>
-        {#if $viewState === 'hierarchy' && $hierarchyView.state === 'success'}
+        {#if $viewState === 'hierarchy' && $hierarchyView.state === 'success' && $hierarchyView.selectedAssetStore}
           <DetailedInfo
             on:close={() => (showPanel = false)}
             assetData={$hierarchyView.selectedAssetStore}

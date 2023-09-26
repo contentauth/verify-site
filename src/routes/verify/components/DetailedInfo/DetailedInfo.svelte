@@ -44,6 +44,7 @@
   $: isValid = statusCode === 'valid';
   $: isIncomplete = statusCode === 'incomplete';
   $: isInvalid = statusCode === 'invalid';
+  $: manifestData = isValid ? $assetData.manifestData : null;
 
   const dispatch = createEventDispatcher();
   const { hierarchyView } = verifyStore;
@@ -121,24 +122,13 @@
   <ThumbnailSection
     thumbnail={$assetData.thumbnail}
     mimeType={$assetData.mimeType}
+    hasBorder={!!manifestData}
     on:click={handleThumbnailClick} />
 </div>
-{#if $assetData.manifestData && isValid}
+{#if manifestData}
   <ContentSummarySection {...assetDataToContentSummaryProps($assetData)} />
-  <CreditAndUsage manifestData={$assetData.manifestData} />
-  <ProcessSection manifestData={$assetData.manifestData} {ingredients} />
-  <CameraCaptureSection manifestData={$assetData.manifestData} />
-  <AboutSection manifestData={$assetData.manifestData} />
-{:else}
-  <div class="p-5">
-    <Body>
-      {#if isIncomplete}
-        {$_('assetInfo.incomplete')}
-      {:else if isInvalid}
-        {$_('assetInfo.invalid')}
-      {:else}
-        {$_('sidebar.verify.noCCFile')}
-      {/if}
-    </Body>
-  </div>
+  <CreditAndUsage {manifestData} />
+  <ProcessSection {manifestData} {ingredients} />
+  <CameraCaptureSection {manifestData} />
+  <AboutSection {manifestData} />
 {/if}

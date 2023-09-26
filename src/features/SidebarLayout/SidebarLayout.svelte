@@ -54,7 +54,7 @@
       class:-translate-x-full={$sidebarLayoutPageState === 1}>
       <!-- Mobile header -->
       <div
-        class="flex items-center border-b border-gray-100 bg-white px-5 py-4 lg:hidden">
+        class="z-50 flex items-center border-b border-gray-100 bg-white px-5 py-4 lg:hidden">
         <button
           class="flex items-center"
           on:click={() => sidebarLayoutPageState.back()}>
@@ -63,7 +63,7 @@
         </button>
       </div>
 
-      <div class="h-full border-t border-gray-100 lg:border-none">
+      <div class="z-10 h-full border-t border-gray-100 lg:border-none">
         <slot name="content" />
       </div>
     </div>

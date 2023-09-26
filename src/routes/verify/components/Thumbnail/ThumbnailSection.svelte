@@ -18,10 +18,14 @@
 
   export let thumbnail: string | null;
   export let mimeType: string;
+  export let hasBorder = true;
 </script>
 
 <Section hasBorder={false} hasPadding={false}>
-  <div slot="content" class="flex justify-center border-b border-gray-100 pb-5">
+  <div
+    slot="content"
+    class="flex justify-center border-gray-100 pb-5"
+    class:border-b={hasBorder}>
     <BigThumbnail on:click {thumbnail} {mimeType} />
   </div>
 </Section>

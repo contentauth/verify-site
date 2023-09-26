@@ -48,6 +48,7 @@
 
   const nodeWidth = remToPx(10.25);
   const nodeHeight = remToPx(10.25);
+  const clickDistance = 10;
   const config: TreeViewConfig = {
     ...defaultConfig,
     nodeWidth,
@@ -59,9 +60,11 @@
   let width = 1;
   let height = 1;
   let boundsTransform: ZoomTransform;
-  let zoom = d3Zoom<SVGElement, ReadableAssetStore>().on('zoom', (evt) => {
-    boundsTransform = evt.transform;
-  });
+  let zoom = d3Zoom<SVGElement, ReadableAssetStore>()
+    .on('zoom', (evt) => {
+      boundsTransform = evt.transform;
+    })
+    .clickDistance(clickDistance);
 
   onMount(() => {
     svgSel = d3Select<SVGElement, ReadableAssetStore>(svgElement);
@@ -85,7 +88,7 @@
   });
   $: links = createLinks(tree, $selectedAsset);
   $: descendants = tree.descendants();
-  $: canCompare = descendants.length > 1 && !!$selectedAsset.thumbnail;
+  $: canCompare = descendants.length > 1 && !!$selectedAsset?.thumbnail;
   $: {
     // Set the proper scaleExtent whenever the width/height changes
     zoom.scaleExtent([transforms.minScale, 1]);
@@ -133,7 +136,7 @@
   </div>
 
   <div
-    class="absolute bottom-5 right-5 z-20 flex flex-col items-end justify-end space-y-5">
+    class="absolute bottom-5 right-5 z-20 hidden flex-col items-end justify-end space-y-5 lg:flex">
     <div class="flex h-8 items-center rounded-full bg-white shadow-md">
       <button
         class="h-full pe-2 ps-2.5 transition-opacity"
