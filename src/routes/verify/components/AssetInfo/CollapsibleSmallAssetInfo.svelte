@@ -64,7 +64,8 @@
       <span class="ms-4" />
     {/if}
     <button
-      on:click={() => !disabled && $compareAssetStore.select()}
+      {disabled}
+      on:click={() => $compareAssetStore.select()}
       class="w-full"
       class:opacity-40={disabled}
       class:cursor-not-allowed={disabled}

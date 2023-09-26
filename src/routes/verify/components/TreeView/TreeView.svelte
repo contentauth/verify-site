@@ -139,7 +139,8 @@
         class="h-full pe-2 ps-2.5 transition-opacity"
         class:opacity-40={!transforms.canZoomIn}
         class:cursor-not-allowed={!transforms.canZoomIn}
-        on:click={() => transforms.canZoomIn && zoomIn({ svgSel, zoom })}
+        disabled={!transforms.canZoomIn}
+        on:click={() => zoomIn({ svgSel, zoom })}
         aria-roledescription={$_('page.verify.zoomIn')}>
         <ZoomIn width="1rem" height="1rem" class="text-gray-800" />
       </button>
@@ -148,9 +149,9 @@
         class="h-full pe-2.5 ps-2 transition-opacity"
         class:opacity-40={!transforms.canZoomOut}
         class:cursor-not-allowed={!transforms.canZoomOut}
+        disabled={!transforms.canZoomOut}
         aria-roledescription={$_('page.verify.zoomOut')}
         on:click={() =>
-          transforms.canZoomOut &&
           zoomOut({
             svgSel,
             zoom,
@@ -164,7 +165,8 @@
     </div>
     <div class="flex h-8 items-center rounded-full bg-white shadow-md">
       <button
-        on:click={() => canCompare && verifyStore.setCompareView()}
+        on:click={() => verifyStore.setCompareView()}
+        disabled={!canCompare}
         class="transition-opacity"
         class:opacity-40={!canCompare}
         class:cursor-not-allowed={!canCompare}
