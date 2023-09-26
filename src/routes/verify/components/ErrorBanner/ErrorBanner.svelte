@@ -28,9 +28,9 @@
   <IconContentRow>
     <svelte:fragment slot="icon">
       {#if type === 'warning'}
-        <Alert />
+        <Alert class="h-4 w-4" />
       {:else}
-        <Info />
+        <Info class="h-4 w-4" />
       {/if}
     </svelte:fragment>
     <div class="grow" slot="content">
