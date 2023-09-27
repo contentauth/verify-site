@@ -111,12 +111,6 @@ export const SUPPORTED_FORMATS: Record<string, FormatDefinition> = {
       ),
     searchable: false,
   },
-  'audio/mp4': {
-    name: 'M4A',
-    category: 'audio',
-    browserViewable: async () => false,
-    searchable: false,
-  },
   'audio/x-wav': {
     name: 'WAV',
     category: 'audio',

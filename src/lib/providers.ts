@@ -12,6 +12,7 @@
 // from Adobe.
 
 import AdobeExpressLogo from '$assets/svg/color/logos/adobe-express.svg?component';
+import AdobeFireflyLogo from '$assets/svg/color/logos/adobe-firefly.svg?component';
 import AdobeStockLogo from '$assets/svg/color/logos/adobe-stock.svg?component';
 import AdobeLogo from '$assets/svg/color/logos/adobe.svg?component';
 import BehanceLogo from '$assets/svg/color/logos/behance.svg?component';
@@ -32,6 +33,7 @@ const matchers = [
   { pattern: /nikon/i, icon: NikonLogo, name: 'Nikon' },
   { pattern: /photoshop/i, icon: PhotoshopLogo, name: 'Photoshop' },
   { pattern: /adobe\sexpress/i, icon: AdobeExpressLogo, name: 'Adobe Express' },
+  { pattern: /adobe\sfirefly/i, icon: AdobeFireflyLogo, name: 'Adobe Firefly' },
   { pattern: /adobe\sstock/i, icon: AdobeStockLogo, name: 'Adobe Stock' },
   { pattern: /adobe/i, icon: AdobeLogo, name: 'Adobe' },
   { pattern: /behance\.net/i, icon: BehanceLogo, name: 'Behance' },
