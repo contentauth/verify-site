@@ -17,6 +17,12 @@ import { memoize, merge } from 'lodash';
 
 const dbg = debug('config');
 
+declare global {
+  interface Window {
+    siteConfig: EnvConfig;
+  }
+}
+
 export const SITE_VERSION = version;
 export const DATA_PRIVACY_URL =
   'https://contentauthenticity.org/faq#:~:text=Why%20is%20there%20a%20gap%20in%20an%20image%E2%80%99s%20CAI%20data%3F';

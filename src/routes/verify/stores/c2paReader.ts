@@ -39,27 +39,27 @@ export interface C2paReaderStore extends Readable<SourceState> {
   read: (source: C2paSourceType) => Promise<void>;
 }
 
-function logSuccess(
-  result: C2paReadResult,
-  type: IngestPayload['ui.view_type'],
-) {
-  postEvent({
-    'event.type': 'success',
-    'event.subtype': 'verify',
-    'event.value': result?.manifestStore ? 'full' : 'none',
-    'ui.view_type': type,
-  });
-}
+// function logSuccess(
+//   result: C2paReadResult,
+//   type: IngestPayload['ui.view_type'],
+// ) {
+//   postEvent({
+//     'event.type': 'success',
+//     'event.subtype': 'verify',
+//     'event.value': result?.manifestStore ? 'full' : 'none',
+//     'ui.view_type': type,
+//   });
+// }
 
-function logError(err: Error, type: IngestPayload['ui.view_type']) {
-  postEvent({
-    'event.type': 'error',
-    'event.subtype': 'verify',
-    'event.error_type': err.name,
-    'event.error_desc': err.message,
-    'ui.view_type': type,
-  });
-}
+// function logError(err: Error, type: IngestPayload['ui.view_type']) {
+//   postEvent({
+//     'event.type': 'error',
+//     'event.subtype': 'verify',
+//     'event.error_type': err.name,
+//     'event.error_desc': err.message,
+//     'ui.view_type': type,
+//   });
+// }
 
 /**
  * Creates a store encapsulating the C2PA SDK file reading logic.

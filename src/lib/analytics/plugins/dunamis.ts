@@ -70,7 +70,7 @@ const requiredEvents = ['event.type'];
 
 const defaultConfig = {
   dependencies: {
-    getAccessToken(callback) {
+    getAccessToken(callback: (arg: unknown) => void) {
       callback(null);
     },
   },
@@ -92,7 +92,7 @@ const defaultConfig = {
 
 export default function dunamis() {
   let common: Partial<IngestPayload> | undefined;
-  let ingest;
+  let ingest: InstanceType<typeof Ingest>;
 
   return {
     name: 'dunamis',
@@ -116,7 +116,7 @@ export default function dunamis() {
           );
         }
 
-        ingest?.postEvent(trackPayload, (err) => {
+        ingest?.postEvent(trackPayload, (err: unknown) => {
           if (err) {
             console.warn('Error posting event to ingest', err);
           }
