@@ -13,6 +13,8 @@ jobs:
     name: Build and deploy
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    env:
+      VITE_MAPBOX_TOKEN: ${{ secrets.VITE_MAPBOX_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
