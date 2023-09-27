@@ -146,6 +146,7 @@ export function createVerifyStore(): VerifyStore {
 
       dbg('Reading C2PA source', source);
       c2paReader.read(source);
+      manifestRecoverer.clear();
       dbg('Setting selected source', incomingSource);
       selectedSource.set(incomingSource);
     },

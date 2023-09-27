@@ -12,15 +12,23 @@
   is strictly forbidden unless prior written permission is obtained
   from Adobe.
 -->
-<script>
+<script lang="ts">
   import ChevronLeft from '$assets/svg/monochrome/chevron-left.svg?component';
   import Header from '$src/components/Header/Header.svelte';
   import LanguagePicker from '$src/components/LanguagePicker/LanguagePicker.svelte';
   import HeaderTypo from '$src/components/typography/Header.svelte';
+  import { createEventDispatcher } from 'svelte';
   import { sidebarLayoutPageState } from './store/sidebarLayoutPageState';
 
   export let leftColumnTakeover = false;
   export let showHeader = true;
+
+  const dispatch = createEventDispatcher();
+
+  function handleSidebarScroll(evt: Event) {
+    const scrollTop = (evt.target as HTMLDivElement).scrollTop;
+    dispatch('sidebarScroll', { scrollTop });
+  }
 </script>
 
 <div
@@ -38,7 +46,9 @@
       ].join(' ')}>
       <Header><slot name="header" /></Header>
     </div>
-    <div class="min-height-0 relative w-full flex-grow overflow-hidden">
+    <div
+      class="min-height-0 relative w-full flex-grow overflow-y-auto overflow-x-hidden"
+      on:scroll={handleSidebarScroll}>
       <slot name="sidebar" />
     </div>
     <div

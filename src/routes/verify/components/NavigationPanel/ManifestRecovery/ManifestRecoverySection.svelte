@@ -60,7 +60,7 @@
 </Section>
 {#if $recoveredManifestResults.state === 'success'}
   <Section hasBorder={false}>
-    <div slot="title" class="text-md mb-5 flex justify-between">
+    <div slot="title" class="text-md flex justify-between">
       <BodyBold>
         {$_('sidebar.verify.recovery.possibleMatches')}
       </BodyBold>

@@ -38,7 +38,10 @@
   let rightPanel: SvelteComponent<{
     getElement?: () => HTMLDivElement | undefined;
   }>;
+  let isSidebarScrolled = false;
   const { hierarchyView, compareView, viewState } = verifyStore;
+  // Number of pixels to scroll for shadow to be shown
+  const sidebarScrollThreshold = 10;
 
   const dragDropParams: DragDropActionParams = {
     onDragStateChange(newState: boolean) {
@@ -68,6 +71,10 @@
   function handleLaunchFilePicker() {
     filePicker?.launch();
   }
+
+  function handleSidebarScroll(evt: CustomEvent<{ scrollTop: number }>) {
+    isSidebarScrolled = evt.detail.scrollTop > sidebarScrollThreshold;
+  }
 </script>
 
 <div use:dragDropAction={dragDropParams}>
@@ -76,6 +83,7 @@
   <FilePicker bind:this={filePicker} />
   <SidebarLayout
     leftColumnTakeover={hasEmptyState}
+    on:sidebarScroll={handleSidebarScroll}
     showHeader={$viewState !== 'compare'}>
     <!-- Left panel -->
     <svelte:fragment slot="sidebar">
@@ -83,7 +91,9 @@
         {#if hasEmptyState}
           <EmptyState on:launchFilePicker={handleLaunchFilePicker} />
         {:else}
-          <NavigationPanel on:launchFilePicker={handleLaunchFilePicker} />
+          <NavigationPanel
+            on:launchFilePicker={handleLaunchFilePicker}
+            isScrolled={isSidebarScrolled} />
         {/if}
       {:else if $viewState === 'compare' && $compareView.state === 'success'}
         <ComparePanel assetStoreMap={$compareView.compareAssetMap} />
