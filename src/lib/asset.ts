@@ -28,6 +28,7 @@ import { get } from 'svelte/store';
 import { selectExif } from './exif';
 import { DEFAULT_LOCALE } from './i18n';
 import { MANIFEST_STORE_MIME_TYPE } from './manifestRecovery';
+import { selectDoNotTrain } from './selectors/doNotTrain';
 import {
   selectGenerativeInfo,
   type GenerativeInfo,
@@ -184,6 +185,7 @@ export type ManifestData = {
   producer: string | null;
   reviewRatings: ReturnType<typeof selectReviewRatings>;
   signatureInfo: Manifest['signatureInfo'];
+  doNotTrain: ReturnType<typeof selectDoNotTrain>;
   socialAccounts: ReturnType<typeof selectSocialAccounts>;
   web3Accounts: [string, string[]][];
   website: string | null;
@@ -380,6 +382,7 @@ export async function resultToAssetMap({
       socialAccounts: selectSocialAccounts(manifest),
       generativeInfo: selectGenerativeInfo(manifest),
       exif: selectExif(manifest),
+      doNotTrain: selectDoNotTrain(manifest),
       reviewRatings: selectReviewRatings(manifest),
       web3Accounts: selectWeb3(manifest),
       website: selectWebsite(manifest),

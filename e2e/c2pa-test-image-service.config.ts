@@ -141,5 +141,27 @@ export default {
         ],
       },
     },
+    dnt: {
+      image: { r: 154, g: 63, b: 7, width: 600, height: 300 },
+      manifest: {
+        claim_generator: 'test-image-service',
+        title: 'dnt.jpg',
+        format: 'image/jpeg',
+        instance_id: 'xmp:iid:ddb36a5e-d59a-4cc9-a6dd-057ba8da4e0e',
+        assertions: [
+          {
+            label: 'c2pa.training-mining',
+            data: {
+              entries: {
+                'c2pa.data_mining': 'notAllowed',
+                'c2pa.ai_inference': 'notAllowed',
+                'c2pa.ai_training': 'notAllowed',
+                'c2pa.ai_generative_training': 'notAllowed',
+              },
+            },
+          },
+        ],
+      },
+    },
   },
 } satisfies C2paTestImageServiceConfig;

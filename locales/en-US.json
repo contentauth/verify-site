@@ -120,6 +120,8 @@
   "sidebar.verify.credit.AI.description": "Do not use my content to train AI models",
   "sidebar.verify.credit.AI": "AI model used",
   "sidebar.verify.credit.description": "The producer chose to share the following info:",
+  "sidebar.verify.credit.modelUsage.title": "AI model usage",
+  "sidebar.verify.credit.modelUsage.text": "Do not use my content to train AI models",
   "sidebar.verify.credit.producer": "Produced by",
   "sidebar.verify.credit.social": "Social media",
   "sidebar.verify.credit.web3.copied": "Copied!",
