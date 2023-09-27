@@ -16,6 +16,7 @@ import { nanoid } from '$lib/util/nanoid';
 import Ingest from '@ccx-public/ingest';
 import difference from 'lodash/difference';
 import merge from 'lodash/merge';
+import type { AnalyticsPlugin } from './types';
 
 const config = 'dev';
 
@@ -90,13 +91,18 @@ const defaultConfig = {
   },
 };
 
-export default function dunamis() {
+type DunamisConfig = typeof defaultConfig;
+
+export default function dunamis(): AnalyticsPlugin<
+  DunamisConfig,
+  IngestPayload
+> {
   let common: Partial<IngestPayload> | undefined;
   let ingest: InstanceType<typeof Ingest>;
 
   return {
     name: 'dunamis',
-    config: { ...defaultConfig, config },
+    config: { ...defaultConfig, config } as DunamisConfig,
     initialize: ({ config }) => {
       ingest = new Ingest(config.dependencies, config.options);
       ingest.enable(true);

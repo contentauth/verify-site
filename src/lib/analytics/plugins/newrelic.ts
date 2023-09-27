@@ -12,11 +12,21 @@
 // from Adobe.
 
 import { SITE_VERSION } from '$lib/config';
+import type NewRelicBrowser from 'new-relic-browser';
+import type { AnalyticsPlugin } from './types';
+
+declare global {
+  interface Window {
+    newrelic: typeof NewRelicBrowser;
+  }
+}
+
+type NewRelicAction = 'addPageAction' | 'noticeError' | 'setCustomAttribute';
 
 interface NewRelicParams {
-  action?: 'addPageAction' | 'noticeError' | 'setCustomAttribute';
+  action?: NewRelicAction;
   name?: string;
-  attributes?: Record<string, unknown>;
+  attributes?: Record<string, string | number>;
   params?: unknown[];
 }
 
@@ -43,12 +53,7 @@ function callNewRelic({
   }
 }
 
-//refactors the dunamis payload to send it to newrelic
-function dunamisToNewRelic(payload) {
-  callNewRelic({ name: payload.event, attributes: payload.properties });
-}
-
-export default function newrelic() {
+export default function newrelic(): AnalyticsPlugin<{}, NewRelicParams> {
   return {
     name: 'newrelic',
     config: {},
@@ -59,9 +64,9 @@ export default function newrelic() {
       const trackPayload = payload.properties;
       const options = payload.options;
       options?.plugins?.dunamis
-        ? dunamisToNewRelic(payload)
+        ? callNewRelic({ name: payload.event, attributes: payload.properties }),
         : callNewRelic({
-            action: options.action,
+            action: options.action as string,
             name: trackPayload.name,
             attributes: trackPayload.attributes,
             params: trackPayload.params,
