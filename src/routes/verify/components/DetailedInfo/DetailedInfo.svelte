@@ -83,9 +83,9 @@
   }
 
   function handleThumbnailClick() {
-    if ($assetData.thumbnail) {
+    if ($assetData.thumbnail?.url) {
       openModal(LightboxModal, {
-        src: $assetData.thumbnail,
+        src: $assetData.thumbnail.url,
         label: $assetData.title ?? $_('asset.defaultTitle'),
       });
     }

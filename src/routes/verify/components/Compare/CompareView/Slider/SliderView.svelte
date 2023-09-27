@@ -123,9 +123,9 @@
           : '',
       ].join(' ')}>
       <div class="pointer-events-auto flex h-[--height] w-[--width]">
-        {#if primaryAsset !== null}
+        {#if primaryAsset !== null && $primaryAsset?.thumbnail?.url}
           <img
-            src={$primaryAsset?.thumbnail}
+            src={$primaryAsset?.thumbnail?.url}
             alt=""
             aria-hidden="true"
             class="h-[--height] w-[--width] object-contain object-center" />
@@ -146,9 +146,9 @@
       ].join(' ')}>
       <div
         class="pointer-events-auto float-right flex h-[--height] w-[--width]">
-        {#if secondaryAsset !== null}
+        {#if secondaryAsset !== null && $secondaryAsset?.thumbnail?.url}
           <img
-            src={$secondaryAsset?.thumbnail}
+            src={$secondaryAsset?.thumbnail?.url}
             alt=""
             aria-hidden="true"
             class="h-[--height] w-[--width] object-contain object-center" />
