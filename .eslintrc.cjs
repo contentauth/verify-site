@@ -64,6 +64,8 @@ module.exports = {
     'svelte/html-closing-bracket-spacing': ['error'],
     'svelte/shorthand-attribute': ['error'],
     'svelte/shorthand-directive': ['error'],
+    'svelte/no-spaces-around-equal-signs-in-attribute': ['error'],
+    'svelte/html-self-closing': ['error'],
     '@typescript-eslint/no-explicit-any': ['error'],
     '@typescript-eslint/no-unused-vars': ['error'],
     '@typescript-eslint/no-non-null-assertion': ['error'],
