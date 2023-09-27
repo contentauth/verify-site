@@ -29,11 +29,9 @@ export const ENTRY_KEYS = [
   'c2pa.ai_training',
   'c2pa.ai_generative_training',
 ] as const;
-
 export const NOT_ALLOWED_VALUE = 'notAllowed';
 
 export type EntryKey = (typeof ENTRY_KEYS)[number];
-
 type EntryMap = Record<EntryKey, string>;
 
 declare module 'c2pa' {
