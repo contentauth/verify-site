@@ -64,7 +64,8 @@
         <div class="min-w-0 truncate">
           <Truncate
             ><Body
-              ><span class="text-gray-900">{$_('assetInfo.incomplete')}</span
+              ><span class="text-gray-900" title={$_('assetInfo.incomplete')}
+                >{$_('assetInfo.incomplete')}</span
               ></Body
             ></Truncate>
         </div>
@@ -75,7 +76,9 @@
           class="me-1.5 h-4 w-4 text-gray-900" />
         <Truncate
           ><Body
-            ><span class="text-gray-900">{$_('assetInfo.invalid')}</span></Body
+            ><span class="text-gray-900" title={$_('assetInfo.invalid')}
+              >{$_('assetInfo.invalid')}</span
+            ></Body
           ></Truncate>
       {:else}
         <Truncate

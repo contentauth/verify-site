@@ -68,7 +68,7 @@
         <button
           class="flex items-center"
           on:click={() => sidebarLayoutPageState.back()}>
-          <ChevronLeft class="pe-3" />
+          <ChevronLeft class="relative -top-px pe-3" />
           <HeaderTypo><slot name="back-bar" /></HeaderTypo>
         </button>
       </div>

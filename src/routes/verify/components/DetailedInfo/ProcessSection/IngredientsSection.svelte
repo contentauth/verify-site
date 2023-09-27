@@ -27,8 +27,8 @@
   <div slot="content" class="flex flex-col gap-3">
     {#each ingredients as ingredient}
       <SmallAssetInfo assetData={ingredient}>
-        <svelte:fragment slot="name"
-          >{ingredient.title ?? $_('asset.defaultTitle')}</svelte:fragment
+        <span slot="name" title={ingredient.title ?? $_('asset.defaultTitle')}
+          >{ingredient.title ?? $_('asset.defaultTitle')}</span
         ></SmallAssetInfo>
     {/each}
   </div></SubSection>
