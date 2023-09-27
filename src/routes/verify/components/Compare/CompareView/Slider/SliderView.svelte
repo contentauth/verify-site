@@ -115,13 +115,16 @@
       </div>
     </div>
     <div
-      class="pointer-events-none absolute left-0 top-0 h-full w-[--leftWidth] overflow-hidden">
+      class={[
+        'pointer-events-none absolute left-0 top-0 h-full w-[--leftWidth] overflow-hidden',
+        $primaryAsset?.isActive
+          ? 'outline outline-offset-2 outline-blue-800'
+          : '',
+      ].join(' ')}>
       <div class="pointer-events-auto flex h-[--height] w-[--width]">
         {#if primaryAsset !== null}
           <img
             src={$primaryAsset?.thumbnail}
-            style="width: var(--width);
-        height: var(--height)"
             alt=""
             aria-hidden="true"
             class="h-[--height] w-[--width] object-contain object-center" />
@@ -133,14 +136,17 @@
       </div>
     </div>
     <div
-      class="pointer-events-none absolute right-0 top-0 h-full w-[--rightWidth] overflow-hidden">
+      class={[
+        'pointer-events-none absolute right-0 top-0 h-full w-[--rightWidth] overflow-hidden',
+        $secondaryAsset?.isActive
+          ? 'outline outline-offset-2 outline-blue-800'
+          : '',
+      ].join(' ')}>
       <div
         class="pointer-events-auto float-right flex h-[--height] w-[--width]">
         {#if secondaryAsset !== null}
           <img
             src={$secondaryAsset?.thumbnail}
-            style="width: var(--width);
-            height: var(--height)"
             alt=""
             aria-hidden="true"
             class="h-[--height] w-[--width] object-contain object-center" />

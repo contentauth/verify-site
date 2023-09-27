@@ -17,7 +17,7 @@
   import { compareViewMode } from '$src/routes/verify/stores/compareView';
   import type { Readable } from 'svelte/store';
   import type { CompareSelectedAssetStore } from '../../../stores/compareSelectedAsset';
-  import SideBySide from './Side-by-Side.svelte';
+  import SideBySide from './SideBySide.svelte';
   import Slider from './Slider/SliderView.svelte';
 
   export let selectedAssets: Readable<(CompareSelectedAssetStore | null)[]>;
