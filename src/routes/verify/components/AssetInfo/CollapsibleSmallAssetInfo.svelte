@@ -50,8 +50,7 @@
   <div
     class="absolute left-0 z-0 h-16 p-2 transition-colors duration-200"
     style:right={`${highlightOffset * -1}px`}
-    class:bg-blue-100={$compareAssetStore.isSelected}>
-  </div>
+    class:bg-blue-100={$compareAssetStore.isSelected} />
   <div class="relative flex p-2">
     {#if hasChildren}
       <button on:click={showChildren} class="px-2" aria-label={expandAriaLabel}>

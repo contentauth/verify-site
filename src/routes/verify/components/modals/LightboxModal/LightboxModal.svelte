@@ -38,7 +38,7 @@
       <button
         class="flex cursor-pointer items-center gap-x-2 p-5 text-white transition-colors duration-100 hover:text-gray-100"
         on:click={closeModal}>
-        <span><CloseIcon class="h-5 w-5"></CloseIcon></span>
+        <span><CloseIcon class="h-5 w-5" /></span>
         <span class="text-[1.125rem]">{$_('dialog.close')}</span>
       </button>
     </div>

@@ -19,7 +19,7 @@
     "test-image-service": "pnpm c2pa-test-image-service --config e2e/c2pa-test-image-service.config.ts",
     "test-image-service:watch": "nodemon -w e2e/c2pa-test-image-service.config.ts -x 'pnpm run test-image-service'",
     "lint": "eslint .",
-    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --fail-on-warnings",
+    "check": "pnpm lint && svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --fail-on-warnings",
     "prettier": "prettier --plugin-search-dir . --check",
     "format": "prettier --plugin-search-dir . --write .",
     "prepare": "husky install",
