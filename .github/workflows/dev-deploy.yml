@@ -1,15 +1,12 @@
 name: dev-deploy
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
     inputs:
       branch:
         description: 'Branch to deploy'
         type: text
-        required: false
+        required: true
 
 jobs:
   build-test:
@@ -20,8 +17,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          ref: { { inputs.branch || github.ref } }
           lfs: true
+          ref: ${{ inputs.branch }}
 
       - name: Install pnpm
         run: |
