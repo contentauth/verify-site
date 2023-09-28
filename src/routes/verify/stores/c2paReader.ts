@@ -37,6 +37,7 @@ export interface C2paReaderStore extends Readable<SourceState> {
    * @param source Source to read c2pa data from
    */
   read: (source: C2paSourceType) => Promise<void>;
+  clear: () => void;
 }
 
 /**
@@ -99,6 +100,10 @@ export function createC2paReader(): C2paReaderStore {
         console.error('createC2paReader.read() error:', e);
         set({ state: 'none' });
       }
+    },
+    clear: () => {
+      dispose?.();
+      set({ state: 'none' });
     },
   };
 }

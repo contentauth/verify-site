@@ -16,7 +16,7 @@
 <script lang="ts">
   import { afterNavigate } from '$app/navigation';
   import { SidebarLayout } from '$src/features/SidebarLayout';
-  import type { SvelteComponent } from 'svelte';
+  import { onMount, type SvelteComponent } from 'svelte';
   import { _ } from 'svelte-i18n';
   import CompareDetailedInfo from './components/Compare/CompareInfo/CompareInfo.svelte';
   import ComparePanel from './components/Compare/ComparePanel/ComparePanel.svelte';
@@ -75,6 +75,13 @@
   function handleSidebarScroll(evt: CustomEvent<{ scrollTop: number }>) {
     isSidebarScrolled = evt.detail.scrollTop > sidebarScrollThreshold;
   }
+
+  onMount(() => {
+    // Run cleanup when this component is unmounted (e.g. on navigating away)
+    return () => {
+      verifyStore.clear();
+    };
+  });
 </script>
 
 <div use:dragDropAction={dragDropParams}>

@@ -58,6 +58,7 @@ interface VerifyStore {
   setCompareView: () => void;
   setHierarchyView: () => void;
   viewState: Readable<ViewState>;
+  clear: () => void;
 }
 
 /**
@@ -125,7 +126,10 @@ export function createVerifyStore(): VerifyStore {
     viewState,
     hierarchyView,
     compareView,
+    recoveredManifestResults: manifestRecoverer,
+    mostRecentlyLoaded,
     readC2paSource: (source: C2paSourceType) => {
+      selectedAssetId.set(ROOT_ID);
       const existingSource = get(selectedSource);
       const incomingSource: SelectedSource =
         typeof source === 'string'
@@ -150,7 +154,6 @@ export function createVerifyStore(): VerifyStore {
       dbg('Setting selected source', incomingSource);
       selectedSource.set(incomingSource);
     },
-    recoveredManifestResults: manifestRecoverer,
     clearManifestResults: () => {
       const mrlSource = get(mostRecentlyLoaded)?.source;
       manifestRecoverer.clear();
@@ -179,7 +182,15 @@ export function createVerifyStore(): VerifyStore {
     setCompareActiveId: (id: string | null) => {
       compareActiveAssetId.set(id);
     },
-    mostRecentlyLoaded,
+    clear: () => {
+      manifestRecoverer.clear();
+      c2paReader.clear();
+      selectedAssetId.set(ROOT_ID);
+      selectedSource.set({ type: 'local' });
+      viewState.set('hierarchy');
+      compareActiveAssetId.set(null);
+      compareSelectedAssetIds.set([null, null]);
+    },
   };
 }
 
