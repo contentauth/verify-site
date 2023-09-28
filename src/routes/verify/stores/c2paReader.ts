@@ -70,7 +70,7 @@ export function createC2paReader(): C2paReaderStore {
 
           if (correctedType) {
             const buffer = await source.arrayBuffer();
-            source = new Blob([buffer], { type: correctedType });
+            source = new File([buffer], source.name, { type: correctedType });
           }
         }
 

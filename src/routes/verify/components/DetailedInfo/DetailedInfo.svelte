@@ -45,6 +45,7 @@
   $: isIncomplete = statusCode === 'incomplete';
   $: isInvalid = statusCode === 'invalid';
   $: manifestData = isValid ? $assetData.manifestData : null;
+  $: title = $assetData.title ?? $_('asset.defaultTitle');
 
   const dispatch = createEventDispatcher();
   const { hierarchyView } = verifyStore;
@@ -86,7 +87,7 @@
     if ($assetData.thumbnail?.url) {
       openModal(LightboxModal, {
         src: $assetData.thumbnail.url,
-        label: $assetData.title ?? $_('asset.defaultTitle'),
+        label: title,
       });
     }
   }
@@ -99,8 +100,7 @@
   <div class="bg-gray-50 flex h-20 shrink-0 items-center justify-between px-6">
     {#if $assetData}
       <BigAssetInfo assetData={$assetData} hideThumbnail={hideHeaderThumbnail}>
-        <span slot="name" title={$assetData.title}>{$assetData.title}</span
-        ></BigAssetInfo>
+        <span slot="name" {title}>{title}</span></BigAssetInfo>
     {/if}
     <button on:click={handleCloseClick} class="ms-2 shrink-0 sm:hidden">
       <img
