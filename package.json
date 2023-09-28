@@ -102,7 +102,7 @@
     "tslib": "^2.6.2",
     "typescript": "^5.2.2",
     "vite": "^4.4.9",
-    "vitest": "^0.28.5"
+    "vitest": "^0.34.5"
   },
   "dependencies": {
     "@ccx-public/ingest": "file:etc/packages/ingest-4.3.0.tgz",
