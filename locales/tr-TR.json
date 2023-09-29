@@ -137,6 +137,8 @@
   "sidebar.verify.noCCFile": "Bu dosya için İçerik Kimlik Bilgisi yok",
   "sidebar.verify.process.actions": "Eylemler",
   "sidebar.verify.process.app": "Kullanılan uygulama veya cihaz",
+  "sidebar.verify.process.actions.styleReference.title": "Created using a style reference image",
+  "sidebar.verify.process.actions.styleReference.description": "Created a new file or content using style reference imagery.",
   "sidebar.verify.process.description": "Bu içeriği oluşturmak için kullanılan uygulama veya cihaz aşağıdaki bilgileri kaydetti:",
   "sidebar.verify.process.ingredients": "Malzemeler",
   "sidebar.verify.recovery.noMatches": "Eşleşme bulunamadı",

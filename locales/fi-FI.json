@@ -137,6 +137,8 @@
   "sidebar.verify.noCCFile": "Tälle tiedostolle ei ole sisällön valtuuksia.",
   "sidebar.verify.process.actions": "Toiminnot",
   "sidebar.verify.process.app": "Käytetty sovellus tai laite",
+  "sidebar.verify.process.actions.styleReference.title": "Created using a style reference image",
+  "sidebar.verify.process.actions.styleReference.description": "Created a new file or content using style reference imagery.",
   "sidebar.verify.process.description": "Tämän sisällön tuottamiseen käytetty sovellus tai laite tallensi seuraavat tiedot:",
   "sidebar.verify.process.ingredients": "Elementit",
   "sidebar.verify.recovery.noMatches": "Vastaavuuksia ei löytynyt.",

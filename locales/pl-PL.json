@@ -137,6 +137,8 @@
   "sidebar.verify.noCCFile": "Nie istnieje poświadczenie zawartości dla tego pliku",
   "sidebar.verify.process.actions": "Operacje",
   "sidebar.verify.process.app": "Użyta aplikacja lub urządzenie",
+  "sidebar.verify.process.actions.styleReference.title": "Created using a style reference image",
+  "sidebar.verify.process.actions.styleReference.description": "Created a new file or content using style reference imagery.",
   "sidebar.verify.process.description": "Aplikacja lub urządzenie użyte do wytworzenia tych treści zarejestrowało następujące informacje:",
   "sidebar.verify.process.ingredients": "Składniki",
   "sidebar.verify.recovery.noMatches": "Nie znaleziono pasujących elementów",

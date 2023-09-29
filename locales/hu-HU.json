@@ -137,6 +137,8 @@
   "sidebar.verify.noCCFile": "Ehhez a fájlhoz nincs tartalomhitelesítő adat",
   "sidebar.verify.process.actions": "Műveletek",
   "sidebar.verify.process.app": "Használt alkalmazás vagy eszköz",
+  "sidebar.verify.process.actions.styleReference.title": "Created using a style reference image",
+  "sidebar.verify.process.actions.styleReference.description": "Created a new file or content using style reference imagery.",
   "sidebar.verify.process.description": "A tartalom előállításához használt alkalmazás vagy eszköz a következő információkat rögzítette:",
   "sidebar.verify.process.ingredients": "Összetevők",
   "sidebar.verify.recovery.noMatches": "Nincs találat",

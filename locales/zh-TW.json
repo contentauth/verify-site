@@ -137,6 +137,8 @@
   "sidebar.verify.noCCFile": "此檔案沒有內容憑證",
   "sidebar.verify.process.actions": "動作",
   "sidebar.verify.process.app": "使用的應用程式或裝置",
+  "sidebar.verify.process.actions.styleReference.title": "Created using a style reference image",
+  "sidebar.verify.process.actions.styleReference.description": "Created a new file or content using style reference imagery.",
   "sidebar.verify.process.description": "用於製作此內容的應用程式或裝置記錄了以下資訊:",
   "sidebar.verify.process.ingredients": "元素",
   "sidebar.verify.recovery.noMatches": "找不到相符項目",

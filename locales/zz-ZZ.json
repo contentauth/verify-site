@@ -137,6 +137,8 @@
   "sidebar.verify.noCCFile": "[BX] _üThere is no Content Credential for this file",
   "sidebar.verify.process.actions": "[6] _üActions",
   "sidebar.verify.process.app": "[7] _üApp or device used",
+  "sidebar.verify.process.actions.styleReference.title": "[Cl] _üCreated using a style reference image",
+  "sidebar.verify.process.actions.styleReference.description": "[Ck] _üCreated a new file or content using style reference imagery.",
   "sidebar.verify.process.description": "[8] _üThe app or device used to produce this content recorded the following info:",
   "sidebar.verify.process.ingredients": "[9] _üIngredients",
   "sidebar.verify.recovery.noMatches": "[B4] _üNo matches found",

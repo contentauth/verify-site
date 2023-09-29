@@ -137,6 +137,8 @@
   "sidebar.verify.noCCFile": "此文件没有内容凭据",
   "sidebar.verify.process.actions": "操作",
   "sidebar.verify.process.app": "使用的应用程序或设备",
+  "sidebar.verify.process.actions.styleReference.title": "Created using a style reference image",
+  "sidebar.verify.process.actions.styleReference.description": "Created a new file or content using style reference imagery.",
   "sidebar.verify.process.description": "用于生成此内容的应用程序或设备已记录以下信息：",
   "sidebar.verify.process.ingredients": "成分",
   "sidebar.verify.recovery.noMatches": "未找到匹配项",

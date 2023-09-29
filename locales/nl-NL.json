@@ -137,6 +137,8 @@
   "sidebar.verify.noCCFile": "Er is geen inhoudsreferentie voor dit bestand",
   "sidebar.verify.process.actions": "Acties",
   "sidebar.verify.process.app": "App of apparaat gebruikt",
+  "sidebar.verify.process.actions.styleReference.title": "Created using a style reference image",
+  "sidebar.verify.process.actions.styleReference.description": "Created a new file or content using style reference imagery.",
   "sidebar.verify.process.description": "De app of het apparaat dat is gebruikt om deze content te produceren, heeft de volgende informatie vastgelegd:",
   "sidebar.verify.process.ingredients": "Ingrediënten",
   "sidebar.verify.recovery.noMatches": "Geen overeenkomsten gevonden",

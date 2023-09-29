@@ -137,6 +137,8 @@
   "sidebar.verify.noCCFile": "Det finns inga innehållsuppgifter för den här filen",
   "sidebar.verify.process.actions": "Åtgärder",
   "sidebar.verify.process.app": "Begagnad app eller enhet",
+  "sidebar.verify.process.actions.styleReference.title": "Created using a style reference image",
+  "sidebar.verify.process.actions.styleReference.description": "Created a new file or content using style reference imagery.",
   "sidebar.verify.process.description": "Appen eller enheten som användes för att producera detta innehåll registrerade följande information:",
   "sidebar.verify.process.ingredients": "Ingredienser",
   "sidebar.verify.recovery.noMatches": "Inga matchningar hittades",

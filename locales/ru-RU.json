@@ -137,6 +137,8 @@
   "sidebar.verify.noCCFile": "Для этого файла нет учетных данных для содержимого",
   "sidebar.verify.process.actions": "Действия",
   "sidebar.verify.process.app": "Использованное приложение или устройство",
+  "sidebar.verify.process.actions.styleReference.title": "Created using a style reference image",
+  "sidebar.verify.process.actions.styleReference.description": "Created a new file or content using style reference imagery.",
   "sidebar.verify.process.description": "Данные, зарегистрированные приложением или устройством, с помощью которого создан этот контент:",
   "sidebar.verify.process.ingredients": "Ингредиенты",
   "sidebar.verify.recovery.noMatches": "Совпадений не найдено",
