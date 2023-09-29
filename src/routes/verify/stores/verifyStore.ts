@@ -122,6 +122,12 @@ export function createVerifyStore(): VerifyStore {
     },
   );
 
+  function resetCompare() {
+    viewState.set('hierarchy');
+    compareActiveAssetId.set(null);
+    compareSelectedAssetIds.set([null, null]);
+  }
+
   return {
     viewState,
     hierarchyView,
@@ -129,6 +135,7 @@ export function createVerifyStore(): VerifyStore {
     recoveredManifestResults: manifestRecoverer,
     mostRecentlyLoaded,
     readC2paSource: (source: C2paSourceType) => {
+      resetCompare();
       selectedAssetId.set(ROOT_ID);
       const existingSource = get(selectedSource);
       const incomingSource: SelectedSource =
@@ -187,9 +194,7 @@ export function createVerifyStore(): VerifyStore {
       c2paReader.clear();
       selectedAssetId.set(ROOT_ID);
       selectedSource.set({ type: 'local' });
-      viewState.set('hierarchy');
-      compareActiveAssetId.set(null);
-      compareSelectedAssetIds.set([null, null]);
+      resetCompare();
     },
   };
 }
