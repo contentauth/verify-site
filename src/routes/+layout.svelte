@@ -27,25 +27,18 @@
   import '../app.css';
   import '../globalWebComponents';
 
-  afterNavigate(() => {
-    let duration: number | null = null;
-
-    if ('getEntriesByType' in window.performance) {
-      const navPerf = window.performance?.getEntriesByType('navigation')?.[0];
-      duration = navPerf?.duration;
-    }
-
+  afterNavigate((evt) => {
     analytics.track('pageLoad', {
-      'event.type': 'render',
-      'event.subtype': 'page',
-      ...(duration ? { 'event.value': duration } : {}),
+      from: evt.from?.route.id ?? '',
+      to: evt.to?.route.id ?? '',
+      navigationType: evt.type,
     });
 
     return true;
   });
 
   onMount(() => {
-    // @TODO: can't import serverside - look into this
+    // @TODO: can't import server side - look into this
     console.debug(`Verify site running revision ${SITE_VERSION}`);
 
     const unsubscribe = locale.subscribe((loc) => {

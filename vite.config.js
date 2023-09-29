@@ -31,6 +31,7 @@ const config = {
   },
   build: {
     minify: 'terser',
+    sourcemap: true,
     terserOptions: {
       // Added since error names were being mangled, resulting in incorrect error handling
       keep_classnames: true,

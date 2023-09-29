@@ -28,7 +28,10 @@ const gitRevision = childProcess
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-  preprocess: vitePreprocess(),
+  compilerOptions: {
+    enableSourcemap: true,
+  },
+  preprocess: vitePreprocess({}),
 
   kit: {
     adapter: adapter({
@@ -46,7 +49,10 @@ const config = {
       base: BASE_PATH,
       relative: true,
     },
-    version: { name: gitRevision },
+    version: {
+      name: gitRevision,
+      pollInterval: 60 * 60,
+    },
   },
 };
 

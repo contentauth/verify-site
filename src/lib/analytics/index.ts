@@ -11,43 +11,44 @@
 // is strictly forbidden unless prior written permission is obtained
 // from Adobe.
 
-import { nanoid } from '$lib/util/nanoid';
-import Analytics from 'analytics';
 import debug from 'debug';
-import dunamis from './plugins/dunamis';
-import newrelic from './plugins/newrelic';
+import { AnalyticsProvider, type Attributes } from './provider';
+import { NewRelicProvider } from './providers/newrelic';
 
-const MCID_GUID_LOCALSTORAGE_KEY = 'mcid_guid';
-const dbg = debug('ingest');
+const dbg = debug('analytics');
 
-/**
- * Create visitor ID (mcid_guid) so we can identify unknown users
- * @returns alphanumeric unique ID
- */
-function getMcidGuid() {
-  if (localStorage.getItem(MCID_GUID_LOCALSTORAGE_KEY)) {
-    dbg('Using existing mcid_guid');
-  } else {
-    dbg('Could not find mcid_guid, generating');
-    localStorage.setItem(MCID_GUID_LOCALSTORAGE_KEY, nanoid());
+class Analytics extends AnalyticsProvider {
+  readonly providers: AnalyticsProvider[];
+
+  constructor(providers: AnalyticsProvider[]) {
+    super();
+
+    this.providers = providers;
   }
 
-  return localStorage.getItem(MCID_GUID_LOCALSTORAGE_KEY);
+  track(eventName: string, attributes?: Attributes | undefined): void {
+    this.providers.forEach((provider) => {
+      provider.track(eventName, attributes);
+    });
+  }
+
+  trackError(error: string | Error, attributes?: Attributes | undefined): void {
+    this.providers.forEach((provider) => {
+      provider.trackError(error, attributes);
+    });
+  }
+
+  identify(userId: string): void {
+    this.providers.forEach((provider) => {
+      provider.identify(userId);
+    });
+  }
 }
 
-export const analytics = Analytics({
-  app: 'verify',
-  debug: true,
-  plugins: [dunamis(), newrelic()],
-});
+function initialize() {
+  const providers = [new NewRelicProvider({ debugger: dbg })];
 
-analytics.identify(
-  getMcidGuid(),
-  {},
-  {
-    plugins: {
-      dunamis: true,
-      newrelic: true,
-    },
-  },
-);
+  return new Analytics(providers);
+}
+
+export const analytics = initialize();
