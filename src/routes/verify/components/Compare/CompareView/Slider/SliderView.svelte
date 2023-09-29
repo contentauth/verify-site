@@ -114,7 +114,8 @@
         </div>
       </div>
     </div>
-    <div
+    <button
+      on:click={$primaryAsset?.select}
       class={[
         'pointer-events-none absolute left-0 top-0 h-full w-[--leftWidth] overflow-hidden',
         $primaryAsset?.isActive
@@ -122,9 +123,9 @@
           : '',
       ].join(' ')}>
       <div class="pointer-events-auto flex h-[--height] w-[--width]">
-        {#if primaryAsset !== null}
+        {#if primaryAsset !== null && $primaryAsset?.thumbnail?.url}
           <img
-            src={$primaryAsset?.thumbnail}
+            src={$primaryAsset?.thumbnail?.url}
             alt=""
             aria-hidden="true"
             class="h-[--height] w-[--width] object-contain object-center" />
@@ -134,8 +135,9 @@
           </div>
         {/if}
       </div>
-    </div>
-    <div
+    </button>
+    <button
+      on:click={$secondaryAsset?.select}
       class={[
         'pointer-events-none absolute right-0 top-0 h-full w-[--rightWidth] overflow-hidden',
         $secondaryAsset?.isActive
@@ -144,9 +146,9 @@
       ].join(' ')}>
       <div
         class="pointer-events-auto float-right flex h-[--height] w-[--width]">
-        {#if secondaryAsset !== null}
+        {#if secondaryAsset !== null && $secondaryAsset?.thumbnail?.url}
           <img
-            src={$secondaryAsset?.thumbnail}
+            src={$secondaryAsset?.thumbnail?.url}
             alt=""
             aria-hidden="true"
             class="h-[--height] w-[--width] object-contain object-center" />
@@ -156,6 +158,6 @@
           </div>
         {/if}
       </div>
-    </div>
+    </button>
   </div>
 </div>

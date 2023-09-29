@@ -20,17 +20,24 @@
   import { verifyStore } from '../../stores';
   import ManifestRecoverySection from './ManifestRecovery/ManifestRecoverySection.svelte';
 
+  export let isScrolled = false;
+
   const { hierarchyView } = verifyStore;
 
   const dispatch = createEventDispatcher();
 </script>
 
-<div class="p-5">
+<div
+  class="sticky top-0 bg-white p-5 transition-shadow duration-200"
+  class:shadow={isScrolled}>
   <Body>
-    <button on:click={() => dispatch('launchFilePicker')}
-      ><Link>{$_('sidebar.verify.selectFileLink')}</Link></button>
-    <span class="hidden text-gray-600 lg:inline"
-      >{$_('sidebar.verify.dragDrop')}</span>
+    <button
+      on:click={() => dispatch('launchFilePicker')}
+      class="inline text-left"
+      ><Link>{$_('sidebar.verify.selectFileLink')}</Link>
+      <span class="hidden text-gray-600 lg:inline"
+        >{$_('sidebar.verify.dragDrop')}</span
+      ></button>
   </Body>
 </div>
 {#if $hierarchyView.state === 'success'}

@@ -24,7 +24,10 @@
 
 <div class="flex flex-col">
   <Link>
-    <Truncate><a class="break-all" href={link}>{username}</a></Truncate></Link>
+    <Truncate
+      ><a class="break-all" href={link} title={username}>{username}</a
+      ></Truncate
+    ></Link>
   <div class="pt-0.5">
     <SmallDescription>{appName}</SmallDescription>
   </div>

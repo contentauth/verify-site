@@ -48,7 +48,7 @@ export function selectGenerativeType(generativeInfo: SdkGenerativeInfo[]) {
 export function selectGenerativeInfo(manifest: Manifest) {
   const generativeInfo = sdkSelectGenerativeInfo(manifest);
 
-  if (generativeInfo.length === 0) {
+  if (!generativeInfo || generativeInfo?.length === 0) {
     return null;
   }
 

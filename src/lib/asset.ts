@@ -26,8 +26,15 @@ import debug from 'debug';
 import { locale } from 'svelte-i18n';
 import { get } from 'svelte/store';
 import { selectExif } from './exif';
+import {
+  MEDIA_CATEGORIES,
+  SUPPORTED_FORMATS,
+  isBrowserViewable,
+  type MediaCategory,
+} from './formats';
 import { DEFAULT_LOCALE } from './i18n';
 import { MANIFEST_STORE_MIME_TYPE } from './manifestRecovery';
+import { selectDoNotTrain } from './selectors/doNotTrain';
 import {
   selectGenerativeInfo,
   type GenerativeInfo,
@@ -39,128 +46,10 @@ import {
 } from './selectors/validationResult';
 import { selectWeb3 } from './selectors/web3Info';
 import { selectWebsite } from './selectors/website';
-import { formatThumbnail } from './thumbnail';
+import { loadThumbnail, type ThumbnailInfo } from './thumbnail';
 import type { Disposable } from './types';
 
 const dbg = debug('lib:asset');
-
-export const MEDIA_CATEGORIES = ['audio', 'image', 'video', 'unknown'] as const;
-
-export type MediaCategory = (typeof MEDIA_CATEGORIES)[number];
-
-export interface FormatDefinition {
-  name: string;
-  category: MediaCategory;
-  browserViewable: () => Promise<boolean>;
-  searchable: boolean;
-}
-
-export const SUPPORTED_FORMATS: Record<string, FormatDefinition> = {
-  'image/jpeg': {
-    name: 'JPEG',
-    category: 'image',
-    browserViewable: async () => true,
-    searchable: true,
-  },
-  'image/png': {
-    name: 'PNG',
-    category: 'image',
-    browserViewable: async () => true,
-    searchable: true,
-  },
-  'image/svg+xml': {
-    name: 'SVG',
-    category: 'image',
-    browserViewable: async () => true,
-    searchable: false,
-  },
-  'image/x-adobe-dng': {
-    name: 'DNG',
-    category: 'image',
-    browserViewable: async () => false,
-    searchable: false,
-  },
-  'image/tiff': {
-    name: 'TIFF',
-    category: 'image',
-    browserViewable: async () => false,
-    searchable: false,
-  },
-  'image/webp': {
-    name: 'WebP',
-    category: 'image',
-    browserViewable: async () => true,
-    searchable: false,
-  },
-  'image/avif': {
-    name: 'AVIF',
-    category: 'image',
-    browserViewable: async () =>
-      testImageSupport(
-        'data:image/avif;base64,AAAAHGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZgAAAOptZXRhAAAAAAAAACFoZGxyAAAAAAAAAABwaWN0AAAAAAAAAAAAAAAAAAAAAA5waXRtAAAAAAABAAAAImlsb2MAAAAAREAAAQABAAAAAAEOAAEAAAAAAAAAFAAAACNpaW5mAAAAAAABAAAAFWluZmUCAAAAAAEAAGF2MDEAAAAAamlwcnAAAABLaXBjbwAAABNjb2xybmNseAACAAIABoAAAAAMYXYxQ4EgAgAAAAAUaXNwZQAAAAAAAAABAAAAAQAAABBwaXhpAAAAAAMICAgAAAAXaXBtYQAAAAAAAAABAAEEgYIDhAAAABxtZGF0EgAKBDgABgkyChgAAABABfXvZOg=',
-      ),
-    searchable: false,
-  },
-  'image/heic': {
-    name: 'HEIC',
-    category: 'image',
-    browserViewable: async () =>
-      testImageSupport(
-        'data:image/heic;base64,AAAAGGZ0eXBoZWljAAAAAGhlaWNtaWYxAAAB4G1ldGEAAAAAAAAAIWhkbHIAAAAAAAAAAHBpY3QAAAAAAAAAAAAAAAAAAAAAJGRpbmYAAAAcZHJlZgAAAAAAAAABAAAADHVybCAAAAABAAAADnBpdG0AAAAAAAEAAAA4aWluZgAAAAAAAgAAABVpbmZlAgAAAAABAABodmMxAAAAABVpbmZlAgAAAQACAABFeGlmAAAAABppcmVmAAAAAAAAAA5jZHNjAAIAAQABAAABA2lwcnAAAADiaXBjbwAAABNjb2xybmNseAACAAIABoAAAAByaHZjQwEDcAAAALAAAAAAAB7wAPz9+PgAAAsDoAABABdAAQwB//8DcAAAAwCwAAADAAADAB5wJKEAAQAkQgEBA3AAAAMAsAAAAwAAAwAeoBQgQcChBBiHuRZVNwICBgCAogABAAlEAcBgwLIQFMkAAAAUaXNwZQAAAAAAAAACAAAAAgAAAChjbGFwAAAAAQAAAAEAAAABAAAAAf/AAAAAgAAA/8AAAACAAAAAAAAJaXJvdAAAAAAQcGl4aQAAAAADCAgIAAAAGWlwbWEAAAAAAAAAAQABBoGCA4SFBgAAACxpbG9jAAAAAEQAAAIAAQAAAAEAAAJgAAAAHQACAAAAAQAAAggAAABYAAAAAW1kYXQAAAAAAAAAhQAAAAZFeGlmAABNTQAqAAAACAAEARIAAwAAAAEAAQAAARoABQAAAAEAAAA+ARsABQAAAAEAAABGASgAAwAAAAEAAgAAAAAAAAAAAEgAAAABAAAASAAAAAEAAAAZKAGvolT7bB+6j/ITt/QLyKMvD2Rus1+lQA==',
-      ),
-    searchable: false,
-  },
-  'audio/mp4': {
-    name: 'M4A',
-    category: 'audio',
-    browserViewable: async () => false,
-    searchable: false,
-  },
-  'audio/x-wav': {
-    name: 'WAV',
-    category: 'audio',
-    browserViewable: async () => false,
-    searchable: false,
-  },
-  'application/mp4': {
-    name: 'MP4',
-    category: 'video',
-    browserViewable: async () => true,
-    searchable: false,
-  },
-  'video/mp4': {
-    name: 'MP4',
-    category: 'video',
-    browserViewable: async () => true,
-    searchable: false,
-  },
-};
-
-function testImageSupport(dataUri: string): Promise<boolean> {
-  return new Promise((resolve) => {
-    const img = document.createElement('img');
-
-    img.onload = () => {
-      resolve(true);
-    };
-
-    img.onerror = () => {
-      resolve(false);
-    };
-
-    img.src = dataUri;
-  });
-}
-
-async function isBrowserViewable(mimeType: string) {
-  const format = SUPPORTED_FORMATS[mimeType];
-
-  if (format) {
-    return format.browserViewable();
-  }
-
-  return false;
-}
 
 /**
  * Asset data required for the verify UI.
@@ -169,7 +58,7 @@ export type AssetData = {
   id: string;
   children: string[];
   manifestData: ManifestData | null;
-  thumbnail: string | null;
+  thumbnail: ThumbnailInfo | null;
   mimeType: string;
   title: string | null;
   validationResult: ValidationStatusResult | null;
@@ -184,6 +73,7 @@ export type ManifestData = {
   producer: string | null;
   reviewRatings: ReturnType<typeof selectReviewRatings>;
   signatureInfo: Manifest['signatureInfo'];
+  doNotTrain: ReturnType<typeof selectDoNotTrain>;
   socialAccounts: ReturnType<typeof selectSocialAccounts>;
   web3Accounts: [string, string[]][];
   website: string | null;
@@ -241,7 +131,10 @@ export async function resultToAssetMap({
   }
 
   if (!isManifest && (!manifestStore || hasError || hasOtgp)) {
-    const thumbnail = await formatThumbnail(source.thumbnail.getUrl());
+    const thumbnail = await loadThumbnail(
+      source.type,
+      source.thumbnail.getUrl(),
+    );
     const children = hasOtgp ? ['0.0'] : [];
 
     if (thumbnail?.dispose) {
@@ -252,7 +145,7 @@ export async function resultToAssetMap({
       // @TODO filename if none present?
       id,
       title: source.metadata.filename ?? null,
-      thumbnail: thumbnail?.url ?? null,
+      thumbnail: thumbnail.info,
       mimeType: source.type,
       children,
       manifestData: null,
@@ -294,7 +187,10 @@ export async function resultToAssetMap({
     const { activeManifest: manifest } = manifestStore;
 
     // Attempt to use a thumbnail on the manifest if found
-    let thumbnail = await formatThumbnail(manifest.thumbnail?.getUrl());
+    let thumbnail = await loadThumbnail(
+      manifest.thumbnail?.contentType,
+      manifest.thumbnail?.getUrl(),
+    );
 
     // If no thumbnail exists on the claim and we have a valid manifest,
     // we can use the source thumbnail if it is viewable by the browser
@@ -303,13 +199,13 @@ export async function resultToAssetMap({
       validationResult.statusCode === 'valid' &&
       (await isBrowserViewable(source.type))
     ) {
-      thumbnail = source.thumbnail?.getUrl();
+      thumbnail = await loadThumbnail(source.type, source.thumbnail?.getUrl());
     }
 
     const asset = {
       id,
       title: manifest.title,
-      thumbnail: thumbnail?.url ?? null,
+      thumbnail: thumbnail.info,
       mimeType: manifest.format,
       children: await processIngredients(manifest.ingredients, id),
       manifestData: await getManifestData(manifest),
@@ -331,7 +227,10 @@ export async function resultToAssetMap({
     ingredient: Ingredient,
     id: string,
   ): Promise<AssetData> {
-    const thumbnail = await formatThumbnail(ingredient.thumbnail?.getUrl());
+    const thumbnail = await loadThumbnail(
+      ingredient.thumbnail?.contentType,
+      ingredient.thumbnail?.getUrl(),
+    );
     const validationResult = selectValidationResult(
       ingredient.validationStatus,
     );
@@ -339,7 +238,7 @@ export async function resultToAssetMap({
     const asset = {
       id,
       title: ingredient.title,
-      thumbnail: thumbnail?.url ?? null,
+      thumbnail: thumbnail.info,
       mimeType: ingredient.format,
       children: showChildren
         ? await processIngredients(ingredient.manifest?.ingredients ?? [], id)
@@ -380,6 +279,7 @@ export async function resultToAssetMap({
       socialAccounts: selectSocialAccounts(manifest),
       generativeInfo: selectGenerativeInfo(manifest),
       exif: selectExif(manifest),
+      doNotTrain: selectDoNotTrain(manifest),
       reviewRatings: selectReviewRatings(manifest),
       web3Accounts: selectWeb3(manifest),
       website: selectWebsite(manifest),

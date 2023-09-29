@@ -30,6 +30,7 @@
     expanded = !expanded;
   }
 
+  $: title = $compareAssetStore.title ?? $_('asset.defaultTitle');
   $: ariaLabel =
     $compareAssetStore.id === ROOT_ID
       ? $_('sidebar.verify.compare.root')
@@ -44,9 +45,7 @@
     {expanded}
     {highlightOffset}
     on:showChildren={showChildren}
-    ><span slot="name">
-      {$compareAssetStore.title ?? $_('asset.defaultTitle')}</span
-    ></CollapsibleSmallAssetInfo>
+    ><span slot="name" {title}>{title}</span></CollapsibleSmallAssetInfo>
 </div>
 {#if expanded}
   <div aria-hidden={!expanded}>

@@ -2,6 +2,7 @@
   ADOBE CONFIDENTIAL
   Copyright 2023 Adobe
   All Rights Reserved.
+
   NOTICE: All information contained herein is, and remains
   the property of Adobe and its suppliers, if any. The intellectual
   and technical concepts contained herein are proprietary to Adobe
@@ -12,13 +13,18 @@
   from Adobe.
 -->
 <script lang="ts">
-  import EmptyImage from '$assets/svg/monochrome/missing-thumb-image.svg?component';
-  import Body from '$src/components/typography/Body.svelte';
+  import ModelIcon from '$assets/svg/monochrome/ai-model.svg?component';
   import { _ } from 'svelte-i18n';
+  import SubSection from '../../SubSection/SubSection.svelte';
+  import AboutSectionIconContentRow from '../AboutSection/AboutSectionIconContentRow.svelte';
 </script>
 
-<EmptyImage class="h-40 w-40 text-gray-400" />
-<Body
-  ><span class="text-center text-gray-500">
-    {$_('sidebar.verify.compare.null.picture')}</span
-  ></Body>
+<SubSection
+  ><svelte:fragment slot="title">
+    {$_('sidebar.verify.credit.modelUsage.title')}
+  </svelte:fragment>
+  <AboutSectionIconContentRow slot="content">
+    <ModelIcon class="h-4 w-4" />
+    <div slot="content">{$_('sidebar.verify.credit.modelUsage.text')}</div>
+  </AboutSectionIconContentRow>
+</SubSection>

@@ -37,6 +37,7 @@ export interface C2paReaderStore extends Readable<SourceState> {
    * @param source Source to read c2pa data from
    */
   read: (source: C2paSourceType) => Promise<void>;
+  clear: () => void;
 }
 
 // function logSuccess(
@@ -91,7 +92,7 @@ export function createC2paReader(): C2paReaderStore {
 
           if (correctedType) {
             const buffer = await source.arrayBuffer();
-            source = new Blob([buffer], { type: correctedType });
+            source = new File([buffer], source.name, { type: correctedType });
           }
         }
 
@@ -121,6 +122,10 @@ export function createC2paReader(): C2paReaderStore {
         console.error('createC2paReader.read() error:', e);
         set({ state: 'none' });
       }
+    },
+    clear: () => {
+      dispose?.();
+      set({ state: 'none' });
     },
   };
 }

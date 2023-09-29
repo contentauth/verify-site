@@ -16,16 +16,15 @@
   import AudioFallback from '$assets/svg/monochrome/missing-thumb-audio.svg?component';
   import ImageFallback from '$assets/svg/monochrome/missing-thumb-image.svg?component';
   import VideoFallback from '$assets/svg/monochrome/missing-thumb-video.svg?component';
+  import { getMediaCategoryFromMimeType } from '$lib/asset';
+  import type { MediaCategory } from '$lib/formats';
+  import type { ThumbnailInfo } from '$lib/thumbnail';
   import Body from '$src/components/typography/Body.svelte';
-  import {
-    getMediaCategoryFromMimeType,
-    type MediaCategory,
-  } from '$src/lib/asset';
   import type { ComponentType } from 'svelte';
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
 
-  export let thumbnail: string | null;
+  export let thumbnail: ThumbnailInfo | null;
   export let fillMode: 'contain' | 'cover' = 'contain';
   export let mimeType: string;
   export let size = '4rem';
@@ -52,9 +51,9 @@
   }
 </script>
 
-{#if thumbnail && !thumbnailError}
+{#if thumbnail?.url && !thumbnailError}
   <img
-    src={thumbnail}
+    src={thumbnail.url}
     on:error={handleImageError}
     class="h-full w-full"
     class:object-contain={fillMode === 'contain'}

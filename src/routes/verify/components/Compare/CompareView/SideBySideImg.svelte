@@ -20,12 +20,12 @@
   export let asset: CompareSelectedAssetStore | null;
 </script>
 
-{#if asset !== null}
+{#if asset && $asset?.thumbnail?.url}
   <button
     on:click={$asset?.select}
     class={[$asset?.isActive ? 'inset-2 ring-2 ring-blue-800' : ''].join(' ')}>
     <img
-      src={$asset?.thumbnail}
+      src={$asset?.thumbnail?.url}
       alt={$asset?.title}
       class="h-[45vh] w-full object-contain" />
   </button>

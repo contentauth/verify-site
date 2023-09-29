@@ -19,7 +19,7 @@
   import Body from '$src/components/typography/Body.svelte';
   import BodyBold from '$src/components/typography/BodyBold.svelte';
   import { sidebarLayoutPageState } from '$src/features/SidebarLayout';
-  import { SUPPORTED_FORMATS } from '$src/lib/asset';
+  import { SUPPORTED_FORMATS } from '$src/lib/formats';
   import { _ } from 'svelte-i18n';
   import { verifyStore } from '../../../stores';
   import AssetInfoButton from '../../AssetInfoButton.svelte';
@@ -60,7 +60,7 @@
 </Section>
 {#if $recoveredManifestResults.state === 'success'}
   <Section hasBorder={false}>
-    <div slot="title" class="text-md mb-5 flex justify-between">
+    <div slot="title" class="text-md flex justify-between">
       <BodyBold>
         {$_('sidebar.verify.recovery.possibleMatches')}
       </BodyBold>

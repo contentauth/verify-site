@@ -44,6 +44,8 @@
   $: isValid = statusCode === 'valid';
   $: isIncomplete = statusCode === 'incomplete';
   $: isInvalid = statusCode === 'invalid';
+  $: manifestData = isValid ? $assetData.manifestData : null;
+  $: title = $assetData.title ?? $_('asset.defaultTitle');
 
   const dispatch = createEventDispatcher();
   const { hierarchyView } = verifyStore;
@@ -82,10 +84,10 @@
   }
 
   function handleThumbnailClick() {
-    if ($assetData.thumbnail) {
+    if ($assetData.thumbnail?.url) {
       openModal(LightboxModal, {
-        src: $assetData.thumbnail,
-        label: $assetData.title ?? $_('asset.defaultTitle'),
+        src: $assetData.thumbnail.url,
+        label: title,
       });
     }
   }
@@ -98,13 +100,12 @@
   <div class="bg-gray-50 flex h-20 shrink-0 items-center justify-between px-6">
     {#if $assetData}
       <BigAssetInfo assetData={$assetData} hideThumbnail={hideHeaderThumbnail}>
-        <svelte:fragment slot="name">{$assetData.title}</svelte:fragment
-        ></BigAssetInfo>
+        <span slot="name" {title}>{title}</span></BigAssetInfo>
     {/if}
-    <button on:click={handleCloseClick}>
+    <button on:click={handleCloseClick} class="ms-2 shrink-0 sm:hidden">
       <img
         src={close}
-        class="h-[1.15rem] w-[1.15rem] sm:hidden"
+        class="h-[1.15rem] w-[1.15rem]"
         alt={$_('sidebar.verify.hideInfo')} /></button>
   </div>
   {#if isIncomplete}
@@ -121,24 +122,13 @@
   <ThumbnailSection
     thumbnail={$assetData.thumbnail}
     mimeType={$assetData.mimeType}
+    hasBorder={!!manifestData}
     on:click={handleThumbnailClick} />
 </div>
-{#if $assetData.manifestData && isValid}
+{#if manifestData}
   <ContentSummarySection {...assetDataToContentSummaryProps($assetData)} />
-  <CreditAndUsage manifestData={$assetData.manifestData} />
-  <ProcessSection manifestData={$assetData.manifestData} {ingredients} />
-  <CameraCaptureSection manifestData={$assetData.manifestData} />
-  <AboutSection manifestData={$assetData.manifestData} />
-{:else}
-  <div class="p-5">
-    <Body>
-      {#if isIncomplete}
-        {$_('assetInfo.incomplete')}
-      {:else if isInvalid}
-        {$_('assetInfo.invalid')}
-      {:else}
-        {$_('sidebar.verify.noCCFile')}
-      {/if}
-    </Body>
-  </div>
+  <CreditAndUsage {manifestData} />
+  <ProcessSection {manifestData} {ingredients} />
+  <CameraCaptureSection {manifestData} />
+  <AboutSection {manifestData} />
 {/if}

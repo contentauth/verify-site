@@ -13,9 +13,10 @@
   from Adobe.
 -->
 <script lang="ts">
+  import type { ThumbnailInfo } from '$src/lib/thumbnail';
   import ThumbnailImage from './ThumbnailImage.svelte';
 
-  export let thumbnail: string | null = null;
+  export let thumbnail: ThumbnailInfo | null = null;
   export let mimeType: string;
 </script>
 

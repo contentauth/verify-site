@@ -64,7 +64,7 @@
     mimeType={$assetStore.mimeType} />
   <div class="pt-2" style:width={`${width}px`} aria-label={ariaLabel}>
     <AssetInfoBase assetData={$assetStore}>
-      <Body slot="name">{$assetStore.title ?? $_('asset.defaultTitle')}</Body>
+      <Body slot="name"><span {title}>{title}</span></Body>
     </AssetInfoBase>
   </div>
 </button>

@@ -152,9 +152,9 @@ export default {
         },
       ],
       label: [
-        '0.75rem',
+        '0.875rem',
         {
-          lineHeight: '0.875rem',
+          lineHeight: '1.4',
           fontWeight: '700',
         },
       ],

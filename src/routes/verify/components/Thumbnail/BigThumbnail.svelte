@@ -14,12 +14,13 @@
 -->
 <script lang="ts">
   import Maximize from '$assets/svg/monochrome/maximize.svg?component';
+  import type { ThumbnailInfo } from '$src/lib/thumbnail';
   import ThumbnailImage from './ThumbnailImage.svelte';
 
-  export let thumbnail: string | null;
+  export let thumbnail: ThumbnailInfo | null;
   export let mimeType: string;
 
-  let showLightboxButton = !!thumbnail;
+  let showLightboxButton = !!thumbnail?.url;
 </script>
 
 <div

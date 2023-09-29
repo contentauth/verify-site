@@ -12,6 +12,8 @@
 // from Adobe.
 
 import type { DisposableBlobUrl } from 'c2pa';
+import { isBrowserViewable } from './formats';
+import type { Disposable } from './types';
 
 export const thumbnailDataType = __THUMBNAIL_DATA_TYPE__;
 
@@ -32,19 +34,42 @@ export async function getBlobAsDataUri(blob: Blob) {
   });
 }
 
+export interface ThumbnailInfo {
+  mimeType: string;
+  url: string;
+}
+
+export type ThumbnailResult = Disposable<{
+  info: ThumbnailInfo | null;
+}>;
+
 /**
  * Right now, visual testing only works with data URIs, not blob URLs. This function will format
  * our thumbnails as data URIs if the `THUMBNAIL_DATA_TYPE` environment variable is set to `datauri`
  * on build (CI is configured to do this during the test build).
  *
+ * This also does a check on the MIME type to make sure that the browser can load the type of media
+ * being passed, and if not, will return `null` for its `info` key. For a majority of thumbnails this
+ * test should pass, but may fail if we are showing the source data (e.g. for a video that browsers
+ * don't have codec support for, etc.)
+ *
+ * @param mimeType The MIME type of the thumbnail
  * @param thumbnail The original thumbnail object from the JS SDK
  * @returns
  */
-export async function formatThumbnail(
+export async function loadThumbnail(
+  mimeType: string | undefined,
   thumbnail: DisposableBlobUrl | undefined,
-) {
-  if (!thumbnail?.url) {
-    return thumbnail;
+): Promise<ThumbnailResult> {
+  const isViewable = mimeType && (await isBrowserViewable(mimeType));
+
+  if (!mimeType || !thumbnail?.url || !isViewable) {
+    return {
+      info: null,
+      dispose: () => {
+        thumbnail?.dispose?.();
+      },
+    };
   }
 
   if (thumbnailDataType === 'datauri') {
@@ -52,10 +77,19 @@ export async function formatThumbnail(
     const blob = await request.blob();
 
     return {
-      url: await getBlobAsDataUri(blob),
+      info: {
+        mimeType,
+        url: await getBlobAsDataUri(blob),
+      },
       dispose: thumbnail.dispose,
     };
   }
 
-  return thumbnail;
+  return {
+    info: {
+      mimeType,
+      url: thumbnail.url,
+    },
+    dispose: thumbnail.dispose,
+  };
 }

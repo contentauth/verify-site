@@ -23,4 +23,13 @@ test.describe('Verify - assertion display', () => {
     await page.getByAltText(altText).waitFor();
     await verify.takeTallSnapshot(`result for generated exif image`);
   });
+
+  test('ai model usage (do not train) should be displayed correctly', async ({
+    page,
+  }) => {
+    const verify = new VerifyPage(page);
+    const source = VerifyPage.getFixtureUrl('dnt');
+    await verify.goto(source);
+    await verify.takeTallSnapshot(`result for ai model usage image`);
+  });
 });

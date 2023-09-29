@@ -31,7 +31,7 @@
     <svelte:fragment slot="content">
       <Link>
         <Truncate>
-          <a href={website}>
+          <a href={website} title={website}>
             {website}
           </a></Truncate
         ></Link>
