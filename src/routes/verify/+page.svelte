@@ -16,6 +16,7 @@
 <script lang="ts">
   import { afterNavigate } from '$app/navigation';
   import { SidebarLayout } from '$src/features/SidebarLayout';
+  import { analytics } from '$src/lib/analytics';
   import { onMount, type SvelteComponent } from 'svelte';
   import { _ } from 'svelte-i18n';
   import CompareDetailedInfo from './components/Compare/CompareInfo/CompareInfo.svelte';
@@ -68,8 +69,11 @@
     }
   });
 
-  function handleLaunchFilePicker() {
-    filePicker?.launch();
+  function handleLaunchFilePicker(context: string) {
+    return () => {
+      filePicker?.launch();
+      analytics.track('launchFilePicker', { context });
+    };
   }
 
   function handleSidebarScroll(evt: CustomEvent<{ scrollTop: number }>) {
@@ -96,10 +100,11 @@
     <svelte:fragment slot="sidebar">
       {#if $viewState === 'hierarchy'}
         {#if hasEmptyState}
-          <EmptyState on:launchFilePicker={handleLaunchFilePicker} />
+          <EmptyState
+            on:launchFilePicker={handleLaunchFilePicker('emptyState')} />
         {:else}
           <NavigationPanel
-            on:launchFilePicker={handleLaunchFilePicker}
+            on:launchFilePicker={handleLaunchFilePicker('leftPanel')}
             isScrolled={isSidebarScrolled} />
         {/if}
       {:else if $viewState === 'compare' && $compareView.state === 'success'}

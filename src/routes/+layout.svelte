@@ -24,15 +24,19 @@
   import SidebarMenu from '../features/SidebarMenu/SidebarMenu.svelte';
   import ModalContainer from './verify/components/modals/ModalContainer/ModalContainer.svelte';
 
+  import { get } from 'svelte/store';
   import '../app.css';
   import '../globalWebComponents';
 
   afterNavigate((evt) => {
-    analytics.track('pageLoad', {
-      from: evt.from?.route.id ?? '',
-      to: evt.to?.route.id ?? '',
-      navigationType: evt.type,
-    });
+    if (evt.type !== 'goto') {
+      analytics.track('pageLoad', {
+        from: evt.from?.route.id ?? '',
+        to: evt.to?.route.id ?? '',
+        navigationType: evt.type,
+        locale: get(locale) ?? 'unknown',
+      });
+    }
 
     return true;
   });

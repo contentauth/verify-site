@@ -13,6 +13,7 @@
 
 import type { Source } from 'c2pa';
 import pLimit from 'p-limit';
+import { analytics } from './analytics';
 import { resultToAssetMap, type DisposableAssetDataMap } from './asset';
 import { SITE_ENV } from './config';
 import {
@@ -58,8 +59,15 @@ export async function recoverManifests(
   const { url, filename } = await getUploadUrlAndFilename(searchImage, baseUrl);
 
   if (await uploadToS3(url, searchImage)) {
+    const timingStart = performance.now();
     const manifests = await fetchManifests(filename, baseUrl);
+    const timingEnd = performance.now();
     const sdk = await getSdk();
+
+    analytics.track('manifestRecoveryResults', {
+      numResults: manifests?.results.length ?? -1,
+      elapsedMs: Math.round(timingEnd - timingStart),
+    });
 
     const fetchedManifests = manifests?.results.map(({ url }) => {
       async function processResult() {
@@ -69,7 +77,9 @@ export async function recoverManifests(
         });
 
         if (!resultResponse.ok) {
-          throw new RemoteManifestError(resultResponse);
+          const error = new RemoteManifestError(resultResponse);
+          analytics.trackError(error);
+          throw error;
         }
 
         const resultData = await resultResponse.arrayBuffer();
@@ -92,7 +102,9 @@ export async function recoverManifests(
     });
 
     if (!fetchedManifests) {
-      throw new ManifestRecoveryError();
+      const error = new ManifestRecoveryError();
+      analytics.trackError(error);
+      throw error;
     }
 
     return Promise.all(fetchedManifests);
@@ -113,7 +125,9 @@ async function getUploadUrlAndFilename(sourceImage: Blob, baseUrl: string) {
   });
 
   if (!res.ok) {
-    throw new SearchUploadError(res);
+    const error = new SearchUploadError(res);
+    analytics.trackError(error);
+    throw error;
   }
 
   return res.json();
@@ -123,10 +137,16 @@ async function uploadToS3(url: string, sourceImage: Blob) {
   const body = sourceImage;
   const headers = { 'Content-Type': sourceImage.type };
 
+  analytics.track('manifestRecoveryUpload', {
+    fileSize: sourceImage.size,
+  });
+
   const res = await fetch(url, { method: 'PUT', body, headers });
 
   if (res.status !== 200) {
-    throw new S3UploadError(res);
+    const error = new S3UploadError(res);
+    analytics.trackError(error);
+    throw error;
   }
 
   return true;
@@ -152,7 +172,9 @@ async function fetchManifests(
   const response = await fetch(`${baseUrl}/manifests/v1?${params.toString()}`);
 
   if (!response.ok) {
-    throw new CloudManifestError(response);
+    const error = new CloudManifestError(response);
+    analytics.trackError(error);
+    throw error;
   }
 
   const manifests = await response.json();

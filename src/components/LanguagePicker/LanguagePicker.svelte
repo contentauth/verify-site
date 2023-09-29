@@ -2,6 +2,7 @@
   import DownArrow from '$assets/svg/monochrome/down-arrow.svg?component';
   import { getLanguageNames, setLanguage } from '$lib/i18n';
   import Footer from '$src/components/typography/Footer.svelte';
+  import { analytics } from '$src/lib/analytics';
   import { _, locale } from 'svelte-i18n';
 
   let expanded = false;
@@ -11,7 +12,12 @@
   $: currentLocale = $locale;
 
   function handleLanguageChange(evt: Event) {
-    setLanguage((evt.target as HTMLSelectElement).value);
+    const lang = (evt.target as HTMLSelectElement).value;
+    analytics.track('setLanguage', {
+      lang,
+      context: 'dropdown',
+    });
+    setLanguage(lang);
   }
 </script>
 

@@ -88,4 +88,15 @@ test.describe('Verify - base functionality', () => {
       minHeight: 1024,
     });
   });
+
+  test('source thumbnail should show if image does not have a thumbnail and hashes are valid', async ({
+    page,
+  }) => {
+    const verify = new VerifyPage(page);
+    const source = VerifyPage.getFixtureUrl('fake-news.jpg', 'file');
+    await verify.goto(source);
+    await verify.takeTallSnapshot(
+      `result showing valid claim without thumbnail`,
+    );
+  });
 });

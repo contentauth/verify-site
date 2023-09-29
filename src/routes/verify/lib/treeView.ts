@@ -11,6 +11,7 @@
 // is strictly forbidden unless prior written permission is obtained
 // from Adobe.
 
+import { analytics } from '$src/lib/analytics';
 import { ROOT_ID, type AssetData } from '$src/lib/asset';
 import { hierarchy as d3Hierarchy, tree as d3Tree } from 'd3-hierarchy';
 import type { Selection } from 'd3-selection';
@@ -189,6 +190,7 @@ interface ZoomInProps {
 }
 
 export function zoomIn({ svgSel, zoom }: ZoomInProps) {
+  analytics.track('treeViewZoom', { dir: 'in' });
   zoom.scaleTo(svgSel.transition(), 1);
 }
 
@@ -207,6 +209,7 @@ export function zoomOut({
   height,
   minZoomScale,
 }: ZoomOutProps) {
+  analytics.track('treeViewZoom', { dir: 'out' });
   const sel = svgSel.transition();
   const bbox = boundsElement.getBBox();
   sel.call(

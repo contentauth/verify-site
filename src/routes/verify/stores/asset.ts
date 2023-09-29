@@ -12,6 +12,7 @@
 // from Adobe.
 
 import type { AssetData } from '$lib/asset';
+import { analytics } from '$src/lib/analytics';
 import { startsWith } from 'lodash';
 import { derived, type Readable, type Writable } from 'svelte/store';
 
@@ -42,7 +43,10 @@ export function createAsset(
   return derived(selectedId, ($selectedId) => ({
     ...asset,
     state: getAssetState(asset.id, $selectedId),
-    select: () => selectedId.set(asset.id),
+    select: () => {
+      selectedId.set(asset.id);
+      analytics.track('selectAsset', { id: asset.id });
+    },
   }));
 }
 

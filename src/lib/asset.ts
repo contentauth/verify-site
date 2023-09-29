@@ -195,7 +195,7 @@ export async function resultToAssetMap({
     // If no thumbnail exists on the claim and we have a valid manifest,
     // we can use the source thumbnail if it is viewable by the browser
     if (
-      !thumbnail &&
+      !thumbnail.info &&
       validationResult.statusCode === 'valid' &&
       (await isBrowserViewable(source.type))
     ) {

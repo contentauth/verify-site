@@ -27,6 +27,7 @@
 import { recoverManifests } from '$lib/manifestRecovery';
 import type { Loadable } from '$lib/types';
 import { matchesUnavailable, toast } from '$src/features/Toast';
+import { analytics } from '$src/lib/analytics';
 import type { Source } from 'c2pa';
 import { writable, type Readable, type Writable } from 'svelte/store';
 import {
@@ -96,9 +97,12 @@ export function createManifestRecoverer(
             },
           ),
         });
-      } catch (e) {
+      } catch (err: unknown) {
+        analytics.trackError(err as Error, {
+          context: 'recoverManifests',
+        });
         toast.trigger(matchesUnavailable());
-        console.error(e);
+        console.error(err);
         manifestRecoveryState.set({ state: 'none' });
       }
     },

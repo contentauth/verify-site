@@ -12,6 +12,7 @@
 // from Adobe.
 
 import { ROOT_ID, type AssetData } from '$lib/asset';
+import { analytics } from '$src/lib/analytics';
 import type { C2paSourceType } from 'c2pa';
 import debug from 'debug';
 import {
@@ -22,7 +23,11 @@ import {
   type Writable,
 } from 'svelte/store';
 import { createC2paReader } from './c2paReader';
-import { createCompareView, type CompareStore } from './compareView';
+import {
+  compareViewMode,
+  createCompareView,
+  type CompareStore,
+} from './compareView';
 import { createHierarchyView, type HierarchyViewStore } from './hierarchyView';
 import {
   createManifestRecoverer,
@@ -170,12 +175,16 @@ export function createVerifyStore(): VerifyStore {
       }
     },
     setCompareView: () => {
+      analytics.track('setCompareView', {
+        compareMode: get(compareViewMode),
+      });
       viewState.set('compare');
       const id = get(selectedAssetId);
       compareActiveAssetId.set(id);
       compareSelectedAssetIds.set([id, null]);
     },
     setHierarchyView: () => {
+      analytics.track('setHierarchyView');
       viewState.set('hierarchy');
       selectedAssetId.set(get(compareActiveAssetId) ?? ROOT_ID);
     },
