@@ -51,7 +51,7 @@ const config = {
     },
     version: {
       name: gitRevision,
-      pollInterval: 60 * 60,
+      pollInterval: 60 * 1000,
     },
   },
 };
