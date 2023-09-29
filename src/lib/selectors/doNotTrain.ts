@@ -29,10 +29,19 @@ export const ENTRY_KEYS = [
   'c2pa.ai_training',
   'c2pa.ai_generative_training',
 ] as const;
-export const NOT_ALLOWED_VALUE = 'notAllowed';
+export const USE_VALUES = ['allowed', 'notAllowed', 'constrained'] as const;
+export type UseValue = (typeof USE_VALUES)[number];
+export const NOT_ALLOWED_VALUES: UseValue[] = ['notAllowed', 'constrained'];
 
 export type EntryKey = (typeof ENTRY_KEYS)[number];
-type EntryMap = Record<EntryKey, string>;
+
+type EntryMap = Record<
+  EntryKey,
+  {
+    use: UseValue;
+    constraint_info?: string;
+  }
+>;
 
 declare module 'c2pa' {
   interface ExtendedAssertions {
@@ -55,7 +64,7 @@ export function selectDoNotTrain(manifest: Manifest): DoNotTrainResult {
   const disallowedActions = reduce<EntryMap, EntryKey[]>(
     filteredEntries,
     (acc, val, entry) => {
-      if (val === NOT_ALLOWED_VALUE) {
+      if (NOT_ALLOWED_VALUES.includes(val.use)) {
         return [...acc, entry] as EntryKey[];
       }
 

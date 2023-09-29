@@ -153,10 +153,10 @@ export default {
             label: 'c2pa.training-mining',
             data: {
               entries: {
-                'c2pa.data_mining': 'notAllowed',
-                'c2pa.ai_inference': 'notAllowed',
-                'c2pa.ai_training': 'notAllowed',
-                'c2pa.ai_generative_training': 'notAllowed',
+                'c2pa.ai_generative_training': { use: 'notAllowed' },
+                'c2pa.ai_inference': { use: 'notAllowed' },
+                'c2pa.ai_training': { use: 'notAllowed' },
+                'c2pa.data_mining': { use: 'notAllowed' },
               },
             },
           },
