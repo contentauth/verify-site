@@ -93,7 +93,7 @@ test.describe('Verify - base functionality', () => {
     page,
   }) => {
     const verify = new VerifyPage(page);
-    const source = VerifyPage.getFixtureUrl('fake-news.jpg', 'file');
+    const source = VerifyPage.getFixtureUrl('no-thumbnail.jpg', 'file');
     await verify.goto(source);
     await verify.takeTallSnapshot(
       `result showing valid claim without thumbnail`,
