@@ -137,6 +137,8 @@
   "sidebar.verify.noCCFile": "There is no Content Credential for this file",
   "sidebar.verify.process.actions": "Actions",
   "sidebar.verify.process.app": "App or device used",
+  "sidebar.verify.process.actions.styleReference.title": "Created using a style reference image",
+  "sidebar.verify.process.actions.styleReference.description": "Created a new file or content using style reference imagery.",
   "sidebar.verify.process.description": "The app or device used to produce this content recorded the following info:",
   "sidebar.verify.process.ingredients": "Ingredients",
   "sidebar.verify.recovery.noMatches": "No matches found",
