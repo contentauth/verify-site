@@ -20,7 +20,7 @@
   export let thumbnail: ThumbnailInfo | null;
   export let mimeType: string;
 
-  let showLightboxButton = !!thumbnail?.url;
+  $: showLightboxButton = !!thumbnail?.url;
 </script>
 
 <div

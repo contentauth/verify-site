@@ -9,7 +9,9 @@
   "license": "UNLICENSED",
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build",
+    "build": "run-s build:site build:sitemap",
+    "build:site": "vite build",
+    "build:sitemap": "pnpx svelte-sitemap --domain https://contentauthenticity.org -o dist",
     "preview": "vite preview",
     "test": "run-p test:unit test:e2e",
     "test:unit": "vitest run",
@@ -24,7 +26,7 @@
     "format": "prettier --plugin-search-dir . --write .",
     "prepare": "husky install",
     "storybook": "storybook dev -p 6006 --no-open",
-    "build-storybook": "storybook build"
+    "build:storybook": "storybook build"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.7.3",
@@ -95,6 +97,7 @@
     "storybook": "7.0.12",
     "storybook-addon-designs": "7.0.0-beta.2",
     "svelte-check": "^3.5.2",
+    "svelte-sitemap": "^2.6.0",
     "svgo": "^3.0.2",
     "tailwindcss": "^3.3.3",
     "terser": "^5.20.0",
