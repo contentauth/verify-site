@@ -55,8 +55,6 @@
     class="bottom:0 absolute left-0 top-0 h-5 opacity-0"
     aria-label={$_('aria.label.languageSelector')}
     on:change={handleLanguageChange}>
-    <option value="" hidden disabled
-      >{$_('languagePicker.changeLanguage')}</option>
     {#each languageNames as { locale, name }}
       <option value={locale} selected={currentLocale === locale}>{name}</option>
     {/each}
