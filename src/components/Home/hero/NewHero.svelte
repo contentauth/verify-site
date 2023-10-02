@@ -1,5 +1,6 @@
 <script>
   import X from '$assets/svg/home/x.svg';
+  import Video from '$assets/video/cr-pin.mp4';
 
   import { onMount } from 'svelte';
 
@@ -84,7 +85,13 @@
         <!-- svelte-ignore a11y-no-static-element-interactions -->
         <!-- Logo that appears on hover and can be clicked to toggle popup -->
         <div class="group relative">
-          <img src={Image} alt="Click for more info" />
+          <!-- <img src={Image} alt="Click for more info" /> -->
+          <video
+            autoplay
+            loop
+            muted
+            src={Video}
+            class="w-full h-full max-h-full max-w-full rounded-xl xl:h-full object-cover" />
           <div
             class="absolute right-0 top-0 z-10 flex cursor-pointer lg:opacity-0 lg:transition-opacity lg:duration-200 lg:group-hover:opacity-100"
             on:click={() =>
