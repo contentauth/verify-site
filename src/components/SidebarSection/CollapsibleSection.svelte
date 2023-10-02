@@ -36,7 +36,7 @@
           <Header><slot name="header" /></Header>
 
           <DownArrow
-            class="h-2 w-3 transform duration-100 {expanded
+            class="h-2 w-3 shrink-0 transform duration-100 {expanded
               ? 'rotate-0'
               : '-rotate-90'}" />
         </div>
