@@ -23,34 +23,40 @@ declare global {
 
 export class NewRelicProvider extends AnalyticsProvider {
   readonly dbg;
-  readonly sdk: typeof NewRelicBrowser;
+  readonly sdk: typeof NewRelicBrowser | undefined;
 
   constructor(config: ConstructorParameters<typeof AnalyticsProvider>[0]) {
     super(config);
 
     this.dbg = config?.debugger?.extend('newrelic');
-    this.sdk = window.newrelic;
 
-    this.sdk.addRelease(APP_NAME, SITE_VERSION);
-    this.sdk.setCustomAttribute('env', SITE_ENV);
+    // Don't send metrics when running locally
+    if (SITE_ENV === 'local') {
+      this.dbg?.(`Skipping data calls in ${SITE_ENV} environment`);
+    } else {
+      this.sdk = window.newrelic;
+    }
+
+    this.sdk?.addRelease(APP_NAME, SITE_VERSION);
+    this.sdk?.setCustomAttribute('env', SITE_ENV);
 
     this.identify(this.getUserId());
   }
 
   track(eventName: string, attributes?: Attributes): void {
     this.dbg?.('track', eventName, attributes);
-    this.sdk.addPageAction(eventName, attributes ?? {});
+    this.sdk?.addPageAction(eventName, attributes ?? {});
   }
 
   trackError(error: string | Error, attributes?: Attributes): void {
     this.dbg?.('trackError', error, attributes);
-    this.sdk.noticeError(error, attributes ?? {});
+    this.sdk?.noticeError(error, attributes ?? {});
   }
 
   identify(userId: string): void {
     this.dbg?.('identify', userId);
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore - Not sure why this isn't in the TypeScript definitions
-    this.sdk.setUserId(userId);
+    this.sdk?.setUserId(userId);
   }
 }
