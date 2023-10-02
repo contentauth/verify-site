@@ -24,7 +24,7 @@
   <SidebarSectionBase {hasBorder} {hasPadding}>
     <div slot="headerSection">
       {#if $$slots.title}
-        <div class="pb-2">
+        <div class="pb-2 text-start">
           <Header><slot name="title" /></Header>
         </div>
       {/if}

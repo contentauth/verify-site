@@ -23,8 +23,6 @@ import {
   type TranslatedDictionaryCategory,
 } from 'c2pa';
 import debug from 'debug';
-import { locale } from 'svelte-i18n';
-import { get } from 'svelte/store';
 import { selectExif } from './exif';
 import {
   MEDIA_CATEGORIES,
@@ -67,7 +65,9 @@ export type AssetData = {
 export type ManifestData = {
   claimGenerator: string;
   date: Date | null;
-  editsAndActivity: TranslatedDictionaryCategory[] | null;
+  editsAndActivityForLocale: (
+    locale: string | null,
+  ) => Promise<TranslatedDictionaryCategory[] | null>;
   exif: ReturnType<typeof selectExif>;
   generativeInfo: GenerativeInfo | null;
   producer: string | null;
@@ -272,10 +272,8 @@ export async function resultToAssetMap({
       claimGenerator: selectFormattedGenerator(manifest),
       signatureInfo: manifest.signatureInfo,
       producer: selectProducer(manifest)?.name ?? null,
-      editsAndActivity: await selectEditsAndActivity(
-        manifest,
-        get(locale) ?? DEFAULT_LOCALE,
-      ),
+      editsAndActivityForLocale: async (locale) =>
+        selectEditsAndActivity(manifest, locale ?? DEFAULT_LOCALE),
       socialAccounts: selectSocialAccounts(manifest),
       generativeInfo: selectGenerativeInfo(manifest),
       exif: selectExif(manifest),

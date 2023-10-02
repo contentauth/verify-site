@@ -17,11 +17,12 @@
   import Link from '$src/components/typography/Link.svelte';
   import type { ManifestData } from '$src/lib/asset';
   import { DATA_PRIVACY_URL } from '$src/lib/config';
+  import type { TranslatedDictionaryCategory } from 'c2pa';
   import { _ } from 'svelte-i18n';
   import SubSection from '../../../components/SubSection/SubSection.svelte';
   import AboutSectionIconContentRow from '../AboutSection/AboutSectionIconContentRow.svelte';
 
-  export let editsAndActivity: NonNullable<ManifestData['editsAndActivity']>;
+  export let editsAndActivity: NonNullable<TranslatedDictionaryCategory[]>;
   export let reviewRatings: ManifestData['reviewRatings'];
 </script>
 

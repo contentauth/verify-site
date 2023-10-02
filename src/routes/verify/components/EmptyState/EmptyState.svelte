@@ -39,7 +39,7 @@
 
 <div class="flex h-full min-h-[30rem] w-full items-center justify-center px-5">
   <div
-    class="flex max-w-[36rem] flex-col items-center space-y-5 text-center lg:max-w-[72.9rem] lg:flex-row lg:gap-x-12 lg:text-left">
+    class="flex max-w-[36rem] flex-col items-center space-y-5 text-center lg:max-w-[72.9rem] lg:flex-row lg:gap-x-12 lg:text-start">
     <div class="space-y-5">
       <h1>
         <Title
@@ -52,7 +52,7 @@
     <button
       id="drop-area"
       on:click={() => dispatch('launchFilePicker')}
-      class="grid grid-cols-1 grid-rows-[auto_auto] rounded-3xl border border-dashed border-gray-600 p-[1.88rem] text-center transition-colors duration-200 hover:border-brand-blue hover:bg-brand-blue/10 lg:h-[24.4rem] lg:w-[38.5rem] lg:shrink-0 lg:grid-cols-[auto_auto] lg:grid-rows-1 lg:items-center lg:gap-x-2.5 lg:px-20 lg:text-left">
+      class="grid grid-cols-1 grid-rows-[auto_auto] rounded-3xl border border-dashed border-gray-600 p-[1.88rem] text-center transition-colors duration-200 hover:border-brand-blue hover:bg-brand-blue/10 lg:h-[24.4rem] lg:w-[38.5rem] lg:shrink-0 lg:grid-cols-[auto_auto] lg:grid-rows-1 lg:items-center lg:gap-x-2.5 lg:px-20 lg:text-start">
       <DropFileIcon
         class="h-[5.625rem] w-[5.625rem] justify-self-center text-gray-500 lg:justify-self-end" />
       <div>

@@ -20,7 +20,7 @@
 </script>
 
 <SidebarSectionBase {hasPadding}>
-  <div slot="headerSection" class="px-5">
+  <div slot="headerSection" class="px-5 text-start">
     <Header><slot name="title" /></Header>
   </div>
   <div slot="content" class="px-5">

@@ -15,7 +15,7 @@
 <script lang="ts">
   import CollapsibleSection from '$src/components/SidebarSection/CollapsibleSection.svelte';
   import type { AssetData, ManifestData } from '$src/lib/asset';
-  import { _ } from 'svelte-i18n';
+  import { _, locale } from 'svelte-i18n';
   import ActionsSection from './ActionsSection.svelte';
   import AppDeviceSection from './AppDeviceSection.svelte';
   import IngredientsSection from './IngredientsSection.svelte';
@@ -33,11 +33,13 @@
     {#if manifestData.claimGenerator}
       <AppDeviceSection generator={manifestData.claimGenerator} />
     {/if}
-    {#if manifestData.editsAndActivity?.length}
-      <ActionsSection
-        editsAndActivity={manifestData.editsAndActivity}
-        reviewRatings={manifestData.reviewRatings} />
-    {/if}
+    {#await manifestData.editsAndActivityForLocale($locale ?? null) then editsAndActivity}
+      {#if editsAndActivity?.length}
+        <ActionsSection
+          {editsAndActivity}
+          reviewRatings={manifestData.reviewRatings} />
+      {/if}
+    {/await}
     {#if ingredients.length}
       <IngredientsSection {ingredients} />
     {/if}
