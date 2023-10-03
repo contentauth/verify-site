@@ -14,6 +14,7 @@
 import { createFilter } from '@rollup/pluginutils';
 import { readFile } from 'fs/promises';
 import lodash from 'lodash/fp';
+import { createHash } from 'node:crypto';
 import path from 'path';
 import { compile } from 'svelte/compiler';
 import { optimize } from 'svgo';
@@ -113,11 +114,23 @@ export default function rollupSvelteSvg(options = {}) {
         const { name, dir } = path.parse(id);
         const isMonochrome = dir.split(path.sep).includes('monochrome');
 
+        const hash = createHash('md5');
         const filename = id.replace(/\.svg(\?.*)$/, '.svg');
         const svgFile = await readFile(filename, { encoding: 'utf-8' });
+        hash.update(svgFile);
 
+        const prefix = `${hash.digest('hex')}-`;
         const overrides = isMonochrome ? monochromeOverrides : colorOverrides;
-        const config = { path: id, plugins: overrides };
+        const plugins = [
+          ...overrides,
+          {
+            name: 'prefixIds',
+            params: {
+              prefix,
+            },
+          },
+        ];
+        const config = { path: id, plugins };
         const optimized = optimize(svgFile, config);
         const { code, map } = renderElement({
           name,
