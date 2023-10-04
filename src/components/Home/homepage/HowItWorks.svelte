@@ -14,7 +14,7 @@
   <div class="2xl:hidden flex w-full flex-col items-center">
     <div class="">
       <div
-        class="2xl:pt-[160px] max-w-[90rem] pt-[96px] lg:max-w-[1145px] xl:max-w-[116rem] xl:px-[10rem] xl:pt-[128px]">
+        class="2xl:pt-[160px] max-w-[90rem] lg:max-w-[1145px] xl:max-w-[116rem] xl:px-[10rem] xl:pt-[128px]">
         <div
           class="flex max-w-[86rem] flex-col items-start justify-between sm:pb-[3.5rem] lg:flex-row xl:pb-[4rem]">
           <div
