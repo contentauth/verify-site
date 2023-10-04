@@ -31,11 +31,11 @@
 <div class="w-screen max-w-[90rem] py-16 lg:py-[5.5rem] xl:pb-[7.5rem]">
   <div class="px-6">
     <div
-      class="relative h-[200px] w-full overflow-hidden rounded-xl bg-gray-40">
+      class="relative h-[200px] w-full overflow-hidden rounded-xl lg:rounded-[20px] bg-gray-40">
       <div
         class="primary absolute left-0 top-0 flex items-center justify-around">
         {#each data as item}
-          <div class="h-[100px] max-h-[100px] w-[200px] pr-20">
+          <div class="h-[112px] max-h-[100px] w-[200px] pr-20">
             <img src={item.image} alt="" class="h-full object-contain" />
           </div>
         {/each}
