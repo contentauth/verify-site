@@ -88,8 +88,6 @@ export function createC2paReader(): C2paReaderStore {
             correctedType = 'image/heif';
           }
 
-          console.log('correctedType', correctedType);
-
           if (correctedType) {
             const buffer = await source.arrayBuffer();
             source = new File([buffer], source.name, { type: correctedType });
