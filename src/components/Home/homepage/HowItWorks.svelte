@@ -18,7 +18,7 @@
         <div
           class="flex max-w-[86rem] flex-col items-start justify-between sm:pb-[3.5rem] lg:flex-row xl:pb-[4rem]">
           <div
-            class="flex flex-col items-center md:flex-row md:items-start md:justify-start gap-4 lg:w-1/2">
+            class="flex flex-col items-center gap-4 md:flex-row md:items-start md:justify-start lg:w-1/2">
             <div
               class="mr-0.5 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-brand-yellow px-4 py-4">
               1
@@ -49,13 +49,13 @@
         <div
           class="flex max-w-[86rem] flex-col items-start justify-between sm:pb-[3.5rem] lg:flex-row xl:pb-[4rem]">
           <div
-            class="flex flex-col items-center w-full md:flex-row md:items-start md:justify-start gap-4 lg:w-1/2">
+            class="flex w-full flex-col items-center gap-4 md:flex-row md:items-start md:justify-start lg:w-1/2">
             <div
               class="mr-0.5 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-brand-orange px-4 py-4">
               2
             </div>
             <h3
-              class="pr-10 text-hiw-label xl:text-hiw-label-xl w-full text-left">
+              class="w-full pr-10 text-left text-hiw-label xl:text-hiw-label-xl">
               Content Credentials are viewable across the internet
             </h3>
           </div>
@@ -81,13 +81,13 @@
         <div
           class="flex max-w-[86rem] flex-col items-start justify-between sm:pb-[3.5rem] lg:flex-row xl:pb-[4rem]">
           <div
-            class="flex flex-col items-center w-full md:flex-row md:items-start md:justify-start gap-4 lg:w-1/2">
+            class="flex w-full flex-col items-center gap-4 md:flex-row md:items-start md:justify-start lg:w-1/2">
             <div
               class="mr-0.5 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-brand-red px-4 py-4">
               3
             </div>
             <h3
-              class="pr-10 text-hiw-label xl:text-hiw-label-xl w-full text-left">
+              class="w-full pr-10 text-left text-hiw-label xl:text-hiw-label-xl">
               Go deeper to explore the full edit history
             </h3>
           </div>
@@ -104,7 +104,7 @@
           loop
           muted
           src={Video}
-          class="h-full max-h-full w-full max-w-full rounded-xl lg:rounded-[20px] object-cover xl:h-full"
+          class="dropshadow h-full max-h-full w-full max-w-full rounded-xl object-cover lg:rounded-[20px] xl:h-full"
           alt="A tree view of the relationship between different images
           and how they were used together to create a final image
           over time, available in the Verify feature" />
@@ -112,3 +112,9 @@
     </div>
   </div>
 </div>
+
+<style>
+  .dropshadow {
+    filter: drop-shadow(0px 1px 40px #e6e6e6);
+  }
+</style>
