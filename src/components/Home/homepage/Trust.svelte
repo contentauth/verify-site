@@ -139,7 +139,7 @@
             Open-source standards
           </h3>
           <div
-            class="2xl:text-trust-desc-2xl h-[208px] rounded-b-xl bg-[#f5f5f5] px-[32px] py-6 text-trust-desc lg:rounded-b-[20px] xl:text-trust-desc-xl">
+            class="2xl:text-trust-desc-2xl h-full sm:h-[208px] rounded-b-xl bg-[#f5f5f5] px-[32px] py-6 text-trust-desc lg:rounded-b-[20px] xl:text-trust-desc-xl">
             <p class="">
               Content Credentials are based on open technical standards
               developed and maintained by the <a
@@ -158,7 +158,7 @@
             Clear tampering detection
           </h3>
           <div
-            class="2xl:text-trust-desc-2xl h-[208px] rounded-b-xl bg-[#f5f5f5] px-[32px] py-6 text-trust-desc lg:rounded-b-[20px] xl:text-trust-desc-xl">
+            class="2xl:text-trust-desc-2xl h-full sm:h-[208px] rounded-b-xl bg-[#f5f5f5] px-[32px] py-6 text-trust-desc lg:rounded-b-[20px] xl:text-trust-desc-xl">
             <p class="">
               Content Credentials use technology that allows any unsupported
               changes to content’s edit history or the content itself to be
@@ -174,7 +174,7 @@
             Accountability
           </h3>
           <div
-            class="2xl:text-trust-desc-2xl h-[208px] rounded-b-xl bg-[#f5f5f5] px-[32px] py-6 text-trust-desc lg:rounded-b-[20px] xl:text-trust-desc-xl">
+            class="2xl:text-trust-desc-2xl h-full sm:h-[208px] rounded-b-xl bg-[#f5f5f5] px-[32px] py-6 text-trust-desc lg:rounded-b-[20px] xl:text-trust-desc-xl">
             <p class="">
               Organizations that issue Content Credentials must identify
               themselves in the Content Credentials they issue. Issuers
