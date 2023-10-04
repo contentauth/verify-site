@@ -56,7 +56,7 @@ export class VerifyPage {
       params.set('source', source);
       await this.page.goto(`/verify?${params.toString()}`);
       await this.waitForTreeView();
-      // await this.waitForActions();
+      await this.waitForActions();
     } else {
       await this.page.goto(
         `/verify${params.keys.length > 0 ? `?${params.toString()}` : ``}`,
