@@ -1,5 +1,5 @@
 <script>
-  import Video from '$assets/video/penguins-01.mp4';
+  import Video from '$assets/video/penguins-02.mp4';
 </script>
 
 <div class="flex w-screen max-w-[90rem] items-center justify-center">

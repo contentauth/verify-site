@@ -1,6 +1,6 @@
 <!-- Media query for screens wider than 1280px (xl+) -->
-<div>
-  <ul class="hidden justify-center gap-4 xl:flex">
+<div class="grid grid-cols-12">
+  <ul class="hidden justify-center gap-4 xl:flex col-start-1 col-end-13">
     <li class="w-[389px]">
       <h3
         class="rounded-t-xl lg:rounded-t-[20px] px-[32px] py-[20px] text-trust-label bg-brand-orange">
