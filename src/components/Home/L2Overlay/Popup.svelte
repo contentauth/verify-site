@@ -42,7 +42,7 @@
     <div
       class="popup shadow-lg absolute right-[3.5rem] top-[1rem] z-[9999] mb-10 rounded-lg bg-brand-white p-2"
       class:visible={isOpen}>
-      <div class="h-full w-[350px] rounded-xl bg-brand-white">
+      <div class="h-full w-[256px] rounded-xl bg-brand-white">
         <div class="flex flex-col justify-center px-4 py-[0.625rem]">
           <h1 class=" text-popup-title pb-1 font-bold">Content Credentials</h1>
           <p class="pb-1 text-popup-text text-gray-900/60">
