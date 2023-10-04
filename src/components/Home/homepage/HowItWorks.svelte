@@ -8,7 +8,7 @@
   class="flex h-full w-screen flex-col items-center bg-[#f5f5f5] px-[1.5rem] pb-40 pt-[4rem] md:pt-[6rem] lg:pt-[8rem] xl:pt-[10rem]"
   id="how-it-works">
   <h2
-    class="2xl:text-hiw-title-2xl text-hiw-title md:text-hiw-title-md xl:text-hiw-title-xl mb-[5rem]">
+    class="2xl:text-hiw-title-2xl mb-[5rem] text-hiw-title md:text-hiw-title-md xl:text-hiw-title-xl">
     How it Works
   </h2>
   <div class="2xl:hidden flex w-full flex-col items-center">
@@ -113,7 +113,7 @@
   </div>
 
   <!-- Desktop 1281px+ -->
-  <div class="2xl:flex hidden max-w-[90rem] w-full flex-col items-center">
+  <div class="2xl:flex hidden w-full max-w-[90rem] flex-col items-center">
     <div class="grid grid-cols-12">
       <div class="col-start-2 col-end-6">
         <div class="flex flex-row justify-start gap-2">
@@ -127,7 +127,7 @@
         </div>
       </div>
       <div
-        class="col-start-7 col-end-12 2xl:text-hiw-desc-2xl text-gray-900/60">
+        class="2xl:text-hiw-desc-2xl col-start-7 col-end-12 text-gray-900/60">
         Creators can choose to attach Content Credentials to their content,
         which might include things like whether AI was used or not. Voila! This
         information is added to the edit history of the content—creating a
@@ -141,6 +141,59 @@
         surrounding snowy landscape and a penguin. The option
         to enable Content Credentials for the photo is available"
           class="max-w[71.375rem] 2xl:w-full rounded-xl lg:rounded-[20px]" />
+      </div>
+      <div class="col-start-2 col-end-6 mt-[10rem]">
+        <div class="flex flex-row justify-start gap-2">
+          <span
+            class="mr-0.5 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-brand-yellow px-4 py-4"
+            >2</span>
+          <p class="xl:text-hiw-label-xl">
+            Content Credentials are viewable across the internet
+          </p>
+        </div>
+      </div>
+      <div
+        class="2xl:text-hiw-desc-2xl col-start-7 col-end-12 text-gray-900/60 mt-[10rem]">
+        Once the content is published, anyone can view its Content Credentials
+        by clicking the pin, which reveals the most relevant information
+        directly in context.
+      </div>
+      <div class="col-start-2 col-end-12 mt-[4rem]">
+        <!-- svelte-ignore a11y-img-redundant-alt -->
+        <img
+          src={Hiw2}
+          alt="A phone in someones hand, displaying a photo of the
+        surrounding snowy landscape and a penguin. The option
+        to enable Content Credentials for the photo is available"
+          class="max-w[71.375rem] 2xl:w-full rounded-xl lg:rounded-[20px]" />
+      </div>
+      <div class="col-start-2 col-end-6 mt-[10rem]">
+        <div class="flex flex-row justify-start gap-2">
+          <span
+            class="mr-0.5 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-brand-yellow px-4 py-4"
+            >3</span>
+          <p class="xl:text-hiw-label-xl">
+            Go deeper to explore the full edit history
+          </p>
+        </div>
+      </div>
+      <div
+        class="2xl:text-hiw-desc-2xl col-start-7 col-end-12 text-gray-900/60 mt-[10rem]">
+        Content Credentials can capture a detailed history of changes over time.
+        The <a href="/verify" class="underline">Verify</a> feature allows you to
+        explore this information in depth, and upload any content to see if it has
+        Content Credentials.
+      </div>
+      <div class="col-start-2 col-end-12 mt-[4rem]">
+        <video
+          autoplay
+          loop
+          muted
+          src={Video}
+          class="dropshadow h-full max-h-full w-full max-w-full rounded-xl object-cover lg:rounded-[20px] xl:h-full"
+          alt="A tree view of the relationship between different images
+          and how they were used together to create a final image
+          over time, available in the Verify feature" />
       </div>
     </div>
     <!-- Desktop 1280px+ -->
