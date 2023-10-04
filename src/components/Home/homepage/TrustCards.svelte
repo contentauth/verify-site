@@ -5,11 +5,11 @@
       class="flex flex-col items-center lg:flex-row lg:justify-center xl:hidden">
       <li class="mb-4 w-[80%] lg:mb-0 lg:mr-8">
         <h3
-          class="rounded-t-2xl bg-brand-orange px-[32px] py-[20px] text-trust-label">
+          class="rounded-t-xl lg:rounded-t-[20px] bg-brand-orange px-[32px] py-[20px] text-trust-label">
           Open-source standards
         </h3>
         <div
-          class="lg:text-trust-desc-lg h-full rounded-b-2xl bg-[#F6F5F2] px-[32px] pb-20 pt-[20px] text-trust-desc lg:pb-0">
+          class="lg:text-trust-desc-lg h-full rounded-b-xl lg:rounded-b-[20px] bg-[#F6F5F2] px-[32px] pb-20 pt-[20px] text-trust-desc lg:pb-0">
           <p class="lg:h-[269px] lg:w-[325px]">
             Content Credentials are based on open technical standards developed
             and maintained by the <a href="https://c2pa.org/" class="underline"
@@ -21,11 +21,11 @@
       </li>
       <li class="mb-4 w-[80%] lg:mb-0">
         <h3
-          class=" rounded-t-2xl bg-brand-red px-[32px] py-[20px] text-trust-label">
+          class=" rounded-t-xl lg:rounded-t-[20px] bg-brand-red px-[32px] py-[20px] text-trust-label">
           Clear detection of tampering
         </h3>
         <div
-          class="lg:text-trust-desc-lg h-full rounded-b-2xl bg-[#F6F5F2] px-[32px] pb-20 pt-[20px] text-trust-desc lg:pb-0">
+          class="lg:text-trust-desc-lg h-full rounded-b-xl lg:rounded-b-[20px] bg-[#F6F5F2] px-[32px] pb-20 pt-[20px] text-trust-desc lg:pb-0">
           <p class="lg:h-[269px] lg:w-[325px]">
             Content Credentials are made possible by cryptographic processes
             which mean that any unsupported changes made to Content Credentials
@@ -38,11 +38,11 @@
     <li class="mb-4 w-[80%] lg:mx-auto lg:mb-0 lg:w-1/2 lg:pt-12">
       <div class="xl:hidden">
         <h3
-          class="rounded-t-2xl bg-brand-violet px-[32px] py-[20px] text-trust-label">
+          class="rounded-t-xl lg:rounded-t-[20px] bg-brand-violet px-[32px] py-[20px] text-trust-label">
           Accountability
         </h3>
         <div
-          class="lg:text-trust-desc-lg h-full rounded-b-2xl bg-[#F6F5F2] px-[32px] pb-20 pt-[20px] text-trust-desc lg:pb-0">
+          class="lg:text-trust-desc-lg h-full rounded-b-xl lg:rounded-b-[20px] bg-[#F6F5F2] px-[32px] pb-20 pt-[20px] text-trust-desc lg:pb-0">
           <p class="lg:h-[269px] lg:w-[325px]">
             Organizations that issue Content Credentials must identify
             themselves in the Content Credentials they issue. Issuers therefore
