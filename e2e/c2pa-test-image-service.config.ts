@@ -13,8 +13,13 @@
 
 import { C2paTestImageServiceConfig } from 'c2pa-test-image-service';
 
+const port = parseInt(
+  (process.env.TEST_IMAGE_SERVICE_PORT as string | undefined) ?? '8082',
+  10,
+);
+
 export default {
-  port: 8081,
+  port,
   fixtures: {
     default: {
       image: { r: 0, g: 0, b: 255, width: 600, height: 600 },
