@@ -12,9 +12,10 @@
           class="lg:text-trust-desc-lg h-full rounded-b-2xl bg-[#F6F5F2] px-[32px] pb-20 pt-[20px] text-trust-desc lg:pb-0">
           <p class="lg:h-[269px] lg:w-[325px]">
             Content Credentials are based on open technical standards developed
-            and maintained by the <span class="underline">C2PA</span>, a
-            cross-industry membership organization. You can review the standards
-            anytime.
+            and maintained by the <a href="https://c2pa.org/" class="underline"
+              >C2PA</a
+            >, a cross-industry membership organization. You can review the
+            standards anytime.
           </p>
         </div>
       </li>
@@ -46,8 +47,7 @@
             Organizations that issue Content Credentials must identify
             themselves in the Content Credentials they issue. Issuers therefore
             stake their reputations on their ability to collect and include
-            information with accuracy. Learn more about the Content Credentials
-            trust model.
+            information with accuracy.
           </p>
         </div>
       </div>

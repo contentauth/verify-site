@@ -1,16 +1,18 @@
 <script>
-  import Video from '$assets/video/cr-pin.mp4';
+  import Video from '$assets/video/cr-06.mp4';
 </script>
 
-<div class="px-[1.5rem] md:grid md:grid-cols-12 md:gap-4 xl:max-w-[1440px]">
+<div class="md:grid md:grid-cols-12 md:gap-4 xl:max-w-[1440px]">
   <div class="md:col-span-6">
-    <div class="video-container">
+    <div class="video-container z-998">
       <video
         autoplay
         loop
         muted
         src={Video}
-        class="w-full h-full max-h-full max-w-full rounded-xl xl:h-full object-cover" />
+        class="w-full h-full max-h-full max-w-full rounded-xl lg:rounded-[20px] xl:h-full object-cover"
+        alt="Animation of a mouse cursor hovering over and clicking
+        the Content Credentials pin icon" />
     </div>
   </div>
   <div
@@ -21,9 +23,9 @@
       </h3>
       <p
         class="2xl:text-key-sub-text-2xl text-key-sub-text text-gray-900/60 xl:text-key-sub-text-xl">
-        Every time you see the Content Credentials pin that means Content
-        Credentials have been attached to the content! Simply click on the pin
-        to reveal more information.
+        When you see the Content Credentials pin, it means Content Credentials
+        are attached! Simply click the pin to reveal more information about the
+        content you’re viewing.
       </p>
     </div>
   </div>

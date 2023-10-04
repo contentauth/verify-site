@@ -1,5 +1,5 @@
 <script>
-  import Video from '$assets/video/hero.mp4';
+  import Video from '$assets/video/penguins-01.mp4';
 </script>
 
 <div class="flex w-screen max-w-[90rem] items-center justify-center">
@@ -15,8 +15,8 @@
         </h1>
         <p
           class="2xl:text-hero-sub-desktop text-center text-hero-sub text-gray-900/60">
-          Deepfakes. Voice Cloning. It's hard to tell what's accurate and
-          authentic these days.
+          Deepfakes. Voice cloning. Synthetic media. It’s hard to tell what’s
+          accurate and authentic these days.
         </p>
       </div>
     </div>
@@ -29,12 +29,13 @@
             loop
             muted
             src={Video}
-            class="h-full max-h-full w-full max-w-full rounded-xl object-cover md:max-w-[704px] xl:h-full" />
+            class="h-full max-h-full w-full max-w-full rounded-xl lg:rounded-[20px] object-cover md:max-w-[704px] xl:h-full"
+            alt="Penguins in a desert with sand dunes in the background." />
         </div>
-        <p
+        <!-- <p
           class="flex pt-[0.5rem] text-small-description text-gray-500 md:items-start">
           Click on the pin to see the Content Credentials.
-        </p>
+        </p> -->
       </div>
     </div>
   </div>

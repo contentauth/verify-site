@@ -593,6 +593,13 @@ export default {
           letterSpacing: '-0.0075rem',
         },
       ],
+      'popup-title': [
+        '1.125rem',
+        {
+          fontWeight: '400',
+          lineHeight: '1.51875rem',
+        },
+      ],
       // For the Homepage
     },
     boxShadow: {

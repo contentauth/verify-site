@@ -1,9 +1,17 @@
 <script>
   import KeyPoints from './KeyPoints.svelte';
+
+  function scrollToHowItWorks() {
+    const element = document.getElementById('how-it-works');
+
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
 </script>
 
 <div
-  class="flex w-screen max-w-[90rem] flex-col items-center justify-evenly gap-6 p-[1.5rem]">
+  class="flex w-screen max-w-[90rem] flex-col items-center justify-evenly gap-6 px-[1.5rem] pt-[1.5rem]">
   <div
     class="2xl:w-[910px] flex flex-col items-center justify-center pb-10 pt-20 xl:w-[802px]">
     <h2
@@ -13,15 +21,19 @@
     <div class="flex flex-col items-center justify-center pt-10">
       <p
         class="2xl:text-home-sub-2xl text-center text-home-sub text-gray-900/60 xl:text-home-sub-XL">
-        Important information about the content you see online is often
-        inaccessible or inaccurate. Content Credentials are a new open-source
-        tool for revealing answers to your questions about content with a simple
-        click: How was it made? Who created it and when? Is it AI-generated?
+        Critical information about the content you see online is often
+        inaccessible or inaccurate. Content Credentials are a new open
+        technology for revealing answers to your questions about content with a
+        simple click: How was it made? Is it AI-generated? When was it created
+        or edited?
       </p>
-      <a
-        href="/"
-        class="mt-10 flex h-[2.75rem] items-center rounded-full bg-brand-red px-[1.25rem] py-3 hover:bg-brand-red/80"
-        >See how it works</a>
+      <!-- svelte-ignore a11y-click-events-have-key-events -->
+      <!-- svelte-ignore a11y-no-static-element-interactions -->
+      <div
+        on:click={scrollToHowItWorks}
+        class="mt-10 flex h-[2.75rem] items-center scroll-smooth rounded-full bg-brand-red px-[1.25rem] py-3 hover:cursor-pointer hover:bg-brand-red/80">
+        See how it works
+      </div>
     </div>
   </div>
   <KeyPoints />

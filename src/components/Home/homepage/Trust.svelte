@@ -4,7 +4,7 @@
 </script>
 
 <div
-  class="flex w-screen max-w-[90rem] items-center justify-center px-[1.5rem] lg:my-20 xl:my-40">
+  class="space-y-0 flex w-screen max-w-[90rem] items-center justify-center px-[1.5rem] lg:mt-20 lg:mb-[5.5rem] xl:mt-40 xl:mb-48">
   <div
     class="flex flex-col items-center justify-center gap-[64px] md:gap-[80px]">
     <h2
