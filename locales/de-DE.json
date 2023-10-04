@@ -17,7 +17,7 @@
   "emptyState.body": "Ziehen Sie Inhalte in Verify, um ihre Inhaltsurhebernachweise im Detail zu überprüfen und um zu sehen, wie sie sich im Laufe der Zeit verändert haben.",
   "emptyState.dropFile.linkText": "Datei auf Ihrem Gerät auswählen",
   "emptyState.dropFile": "oder an beliebige Stelle ziehen",
-  "emptyState.footer": "Die Inhaltsurhebernachweise für Inhalte sind noch in der Einführungsphase, sodass der Inhalt, den Sie prüfen möchten, möglicherweise keine Informationen enthält, die angezeigt werden können.",
+  "emptyState.footer": "Die Inhaltsurhebernachweise sind noch in der Einführungsphase, sodass der Inhalt, den Sie prüfen möchten, möglicherweise keine Informationen enthält, die angezeigt werden können.",
   "emptyState.formats": "Unterstützte Formate:",
   "emptyState.title": "Inhalt eingehend prüfen",
   "error.incomplete": "Der aktuelle Inhaltsurhebernachweis kann nicht angezeigt werden, da Änderungen vorgenommen wurden, die nicht aufgezeichnet werden konnten oder wurden. Möglicherweise sind frühere Inhaltsurhebernachweise verfügbar.",

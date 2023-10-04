@@ -110,7 +110,7 @@
   "sidebar.verify.compare.dropdown": "Sammenligningsvisning",
   "sidebar.verify.compare.noAssetSelected": "ingen andre ressurser er valgt",
   "sidebar.verify.compare.null.description": "Sammenlign to filer side om side eller overlappende.",
-  "sidebar.verify.compare.null.picture": "Velg en annen ressurs å sammenligne",
+  "sidebar.verify.compare.null.picture": "Velg en ressurs til for å sammenligne",
   "sidebar.verify.compare.null.title": "Velg filer for å sammenligne",
   "sidebar.verify.compare.root": "Dette elementet er roten til treet",
   "sidebar.verify.compare.sideBySide": "Side ved side",

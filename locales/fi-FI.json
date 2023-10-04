@@ -142,7 +142,7 @@
   "sidebar.verify.process.description": "Tämän sisällön tuottamiseen käytetty sovellus tai laite tallensi seuraavat tiedot:",
   "sidebar.verify.process.ingredients": "Elementit",
   "sidebar.verify.recovery.noMatches": "Vastaavuuksia ei löytynyt.",
-  "sidebar.verify.recovery.possibleMatches": "Mahdolliset osumat",
+  "sidebar.verify.recovery.possibleMatches": "Mahdolliset vastaavuudet",
   "sidebar.verify.recovery.searchNotSupported": "Mahdolliset vastaavuudet ovat saatavana vain seuraaville muodoille:",
   "sidebar.verify.search.hideTooltip": "Piilota työkaluvihje",
   "sidebar.verify.search.showTooltip": "Näytä työkaluvihje.",
