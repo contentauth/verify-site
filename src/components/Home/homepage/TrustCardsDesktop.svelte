@@ -1,5 +1,5 @@
 <!-- Media query for screens wider than 1280px (xl+) -->
-<div class="grid grid-cols-12">
+<div class="grid grid-cols-12 max-w-[90rem] w-full">
   <ul class="hidden justify-center gap-4 xl:flex col-start-1 col-end-13">
     <li class="w-[389px]">
       <h3
