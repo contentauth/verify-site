@@ -5,13 +5,13 @@
 </script>
 
 <div
-  class="bg-[#f5f5f5] flex h-full w-screen flex-col items-center px-[1.5rem] pb-40 pt-[4rem] md:pt-[6rem] lg:pt-[8rem] xl:pt-[10rem]"
+  class="flex h-full w-screen flex-col items-center bg-[#f5f5f5] px-[1.5rem] pb-40 pt-[4rem] md:pt-[6rem] lg:pt-[8rem] xl:pt-[10rem]"
   id="how-it-works">
   <h2
-    class="2xl:text-hiw-title-2xl text-hiw-title md:text-hiw-title-md xl:text-hiw-title-xl">
+    class="2xl:text-hiw-title-2xl text-hiw-title md:text-hiw-title-md xl:text-hiw-title-xl mb-[5rem]">
     How it Works
   </h2>
-  <div class="flex w-full flex-col items-center">
+  <div class="2xl:hidden flex w-full flex-col items-center">
     <div class="">
       <div
         class="2xl:pt-[160px] max-w-[90rem] pt-[96px] lg:max-w-[1145px] xl:max-w-[116rem] xl:px-[10rem] xl:pt-[128px]">
@@ -110,6 +110,40 @@
           over time, available in the Verify feature" />
       </div>
     </div>
+  </div>
+
+  <!-- Desktop 1281px+ -->
+  <div class="2xl:flex hidden max-w-[90rem] w-full flex-col items-center">
+    <div class="grid grid-cols-12">
+      <div class="col-start-2 col-end-6">
+        <div class="flex flex-row justify-start gap-2">
+          <span
+            class="mr-0.5 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-brand-yellow px-4 py-4"
+            >1</span>
+          <p class="xl:text-hiw-label-xl">
+            Anytime content is captured, created, or edited, Content Credentials
+            can be attached
+          </p>
+        </div>
+      </div>
+      <div
+        class="col-start-7 col-end-12 2xl:text-hiw-desc-2xl text-gray-900/60">
+        Creators can choose to attach Content Credentials to their content,
+        which might include things like whether AI was used or not. Voila! This
+        information is added to the edit history of the content—creating a
+        permanent record that can be confirmed.
+      </div>
+      <div class="col-start-2 col-end-12 mt-[4rem]">
+        <!-- svelte-ignore a11y-img-redundant-alt -->
+        <img
+          src={Hiw1}
+          alt="A phone in someones hand, displaying a photo of the
+        surrounding snowy landscape and a penguin. The option
+        to enable Content Credentials for the photo is available"
+          class="max-w[71.375rem] 2xl:w-full rounded-xl lg:rounded-[20px]" />
+      </div>
+    </div>
+    <!-- Desktop 1280px+ -->
   </div>
 </div>
 
