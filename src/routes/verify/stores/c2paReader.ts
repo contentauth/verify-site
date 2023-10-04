@@ -74,6 +74,9 @@ export function createC2paReader(): C2paReaderStore {
           if (correctedType) {
             const buffer = await source.arrayBuffer();
             source = new File([buffer], source.name, { type: correctedType });
+            analytics.track('correctedType', {
+              correctedType,
+            });
           }
         }
 
@@ -98,7 +101,7 @@ export function createC2paReader(): C2paReaderStore {
           assetMap,
           data: result.source,
         });
-      } catch (e) {
+      } catch (e: unknown) {
         if ((e as Record<string, unknown>)?.name === 'InvalidMimeTypeError') {
           analytics.track('readAsset', {
             result: 'error',
@@ -116,9 +119,8 @@ export function createC2paReader(): C2paReaderStore {
           });
           openModal(LegacyCredentialModal);
         } else {
-          analytics.track('readAsset', {
-            result: 'error',
-            reason: 'unknown',
+          analytics.trackError(e as Error, {
+            context: 'readAsset',
           });
           toast.trigger(somethingWentWrong());
         }

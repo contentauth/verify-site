@@ -14,10 +14,7 @@
 -->
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import type {
-    ReadableAssetData,
-    ReadableAssetStore,
-  } from '../../stores/asset';
+  import type { ReadableAssetStore } from '../../stores/asset';
 
   export let assetStore: ReadableAssetStore;
   export let x: number;
@@ -27,25 +24,18 @@
 
   const dispatch = createEventDispatcher();
 
-  function handleKeyPress(onKeyPress: ReadableAssetData['select']) {
-    return (evt: KeyboardEvent) => {
-      if (['Space', 'Enter'].includes(evt.code)) {
-        onKeyPress();
-      }
-    };
-  }
-
   function handleMobileTap() {
     dispatch('mobileTap');
   }
 </script>
 
 <g transform={`translate(${x}, ${y})`}>
+  <!-- Key events are handled in TreeNode -->
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
   <rect
     tabindex="-1"
     role="button"
     on:click={$assetStore.select}
-    on:keypress={handleKeyPress($assetStore.select)}
     height={nodeHeight}
     width={nodeWidth}
     x={-nodeWidth / 2}
@@ -53,6 +43,7 @@
     rx={6}
     ry={6}
     class="cursor-pointer fill-current text-gray-300 focus:outline-0" />
+  <!-- Key events are handled in TreeNode -->
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <rect
     on:click={() => {
