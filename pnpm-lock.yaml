@@ -42,8 +42,8 @@ dependencies:
     specifier: ^0.36.0
     version: 0.36.0
   c2pa:
-    specifier: ^0.17.4
-    version: 0.17.4
+    specifier: ^0.17.5
+    version: 0.17.5
   c2pa-test-image-service:
     specifier: ^0.12.0
     version: 0.12.0
@@ -9002,7 +9002,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001543
-      electron-to-chromium: 1.4.540
+      electron-to-chromium: 1.4.541
       node-releases: 2.0.13
       update-browserslist-db: 1.0.13(browserslist@4.22.1)
     dev: true
@@ -9100,8 +9100,8 @@ packages:
       - supports-color
     dev: false
 
-  /c2pa@0.17.4:
-    resolution: {integrity: sha512-ULjjQvYGiwCcnzgF2QOaYIHlQUowDlE7cJNXtaLXCcrEbhGBhFXpKS14HEfIIcs61jIlBSSBAlDxPPZ3EQ0nCw==}
+  /c2pa@0.17.5:
+    resolution: {integrity: sha512-12FVjMdBp1WI1ogBMZ1utEQIz6hsQ/41MxVqmG7IhxY/EtcRyeoZaXZk8QUwpb9uxGfMYn89s0OoeOrZGGvDdQ==}
     dependencies:
       '@contentauth/detector': 0.3.5
       '@contentauth/toolkit': 0.10.3
@@ -10333,8 +10333,8 @@ packages:
     resolution: {integrity: sha512-EafxEiEDzk2aLrdbtVczylHflHdHkNrpGNHIgDyA63sUQLQVS2ayj2hPw3RsVB42qkwURH+T2OxV7kGPUuYszA==}
     dev: true
 
-  /electron-to-chromium@1.4.540:
-    resolution: {integrity: sha512-aoCqgU6r9+o9/S7wkcSbmPRFi7OWZWiXS9rtjEd+Ouyu/Xyw5RSq2XN8s5Qp8IaFOLiRrhQCphCIjAxgG3eCAg==}
+  /electron-to-chromium@1.4.541:
+    resolution: {integrity: sha512-do9EfdtgtowzRNdnUhFtc0wMjazMHiXBNP/848cNa22dmmRSVE2JuBKfcjt0tg2+FN90OIE4E6MbcQ2bzDRawg==}
     dev: true
 
   /emittery@0.10.2:
