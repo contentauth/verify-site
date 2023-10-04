@@ -1,10 +1,10 @@
 <script>
-  import AFP from '$assets/svg/color/logos/AFP.svg';
-  import Canon from '$assets/svg/color/logos/Canon.svg';
-  import EFE from '$assets/svg/color/logos/EFE.svg';
-  import BBC from '$assets/svg/color/logos/Frame.svg';
-  import Leica from '$assets/svg/color/logos/Leica.svg';
-  import WashPost from '$assets/svg/color/logos/WashingtonPost.svg';
+  import AFP from '$assets/svg/logos/homepage/AFP.svg';
+  import Canon from '$assets/svg/logos/homepage/Canon.svg';
+  import EFE from '$assets/svg/logos/homepage/EFE.svg';
+  import BBC from '$assets/svg/logos/homepage/Frame.svg';
+  import Leica from '$assets/svg/logos/homepage/Leica.svg';
+  import WashPost from '$assets/svg/logos/homepage/WashingtonPost.svg';
 
   const data = [
     {
