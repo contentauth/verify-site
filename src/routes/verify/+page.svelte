@@ -88,7 +88,9 @@
   });
 </script>
 
-<div use:dragDropAction={dragDropParams}>
+<div
+  use:dragDropAction={dragDropParams}
+  aria-busy={showLoadingOverlay ? 'true' : 'false'}>
   <DragDropOverlay visible={showDropOverlay} />
   <LoadingOverlay visible={showLoadingOverlay} />
   <FilePicker bind:this={filePicker} />

@@ -15,7 +15,7 @@
 
 import type { SnapshotOptions } from '@percy/core';
 import percySnapshot from '@percy/playwright';
-import { type Locator, type Page } from '@playwright/test';
+import { expect, type Locator, type Page } from '@playwright/test';
 import { mkdirp } from 'mkdirp';
 import { writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -56,6 +56,7 @@ export class VerifyPage {
       params.set('source', source);
       await this.page.goto(`/verify?${params.toString()}`);
       await this.waitForTreeView();
+      // await this.waitForActions();
     } else {
       await this.page.goto(
         `/verify${params.keys.length > 0 ? `?${params.toString()}` : ``}`,
@@ -81,6 +82,21 @@ export class VerifyPage {
         treeViewThumbnails.every((x) => x.complete)
       );
     });
+  }
+
+  async waitForActions() {
+    const manifestDataLoc = this.page.getByTestId('manifestData');
+    await manifestDataLoc.waitFor();
+    expect(await manifestDataLoc.count()).toBe(1);
+    const hasManifest = await manifestDataLoc.getAttribute('data-has-manifest');
+    console.log('hasManifest', hasManifest);
+    expect(hasManifest).toMatch(/^(true|false)$/);
+
+    if (hasManifest === 'true') {
+      await this.page
+        .getByTestId('actions.editsAndActivity')
+        .waitFor({ state: 'attached' });
+    }
   }
 
   async takeDebugSnapshot(name: string, options: SnapshotOptions = {}) {
