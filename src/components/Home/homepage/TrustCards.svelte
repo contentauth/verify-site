@@ -9,7 +9,7 @@
           Open-source standards
         </h3>
         <div
-          class="lg:text-trust-desc-lg h-full rounded-b-xl lg:rounded-b-[20px] bg-[#F6F5F2] px-[32px] pb-20 pt-[20px] text-trust-desc lg:pb-0">
+          class="lg:text-trust-desc-lg h-full rounded-b-xl lg:rounded-b-[20px] bg-[#f5f5f5] px-[32px] pb-20 pt-[20px] text-trust-desc lg:pb-0">
           <p class="lg:h-[269px] lg:w-[325px]">
             Content Credentials are based on open technical standards developed
             and maintained by the <a href="https://c2pa.org/" class="underline"
@@ -25,7 +25,7 @@
           Clear detection of tampering
         </h3>
         <div
-          class="lg:text-trust-desc-lg h-full rounded-b-xl lg:rounded-b-[20px] bg-[#F6F5F2] px-[32px] pb-20 pt-[20px] text-trust-desc lg:pb-0">
+          class="lg:text-trust-desc-lg h-full rounded-b-xl lg:rounded-b-[20px] bg-[#f5f5f5] px-[32px] pb-20 pt-[20px] text-trust-desc lg:pb-0">
           <p class="lg:h-[269px] lg:w-[325px]">
             Content Credentials are made possible by cryptographic processes
             which mean that any unsupported changes made to Content Credentials
@@ -42,7 +42,7 @@
           Accountability
         </h3>
         <div
-          class="lg:text-trust-desc-lg h-full rounded-b-xl lg:rounded-b-[20px] bg-[#F6F5F2] px-[32px] pb-20 pt-[20px] text-trust-desc lg:pb-0">
+          class="lg:text-trust-desc-lg h-full rounded-b-xl lg:rounded-b-[20px] bg-[#f5f5f5] px-[32px] pb-20 pt-[20px] text-trust-desc lg:pb-0">
           <p class="lg:h-[269px] lg:w-[325px]">
             Organizations that issue Content Credentials must identify
             themselves in the Content Credentials they issue. Issuers therefore
