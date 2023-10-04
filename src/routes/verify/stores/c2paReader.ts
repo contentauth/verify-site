@@ -41,6 +41,11 @@ export interface C2paReaderStore extends Readable<SourceState> {
   clear: () => void;
 }
 
+const mimeTypeCorrections = {
+  // Chrome registers M4A as MP4
+  'audio/x-m4a': 'audio/mp4',
+};
+
 /**
  * Creates a store encapsulating the C2PA SDK file reading logic.
  */
@@ -56,20 +61,30 @@ export function createC2paReader(): C2paReaderStore {
 
       try {
         const sdk = await getSdk();
+        const sourceType = source instanceof Blob ? source.type : '';
+        const needsCorrectedType =
+          !sourceType || Object.keys(mimeTypeCorrections).includes(sourceType);
 
-        if (source instanceof File && !source.type) {
+        if (source instanceof File && needsCorrectedType) {
           const ext = source.name?.toLowerCase();
           let correctedType: string | undefined = undefined;
 
           // TODO: Transition to detection with magic numbers so that this works when
           // passed in as a URL
-          if (ext.endsWith('.dng')) {
+          if (needsCorrectedType) {
+            correctedType =
+              mimeTypeCorrections[
+                sourceType as keyof typeof mimeTypeCorrections
+              ];
+          } else if (ext.endsWith('.dng')) {
             correctedType = 'image/x-adobe-dng';
           } else if (ext.endsWith('.heic')) {
             correctedType = 'image/heic';
           } else if (ext.endsWith('.heif')) {
             correctedType = 'image/heif';
           }
+
+          console.log('correctedType', correctedType);
 
           if (correctedType) {
             const buffer = await source.arrayBuffer();
