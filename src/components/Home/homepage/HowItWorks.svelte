@@ -5,7 +5,7 @@
 </script>
 
 <div
-  class="bg-brand-gray flex h-full w-screen flex-col items-center px-[1.5rem] pb-40 pt-[4rem] md:pt-[6rem] lg:pt-[8rem] xl:pt-[10rem]"
+  class="bg-[#f5f5f5] flex h-full w-screen flex-col items-center px-[1.5rem] pb-40 pt-[4rem] md:pt-[6rem] lg:pt-[8rem] xl:pt-[10rem]"
   id="how-it-works">
   <h2
     class="2xl:text-hiw-title-2xl text-hiw-title md:text-hiw-title-md xl:text-hiw-title-xl">

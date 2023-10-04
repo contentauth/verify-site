@@ -7,7 +7,7 @@
         Open-source standards
       </h3>
       <div
-        class="2xl:text-trust-desc-2xl h-full rounded-b-xl lg:rounded-b-[20px] bg-[#F6F5F2] px-[32px] pt-[20px] text-trust-desc xl:text-trust-desc-xl">
+        class="2xl:text-trust-desc-2xl h-full rounded-b-xl lg:rounded-b-[20px] bg-[#f5f5f5] px-[32px] pt-[20px] text-trust-desc xl:text-trust-desc-xl">
         <p class="xl:h-[269px] xl:w-[325px]">
           Content Credentials are based on open technical standards developed
           and maintained by the <a href="https://c2pa.org/" class="underline"
@@ -23,7 +23,7 @@
         Clear tampering detection
       </h3>
       <div
-        class="2xl:text-trust-desc-2xl h-full rounded-b-xl lg:rounded-b-[20px] bg-[#F6F5F2] px-[32px] pt-[20px] text-trust-desc xl:text-trust-desc-xl">
+        class="2xl:text-trust-desc-2xl h-full rounded-b-xl lg:rounded-b-[20px] bg-[#f5f5f5] px-[32px] pt-[20px] text-trust-desc xl:text-trust-desc-xl">
         <p class="xl:h-[269px] xl:w-[325px]">
           Content Credentials use technology that allows any unsupported changes
           to content’s edit history or the content itself to be easily
@@ -37,7 +37,7 @@
         Accountability
       </h3>
       <div
-        class="2xl:text-trust-desc-2xl h-full rounded-b-xl lg:rounded-b-[20px] bg-[#F6F5F2] px-[32px] pt-[20px] text-trust-desc xl:text-trust-desc-xl">
+        class="2xl:text-trust-desc-2xl h-full rounded-b-xl lg:rounded-b-[20px] bg-[#f5f5f5] px-[32px] pt-[20px] text-trust-desc xl:text-trust-desc-xl">
         <p class="xl:h-[269px] xl:w-[325px]">
           Organizations that issue Content Credentials must identify themselves
           in the Content Credentials they issue. Issuers therefore stake their
