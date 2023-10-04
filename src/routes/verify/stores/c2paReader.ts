@@ -44,6 +44,10 @@ export interface C2paReaderStore extends Readable<SourceState> {
 const mimeTypeCorrections = {
   // Chrome registers M4A as MP4
   'audio/x-m4a': 'audio/mp4',
+  // Normalize WAV types
+  'audio/x-wav': 'audio/wav',
+  'audio/wave': 'audio/wav',
+  'audio/vnd.wave': 'audio/wav',
 };
 
 /**
