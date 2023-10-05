@@ -1,7 +1,7 @@
 <script>
 </script>
 
-<div class="m-w-[90rem] w-full px-[2rem] py-[10rem]">
+<div class="m-w-[90rem] w-full px-[20px] sm:px-[2rem] py-[10rem]">
   <div
     class="flex h-full w-full flex-col items-center justify-center gap-[5rem]">
     <h2

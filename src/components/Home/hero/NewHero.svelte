@@ -10,11 +10,11 @@
       <div
         class="flex max-w-[41rem] flex-col items-start justify-center self-stretch p-0 md:p-[1.5rem] xl:max-w-[41rem]">
         <h1
-          class="2xl:text-hero-title-desktop pb-[2rem] text-center text-hero-title tracking-[-0.105rem] lg:text-hero-title-lg xl:text-center">
+          class="2xl:text-hero-title-desktop pb-[2rem] text-center text-hero-title tracking-[-0.105rem] lg:text-hero-title-lg xl:text-center font-base">
           Wait, where did this image come from?
         </h1>
         <p
-          class="2xl:text-hero-sub-desktop text-center text-hero-sub text-gray-900/60">
+          class="2xl:text-hero-sub-desktop text-center text-hero-sub text-gray-900/60 font-base">
           Deepfakes. Voice cloning. Synthetic media. It’s hard to tell what’s
           accurate and authentic these days.
         </p>
