@@ -16,9 +16,9 @@
       <div
         class="2xl:pt-[160px] max-w-[90rem] lg:max-w-[1145px] xl:max-w-[116rem] xl:px-[10rem] xl:pt-[128px]">
         <div
-          class="flex max-w-[86rem] flex-col items-start justify-between sm:pb-[3.5rem] lg:flex-row xl:pb-[4rem]">
+          class="flex max-w-[86rem] flex-col md:flex-row items-start justify-between xl:pb-[4rem] md:pb-[4rem]">
           <div
-            class="flex flex-col items-center gap-4 md:flex-row md:items-start md:justify-start lg:w-1/2">
+            class="flex flex-col items-center gap-4 md:flex-row md:items-start md:justify-start md:w-1/2">
             <div
               class="mr-0.5 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-brand-yellow px-4 py-4">
               1
@@ -29,7 +29,7 @@
             </h3>
           </div>
           <p
-            class="2xl:text-hiw-desc-2xl text-hiw-desc text-gray-900/60 lg:w-1/2 lg:pt-0 xl:text-hiw-desc-xl mb-[32px] sm:mb-0 pt-[16px] md:pt-6">
+            class="2xl:text-hiw-desc-2xl text-hiw-desc text-gray-900/60 md:w-1/2 lg:pt-0 xl:text-hiw-desc-xl mb-[32px] md:mb-0 pt-[16px] md:pt-0">
             Creators can choose to attach Content Credentials to their content,
             which might include things like whether AI was used or not. Voila!
             This information is added to the edit history of the
@@ -47,9 +47,9 @@
       <div
         class="max-w-[90rem] pt-[96px] lg:max-w-[1145px] xl:max-w-[116rem] xl:px-[10rem] xl:pt-[128px] 2xl:pt-[160px]">
         <div
-          class="flex max-w-[86rem] flex-col items-start justify-between sm:pb-[3.5rem] lg:flex-row xl:pb-[4rem]">
+          class="flex max-w-[86rem] flex-col items-start justify-between md:flex-row xl:pb-[4rem] md:pb-[4rem]">
           <div
-            class="flex w-full flex-col items-center gap-4 md:flex-row md:items-start md:justify-start lg:w-1/2">
+            class="flex w-full flex-col items-center gap-4 md:flex-row md:items-start md:justify-start md:w-1/2">
             <div
               class="mr-0.5 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-brand-orange px-4 py-4">
               2
@@ -60,7 +60,7 @@
             </h3>
           </div>
           <p
-            class="2xl:text-hiw-desc-2xl text-hiw-desc text-gray-900/60 lg:w-1/2 lg:pt-0 xl:text-hiw-desc-xl mb-[32px] sm:mb-0 pt-[16px] md:pt-6">
+            class="2xl:text-hiw-desc-2xl text-hiw-desc text-gray-900/60 md:w-1/2 lg:pt-0 xl:text-hiw-desc-xl mb-[32px] md:mb-0 pt-[16px] md:pt-0">
             Once the content is made available, anyone can view its Content
             Credentials by clicking the pin, which reveals the most relevant
             information directly in context.
@@ -79,9 +79,9 @@
       <div
         class="max-w-[90rem] pt-[96px] lg:max-w-[1145px] xl:max-w-[116rem] xl:px-[10rem] xl:pt-[128px] 2xl:pt-[160px]">
         <div
-          class="flex max-w-[86rem] flex-col items-start justify-between sm:pb-[3.5rem] lg:flex-row xl:pb-[4rem]">
+          class="flex max-w-[86rem] flex-col items-start justify-between lg:pb-[3.5rem] md:flex-row xl:pb-[4rem] md:pb-[4rem]">
           <div
-            class="flex w-full flex-col items-center gap-4 md:flex-row md:items-start md:justify-start lg:w-1/2">
+            class="flex w-full flex-col items-center gap-4 md:flex-row md:items-start md:justify-start md:w-1/2">
             <div
               class="mr-0.5 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-brand-red px-4 py-4">
               3
@@ -92,7 +92,7 @@
             </h3>
           </div>
           <p
-            class="2xl:text-hiw-desc-2xl text-hiw-desc text-gray-900/60 lg:w-1/2 lg:pt-0 xl:text-hiw-desc-xl mb-[32px] sm:mb-0 pt-[16px] md:pt-6">
+            class="2xl:text-hiw-desc-2xl text-hiw-desc text-gray-900/60 md:w-1/2 lg:pt-0 xl:text-hiw-desc-xl mb-[32px] md:mb-0 pt-[16px] md:pt-0">
             Content Credentials can capture a detailed history of changes over
             time. The Verify feature allows you to explore this information in
             depth. Check any content to see if it has Content Credentials.
