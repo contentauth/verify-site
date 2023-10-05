@@ -1,5 +1,5 @@
 <script>
-  import Images from '$assets/png/human.png';
+  import Images from '$assets/jpg/flower.jpg';
   import L2Overlay from '../L2Overlay/L2Overlay.svelte';
 </script>
 

@@ -24,18 +24,17 @@
       class="flex h-full w-full flex-col items-start justify-center md:items-center lg:w-1/2 lg:items-start">
       <div class="flex flex-col items-start">
         <div class="group relative">
-          <video
-            autoplay
-            loop
-            muted
-            src={Video}
-            class="h-full max-h-full w-full max-w-full rounded-xl lg:rounded-[20px] object-cover md:max-w-[704px] xl:h-full"
-            alt="Penguins in a desert with sand dunes in the background." />
+          <div
+            class="h-full max-h-full w-full max-w-full rounded-xl object-cover md:max-w-[704px] lg:rounded-[20px] xl:h-full">
+            <video
+              autoplay
+              loop
+              muted
+              src={Video}
+              class="h-full max-h-full w-full max-w-full rounded-xl object-cover md:max-w-[704px] lg:rounded-[20px] xl:h-full"
+              alt="Penguins in a desert with sand dunes in the background." />
+          </div>
         </div>
-        <!-- <p
-          class="flex pt-[0.5rem] text-small-description text-gray-500 md:items-start">
-          Click on the pin to see the Content Credentials.
-        </p> -->
       </div>
     </div>
   </div>
