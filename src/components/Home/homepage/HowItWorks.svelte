@@ -29,7 +29,7 @@
             </h3>
           </div>
           <p
-            class="2xl:text-hiw-desc-2xl pt-6 text-hiw-desc text-gray-900/60 lg:w-1/2 lg:pt-0 xl:text-hiw-desc-xl">
+            class="2xl:text-hiw-desc-2xl pt-[16px] md:pt-6 text-hiw-desc text-gray-900/60 lg:w-1/2 lg:pt-0 xl:text-hiw-desc-xl mb-[32px] sm:mb-0">
             Creators can choose to attach Content Credentials to their content,
             which might include things like whether AI was used or not. Voila!
             This information is added to the edit history of the
@@ -60,7 +60,7 @@
             </h3>
           </div>
           <p
-            class="2xl:text-hiw-desc-2xl pt-6 text-hiw-desc text-gray-900/60 lg:w-1/2 lg:pt-0 xl:text-hiw-desc-xl">
+            class="2xl:text-hiw-desc-2xl pt-[16px] md:pt-6 text-hiw-desc text-gray-900/60 lg:w-1/2 lg:pt-0 xl:text-hiw-desc-xl mb-[32px] sm:mb-0">
             Once the content is published, anyone can view its Content
             Credentials by clicking the pin, which reveals the most relevant
             information directly in context.
@@ -92,7 +92,7 @@
             </h3>
           </div>
           <p
-            class="2xl:text-hiw-desc-2xl pt-6 text-hiw-desc text-gray-900/60 lg:w-1/2 lg:pt-0 xl:text-hiw-desc-xl">
+            class="2xl:text-hiw-desc-2xl pt-[16px] md:pt-6 text-hiw-desc text-gray-900/60 lg:w-1/2 lg:pt-0 xl:text-hiw-desc-xl mb-[32px] sm:mb-0">
             Content Credentials can capture a detailed history of changes over
             time. The <a href="/verify" class="underline">Verify</a> feature allows
             you to explore this information in depth, and upload any content to see
@@ -101,9 +101,9 @@
         </div>
         <video
           autoplay
-          playsinline
           loop
           muted
+          playsinline
           src={Video}
           class="dropshadow h-full max-h-full w-full max-w-full rounded-xl object-cover lg:rounded-[20px] xl:h-full"
           alt="A tree view of the relationship between different images
@@ -188,9 +188,9 @@
       <div class="col-start-2 col-end-12 mt-[4rem]">
         <video
           autoplay
-          playsinline
           loop
           muted
+          playsinline
           src={Video}
           class="dropshadow h-full max-h-full w-full max-w-full rounded-xl object-cover lg:rounded-[20px] xl:h-full"
           alt="A tree view of the relationship between different images
