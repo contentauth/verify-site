@@ -15,7 +15,6 @@ import type { Loadable } from '$lib/types';
 import { analytics } from '$src/lib/analytics';
 import type { AssetData } from '$src/lib/asset';
 import { derived, writable, type Readable, type Writable } from 'svelte/store';
-import type { C2paReaderStore } from './c2paReader';
 import {
   createCompareAssetStore,
   type CompareAssetStore,
@@ -24,6 +23,7 @@ import {
   createCompareSelectedAssetStore,
   type CompareSelectedAssetStore,
 } from './compareSelectedAsset';
+import type { SelectedAssetMapState } from './verifyStore';
 
 const STORAGE_MODE_KEY = 'compareMode';
 
@@ -40,15 +40,15 @@ type CompareStoreState = Loadable<CompareStoreData>;
 export type CompareStore = Readable<CompareStoreState>;
 
 export function createCompareView(
-  c2paReader: C2paReaderStore,
+  selectedAssetMap: Readable<SelectedAssetMapState>,
   selectedAssetIds: Writable<(string | null)[]>,
   activeAssetId: Writable<string | null>,
 ): CompareStore {
-  return derived(c2paReader, ($c2paReader) => {
-    if ($c2paReader.state === 'success') {
+  return derived(selectedAssetMap, ($selectedAssetMap) => {
+    if ($selectedAssetMap.state === 'success') {
       return {
         state: 'success' as const,
-        compareAssetMap: Object.values($c2paReader.assetMap).reduce(
+        compareAssetMap: Object.values($selectedAssetMap.data).reduce(
           (acc, asset) => {
             acc[asset.id] = createCompareAssetStore(
               asset,
@@ -64,20 +64,20 @@ export function createCompareView(
           $selectedAssetIds.map((assetId) =>
             assetId
               ? createCompareSelectedAssetStore(
-                  $c2paReader.assetMap[assetId],
+                  $selectedAssetMap.data[assetId],
                   activeAssetId,
                 )
               : null,
           ),
         ),
         activeAssetData: derived(activeAssetId, ($activeAssetId) =>
-          $activeAssetId ? $c2paReader.assetMap[$activeAssetId] : null,
+          $activeAssetId ? $selectedAssetMap.data[$activeAssetId] : null,
         ),
       };
     }
 
     return {
-      state: $c2paReader.state,
+      state: $selectedAssetMap.state,
     };
   });
 }
