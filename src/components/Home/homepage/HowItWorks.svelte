@@ -8,7 +8,7 @@
   class="flex h-full w-screen flex-col items-center bg-[#f5f5f5] px-[1.5rem] pb-40 pt-[4rem] md:pt-[6rem] lg:pt-[8rem] xl:pt-[10rem]"
   id="how-it-works">
   <h2
-    class="2xl:text-hiw-title-2xl mb-[5rem] text-hiw-title md:text-hiw-title-md xl:text-hiw-title-xl">
+    class="2xl:text-hiw-title-2xl mb-[80px] text-hiw-title md:text-hiw-title-md xl:text-hiw-title-xl">
     How it Works
   </h2>
   <div class="2xl:hidden flex w-full flex-col items-center">
@@ -23,7 +23,7 @@
               class="mr-0.5 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-brand-yellow px-4 py-4">
               1
             </div>
-            <h3 class="md:pr-10 text-hiw-label xl:text-hiw-label-xl">
+            <h3 class="text-hiw-label md:pr-10 xl:text-hiw-label-xl">
               Anytime content is captured, created, or edited, Content
               Credentials can be attached
             </h3>
@@ -55,7 +55,7 @@
               2
             </div>
             <h3
-              class="w-full md:pr-10 text-left text-hiw-label xl:text-hiw-label-xl">
+              class="w-full text-left text-hiw-label md:pr-10 xl:text-hiw-label-xl">
               Content Credentials are viewable across the internet
             </h3>
           </div>
@@ -87,7 +87,7 @@
               3
             </div>
             <h3
-              class="w-full md:pr-10 text-left text-hiw-label xl:text-hiw-label-xl">
+              class="w-full text-left text-hiw-label md:pr-10 xl:text-hiw-label-xl">
               Go deeper to explore the full edit history
             </h3>
           </div>
@@ -153,7 +153,7 @@
         </div>
       </div>
       <div
-        class="2xl:text-hiw-desc-2xl col-start-7 col-end-12 text-gray-900/60 mt-[10rem]">
+        class="2xl:text-hiw-desc-2xl col-start-7 col-end-12 mt-[10rem] text-gray-900/60">
         Once the content is published, anyone can view its Content Credentials
         by clicking the pin, which reveals the most relevant information
         directly in context.
@@ -178,7 +178,7 @@
         </div>
       </div>
       <div
-        class="2xl:text-hiw-desc-2xl col-start-7 col-end-12 text-gray-900/60 mt-[10rem]">
+        class="2xl:text-hiw-desc-2xl col-start-7 col-end-12 mt-[10rem] text-gray-900/60">
         Content Credentials can capture a detailed history of changes over time.
         The <a href="/verify" class="underline">Verify</a> feature allows you to
         explore this information in depth, and upload any content to see if it has
