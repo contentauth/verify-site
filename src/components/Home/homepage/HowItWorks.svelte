@@ -8,7 +8,7 @@
   class="flex h-full w-screen flex-col items-center bg-[#f5f5f5] px-[1.5rem] pb-40 pt-[4rem] md:pt-[6rem] lg:pt-[8rem] xl:pt-[10rem]"
   id="how-it-works">
   <h2
-    class="2xl:text-hiw-title-2xl mb-[80px] text-hiw-title md:text-hiw-title-md xl:text-hiw-title-xl">
+    class="2xl:text-hiw-title-2xl mb-[64px] sm:mb-[80px] text-hiw-title md:text-hiw-title-md xl:text-hiw-title-xl">
     How it Works
   </h2>
   <div class="2xl:hidden flex w-full flex-col items-center">
@@ -29,7 +29,7 @@
             </h3>
           </div>
           <p
-            class="2xl:text-hiw-desc-2xl pt-[16px] md:pt-6 text-hiw-desc text-gray-900/60 lg:w-1/2 lg:pt-0 xl:text-hiw-desc-xl mb-[32px] sm:mb-0">
+            class="2xl:text-hiw-desc-2xl text-hiw-desc text-gray-900/60 lg:w-1/2 lg:pt-0 xl:text-hiw-desc-xl mb-[32px] sm:mb-0 pt-[16px] md:pt-6">
             Creators can choose to attach Content Credentials to their content,
             which might include things like whether AI was used or not. Voila!
             This information is added to the edit history of the
@@ -60,7 +60,7 @@
             </h3>
           </div>
           <p
-            class="2xl:text-hiw-desc-2xl pt-[16px] md:pt-6 text-hiw-desc text-gray-900/60 lg:w-1/2 lg:pt-0 xl:text-hiw-desc-xl mb-[32px] sm:mb-0">
+            class="2xl:text-hiw-desc-2xl text-hiw-desc text-gray-900/60 lg:w-1/2 lg:pt-0 xl:text-hiw-desc-xl mb-[32px] sm:mb-0 pt-[16px] md:pt-6">
             Once the content is published, anyone can view its Content
             Credentials by clicking the pin, which reveals the most relevant
             information directly in context.
@@ -92,7 +92,7 @@
             </h3>
           </div>
           <p
-            class="2xl:text-hiw-desc-2xl pt-[16px] md:pt-6 text-hiw-desc text-gray-900/60 lg:w-1/2 lg:pt-0 xl:text-hiw-desc-xl mb-[32px] sm:mb-0">
+            class="2xl:text-hiw-desc-2xl text-hiw-desc text-gray-900/60 lg:w-1/2 lg:pt-0 xl:text-hiw-desc-xl mb-[32px] sm:mb-0 pt-[16px] md:pt-6">
             Content Credentials can capture a detailed history of changes over
             time. The <a href="/verify" class="underline">Verify</a> feature allows
             you to explore this information in depth, and upload any content to see
