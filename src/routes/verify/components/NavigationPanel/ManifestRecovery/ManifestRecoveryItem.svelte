@@ -15,6 +15,7 @@
 
 <script lang="ts">
   import { ROOT_ID } from '$lib/asset';
+  import { sidebarLayoutPageState } from '$src/features/SidebarLayout';
   import type { ReadableRecoveredManifestStore } from '../../../stores/recoveredManifest';
   import AssetInfoButton from '../../AssetInfoButton.svelte';
 
@@ -27,4 +28,7 @@
 <AssetInfoButton
   {assetData}
   {isSelected}
-  on:click={$recoveredManifestStore.select} />
+  on:click={() => {
+    $recoveredManifestStore.select();
+    sidebarLayoutPageState.next();
+  }} />
