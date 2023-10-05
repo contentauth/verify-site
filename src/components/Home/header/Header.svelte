@@ -13,7 +13,7 @@
             width="204px"
             height="28px"
             alt="content credentials"
-            class=" lg:w-[261px] lg:h-[36px]" />
+            class=" lg:w-[261px] lg:h-[46px]" />
         </a>
       </div>
       <div>
