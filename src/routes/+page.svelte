@@ -25,41 +25,12 @@
   import Orgs from '$src/components/Home/homepage/Orgs.svelte';
   import Powered from '$src/components/Home/homepage/Powered.svelte';
   import { MetaTags } from 'svelte-meta-tags';
-  import OG from '$src/assets/images/opengraph.png';
 </script>
 
 <MetaTags
   title="Content Credentials"
   description="Introducing the new standard for content authentication. Content Credentials provide deeper transparency into how content was created or edited."
-  canonical="https://www.contentcredentials.org/"
-  openGraph={{
-    url: 'https://www.contentcredentials.org/',
-    title: 'Verify The Authenticity of Online Content | Content Credentials',
-    description:
-      'Meet the Content Credentials pin, an all-new way to tag images, videos and other digital content with complete details on who created it and how.',
-    images: [
-      {
-        url: 'https://www.contentcredentials.org/open-graph.png',
-        width: 800,
-        height: 600,
-        alt: 'Content Credentials',
-      },
-    ],
-    siteName: 'Content Credentials',
-  }}
-  twitter={{
-    handle: '@contentcreds',
-    site: '@contentcreds',
-    cardType: 'summary_large_image',
-    title: 'Verify The Authenticity of Online Content | Content Credentials',
-    description:
-      'Meet the Content Credentials pin, an all-new way to tag images, videos and other digital content with complete details on who created it and how.',
-    image: OG,
-    imageAlt: 'Content Credentials',
-  }}
-  facebook={{
-    appId: '1234567890',
-  }} />
+  canonical="https://www.contentcredentials.org/" />
 
 <!-- <Header>
   <svelte:fragment slot="links">

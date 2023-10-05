@@ -34,29 +34,29 @@
     <div class="flex h-[200px] w-full items-center rounded-xl bg-gray-200">
       <div class="flex w-full flex-row items-center justify-evenly">
         {#each data as item}
-          <div class="primary h-[112px] max-h-[100px] w-[200px] pr-20">
+          <div class="h-[112px] max-h-[100px] w-[200px] pr-20">
             <img src={item.image} alt="" class="h-full object-contain" />
           </div>
         {/each}
       </div>
       <div
         class="secondary absolute left-0 top-0 flex items-center justify-around">
-        {#each data as item}
+        <!-- {#each data as item}
           <div class="h-[100px] max-h-[100px] w-[200px] pr-20">
             <img src={item.image} alt="" class="h-full object-contain" />
           </div>
-        {/each}
+        {/each} -->
       </div>
     </div>
   </div>
 </div>
 
 <style>
-  .primary {
+  /* .primary {
     width: inherit;
     height: inherit;
     animation: primary 10s linear infinite;
-  }
+  } */
 
   .secondary {
     width: inherit;
