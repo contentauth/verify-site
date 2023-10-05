@@ -1,5 +1,5 @@
 <script>
-  import Video from '$assets/video/penguins-02.mp4';
+  import Video from '$assets/video/penguins.mp4';
 </script>
 
 <div class="flex w-screen max-w-[90rem] items-center justify-center">
@@ -25,14 +25,14 @@
       <div class="flex flex-col items-start">
         <div class="group relative">
           <div
-            class="h-full max-h-full w-full max-w-full rounded-xl object-cover md:max-w-[704px] lg:rounded-[20px] xl:h-full">
+            class="h-full max-h-full w-full max-w-full rounded-xl md:max-w-[704px] lg:rounded-[20px] xl:h-full">
             <video
               autoplay
               loop
               muted
               playsinline
               src={Video}
-              class="h-full max-h-full w-full max-w-full rounded-xl object-cover md:max-w-[704px] lg:rounded-[20px] xl:h-full"
+              class="h-full max-h-full w-full max-w-full rounded-xl md:max-w-[704px] lg:rounded-[20px] xl:h-full"
               alt="Penguins in a desert with sand dunes in the background." />
           </div>
         </div>
