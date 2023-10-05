@@ -30,7 +30,7 @@
 
 <div
   class="w-screen py-16 max-w-[90rem] lg:py-[5.5rem] xl:pb-[7.5rem] px-[20px] sm:px-[1.5rem]">
-  <div class="">
+  <div class="px-0">
     <div class="flex h-[200px] w-full items-center rounded-xl bg-gray-200">
       <div class="flex w-full flex-row items-center justify-evenly">
         {#each data as item}
