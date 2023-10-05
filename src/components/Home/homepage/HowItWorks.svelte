@@ -101,6 +101,7 @@
         </div>
         <video
           autoplay
+          playsinline
           loop
           muted
           src={Video}
@@ -187,6 +188,7 @@
       <div class="col-start-2 col-end-12 mt-[4rem]">
         <video
           autoplay
+          playsinline
           loop
           muted
           src={Video}

@@ -7,6 +7,7 @@
     <div class="video-container z-998">
       <video
         autoplay
+        playsinline
         loop
         muted
         src={Video}
