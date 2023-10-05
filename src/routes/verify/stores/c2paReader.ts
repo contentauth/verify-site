@@ -75,7 +75,7 @@ export function createC2paReader(): C2paReaderStore {
 
           // TODO: Transition to detection with magic numbers so that this works when
           // passed in as a URL
-          if (needsCorrectedType) {
+          if (source.type && needsCorrectedType) {
             correctedType =
               mimeTypeCorrections[
                 sourceType as keyof typeof mimeTypeCorrections
