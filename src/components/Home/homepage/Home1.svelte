@@ -11,7 +11,7 @@
 </script>
 
 <div
-  class="flex w-screen max-w-[90rem] flex-col items-center justify-evenly gap-6 px-[1.5rem] pt-[1.5rem]">
+  class="flex w-screen max-w-[90rem] flex-col items-center justify-evenly gap-6 px-[20px] sm:px-[1.5rem] pt-[1.5rem]">
   <div
     class="2xl:w-[910px] flex flex-col items-center justify-center pb-10 pt-20 xl:w-[802px]">
     <h2
