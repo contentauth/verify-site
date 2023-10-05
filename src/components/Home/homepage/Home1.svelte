@@ -31,7 +31,7 @@
       <!-- svelte-ignore a11y-no-static-element-interactions -->
       <div
         on:click={scrollToHowItWorks}
-        class="mt-10 flex h-[2.75rem] items-center scroll-smooth rounded-full bg-brand-red px-[1.25rem] py-3 hover:cursor-pointer hover:brightness-[0.7] focus:border-solid focus:border-[1px] focus:border-gray-900">
+        class="mt-10 flex h-[2.75rem] items-center scroll-smooth rounded-full bg-brand-red px-[1.25rem] py-3 hover:cursor-pointer hover:brightness-[0.9] focus:border-solid focus:border-[1px] focus:border-gray-900">
         See how it works
       </div>
     </div>
