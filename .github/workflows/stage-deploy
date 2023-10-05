@@ -1,0 +1,22 @@
+name: Stage deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-test:
+    uses: ./.github/workflows/reusable/deploy.yml
+    with:
+      aws-bucket: ${{ vars.AWS_STAGE_S3_BUCKET }}
+      aws-region: ${{ vars.AWS_REGION }}
+      deploy-branch: ${{ inputs.branch }}
+      deploy-source-dir: ${{ vars.DEPLOY_SOURCE_DIR }}
+      fastly-service-id: ${{ vars.FASTLY_STAGE_SERVICE_ID }}
+      site-config-json: '{"env": "stage"}'
+    secrets:
+      aws-access-key-id: ${{ secrets.AWS_STAGE_ACCESS_KEY_ID }}
+      aws-secret-access-key: ${{ secrets.AWS_STAGE_SECRET_ACCESS_KEY }}
+      fastly-purge-api-token: ${{ secrets.FASTLY_PURGE_API_TOKEN }}
+      mapbox-token: ${{ secrets.VITE_MAPBOX_TOKEN }}
