@@ -142,6 +142,7 @@
     "svelte-css-vars": "^0.0.3",
     "svelte-focus-trap": "^1.2.0",
     "svelte-i18n": "^3.7.4",
+    "svelte-meta-tags": "^3.0.4",
     "svelte-modals": "^1.3.0",
     "tippy.js": "^6.2.6"
   }
