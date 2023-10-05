@@ -24,7 +24,13 @@
   import Movement from '$src/components/Home/homepage/Movement.svelte';
   import Orgs from '$src/components/Home/homepage/Orgs.svelte';
   import Powered from '$src/components/Home/homepage/Powered.svelte';
+  import { MetaTags } from 'svelte-meta-tags';
 </script>
+
+<MetaTags
+  title="Content Credentials"
+  description="Introducing the new standard for content authentication. Content Credentials provide deeper transparency into how content was created or edited."
+  canonical="https://www.contentcredentials.org/" />
 
 <!-- <Header>
   <svelte:fragment slot="links">
