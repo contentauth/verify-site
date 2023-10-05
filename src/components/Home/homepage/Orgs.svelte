@@ -1,9 +1,10 @@
 <script>
-  import AFP from '$assets/png/Agence_France-Presse_Logo.png';
-  import BBC from '$assets/png/BBC-Logo.png';
-  import Canon from '$assets/png/Canon.png';
-  import WashPost from '$assets/png/WashPost.png';
+  import AFP from '$assets/svg/logos/homepage/AFP.svg';
+  import Canon from '$assets/svg/logos/homepage/Canon.svg';
+  import EFE from '$assets/svg/logos/homepage/EFE.svg';
+  import BBC from '$assets/svg/logos/homepage/Frame.svg';
   import Leica from '$assets/svg/logos/homepage/Leica.svg';
+  import WashPost from '$assets/svg/logos/homepage/WashingtonPost.svg';
 
   const data = [
     {
@@ -21,6 +22,9 @@
     {
       image: Canon,
     },
+    {
+      image: EFE,
+    },
   ];
 </script>
 
@@ -32,13 +36,53 @@
     </div> -->
     <div class="flex h-[200px] w-full items-center rounded-xl bg-gray-200">
       <div class="flex w-full flex-row items-center justify-evenly">
+
         {#each data as item}
-          <div
-            class="flex h-[100px] max-h-[100px] w-[200px] items-center justify-center">
-            <img src={item.image} alt="" />
+          <div class="h-[112px] max-h-[100px] w-[200px] pr-20">
+            <img src={item.image} alt="" class="h-full object-contain" />
+          </div>
+        {/each}
+      </div>
+      <div
+        class="secondary absolute left-0 top-0 flex items-center justify-around">
+        {#each data as item}
+          <div class="h-[100px] max-h-[100px] w-[200px] pr-20">
+            <img src={item.image} alt="" class="h-full object-contain" />
           </div>
         {/each}
       </div>
     </div>
   </div>
 </div>
+
+<style>
+  .primary {
+    width: inherit;
+    height: inherit;
+    animation: primary 10s linear infinite;
+  }
+
+  .secondary {
+    width: inherit;
+    height: inherit;
+    animation: secondary 10s linear infinite;
+  }
+
+  @keyframes primary {
+    from {
+      left: 0%;
+    }
+    to {
+      left: -100%;
+    }
+  }
+
+  @keyframes secondary {
+    from {
+      left: 100%;
+    }
+    to {
+      left: 0%;
+    }
+  }
+</style>

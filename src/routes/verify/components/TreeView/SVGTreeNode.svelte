@@ -52,7 +52,7 @@
     y={-nodeHeight / 2}
     rx={6}
     ry={6}
-    class="cursor-pointer fill-current text-gray-300 focus:outline-blue-300" />
+    class="cursor-pointer fill-current text-gray-300 focus:outline-0" />
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <rect
     on:click={() => {

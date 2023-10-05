@@ -67,6 +67,8 @@ export function createC2paReader(): C2paReaderStore {
             correctedType = 'image/x-adobe-dng';
           } else if (ext.endsWith('.heic')) {
             correctedType = 'image/heic';
+          } else if (ext.endsWith('.heif')) {
+            correctedType = 'image/heif';
           }
 
           if (correctedType) {

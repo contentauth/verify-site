@@ -96,7 +96,7 @@
 </script>
 
 <figure
-  class="h-full w-full"
+  class="h-full w-full overflow-clip"
   bind:clientWidth={width}
   bind:clientHeight={height}>
   <svg bind:this={svgElement} viewBox={`0 0 ${width} ${height}`}>
