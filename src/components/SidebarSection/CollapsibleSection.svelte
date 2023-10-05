@@ -32,7 +32,7 @@
         class="w-full"
         on:click={() => (expanded = !expanded)}
         aria-roledescription={ariaLabel}>
-        <div class="flex items-center justify-between text-start">
+        <div class="flex items-center justify-between gap-x-2 text-start">
           <Header><slot name="header" /></Header>
 
           <DownArrow

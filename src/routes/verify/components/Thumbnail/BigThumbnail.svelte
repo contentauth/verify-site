@@ -29,7 +29,7 @@
     <button
       data-testid="lightbox-button"
       on:click
-      class="absolute inset-0 opacity-0 transition-opacity hover:opacity-100 focus:opacity-100">
+      class="absolute inset-0 h-full w-full opacity-0 transition-opacity hover:opacity-100 focus:opacity-100">
       <div
         class="absolute bottom-2.5 right-2.5 flex h-6 rounded bg-white p-1 shadow-sm">
         <Maximize />
