@@ -28,6 +28,7 @@
             class="h-full max-h-full w-full max-w-full rounded-xl object-cover md:max-w-[704px] lg:rounded-[20px] xl:h-full">
             <video
               autoplay
+              playsinline
               loop
               muted
               src={Video}
