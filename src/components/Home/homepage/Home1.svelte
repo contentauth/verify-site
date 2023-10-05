@@ -27,13 +27,11 @@
         simple click: How was it made? Is it AI-generated? When was it created
         or edited?
       </p>
-      <!-- svelte-ignore a11y-click-events-have-key-events -->
-      <!-- svelte-ignore a11y-no-static-element-interactions -->
-      <div
+      <button
         on:click={scrollToHowItWorks}
         class="mt-10 flex h-[2.75rem] items-center scroll-smooth rounded-full bg-brand-red px-[1.25rem] py-3 hover:cursor-pointer hover:brightness-[0.9] focus:border-solid focus:border-[1px] focus:border-gray-900">
         See how it works
-      </div>
+      </button>
     </div>
   </div>
   <KeyPoints />
