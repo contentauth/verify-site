@@ -15,11 +15,11 @@
   }
 </script>
 
-<div class="group relative">
+<div class="group relative aspect-[3/2]">
   <img
     src={imageUrl}
     alt="overlay"
-    class="w-[calc(100% - 20px)] h-[calc(100% - 20px)] rounded-xl lg:rounded-[20px]" />
+    class="h-full w-full rounded-xl lg:rounded-[20px] object-cover" />
 
   <div
     class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 ease-in-out group-hover:opacity-100">
