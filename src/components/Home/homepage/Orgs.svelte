@@ -29,6 +29,7 @@
 </script>
 
 <div
+
   class="w-screen max-w-[90rem] py-16 lg:py-[5.5rem] xl:pb-[7.5rem] px-[20px] sm:px-[1.5rem]">
   <div class="px-6">
     <div
@@ -43,22 +44,22 @@
       </div>
       <div
         class="secondary absolute left-0 top-0 flex items-center justify-around">
-        {#each data as item}
+        <!-- {#each data as item}
           <div class="h-[100px] max-h-[100px] w-[200px] pr-20">
             <img src={item.image} alt="" class="h-full object-contain" />
           </div>
-        {/each}
+        {/each} -->
       </div>
     </div>
   </div>
 </div>
 
 <style>
-  .primary {
+  /* .primary {
     width: inherit;
     height: inherit;
     animation: primary 10s linear infinite;
-  }
+  } */
 
   .secondary {
     width: inherit;
