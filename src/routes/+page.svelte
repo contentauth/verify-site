@@ -39,7 +39,7 @@
       'Meet the Content Credentials pin, an all-new way to tag images, videos and other digital content with complete details on who created it and how.',
     images: [
       {
-        url: OG,
+        url: 'https://www.contentcredentials.org/open-graph.png',
         width: 800,
         height: 600,
         alt: 'Content Credentials',
