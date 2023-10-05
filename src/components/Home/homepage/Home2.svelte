@@ -13,7 +13,7 @@
   </div>
   <div
     class="pt-6 md:col-start-7 md:col-end-13 md:pt-0 lg:col-start-8 lg:col-end-12">
-    <div class="mx-auto max-w-[676px] md:mx-0">
+    <div class="max-w-[676px] md:mx-0">
       <h3 class="2xl:text-key-title-xl pb-6 text-left text-key-title">
         Building trust in what you see online
       </h3>
