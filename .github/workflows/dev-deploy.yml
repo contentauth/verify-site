@@ -10,7 +10,7 @@ on:
 
 jobs:
   build-test:
-    uses: ./.github/workflows/reusable/deploy.yml
+    uses: ./.github/workflows/deploy-template.yml
     with:
       aws-bucket: ${{ vars.AWS_DEV_S3_BUCKET }}
       aws-region: ${{ vars.AWS_REGION }}
