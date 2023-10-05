@@ -39,7 +39,7 @@ interface EnvConfig {
 
 const defaultConfig: EnvConfig = {
   env: 'prod',
-  features: ['homepage'],
+  features: [],
   config: {},
 };
 
