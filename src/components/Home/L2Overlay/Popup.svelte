@@ -105,7 +105,7 @@
         <hr />
         <div class="mt-4 h-[60px] w-full px-6 py-1">
           <button
-            class="h-full w-full rounded-full bg-brand-yellow text-popup-text"
+            class="h-full w-full rounded-full bg-brand-yellow text-popup-text hover:brightness-[0.7] focus:border-solid focus:border-[1px] focus:border-gray-900"
             >View more</button>
         </div>
       </div>
@@ -177,7 +177,7 @@
           </div>
           <div class="h-[60px] w-full px-6 py-1">
             <button
-              class="h-full w-full rounded-full bg-brand-yellow text-[1rem]"
+              class="h-full w-full rounded-full bg-brand-yellow text-[1rem] hover:brightness-[0.7] focus:border-solid focus:border-[1px] focus:border-gray-900"
               >View more</button>
           </div>
         </div>
