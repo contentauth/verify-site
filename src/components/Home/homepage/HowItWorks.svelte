@@ -23,7 +23,7 @@
               class="mr-0.5 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-brand-yellow px-4 py-4">
               1
             </div>
-            <h3 class="pr-10 text-hiw-label xl:text-hiw-label-xl">
+            <h3 class="md:pr-10 text-hiw-label xl:text-hiw-label-xl">
               Anytime content is captured, created, or edited, Content
               Credentials can be attached
             </h3>
@@ -55,7 +55,7 @@
               2
             </div>
             <h3
-              class="w-full pr-10 text-left text-hiw-label xl:text-hiw-label-xl">
+              class="w-full md:pr-10 text-left text-hiw-label xl:text-hiw-label-xl">
               Content Credentials are viewable across the internet
             </h3>
           </div>
@@ -87,7 +87,7 @@
               3
             </div>
             <h3
-              class="w-full pr-10 text-left text-hiw-label xl:text-hiw-label-xl">
+              class="w-full md:pr-10 text-left text-hiw-label xl:text-hiw-label-xl">
               Go deeper to explore the full edit history
             </h3>
           </div>
