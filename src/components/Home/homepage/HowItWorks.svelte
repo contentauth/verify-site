@@ -5,20 +5,20 @@
 </script>
 
 <div
-  class="flex h-full w-screen flex-col items-center bg-[#f5f5f5] px-[20px] sm:px-[1.5rem] pb-40 pt-[4rem] md:pt-[6rem] lg:pt-[8rem] xl:pt-[10rem]"
+  class="flex h-full w-screen flex-col items-center bg-[#f5f5f5] px-[20px] pb-40 pt-[4rem] sm:px-[1.5rem] md:pt-[6rem] lg:pt-[8rem] xl:pt-[10rem]"
   id="how-it-works">
   <h2
-    class="2xl:text-hiw-title-2xl mb-[64px] sm:mb-[80px] text-hiw-title md:text-hiw-title-md xl:text-hiw-title-xl">
+    class="2xl:text-hiw-title-2xl mb-[64px] text-hiw-title sm:mb-[80px] md:text-hiw-title-md xl:text-hiw-title-xl">
     How it Works
   </h2>
-  <div class="2xl:hidden flex w-full flex-col items-center">
+  <div class="flex w-full flex-col items-center 2xl:hidden">
     <div class="">
       <div
-        class="2xl:pt-[160px] max-w-[90rem] lg:max-w-[1145px] xl:max-w-[116rem] xl:px-[10rem] xl:pt-[128px]">
+        class="max-w-[90rem] lg:max-w-[1145px] xl:max-w-[116rem] xl:px-[10rem] xl:pt-[128px] 2xl:pt-[160px]">
         <div
-          class="flex max-w-[86rem] flex-col md:flex-row items-start justify-between xl:pb-[4rem] md:pb-[4rem]">
+          class="flex max-w-[86rem] flex-col items-start justify-between md:flex-row md:pb-[4rem] xl:pb-[4rem]">
           <div
-            class="flex flex-col items-center gap-4 md:flex-row md:items-start md:justify-start md:w-1/2">
+            class="flex flex-col items-center gap-4 md:w-1/2 md:flex-row md:items-start md:justify-start">
             <div
               class="mr-0.5 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-brand-yellow px-4 py-4">
               1
@@ -29,7 +29,7 @@
             </h3>
           </div>
           <p
-            class="2xl:text-hiw-desc-2xl text-hiw-desc text-gray-900/60 md:w-1/2 lg:pt-0 xl:text-hiw-desc-xl mb-[32px] md:mb-0 pt-[16px] md:pt-0">
+            class="mb-[32px] pt-[16px] text-hiw-desc text-gray-900/60 md:mb-0 md:w-1/2 md:pt-0 lg:pt-0 xl:text-hiw-desc-xl 2xl:text-hiw-desc-2xl">
             Creators can choose to attach Content Credentials to their content,
             which might include things like whether AI was used or not. Voila!
             This information is added to the edit history of the
@@ -39,17 +39,15 @@
         <!-- svelte-ignore a11y-img-redundant-alt -->
         <img
           src={Hiw1}
-          alt="A phone in someones hand, displaying a photo of the
-          surrounding snowy landscape and a penguin. The option
-          to enable Content Credentials for the photo is available"
+          alt="A phone in someones hand, displaying a photo of the surrounding snowy landscape and a penguin. The option to enable Content Credentials for the photo is available"
           class="max-w[71.375rem] rounded-xl lg:rounded-[20px] 2xl:w-full" />
       </div>
       <div
         class="max-w-[90rem] pt-[96px] lg:max-w-[1145px] xl:max-w-[116rem] xl:px-[10rem] xl:pt-[128px] 2xl:pt-[160px]">
         <div
-          class="flex max-w-[86rem] flex-col items-start justify-between md:flex-row xl:pb-[4rem] md:pb-[4rem]">
+          class="flex max-w-[86rem] flex-col items-start justify-between md:flex-row md:pb-[4rem] xl:pb-[4rem]">
           <div
-            class="flex w-full flex-col items-center gap-4 md:flex-row md:items-start md:justify-start md:w-1/2">
+            class="flex w-full flex-col items-center gap-4 md:w-1/2 md:flex-row md:items-start md:justify-start">
             <div
               class="mr-0.5 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-brand-orange px-4 py-4">
               2
@@ -60,7 +58,7 @@
             </h3>
           </div>
           <p
-            class="2xl:text-hiw-desc-2xl text-hiw-desc text-gray-900/60 md:w-1/2 lg:pt-0 xl:text-hiw-desc-xl mb-[32px] md:mb-0 pt-[16px] md:pt-0">
+            class="mb-[32px] pt-[16px] text-hiw-desc text-gray-900/60 md:mb-0 md:w-1/2 md:pt-0 lg:pt-0 xl:text-hiw-desc-xl 2xl:text-hiw-desc-2xl">
             Once the content is made available, anyone can view its Content
             Credentials by clicking the pin, which reveals the most relevant
             information directly in context.
@@ -79,9 +77,9 @@
       <div
         class="max-w-[90rem] pt-[96px] lg:max-w-[1145px] xl:max-w-[116rem] xl:px-[10rem] xl:pt-[128px] 2xl:pt-[160px]">
         <div
-          class="flex max-w-[86rem] flex-col items-start justify-between lg:pb-[3.5rem] md:flex-row xl:pb-[4rem] md:pb-[4rem]">
+          class="flex max-w-[86rem] flex-col items-start justify-between md:flex-row md:pb-[4rem] lg:pb-[3.5rem] xl:pb-[4rem]">
           <div
-            class="flex w-full flex-col items-center gap-4 md:flex-row md:items-start md:justify-start md:w-1/2">
+            class="flex w-full flex-col items-center gap-4 md:w-1/2 md:flex-row md:items-start md:justify-start">
             <div
               class="mr-0.5 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-brand-red px-4 py-4">
               3
@@ -92,7 +90,7 @@
             </h3>
           </div>
           <p
-            class="2xl:text-hiw-desc-2xl text-hiw-desc text-gray-900/60 md:w-1/2 lg:pt-0 xl:text-hiw-desc-xl mb-[32px] md:mb-0 pt-[16px] md:pt-0">
+            class="mb-[32px] pt-[16px] text-hiw-desc text-gray-900/60 md:mb-0 md:w-1/2 md:pt-0 lg:pt-0 xl:text-hiw-desc-xl 2xl:text-hiw-desc-2xl">
             Content Credentials can capture a detailed history of changes over
             time. The Verify feature allows you to explore this information in
             depth. Check any content to see if it has Content Credentials.
@@ -113,7 +111,7 @@
   </div>
 
   <!-- Desktop 1281px+ -->
-  <div class="2xl:flex hidden w-full max-w-[90rem] flex-col items-center">
+  <div class="hidden w-full max-w-[90rem] flex-col items-center 2xl:flex">
     <div class="grid grid-cols-12">
       <div class="col-start-2 col-end-6">
         <div class="flex flex-row justify-start gap-2">
@@ -127,7 +125,7 @@
         </div>
       </div>
       <div
-        class="2xl:text-hiw-desc-2xl col-start-7 col-end-12 text-gray-900/60">
+        class="col-start-7 col-end-12 text-gray-900/60 2xl:text-hiw-desc-2xl">
         Creators can choose to attach Content Credentials to their content,
         which might include things like whether AI was used or not. Voila! This
         information is added to the edit history of the content—creating a
@@ -140,7 +138,7 @@
           alt="A phone in someones hand, displaying a photo of the
         surrounding snowy landscape and a penguin. The option
         to enable Content Credentials for the photo is available"
-          class="max-w[71.375rem] 2xl:w-full rounded-xl lg:rounded-[20px]" />
+          class="max-w[71.375rem] rounded-xl lg:rounded-[20px] 2xl:w-full" />
       </div>
       <div class="col-start-2 col-end-6 mt-[10rem]">
         <div class="flex flex-row justify-start gap-2">
@@ -153,7 +151,7 @@
         </div>
       </div>
       <div
-        class="2xl:text-hiw-desc-2xl col-start-7 col-end-12 mt-[10rem] text-gray-900/60">
+        class="col-start-7 col-end-12 mt-[10rem] text-gray-900/60 2xl:text-hiw-desc-2xl">
         Once the content is made available, anyone can view its Content
         Credentials by clicking the pin, which reveals the most relevant
         information directly in context.
@@ -165,7 +163,7 @@
           alt="A phone in someones hand, displaying a photo of the
         surrounding snowy landscape and a penguin. The option
         to enable Content Credentials for the photo is available"
-          class="max-w[71.375rem] 2xl:w-full rounded-xl lg:rounded-[20px]" />
+          class="max-w[71.375rem] rounded-xl lg:rounded-[20px] 2xl:w-full" />
       </div>
       <div class="col-start-2 col-end-6 mt-[10rem]">
         <div class="flex flex-row justify-start gap-2">
@@ -178,7 +176,7 @@
         </div>
       </div>
       <div
-        class="2xl:text-hiw-desc-2xl col-start-7 col-end-12 mt-[10rem] text-gray-900/60">
+        class="col-start-7 col-end-12 mt-[10rem] text-gray-900/60 2xl:text-hiw-desc-2xl">
         Content Credentials can capture a detailed history of changes over time.
         The Verify feature allows you to explore this information in depth, and
         upload any content to see if it has Content Credentials.
