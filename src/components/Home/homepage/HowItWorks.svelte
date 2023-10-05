@@ -42,10 +42,10 @@
           alt="A phone in someones hand, displaying a photo of the
           surrounding snowy landscape and a penguin. The option
           to enable Content Credentials for the photo is available"
-          class="max-w[71.375rem] 2xl:w-full rounded-xl lg:rounded-[20px]" />
+          class="max-w[71.375rem] rounded-xl lg:rounded-[20px] 2xl:w-full" />
       </div>
       <div
-        class="2xl:pt-[160px] max-w-[90rem] pt-[96px] lg:max-w-[1145px] xl:max-w-[116rem] xl:px-[10rem] xl:pt-[128px]">
+        class="max-w-[90rem] pt-[96px] lg:max-w-[1145px] xl:max-w-[116rem] xl:px-[10rem] xl:pt-[128px] 2xl:pt-[160px]">
         <div
           class="flex max-w-[86rem] flex-col items-start justify-between sm:pb-[3.5rem] lg:flex-row xl:pb-[4rem]">
           <div
@@ -61,7 +61,7 @@
           </div>
           <p
             class="2xl:text-hiw-desc-2xl text-hiw-desc text-gray-900/60 lg:w-1/2 lg:pt-0 xl:text-hiw-desc-xl mb-[32px] sm:mb-0 pt-[16px] md:pt-6">
-            Once the content is published, anyone can view its Content
+            Once the content is made available, anyone can view its Content
             Credentials by clicking the pin, which reveals the most relevant
             information directly in context.
           </p>
@@ -73,11 +73,11 @@
           Content Credentials information is displayed over the
           image, including that AI was used to generate some of
           the content, who produced the content, and more"
-          class="max-w[71.375rem] 2xl:w-full rounded-xl lg:rounded-[20px]" />
+          class="max-w[71.375rem] rounded-xl lg:rounded-[20px] 2xl:w-full" />
       </div>
       <!-- Video Component -->
       <div
-        class="2xl:pt-[160px] max-w-[90rem] pt-[96px] lg:max-w-[1145px] xl:max-w-[116rem] xl:px-[10rem] xl:pt-[128px]">
+        class="max-w-[90rem] pt-[96px] lg:max-w-[1145px] xl:max-w-[116rem] xl:px-[10rem] xl:pt-[128px] 2xl:pt-[160px]">
         <div
           class="flex max-w-[86rem] flex-col items-start justify-between sm:pb-[3.5rem] lg:flex-row xl:pb-[4rem]">
           <div
@@ -94,9 +94,8 @@
           <p
             class="2xl:text-hiw-desc-2xl text-hiw-desc text-gray-900/60 lg:w-1/2 lg:pt-0 xl:text-hiw-desc-xl mb-[32px] sm:mb-0 pt-[16px] md:pt-6">
             Content Credentials can capture a detailed history of changes over
-            time. The <a href="/verify" class="underline">Verify</a> feature allows
-            you to explore this information in depth, and upload any content to see
-            if it has Content Credentials.
+            time. The Verify feature allows you to explore this information in
+            depth. Check any content to see if it has Content Credentials.
           </p>
         </div>
         <video
@@ -155,9 +154,9 @@
       </div>
       <div
         class="2xl:text-hiw-desc-2xl col-start-7 col-end-12 mt-[10rem] text-gray-900/60">
-        Once the content is published, anyone can view its Content Credentials
-        by clicking the pin, which reveals the most relevant information
-        directly in context.
+        Once the content is made available, anyone can view its Content
+        Credentials by clicking the pin, which reveals the most relevant
+        information directly in context.
       </div>
       <div class="col-start-2 col-end-12 mt-[4rem]">
         <!-- svelte-ignore a11y-img-redundant-alt -->
@@ -181,9 +180,8 @@
       <div
         class="2xl:text-hiw-desc-2xl col-start-7 col-end-12 mt-[10rem] text-gray-900/60">
         Content Credentials can capture a detailed history of changes over time.
-        The <a href="/verify" class="underline">Verify</a> feature allows you to
-        explore this information in depth, and upload any content to see if it has
-        Content Credentials.
+        The Verify feature allows you to explore this information in depth, and
+        upload any content to see if it has Content Credentials.
       </div>
       <div class="col-start-2 col-end-12 mt-[4rem]">
         <video
