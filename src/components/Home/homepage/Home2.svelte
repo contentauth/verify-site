@@ -5,11 +5,10 @@
 
 <div class="w-full md:grid md:grid-cols-12 md:gap-4 xl:max-w-[1440px]">
   <div class="w-full md:col-span-6">
-    <!-- Use a div with the aspect-ratio class to maintain the aspect ratio -->
-    <div class="aspect-w-3 aspect-h-2">
+    <div class="aspect-[3/2]">
       <L2Overlay
         imageUrl={Image}
-        class="w-full"
+        class="w-full h-full"
         alt="Two women looking at a mobile phone, smiling and
     pointing at it with a clear sky behind them." />
     </div>
