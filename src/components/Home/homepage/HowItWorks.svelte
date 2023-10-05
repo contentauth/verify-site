@@ -101,9 +101,9 @@
         </div>
         <video
           autoplay
-          playsinline
           loop
           muted
+          playsinline
           src={Video}
           class="dropshadow h-full max-h-full w-full max-w-full rounded-xl object-cover lg:rounded-[20px] xl:h-full"
           alt="A tree view of the relationship between different images
@@ -188,9 +188,9 @@
       <div class="col-start-2 col-end-12 mt-[4rem]">
         <video
           autoplay
-          playsinline
           loop
           muted
+          playsinline
           src={Video}
           class="dropshadow h-full max-h-full w-full max-w-full rounded-xl object-cover lg:rounded-[20px] xl:h-full"
           alt="A tree view of the relationship between different images
