@@ -44,18 +44,6 @@
         height: 600,
         alt: 'Content Credentials',
       },
-      {
-        url: OG,
-        width: 1200,
-        height: 630,
-        alt: 'Content Credentials',
-      },
-      {
-        url: OG,
-        width: 900,
-        height: 800,
-        alt: 'Content Credentials',
-      },
     ],
     siteName: 'Content Credentials',
   }}
