@@ -9,6 +9,7 @@
         autoplay
         loop
         muted
+        playsinline
         src={Video}
         class="w-full h-full max-h-full max-w-full rounded-xl lg:rounded-[20px] xl:h-full object-cover"
         alt="Animation of a mouse cursor hovering over and clicking

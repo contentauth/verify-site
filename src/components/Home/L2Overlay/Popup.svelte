@@ -40,12 +40,12 @@
 <div class="hidden md:flex">
   {#if isOpen && window.innerWidth >= 768}
     <div
-      class="popup shadow-lg absolute right-[3.5rem] top-[1rem] z-[9999] mb-10 rounded-lg bg-brand-white p-2"
+      class="popup shadow-lg absolute right-[3.5rem] top-[1rem] z-[9999] mb-10 rounded-lg bg-brand-white pt-2"
       class:visible={isOpen}>
-      <div class="h-full w-[350px] rounded-xl bg-brand-white">
+      <div class="h-full w-[256px] rounded-xl bg-brand-white">
         <div class="flex flex-col justify-center px-4 py-[0.625rem]">
-          <h1 class=" text-popup-title pb-1 font-bold">Content Credentials</h1>
-          <p class="pb-1 text-popup-text text-gray-900/60">
+          <h1 class=" text-popup-title font-bold">Content Credentials</h1>
+          <p class="text-popup-text text-gray-900/60">
             Issued by Adobe Inc. on Feb 2. 2023
           </p>
         </div>
@@ -103,7 +103,7 @@
           {/each}
         </div>
         <hr />
-        <div class="mt-4 h-[60px] w-full px-6 py-1">
+        <div class="pt-[1rem] pb-[1rem] h-[60px] w-full px-6 py-1">
           <button
             class="h-full w-full rounded-full bg-brand-yellow text-popup-text hover:brightness-[0.9] focus:border-solid focus:border-[1px] focus:border-gray-900"
             >View more</button>

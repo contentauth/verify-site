@@ -28,7 +28,8 @@
   ];
 </script>
 
-<div class="w-screen max-w-[90rem] py-16 lg:py-[5.5rem] xl:pb-[7.5rem]">
+<div
+  class="w-screen max-w-[90rem] py-16 lg:py-[5.5rem] xl:pb-[7.5rem] px-[20px] sm:px-[1.5rem]">
   <div class="px-6">
     <div
       class="relative h-[200px] w-full overflow-hidden rounded-xl lg:rounded-[20px] bg-gray-40">
