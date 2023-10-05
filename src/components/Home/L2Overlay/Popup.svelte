@@ -103,9 +103,9 @@
           {/each}
         </div>
         <hr />
-        <div class="pt-[1rem] pb-[1rem] h-[60px] w-full px-6 py-1">
+        <div class="pt-[1rem] mb-[1rem] h-[60px] w-full px-[1rem] py-1">
           <button
-            class="h-full w-full rounded-full bg-brand-yellow text-popup-text"
+            class="h-[44px] w-full rounded-full bg-brand-yellow text-popup-text"
             >View more</button>
         </div>
       </div>
