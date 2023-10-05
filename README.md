@@ -78,7 +78,58 @@ We use the following process when adding or updating functionality to the site:
 - Accessibility support has been added
 - Analytics are being sent (where applicable)
 
+### Per-environment configuration
+
+We have separate builds for our different environments. You can specify a JSON-encoded `EnvConfig` object in the
+`SITE_CONFIG` environment variable while building (or specify it in the `deploy.yaml` GitHub actions file for CI):
+
+```ts
+interface EnvConfig {
+  env: 'local' | 'dev' | 'stage' | 'prod';
+  features: ValidFeatures[];
+  config: Record<string, unknown>;
+}
+```
+
+For instance, to configure the output for deployment to stage, you would build with:
+
+```shell
+export SITE_CONFIG='{"env": "stage", "features": ["new-homepage"], "config": {"my-key":"my-val"}}';
+```
+
 ### Internationalization
+
+### Feature flagging
+
+#### Creating a new feature flag
+
+New feature flags need to be specified in the `validFeatures` array in `src/lib/config.ts`. You can check if a feature
+is enabled by doing the following:
+
+```ts
+import { getConfig } from '$lib/config';
+
+const { features } = getConfig();
+
+if (features.includes('my-feature')) {
+  // Enabled feature logic
+}
+```
+
+#### Setting feature flags
+
+Feature flag settings come from one of three sources (sources later in the list will overwrite earlier sources):
+
+1. The `defaultConfig.features` array in `src/lib/config.ts`
+2. The `window.siteConfig.features` array that gets set from the environment configuration
+3. Setting the `siteFeatures` local storage key by running the following in your browser console: `localStorage.setItem('siteFeatures', 'search-v2,!new-homepage')`. Note that the string is comma-delimited, and you can prefix features with `!` if you want to disable them locally if set in the default or environment configs.
+
+#### Removing a feature flag
+
+You will want to remove feature flags whenever a feature gets made into default functionality or if we remove a feature. When removing a feature flag, _please_:
+
+- Remove the feature ID from the `validFeatures` array in `src/lib/config.ts`
+- Remove any conditionals being used that checks for this (TypeScript should notify you of them if you do the previous step)
 
 ## Testing
 
