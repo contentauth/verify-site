@@ -32,4 +32,24 @@ test.describe('Verify - assertion display', () => {
     await verify.goto(source);
     await verify.takeTallSnapshot(`result for ai model usage image`);
   });
+
+  test('image with inference metadata should be displayed correctly', async ({
+    page,
+  }) => {
+    const verify = new VerifyPage(page);
+    const source = VerifyPage.getFixtureUrl('inference');
+    await verify.goto(source);
+    await verify.takeTallSnapshot(`result for image with inference metadata`);
+  });
+
+  test('image without inference metadata should be displayed correctly', async ({
+    page,
+  }) => {
+    const verify = new VerifyPage(page);
+    const source = VerifyPage.getFixtureUrl('no-inference');
+    await verify.goto(source);
+    await verify.takeTallSnapshot(
+      `result for image without inference metadata`,
+    );
+  });
 });

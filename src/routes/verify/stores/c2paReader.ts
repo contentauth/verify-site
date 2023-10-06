@@ -41,6 +41,17 @@ export interface C2paReaderStore extends Readable<SourceState> {
   clear: () => void;
 }
 
+const mimeTypeCorrections = {
+  // Chrome registers M4A as MP4
+  'audio/x-m4a': 'audio/mp4',
+  // Normalize WAV types
+  'audio/x-wav': 'audio/wav',
+  'audio/wave': 'audio/wav',
+  'audio/vnd.wave': 'audio/wav',
+  // DNG on Windows/Firefox
+  'image/dng': 'image/x-adobe-dng',
+};
+
 /**
  * Creates a store encapsulating the C2PA SDK file reading logic.
  */
@@ -56,24 +67,44 @@ export function createC2paReader(): C2paReaderStore {
 
       try {
         const sdk = await getSdk();
+        const sourceType = source instanceof Blob ? source.type : '';
+        const normalizedSourceType = sourceType.toLowerCase().trim();
+        const needsCorrectedType =
+          // Source type is missing
+          !sourceType ||
+          // Source type is not lowercase / has weird spacing
+          sourceType !== normalizedSourceType ||
+          // We have a remapping for different variations
+          Object.keys(mimeTypeCorrections).includes(normalizedSourceType);
 
-        if (source instanceof File && !source.type) {
+        if (source instanceof File && needsCorrectedType) {
           const ext = source.name?.toLowerCase();
           let correctedType: string | undefined = undefined;
 
           // TODO: Transition to detection with magic numbers so that this works when
           // passed in as a URL
-          if (ext.endsWith('.dng')) {
+          if (source.type && needsCorrectedType) {
+            correctedType =
+              mimeTypeCorrections[
+                normalizedSourceType as keyof typeof mimeTypeCorrections
+              ];
+          } else if (ext.endsWith('.dng')) {
             correctedType = 'image/x-adobe-dng';
           } else if (ext.endsWith('.heic')) {
             correctedType = 'image/heic';
           } else if (ext.endsWith('.heif')) {
             correctedType = 'image/heif';
+          } else {
+            correctedType = normalizedSourceType;
           }
 
           if (correctedType) {
             const buffer = await source.arrayBuffer();
             source = new File([buffer], source.name, { type: correctedType });
+            analytics.track('correctedType', {
+              originalType: sourceType,
+              correctedType,
+            });
           }
         }
 
@@ -98,7 +129,7 @@ export function createC2paReader(): C2paReaderStore {
           assetMap,
           data: result.source,
         });
-      } catch (e) {
+      } catch (e: unknown) {
         if ((e as Record<string, unknown>)?.name === 'InvalidMimeTypeError') {
           analytics.track('readAsset', {
             result: 'error',
@@ -116,9 +147,8 @@ export function createC2paReader(): C2paReaderStore {
           });
           openModal(LegacyCredentialModal);
         } else {
-          analytics.track('readAsset', {
-            result: 'error',
-            reason: 'unknown',
+          analytics.trackError(e as Error, {
+            context: 'readAsset',
           });
           toast.trigger(somethingWentWrong());
         }

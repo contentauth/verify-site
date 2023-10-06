@@ -11,8 +11,9 @@
 // is strictly forbidden unless prior written permission is obtained
 // from Adobe.
 
-import { ROOT_ID, type AssetData } from '$lib/asset';
+import { ROOT_ID, type AssetData, type AssetDataMap } from '$lib/asset';
 import { analytics } from '$src/lib/analytics';
+import type { Loadable } from '$src/lib/types';
 import type { C2paSourceType } from 'c2pa';
 import debug from 'debug';
 import {
@@ -50,6 +51,10 @@ export type MostRecentlyLoaded = {
   isSelected: boolean;
 };
 
+export type SelectedAssetMapState = Loadable<{
+  data: AssetDataMap;
+}>;
+
 interface VerifyStore {
   clearManifestResults: ManifestRecovererStore['clear'];
   compareView: CompareStore;
@@ -80,18 +85,42 @@ export function createVerifyStore(): VerifyStore {
     selectedAssetId,
   );
 
-  const hierarchyView = createHierarchyView(
-    selectedSource,
-    selectedAssetId,
-    c2paReader,
-    manifestRecoverer,
+  const selectedAssetMap: Readable<SelectedAssetMapState> = derived(
+    [selectedSource, c2paReader, manifestRecoverer],
+    ([$selectedSource, $c2paReader, $manifestRecoverer]) => {
+      if (['local', 'external'].includes($selectedSource.type)) {
+        if ($c2paReader.state === 'success') {
+          return {
+            state: 'success' as const,
+            data: $c2paReader.assetMap,
+          };
+        }
+
+        return { state: $c2paReader.state };
+      } else if ($selectedSource.type === 'recovery') {
+        if ($manifestRecoverer.state === 'success') {
+          const { assetMap } = get(
+            $manifestRecoverer.manifests[$selectedSource.id],
+          );
+
+          return {
+            state: 'success' as const,
+            data: assetMap,
+          };
+        }
+      }
+
+      return { state: 'none' as const };
+    },
   );
+
+  const hierarchyView = createHierarchyView(selectedAssetMap, selectedAssetId);
 
   const compareSelectedAssetIds = writable<(string | null)[]>([null, null]);
   const compareActiveAssetId = writable<string | null>(null);
 
   const compareView = createCompareView(
-    c2paReader,
+    selectedAssetMap,
     compareSelectedAssetIds,
     compareActiveAssetId,
   );

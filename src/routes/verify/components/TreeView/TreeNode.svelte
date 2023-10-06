@@ -17,7 +17,10 @@
   import type { HierarchyPointNode } from 'd3-hierarchy';
   import { _ } from 'svelte-i18n';
   import { get } from 'svelte/store';
-  import type { ReadableAssetStore } from '../../stores/asset';
+  import type {
+    ReadableAssetData,
+    ReadableAssetStore,
+  } from '../../stores/asset';
   import AssetInfoBase from '../AssetInfo/AssetInfoBase.svelte';
   import TreeThumbnail from '../Thumbnail/TreeThumbnail.svelte';
 
@@ -48,13 +51,22 @@
   $: ariaLabel = $_('page.verify.treeNode.ariaLabel', {
     values: { title, hasContentCredentials, parentLabel },
   });
+
+  function handleKeyPress(onKeyPress: ReadableAssetData['select']) {
+    return (evt: KeyboardEvent) => {
+      if (['Space', 'Enter'].includes(evt.code)) {
+        onKeyPress();
+      }
+    };
+  }
 </script>
 
 <button
   role="treeitem"
   aria-selected={$assetStore.state === 'selected' ? 'true' : 'false'}
   data-testid={`tree-node-${$assetStore.id}`}
-  class={`absolute left-0 top-0 flex flex-col overflow-hidden rounded border-2 bg-white transition`}
+  class="absolute left-0 top-0 flex flex-col overflow-hidden rounded border-2 bg-white transition focus:shadow"
+  on:keypress={handleKeyPress($assetStore.select)}
   class:border-gray-400={$assetStore.state === 'none'}
   class:border-gray-700={$assetStore.state === 'path'}
   class:border-blue-900={$assetStore.state === 'selected'}

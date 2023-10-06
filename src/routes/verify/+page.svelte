@@ -88,7 +88,9 @@
   });
 </script>
 
-<div use:dragDropAction={dragDropParams}>
+<div
+  use:dragDropAction={dragDropParams}
+  aria-busy={showLoadingOverlay ? 'true' : 'false'}>
   <DragDropOverlay visible={showDropOverlay} />
   <LoadingOverlay visible={showLoadingOverlay} />
   <FilePicker bind:this={filePicker} />
@@ -145,6 +147,6 @@
         {/if}
       </RevealablePanel>
     </div>
-    <svelte:fragment slot="back-bar">{$_('')}</svelte:fragment>
+    <svelte:fragment slot="back-bar">{$_('page.home.title')}</svelte:fragment>
   </SidebarLayout>
 </div>

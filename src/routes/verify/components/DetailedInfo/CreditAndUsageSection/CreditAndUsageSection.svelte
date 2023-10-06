@@ -16,7 +16,6 @@
   import CollapsibleSection from '$src/components/SidebarSection/CollapsibleSection.svelte';
   import type { ManifestData } from '$src/lib/asset';
   import { _ } from 'svelte-i18n';
-  import AiSubSection from './AISubSection.svelte';
   import ModelUsageSection from './ModelUsageSection.svelte';
   import ProducerSubSection from './ProducerSubSection.svelte';
   import SocialSubSection from './SocialSubSection.svelte';
@@ -28,7 +27,6 @@
   $: shouldShowSection =
     manifestData.producer ||
     manifestData.socialAccounts?.length ||
-    manifestData.generativeInfo?.softwareAgents?.length ||
     manifestData.doNotTrain.trainingAllowed === false ||
     manifestData.web3Accounts.length ||
     manifestData.website;
@@ -45,10 +43,6 @@
       {/if}
       {#if manifestData.socialAccounts?.length}
         <SocialSubSection socialAccounts={manifestData.socialAccounts} />
-      {/if}
-      {#if manifestData.generativeInfo?.softwareAgents?.length}
-        <AiSubSection
-          softwareAgents={manifestData.generativeInfo.softwareAgents} />
       {/if}
       {#if !manifestData.doNotTrain.trainingAllowed}
         <ModelUsageSection />
