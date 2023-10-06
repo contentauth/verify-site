@@ -17,6 +17,6 @@
 </script>
 
 {#if title}
-  <div class="text-sm mt-8 px-7 pb-2.5 font-bold text-gray-500">{title}</div>
+  <div class="text-sm mt-8 px-7 pb-2.5 font-medium text-gray-500">{title}</div>
 {/if}
 <div class="pb-7"><slot /></div>

@@ -65,7 +65,7 @@
   <div
     class="pointer-events-none fixed top-0 z-50 flex w-screen justify-center">
     <div class="rounded-bl bg-brand-yellow px-4 py-2 text-informational">
-      <span class="font-bold"
+      <span class="font-medium"
         >Local features are set: <pre
           class="inline font-thin">{localFeatures.join(', ')}</pre></span>
     </div>

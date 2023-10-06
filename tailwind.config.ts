@@ -123,7 +123,7 @@ export default {
         '1.125rem',
         {
           lineHeight: '1.4625rem',
-          fontWeight: '600',
+          fontWeight: '500',
         },
       ],
       'body-bold': [
@@ -158,7 +158,7 @@ export default {
         '0.875rem',
         {
           lineHeight: '1.4',
-          fontWeight: '700',
+          fontWeight: '500',
         },
       ],
       informational: [

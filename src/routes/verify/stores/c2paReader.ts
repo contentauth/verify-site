@@ -48,6 +48,8 @@ const mimeTypeCorrections = {
   'audio/x-wav': 'audio/wav',
   'audio/wave': 'audio/wav',
   'audio/vnd.wave': 'audio/wav',
+  // DNG on Windows/Firefox
+  'image/DNG': 'image/x-adobe-dng',
 };
 
 /**
@@ -66,8 +68,14 @@ export function createC2paReader(): C2paReaderStore {
       try {
         const sdk = await getSdk();
         const sourceType = source instanceof Blob ? source.type : '';
+        const normalizedSourceType = sourceType.toLowerCase().trim();
         const needsCorrectedType =
-          !sourceType || Object.keys(mimeTypeCorrections).includes(sourceType);
+          // Source type is missing
+          !sourceType ||
+          // Source type is not lowercase / has weird spacing
+          sourceType !== normalizedSourceType ||
+          // We have a remapping for different variations
+          Object.keys(mimeTypeCorrections).includes(normalizedSourceType);
 
         if (source instanceof File && needsCorrectedType) {
           const ext = source.name?.toLowerCase();
@@ -78,7 +86,7 @@ export function createC2paReader(): C2paReaderStore {
           if (source.type && needsCorrectedType) {
             correctedType =
               mimeTypeCorrections[
-                sourceType as keyof typeof mimeTypeCorrections
+                normalizedSourceType as keyof typeof mimeTypeCorrections
               ];
           } else if (ext.endsWith('.dng')) {
             correctedType = 'image/x-adobe-dng';
@@ -86,6 +94,8 @@ export function createC2paReader(): C2paReaderStore {
             correctedType = 'image/heic';
           } else if (ext.endsWith('.heif')) {
             correctedType = 'image/heif';
+          } else {
+            correctedType = normalizedSourceType;
           }
 
           if (correctedType) {

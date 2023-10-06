@@ -33,7 +33,7 @@
     </div>
     <button on:click={() => (readMore = !readMore)}>
       <SmallDescription>
-        <span class="font-bold underline"
+        <span class="font-medium underline"
           >{readMore
             ? $_('sidebar.legal.less')
             : $_('sidebar.legal.more')}</span>
