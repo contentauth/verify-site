@@ -1,6 +1,6 @@
 <script>
-  import Hiw1 from '$assets/png/hiw1.png';
-  import Hiw2 from '$assets/png/hiw2.png';
+  import Hiw1 from '$assets/video/howitworks-1.mp4';
+  import Hiw2 from '$assets/video/howitworks-2.mp4';
   import Video from '$assets/video/hiw.mp4';
 </script>
 
@@ -36,11 +36,14 @@
             content—creating a permanent record that can be confirmed.
           </p>
         </div>
-        <!-- svelte-ignore a11y-img-redundant-alt -->
-        <img
+        <video
+          autoplay
+          loop
+          muted
+          playsinline
           src={Hiw1}
-          alt="A phone in someones hand, displaying a photo of the surrounding snowy landscape and a penguin. The option to enable Content Credentials for the photo is available"
-          class="max-w[71.375rem] rounded-xl lg:rounded-[20px] 2xl:w-full" />
+          class="dropshadow h-full max-h-full w-full max-w-full rounded-xl object-cover lg:rounded-[20px] xl:h-full"
+          alt="A phone in someones hand, displaying a photo of the surrounding snowy landscape and a penguin. The option to enable Content Credentials for the photo is available" />
       </div>
       <div
         class="max-w-[90rem] pt-[96px] lg:max-w-[1145px] xl:max-w-[116rem] xl:px-[10rem] xl:pt-[128px] 2xl:pt-[160px]">
@@ -64,14 +67,17 @@
             information directly in context.
           </p>
         </div>
-        <!-- svelte-ignore a11y-img-redundant-alt -->
-        <img
+        <video
+          autoplay
+          loop
+          muted
+          playsinline
           src={Hiw2}
+          class="dropshadow h-full max-h-full w-full max-w-full rounded-xl object-cover lg:rounded-[20px] xl:h-full"
           alt="Penguins in a desert with sand dunes in the background.
           Content Credentials information is displayed over the
           image, including that AI was used to generate some of
-          the content, who produced the content, and more"
-          class="max-w[71.375rem] rounded-xl lg:rounded-[20px] 2xl:w-full" />
+          the content, who produced the content, and more" />
       </div>
       <!-- Video Component -->
       <div
@@ -133,13 +139,16 @@
         permanent record that can be confirmed.
       </div>
       <div class="col-start-2 col-end-12 mt-[4rem]">
-        <!-- svelte-ignore a11y-img-redundant-alt -->
-        <img
+        <video
+          autoplay
+          loop
+          muted
+          playsinline
           src={Hiw1}
+          class="dropshadow h-full max-h-full w-full max-w-full rounded-xl object-cover lg:rounded-[20px] xl:h-full"
           alt="A phone in someones hand, displaying a photo of the
-        surrounding snowy landscape and a penguin. The option
-        to enable Content Credentials for the photo is available"
-          class="max-w[71.375rem] rounded-xl lg:rounded-[20px] 2xl:w-full" />
+          surrounding snowy landscape and a penguin. The option
+          to enable Content Credentials for the photo is available" />
       </div>
       <div class="col-start-2 col-end-6 mt-[10rem]">
         <div class="flex flex-row justify-start gap-2">
@@ -158,13 +167,16 @@
         information directly in context.
       </div>
       <div class="col-start-2 col-end-12 mt-[4rem]">
-        <!-- svelte-ignore a11y-img-redundant-alt -->
-        <img
+        <video
+          autoplay
+          loop
+          muted
+          playsinline
           src={Hiw2}
+          class="dropshadow h-full max-h-full w-full max-w-full rounded-xl object-cover lg:rounded-[20px] xl:h-full"
           alt="A phone in someones hand, displaying a photo of the
-        surrounding snowy landscape and a penguin. The option
-        to enable Content Credentials for the photo is available"
-          class="max-w[71.375rem] rounded-xl lg:rounded-[20px] 2xl:w-full" />
+          surrounding snowy landscape and a penguin. The option
+          to enable Content Credentials for the photo is available" />
       </div>
       <div class="col-start-2 col-end-6 mt-[10rem]">
         <div class="flex flex-row justify-start gap-2">
@@ -196,7 +208,6 @@
           over time, available in the Verify feature" />
       </div>
     </div>
-    <!-- Desktop 1280px+ -->
   </div>
 </div>
 
