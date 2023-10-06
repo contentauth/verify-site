@@ -21,7 +21,7 @@
   <div
     class="text-gray-900/60 flex w-full h-full flex-col justify-between lg:flex-row lg:items-center">
     <div class="text-footer-text flex flex-col items-start gap-6 md:flex-row">
-      <div>Copyright © 2023 Content Credentials</div>
+      <div>Copyright © 2023 C2PA</div>
 
       <div class="text-footer-text">All rights reserved</div>
       <a href="https://www.adobe.com/privacy.html">

@@ -8,9 +8,8 @@
     <div class="aspect-[3/2]">
       <L2Overlay
         imageUrl={Image}
-        class="w-full h-full"
-        alt="Two women looking at a mobile phone, smiling and
-    pointing at it with a clear sky behind them." />
+        class="h-full w-full"
+        alt="Close-up of a colorful butterfly sitting on a sidewalk, with people walking past blurred in the background." />
     </div>
   </div>
   <div
