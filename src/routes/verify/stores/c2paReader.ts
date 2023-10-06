@@ -49,7 +49,7 @@ const mimeTypeCorrections = {
   'audio/wave': 'audio/wav',
   'audio/vnd.wave': 'audio/wav',
   // DNG on Windows/Firefox
-  'image/DNG': 'image/x-adobe-dng',
+  'image/dng': 'image/x-adobe-dng',
 };
 
 /**
