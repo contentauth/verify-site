@@ -2,8 +2,7 @@
   const data = [
     {
       label: 'Truly open standards',
-      description:
-        'Content Credentials are based on open technical standards developed and maintained by the C2PA, a cross-industry membership organization. You can review the standards anytime.',
+      description: `Content Credentials are based on open technical specification developed and maintained by the <a href="https://c2pa.org/" class="underline">C2PA</a>, a cross-industry standards development organization. You can review the specification anytime.`,
       id: 1,
       bgColor: '#84c7fc',
     },
