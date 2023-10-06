@@ -9,7 +9,7 @@
   id="how-it-works">
   <h2
     class="2xl:text-hiw-title-2xl mb-[64px] text-hiw-title sm:mb-[80px] md:text-hiw-title-md xl:text-hiw-title-xl">
-    How it Works
+    How it works
   </h2>
   <div class="flex w-full flex-col items-center 2xl:hidden">
     <div class="">

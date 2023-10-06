@@ -1,29 +1,33 @@
 <script>
-  import AFP from '$assets/svg/logos/homepage/AFP.svg';
-  import Canon from '$assets/svg/logos/homepage/Canon.svg';
-  import EFE from '$assets/svg/logos/homepage/EFE.svg';
-  import BBC from '$assets/svg/logos/homepage/Frame.svg';
+  import Trupic from '$assets/svg/logos/homepage/Trupic.svg';
+  import Microsoft from '$assets/svg/logos/homepage/Microsoft.svg';
+  import CameraBits from '$assets/svg/logos/homepage/CameraBits.png';
+  import Adobe from '$assets/svg/logos/homepage/Adobe.svg';
   import Leica from '$assets/svg/logos/homepage/Leica.svg';
-  import WashPost from '$assets/svg/logos/homepage/WashingtonPost.svg';
+  import Nikon from '$assets/svg/logos/homepage/Nikon.svg';
+  import Publicis from '$assets/svg/logos/homepage/Publicis.svg';
 
   const data = [
     {
-      image: BBC,
+      image: Adobe,
     },
     {
-      image: AFP,
+      image: CameraBits,
     },
     {
       image: Leica,
     },
     {
-      image: WashPost,
+      image: Microsoft,
     },
     {
-      image: Canon,
+      image: Nikon,
     },
     {
-      image: EFE,
+      image: Publicis,
+    },
+    {
+      image: Trupic,
     },
   ];
 </script>
@@ -32,14 +36,15 @@
   class="w-screen max-w-[90rem] py-16 lg:py-[5.5rem] xl:pb-[7.5rem] px-[20px] sm:px-[1.5rem]">
   <div class="px-0">
     <div
-      class="relative h-[292px] w-full overflow-hidden rounded-xl lg:rounded-[20px] bg-gray-40">
-      <div class="primary px-[32px] py-[96px] flex items-center justify-around">
+      class="relative w-full overflow-hidden rounded-xl lg:rounded-[20px] bg-gray-40">
+      <div
+        class="primary px-[32px] md:px-[64px] py-[48px] md:py-[80px] flex-wrap flex items-center justify-around">
         {#each data as item}
-          <div class="px-[16px]">
+          <div class="px-[16px] py-[20px] flex">
             <img
               src={item.image}
               alt=""
-              class="h-[100px] w-[200px] object-contain" />
+              class="md:w-[100px] h-[100px] w-[200px] object-contain" />
           </div>
         {/each}
       </div>

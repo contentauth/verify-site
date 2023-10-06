@@ -20,7 +20,7 @@
           <div
             class="h-[365px] rounded-b-xl bg-[#f5f5f5] px-[32px] py-6 text-trust-desc lg:rounded-b-[20px] xl:text-trust-desc-xl 2xl:text-trust-desc-2xl">
             <p class="">
-              Content Credentials are based on open technical specification
+              Content Credentials are based on an open technical specification
               developed and maintained by the <a
                 href="https://c2pa.org/"
                 target="_blank"
@@ -82,8 +82,8 @@
               <div
                 class="h-[248px] rounded-b-xl bg-[#f5f5f5] px-[32px] py-6 text-trust-desc lg:rounded-b-[20px] xl:text-trust-desc-xl 2xl:text-trust-desc-2xl">
                 <p class="">
-                  Content Credentials are based on an open technical specification
-                  developed and maintained by the <a
+                  Content Credentials are based on an open technical
+                  specification developed and maintained by the <a
                     href="https://c2pa.org/"
                     target="_blank"
                     rel="noopener noreferrer"
