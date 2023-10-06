@@ -17,12 +17,13 @@
   // import Header from './components/header/Header.svelte';
   import Header from '../components/Home/header/Header.svelte';
   // import HeaderLink from '../components/Header/HeaderLink.svelte';
-  import { goto } from '$app/navigation';
+  // import { goto } from '$app/navigation';
   import Hero from '$src/components/Home/hero/NewHero.svelte';
   import Home1 from '$src/components/Home/homepage/Home1.svelte';
   import HowItWorks from '$src/components/Home/homepage/HowItWorks.svelte';
   import Movement from '$src/components/Home/homepage/Movement.svelte';
   import Orgs from '$src/components/Home/homepage/Orgs.svelte';
+  import Trust from '$src/components/Home/homepage/Trust.svelte';
   import Powered from '$src/components/Home/homepage/Powered.svelte';
   import { MetaTags } from 'svelte-meta-tags';
 </script>
@@ -41,17 +42,16 @@
   </svelte:fragment>
 </Header> -->
 
-  <div class="overflow-x-hidden">
-    <Header />
-    <div class="flex flex-col items-center justify-center">
-      <Hero />
-      <Home1 />
-      <HowItWorks />
-      <Trust />
-      <Powered />
-      <Orgs />
-      <Movement />
-    </div>
-    <Footer />
+<div class="overflow-x-hidden">
+  <Header />
+  <div class="flex flex-col items-center justify-center">
+    <Hero />
+    <Home1 />
+    <HowItWorks />
+    <Trust />
+    <Powered />
+    <Orgs />
+    <Movement />
   </div>
-{/if}
+  <Footer />
+</div>
