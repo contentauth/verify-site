@@ -1,112 +1,140 @@
 <!-- Popup.svelte -->
-<script>
+<script lang="ts">
   import X from '$assets/svg/home/x.svg';
-
+  import { selectGenerativeInfo } from '$src/lib/selectors/generativeInfo';
+  import {
+    selectFormattedGenerator,
+    selectProducer,
+    selectSocialAccounts,
+    type ManifestStore,
+  } from 'c2pa';
   import { createEventDispatcher } from 'svelte';
+  import { _, date as formatDate } from 'svelte-i18n';
 
   const dispatch = createEventDispatcher();
 
   export let isOpen = false;
+  export let manifestStore: ManifestStore;
+  export let imageUrl: string;
+
+  let activeManifest = manifestStore.activeManifest;
+  let issuer = activeManifest.signatureInfo?.issuer;
+  let issueDate = activeManifest.signatureInfo?.time
+    ? new Date(activeManifest.signatureInfo.time)
+    : null;
+  let producer = selectProducer(activeManifest)?.name;
+  let socialMedia = selectSocialAccounts(activeManifest)?.map((account) => ({
+    name: account['@id']?.includes('behance')
+      ? 'Behance'
+      : account['@id']?.includes('instagram')
+      ? 'Instagram'
+      : null,
+    url: account['@id'],
+  }));
+  let formattedGenerator = selectFormattedGenerator(activeManifest);
+  let generativeInfo = selectGenerativeInfo(activeManifest);
+  let generativeInfoType = generativeInfo?.type;
+  let aiToolUsed = generativeInfo?.softwareAgents[0];
+  let hasAdditionalHistory = !!activeManifest.ingredients.length;
+
+  const verifyUrl = `${window.origin}${imageUrl}`;
 
   function closePopup() {
     dispatch('close');
   }
-
-  const data = [
-    {
-      id: 1,
-      Notice:
-        'This image combines multiple pieces of content. At least one was generated with an AI tool.',
-      ProducedLabel: 'Produced by',
-      ProducedValue: 'Benoit Lemoine',
-      CompanyLabel: 'Company',
-      CompanyValue: 'Area17',
-      WebsiteLabel: 'Website',
-      WebsiteValue: 'https://area17.com',
-      CaptionLabel: 'Caption',
-      CaptionValue:
-        'Caption goes here and can wrap to multiple lines as needed',
-      AppLabel: 'App or device used',
-      AppValue: 'Adobe Photoshop 23.0.0',
-      AItoolLabel: 'AI tool used',
-      AItoolValue: 'Adobe Firefly',
-      AdditionalLabel: 'Additional history',
-      AdditionalValue: 'Yes',
-    },
-  ];
 </script>
 
 <!-- Desktop Popup -->
 <div class="hidden md:flex">
   {#if isOpen && window.innerWidth >= 768}
     <div
-      class="popup shadow-lg absolute right-[3.5rem] top-[1rem] z-[9999] mb-10 rounded-lg bg-brand-white p-2"
+      class="popup shadow-lg bg-brand-white absolute right-[3.5rem] top-[1rem] z-[9999] mb-10 rounded-lg"
       class:visible={isOpen}>
-      <div class="h-full w-[350px] rounded-xl bg-brand-white">
-        <div class="flex flex-col justify-center px-4 py-[0.625rem]">
-          <h1 class=" text-popup-title pb-1 font-bold">Content Credentials</h1>
-          <p class="pb-1 text-popup-text text-gray-900/60">
-            Issued by Adobe Inc. on Feb 2. 2023
-          </p>
+      <div class="bg-brand-white h-full w-64 rounded-xl">
+        <div class="justify-center px-4 py-[0.625rem]">
+          <h1 class="text-popup-title font-bold">
+            {$_('l2popup.title')}
+          </h1>
+          {#if issueDate}
+            <p class="text-popup-text text-gray-900/60">
+              {$_('l2popup.issuedBy', {
+                values: {
+                  issuer,
+                  date: $formatDate(issueDate, { format: 'medium' }),
+                },
+              })}
+            </p>
+          {/if}
         </div>
         <hr />
         <div class="px-4">
-          {#each data as item}
-            <div
-              class="flex flex-row items-center gap-1 py-[0.625rem] text-popup-text">
-              <div class="">{item.Notice}</div>
+          <div class="text-popup-text items-center py-[0.625rem]">
+            {#if generativeInfoType === 'compositeWithTrainedAlgorithmicMedia'}
+              {$_('contentSummary.compositeWithTrainedAlgorithmicMedia')}
+            {:else if generativeInfoType === 'trainedAlgorithmicMedia'}
+              {$_('contentSummary.trainedAlgorithmicMedia')}
+            {/if}
+          </div>
+          <hr />
+          {#if producer}
+            <div class="py-[0.625rem]">
+              <span class="text-popup-text pb-1 font-bold">
+                {$_('l2popup.producedBy')}
+              </span>
+              <span class="text-popup-text">{producer}</span>
             </div>
-            <hr class="py-1" />
-            <div class="flex flex-row gap-1 py-[0.625rem]">
-              <div class="pb-1 text-popup-text font-bold">
-                {item.ProducedLabel}
-              </div>
-              <div class="text-popup-text">{item.ProducedValue}</div>
+            <hr />
+          {/if}
+          {#if socialMedia}
+            <div class="py-[0.625rem]">
+              <span class="text-popup-text pb-1 font-bold">
+                {$_('l2popup.socialMedia')}
+              </span>
+              <span class="text-popup-text">
+                {#each socialMedia as account, i}
+                  <a
+                    class=" cursor-pointer text-blue-900 underline"
+                    href={account.url}>{account.name}</a
+                  >{#if i < socialMedia.length - 1}{$_(
+                      'wordListDelimiter',
+                    )}{' '}
+                  {/if}
+                {/each}
+              </span>
             </div>
-            <hr class="pt-2" />
-            <div class="flex flex-row gap-1 py-[0.625rem]">
-              <div class="pb-1 text-popup-text font-bold">
-                {item.CompanyLabel}
-              </div>
-              <div class="text-popup-text">{item.CompanyValue}</div>
+            <hr />
+          {/if}
+          <div class="justify-center py-[0.625rem]">
+            <span class="text-popup-text py-1 font-bold">
+              {$_('l2popup.deviceUsed')}
+            </span>
+            <span class="text-popup-text whitespace-nowrap pb-1"
+              >{formattedGenerator}</span>
+          </div>
+          <hr />
+          <div class="justify-center py-[0.625rem]">
+            <span class="text-popup-text py-1 font-bold">
+              {$_('l2popup.aiToolUsed')}
+            </span>
+            <span class="text-popup-text whitespace-nowrap pb-1"
+              >{aiToolUsed}</span>
+          </div>
+          {#if hasAdditionalHistory}
+            <hr />
+            <div class="py-[0.625rem]">
+              <span class="text-popup-text pb-1 font-bold">
+                {$_('l2popup.additionalHistory')}
+              </span>
+              <span class="text-popup-text">{$_('l2popup.yes')}</span>
             </div>
-            <hr class="pt-2" />
-            <div class="flex flex-row gap-1 py-[0.625rem]">
-              <div class="pb-1 text-popup-text font-bold">
-                {item.WebsiteLabel}
-              </div>
-              <div class="text-popup-text text-blue-700 underline">
-                <a href={item.WebsiteValue}>{item.WebsiteValue}</a>
-              </div>
-            </div>
-            <hr class="pt-2" />
-            <div class="flex flex-col justify-center gap-1 py-[0.625rem]">
-              <div class="py-1 text-popup-text font-bold">
-                {item.CaptionLabel}
-              </div>
-              <div class="pb-1 text-popup-text">{item.CaptionValue}</div>
-            </div>
-            <hr class="pt-2" />
-            <div class="flex flex-col justify-center gap-1 py-[0.625rem]">
-              <div class="py-1 text-popup-text font-bold">
-                {item.AppLabel}
-              </div>
-              <div class="pb-1 text-popup-text">{item.AppValue}</div>
-            </div>
-            <hr class="pt-2" />
-            <div class="flex flex-row gap-1 py-[0.625rem]">
-              <div class="pb-1 text-popup-text font-bold">
-                {item.AdditionalLabel}
-              </div>
-              <div class="text-popup-text">{item.AdditionalValue}</div>
-            </div>
-          {/each}
+          {/if}
         </div>
         <hr />
-        <div class="mt-4 h-[60px] w-full px-6 py-1">
-          <button
-            class="h-full w-full rounded-full bg-brand-yellow text-popup-text"
-            >View more</button>
+        <div class="flex w-full flex-col p-4">
+          <a
+            href={`/verify?source=${verifyUrl}`}
+            class="rounded-full bg-brand-yellow p-3 text-center text-body"
+            >{$_('l2popup.inspect')}</a>
         </div>
       </div>
     </div>
@@ -119,66 +147,97 @@
     <div
       class="fixed inset-0 z-[9999] flex items-center justify-center md:hidden">
       <div
-        class="top-rounded-shadow fixed bottom-0 h-auto w-screen rounded-t-xl bg-white p-0.5 text-popup-text">
-        <div class="h-full rounded-xl bg-brand-white px-2 py-4">
-          <div class="flex flex-row justify-between">
-            <div class="py-3">
-              <h1 class="px-6 pb-3 text-[24px] font-bold">
-                Content Credentials
+        class="text-popup-text fixed bottom-0 h-auto w-screen rounded-t-xl bg-white p-0.5 shadow">
+        <div class="bg-brand-white h-full rounded-xl px-2 py-4">
+          <div class="flex px-4 py-[0.625rem]">
+            <div>
+              <h1 class="text-popup-title font-bold">
+                {$_('l2popup.title')}
               </h1>
-              <p class="px-6 text-gray-900/60">
-                Issued by Adobe Inc. on Feb 2. 2023
-              </p>
+              {#if issueDate}
+                <p class="text-popup-text text-gray-900/60">
+                  {$_('l2popup.issuedBy', {
+                    values: {
+                      issuer,
+                      date: $formatDate(issueDate, { format: 'medium' }),
+                    },
+                  })}
+                </p>
+              {/if}
             </div>
-            <button class="pb-6 pr-4" on:click={closePopup}>
+            <button class="ms-auto pb-6 pr-4" on:click={closePopup}>
               <img src={X} alt="close" />
             </button>
           </div>
           <hr />
-          <div class="px-6 py-3">
-            {#each data as item}
-              <div class="flex flex-row items-center gap-1 py-2">
-                <div class="pb-1 text-popup-text">{item.Notice}</div>
+          <div class="px-4">
+            <div class="text-popup-text items-center py-[0.625rem]">
+              {#if generativeInfoType === 'compositeWithTrainedAlgorithmicMedia'}
+                {$_('contentSummary.compositeWithTrainedAlgorithmicMedia')}
+              {:else if generativeInfoType === 'trainedAlgorithmicMedia'}
+                {$_('contentSummary.trainedAlgorithmicMedia')}
+              {/if}
+            </div>
+            <hr />
+            {#if producer}
+              <div class="py-[0.625rem]">
+                <span class="text-popup-text pb-1 font-bold">
+                  {$_('l2popup.producedBy')}
+                </span>
+                <span class="text-popup-text">{producer}</span>
               </div>
-              <hr class="py-1" />
-              <div class="flex flex-row gap-1 py-2">
-                <div class="pb-1 font-bold">{item.ProducedLabel}</div>
-                <div>{item.ProducedValue}</div>
+              <hr />
+            {/if}
+            {#if socialMedia}
+              <div class="py-[0.625rem]">
+                <span class="text-popup-text pb-1 font-bold">
+                  {$_('l2popup.socialMedia')}
+                </span>
+                <span class="text-popup-text">
+                  {#each socialMedia as account, i}
+                    <a
+                      class=" cursor-pointer text-blue-900 underline"
+                      href={account.url}>{account.name}</a
+                    >{#if i < socialMedia.length - 1}{$_(
+                        'wordListDelimiter',
+                      )}{' '}
+                    {/if}
+                  {/each}
+                </span>
               </div>
-              <hr class="pt-2" />
-              <div class="flex flex-row gap-1 py-2">
-                <div class="pb-1 font-bold">{item.CompanyLabel}</div>
-                <div>{item.CompanyValue}</div>
+              <hr />
+            {/if}
+            <div class="justify-center py-[0.625rem]">
+              <span class="text-popup-text py-1 font-bold">
+                {$_('l2popup.deviceUsed')}
+              </span>
+              <span class="text-popup-text whitespace-nowrap pb-1"
+                >{formattedGenerator}</span>
+            </div>
+            <hr />
+            <div class="justify-center py-[0.625rem]">
+              <span class="text-popup-text py-1 font-bold">
+                {$_('l2popup.aiToolUsed')}
+              </span>
+              <span class="text-popup-text whitespace-nowrap pb-1"
+                >{aiToolUsed}</span>
+            </div>
+            {#if hasAdditionalHistory}
+              <hr />
+              <div class="py-[0.625rem]">
+                <span class="text-popup-text pb-1 font-bold">
+                  {$_('l2popup.additionalHistory')}
+                </span>
+                <span class="text-popup-text">{$_('l2popup.yes')}</span>
               </div>
-              <hr class="pt-2" />
-              <div class="flex flex-row gap-1 py-2">
-                <div class="pb-1 font-bold">{item.WebsiteLabel}</div>
-                <div class="text-blue-700 underline">
-                  <a href={item.WebsiteValue}>{item.WebsiteValue}</a>
-                </div>
-              </div>
-              <hr class="pt-2" />
-              <div class="flex flex-col justify-center gap-1 py-2">
-                <div class="py-1 font-bold">{item.CaptionLabel}</div>
-                <div class="pb-1">{item.CaptionValue}</div>
-              </div>
-              <hr class="pt-2" />
-              <div class="flex flex-col justify-center gap-1 py-2">
-                <div class="py-1 font-bold">{item.AppLabel}</div>
-                <div class="pb-1">{item.AppValue}</div>
-              </div>
-              <hr class="pt-2" />
-              <div class="flex flex-row gap-1 py-2">
-                <div class="pb-1 font-bold">{item.AdditionalLabel}</div>
-                <div>{item.AdditionalValue}</div>
-              </div>
-              <hr class="pt-2" />
-            {/each}
+            {/if}
           </div>
-          <div class="h-[60px] w-full px-6 py-1">
-            <button
-              class="h-full w-full rounded-full bg-brand-yellow text-[1rem]"
-              >View more</button>
+          <hr />
+          <div class="flex w-full flex-col p-4">
+            <a
+              href={`/verify?source=${verifyUrl}`}
+              class="rounded-full bg-brand-yellow p-3 text-center text-body"
+              >{$_('l2popup.inspect')}</a>
           </div>
         </div>
       </div>

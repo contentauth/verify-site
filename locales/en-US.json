@@ -159,5 +159,15 @@
   "toast.matchesUnavailable": "Possible matches are currently unavailable",
   "toast.somethingWentWrong": "Something went wrong",
   "toast.unsupportedFileType": "That file type isn't supported",
-  "wordListDelimiter": ", "
+  "wordListDelimiter": ", ",
+  "l2popup.title": "Content Credentials",
+  "l2popup.producedBy": "Produced by",
+  "l2popup.issuedBy": "Issued by {issuer} on {date}",
+  "l2popup.website": "Website",
+  "l2popup.socialMedia": "Social media",
+  "l2popup.deviceUsed": "App or device used",
+  "l2popup.aiToolUsed": "AI tool used",
+  "l2popup.additionalHistory": "Additional history",
+  "l2popup.yes": "Yes",
+  "l2popup.inspect": "Inspect"
 }

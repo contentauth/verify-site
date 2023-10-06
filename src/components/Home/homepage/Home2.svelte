@@ -1,5 +1,5 @@
 <script>
-  import Image from '$assets/svg/logos/homepage/home2.svg';
+  import Image from '$assets/jpg/home1.jpg';
   import L2Overlay from '../L2Overlay/L2Overlay.svelte';
 </script>
 
@@ -14,11 +14,11 @@
   <div
     class="pt-6 md:col-start-7 md:col-end-13 md:pt-0 lg:col-start-8 lg:col-end-12">
     <div class="mx-auto max-w-[676px] md:mx-0">
-      <h3 class="2xl:text-key-title-xl pb-6 text-left text-key-title">
+      <h3 class="pb-6 text-left text-key-title 2xl:text-key-title-xl">
         Building trust in what you see online
       </h3>
       <p
-        class="2xl:text-key-sub-text-2xl text-key-sub-text text-gray-900/60 xl:text-key-sub-text-xl">
+        class="text-key-sub-text text-gray-900/60 xl:text-key-sub-text-xl 2xl:text-key-sub-text-2xl">
         Content Credentials make the origin and history of content available for
         everyone to access, anytime. With this information at your fingertips,
         you have the ability to decide if you trust the content you
