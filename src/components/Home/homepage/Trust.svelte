@@ -142,7 +142,7 @@
           <div
             class="2xl:text-trust-desc-2xl h-full sm:h-[208px] rounded-b-xl bg-[#f5f5f5] px-[32px] py-6 text-trust-desc lg:rounded-b-[20px] xl:text-trust-desc-xl">
             <p class="">
-              Content Credentials are based on open technical standards
+              Content Credentials are based on an open technical standards
               developed and maintained by the <a
                 href="https://c2pa.org/"
                 class="underline">C2PA</a
