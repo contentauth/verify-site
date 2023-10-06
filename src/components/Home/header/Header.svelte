@@ -1,6 +1,6 @@
 <script>
-  import Logo from '../../../../assets/png/cc.png';
   import MobileLogo from '$assets/svg/logos/homepage/crvertical.svg';
+  import Logo from '$assets/svg/monochrome/text-logo.svg';
 </script>
 
 <div class="h-[6.25rem] w-screen px-[1.25rem] sm:px-[2rem] xl:px-[2rem]">
@@ -17,7 +17,7 @@
           src={MobileLogo}
           height="46px"
           alt="content credentials"
-          class="sm:hidden max-h-[46px]" />
+          class="max-h-[46px] sm:hidden" />
       </a>
     </div>
     <!-- <div class="pl-6">

@@ -46,7 +46,7 @@ test.describe('Verify - assertion display', () => {
     page,
   }) => {
     const verify = new VerifyPage(page);
-    const source = VerifyPage.getFixtureUrl('inference');
+    const source = VerifyPage.getFixtureUrl('no-inference');
     await verify.goto(source);
     await verify.takeTallSnapshot(
       `result for image without inference metadata`,
