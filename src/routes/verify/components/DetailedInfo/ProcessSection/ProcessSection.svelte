@@ -16,6 +16,7 @@
   import CollapsibleSection from '$src/components/SidebarSection/CollapsibleSection.svelte';
   import type { AssetData, ManifestData } from '$src/lib/asset';
   import { _, locale } from 'svelte-i18n';
+  import AiSubSection from '../CreditAndUsageSection/AISubSection.svelte';
   import ActionsSection from './ActionsSection.svelte';
   import AppDeviceSection from './AppDeviceSection.svelte';
   import IngredientsSection from './IngredientsSection.svelte';
@@ -32,6 +33,10 @@
   <svelte:fragment slot="content">
     {#if manifestData.claimGenerator}
       <AppDeviceSection generator={manifestData.claimGenerator} />
+    {/if}
+    {#if manifestData.generativeInfo?.softwareAgents?.length}
+      <AiSubSection
+        softwareAgents={manifestData.generativeInfo.softwareAgents} />
     {/if}
     {#await manifestData.editsAndActivityForLocale($locale ?? null) then result}
       <div data-testid="actions.editsAndActivity">
