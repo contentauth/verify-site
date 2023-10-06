@@ -33,11 +33,12 @@
     {#if manifestData.claimGenerator}
       <AppDeviceSection generator={manifestData.claimGenerator} />
     {/if}
-    {#await manifestData.editsAndActivityForLocale($locale ?? null) then editsAndActivity}
+    {#await manifestData.editsAndActivityForLocale($locale ?? null) then result}
       <div data-testid="actions.editsAndActivity">
-        {#if editsAndActivity?.length}
+        {#if result && result.editsAndActivity.length}
           <ActionsSection
-            {editsAndActivity}
+            editsAndActivity={result.editsAndActivity}
+            hasInference={result.hasInference}
             reviewRatings={manifestData.reviewRatings} />
         {/if}
       </div>

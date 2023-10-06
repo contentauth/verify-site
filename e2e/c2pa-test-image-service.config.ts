@@ -168,5 +168,56 @@ export default {
         ],
       },
     },
+    inference: {
+      image: { r: 20, g: 219, b: 56, width: 500, height: 300 },
+      manifest: {
+        claim_generator: 'Adobe_Firefly c2pa-adobe-js/0.16.0 c2pa-rs/0.25.1',
+        title: 'Generated image',
+        format: 'image/jpeg',
+        instance_id: 'xmp:iid:61f7ffbf-2fdc-4c3f-9e5c-4a6591ac809c',
+        assertions: [
+          {
+            label: 'c2pa.actions',
+            data: {
+              actions: [
+                {
+                  action: 'c2pa.created',
+                  digitalSourceType:
+                    'https://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia',
+                  softwareAgent: 'Adobe Firefly',
+                },
+              ],
+              metadata: {
+                'com.adobe.inference': true,
+              },
+            },
+          },
+        ],
+      },
+    },
+    'no-inference': {
+      image: { r: 218, g: 21, b: 56, width: 500, height: 300 },
+      manifest: {
+        claim_generator: 'Adobe_Firefly c2pa-adobe-js/0.16.0 c2pa-rs/0.25.1',
+        title: 'Generated image',
+        format: 'image/jpeg',
+        instance_id: 'xmp:iid:61f7ffbf-2fdc-4c3f-9e5c-4a6591ac809c',
+        assertions: [
+          {
+            label: 'c2pa.actions',
+            data: {
+              actions: [
+                {
+                  action: 'c2pa.created',
+                  digitalSourceType:
+                    'https://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia',
+                  softwareAgent: 'Adobe Firefly',
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
   },
 } satisfies C2paTestImageServiceConfig;
