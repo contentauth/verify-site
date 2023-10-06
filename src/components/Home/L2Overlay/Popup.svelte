@@ -37,7 +37,7 @@
   let aiToolUsed = generativeInfo?.softwareAgents[0];
   let hasAdditionalHistory = !!activeManifest.ingredients.length;
 
-  const verifyUrl = `${window.origin}${imageUrl}`;
+  const verifyUrl = encodeURIComponent(`${window.origin}${imageUrl}`);
 
   function closePopup() {
     dispatch('close');
