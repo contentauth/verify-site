@@ -33,7 +33,7 @@
             Creators can choose to attach Content Credentials to their content,
             which might include things like whether AI was used or not. Voila!
             This information is added to the edit history of the
-            content—creating a record that can be confirmed.
+            content—creating a permanent record that can be confirmed.
           </p>
         </div>
         <!-- svelte-ignore a11y-img-redundant-alt -->
@@ -92,8 +92,9 @@
           <p
             class="mb-[32px] pt-[16px] text-hiw-desc text-gray-900/60 md:mb-0 md:w-1/2 md:pt-0 lg:pt-0 xl:text-hiw-desc-xl 2xl:text-hiw-desc-2xl">
             Content Credentials can capture a detailed history of changes over
-            time. The Verify feature allows you to explore this information in
-            depth. Check any content to see if it has Content Credentials.
+            time. The <a href="/verify" class="underline"> Verify </a> feature allows
+            you to explore this information in depth. Check any content to see if
+            it has Content Credentials.
           </p>
         </div>
         <video
@@ -178,8 +179,9 @@
       <div
         class="col-start-7 col-end-12 mt-[10rem] text-gray-900/60 2xl:text-hiw-desc-2xl">
         Content Credentials can capture a detailed history of changes over time.
-        The Verify feature allows you to explore this information in depth, and
-        upload any content to see if it has Content Credentials.
+        The <a href="/verify" class="underline"> Verify </a> feature allows you to
+        explore this information in depth, and upload any content to see if it has
+        Content Credentials.
       </div>
       <div class="col-start-2 col-end-12 mt-[4rem]">
         <video
