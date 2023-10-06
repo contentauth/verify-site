@@ -1,5 +1,5 @@
 <script>
-  import Logo from '../../../../assets/png/cc.png';
+  import Logo from '$assets/svg/logos/homepage/contentcredentials.svg';
 </script>
 
 <div class="flex w-full justify-center">
