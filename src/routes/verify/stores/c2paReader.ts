@@ -102,6 +102,7 @@ export function createC2paReader(): C2paReaderStore {
             const buffer = await source.arrayBuffer();
             source = new File([buffer], source.name, { type: correctedType });
             analytics.track('correctedType', {
+              originalType: sourceType,
               correctedType,
             });
           }
