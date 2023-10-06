@@ -83,6 +83,8 @@
                   Content Credentials are based on an open technical specification
                   developed and maintained by the <a
                     href="https://c2pa.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     class="underline">C2PA</a
                   >, a cross-industry standards development organization. You
                   can review the specification anytime.
@@ -146,6 +148,8 @@
               Content Credentials are based on an open technical standards
               developed and maintained by the <a
                 href="https://c2pa.org/"
+                target="_blank"
+                rel="noopener noreferrer"
                 class="underline">C2PA</a
               >, a cross-industry standards development organization. You can
               review the specification anytime.
