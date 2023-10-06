@@ -16,7 +16,7 @@
     class="2xl:w-[910px] flex flex-col items-center justify-center pb-10 pt-20 xl:w-[802px]">
     <h2
       class="2xl:text-home-title-2xl text-center text-home-secondary-title md:text-home-title-md xl:text-hero-title">
-      Content Credentials reveals helpful information that's usually hidden
+      Content Credentials reveal helpful information that's usually hidden
     </h2>
     <div class="flex flex-col items-center justify-center pt-10">
       <p
