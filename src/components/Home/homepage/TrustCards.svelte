@@ -11,11 +11,12 @@
         <div
           class="lg:text-trust-desc-lg h-full rounded-b-xl bg-[#f5f5f5] px-[32px] pb-20 pt-[20px] text-trust-desc lg:rounded-b-[20px] lg:pb-0">
           <p class="lg:h-[269px] lg:w-[325px]">
-            Content Credentials are based on open technical standards developed
-            and maintained by the <a href="https://c2pa.org/" class="underline"
-              >C2PA</a
-            >, a cross-industry membership organization. You can review the
-            standards anytime.
+            Content Credentials are based on open technical specification
+            developed and maintained by the <a
+              href="https://c2pa.org/"
+              class="underline">C2PA</a
+            >, a cross-industry standards development organization. You can
+            review the specification anytime.
           </p>
         </div>
       </li>
