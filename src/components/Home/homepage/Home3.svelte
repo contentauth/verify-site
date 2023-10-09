@@ -10,6 +10,7 @@
       imageUrl={Image}
       class="w-full"
       alt="Two people standing next to each other in front of a black background with their arms crossed, wearing ornate and colorful flower headdresses. " />
+
   </div>
   <div
     class="pt-6 md:col-start-2 md:col-end-6 md:pt-0 xl:col-start-2 xl:col-end-6">
