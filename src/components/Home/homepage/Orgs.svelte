@@ -38,7 +38,7 @@
     <div
       class="relative w-full overflow-hidden rounded-xl lg:rounded-[20px] bg-gray-40">
       <div
-        class="primary px-[32px] py-[48px] sm:py-[64px] md:py-[80px] xl:py-[96px] flex-wrap flex items-center justify-around gap-[64px]">
+        class="primary px-[32px] py-[48px] sm:py-[64px] md:py-[80px] xl:py-[96px] flex-wrap flex items-center justify-center gap-[64px]">
         {#each data as item}
           <div class="secondary">
             <img src={item.image} alt="" class="h-[100px] object-contain" />
