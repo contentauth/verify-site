@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Pin from '$assets/svg/color/cr-icon-fill.svg?component';
+  import Pin from '$assets/svg/logos/homepage/pin.svg?component';
   import { getSdk } from '$src/lib/sdk';
   // import Pin from '$assets/svg/color/cr-icon-fill.svg';
   import Popup from './Popup.svelte'; // Import the DesktopPopup component
