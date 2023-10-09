@@ -123,7 +123,7 @@
       <div class="col-start-2 col-end-6">
         <div class="flex flex-row justify-start gap-2">
           <span
-            class="xl:text-hiw-label-xl mr-0.5 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-brand-yellow px-4 py-4"
+            class="xl:text-hiw-label-xl mr-0.5 flex h-[44px] w-[44px] items-center justify-center rounded-full bg-brand-yellow px-4 py-4"
             >1</span>
           <p class="xl:text-hiw-label-xl">
             Anytime content is captured, created, or edited, Content Credentials
@@ -153,7 +153,7 @@
       <div class="col-start-2 col-end-6 mt-[10rem]">
         <div class="flex flex-row justify-start gap-2">
           <span
-            class="xl:text-hiw-label-xl mr-0.5 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-brand-orange px-4 py-4"
+            class="xl:text-hiw-label-xl mr-0.5 flex h-[44px] w-[44px] items-center justify-center rounded-full bg-brand-orange px-4 py-4"
             >2</span>
           <p class="xl:text-hiw-label-xl">
             Content Credentials are viewable across the internet
@@ -181,7 +181,7 @@
       <div class="col-start-2 col-end-6 mt-[10rem]">
         <div class="flex flex-row justify-start gap-2">
           <span
-            class="xl:text-hiw-label-xl mr-0.5 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-brand-red px-4 py-4"
+            class="xl:text-hiw-label-xl mr-0.5 flex h-[44px] w-[44px] items-center justify-center rounded-full bg-brand-red px-4 py-4"
             >3</span>
           <p class="xl:text-hiw-label-xl">
             Go deeper to explore the full edit history
