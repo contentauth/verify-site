@@ -48,9 +48,7 @@
     ],
   }} />
 
-
 <!-- <Header>
-
   <svelte:fragment slot="links">
     <HeaderLink href="/verify">Verify</HeaderLink>
     <HeaderLink href="/apply">Apply</HeaderLink>
