@@ -1,6 +1,6 @@
 <script>
-  import Hiw1 from '$assets/video/howitworks-1.mp4';
-  import Hiw2 from '$assets/video/howitworks-2.mp4';
+  import Hiw1 from '$assets/video/how-it-works-1.mp4';
+  import Hiw2 from '$assets/video/how-it-works-2.mp4';
   import Video from '$assets/video/hiw.mp4';
 </script>
 
