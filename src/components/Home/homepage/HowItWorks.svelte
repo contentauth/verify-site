@@ -124,7 +124,6 @@
         <div class="flex flex-row justify-start gap-2">
           <span
             class="xl:text-hiw-label-xl mr-0.5 flex h-[44px] w-[44px] items-center justify-center rounded-full bg-brand-yellow px-4 pb-4 pt-5"
-
             >1</span>
           <p class="xl:text-hiw-label-xl">
             Anytime content is captured, created, or edited, Content Credentials
