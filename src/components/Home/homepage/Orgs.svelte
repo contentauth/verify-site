@@ -38,16 +38,14 @@
     <div
       class="relative w-full overflow-hidden rounded-xl lg:rounded-[20px] bg-gray-40">
       <div
-        class="primary px-[32px] md:px-[64px] py-[48px] md:py-[80px] flex-wrap flex items-center justify-around">
+        class="primary px-[32px] py-[48px] sm:py-[64px] md:py-[80px] xl:py-[96px] flex-wrap flex items-center justify-around gap-[64px]">
         {#each data as item}
-          <div class="px-[16px] py-[20px] flex">
-            <img
-              src={item.image}
-              alt=""
-              class="md:w-[100px] h-[100px] w-[200px] object-contain" />
+          <div class="secondary">
+            <img src={item.image} alt="" class="h-[100px] object-contain" />
           </div>
         {/each}
       </div>
+      <!-- Secondary copy of logos, to show continous animation effect -->
       <!-- <div
         class="secondary absolute left-0 top-0 flex items-center justify-around">
         {#each data as item}
@@ -61,6 +59,7 @@
 </div>
 
 <style>
+  /* Logo strip animation code */
   /* .primary {
     width: inherit;
     height: inherit;
