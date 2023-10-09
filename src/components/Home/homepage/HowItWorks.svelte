@@ -20,7 +20,7 @@
           <div
             class="flex flex-col items-center gap-4 md:w-1/2 md:flex-row md:items-start md:justify-start">
             <div
-              class="mr-0.5 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-brand-yellow px-4 py-4">
+              class="text-hiw-label mr-0.5 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-brand-yellow px-4 py-4">
               1
             </div>
             <h3 class="text-hiw-label md:pr-10 xl:text-hiw-label-xl">
@@ -52,7 +52,7 @@
           <div
             class="flex w-full flex-col items-center gap-4 md:w-1/2 md:flex-row md:items-start md:justify-start">
             <div
-              class="mr-0.5 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-brand-orange px-4 py-4">
+              class="text-hiw-label mr-0.5 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-brand-orange px-4 py-4">
               2
             </div>
             <h3
@@ -87,7 +87,7 @@
           <div
             class="flex w-full flex-col items-center gap-4 md:w-1/2 md:flex-row md:items-start md:justify-start">
             <div
-              class="mr-0.5 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-brand-red px-4 py-4">
+              class="text-hiw-label mr-0.5 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-brand-red px-4 py-4">
               3
             </div>
             <h3
@@ -101,6 +101,7 @@
             time. The <a href="/verify" class="underline"> Verify </a> feature allows
             you to explore this information in depth. Check any content to see if
             it has Content Credentials.
+
           </p>
         </div>
       </div>
