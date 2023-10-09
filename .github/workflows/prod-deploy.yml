@@ -11,7 +11,7 @@ jobs:
       aws-region: ${{ vars.AWS_REGION }}
       deploy-source-dir: ${{ vars.DEPLOY_SOURCE_DIR }}
       fastly-service-id: ${{ vars.FASTLY_PROD_SERVICE_ID }}
-      site-config-json: '{"env": "prod"}'
+      site-config-json: '{ "env": "prod", "features": ["homepage"] }'
     secrets:
       aws-access-key-id: ${{ secrets.AWS_PROD_ACCESS_KEY_ID }}
       aws-secret-access-key: ${{ secrets.AWS_PROD_SECRET_ACCESS_KEY }}

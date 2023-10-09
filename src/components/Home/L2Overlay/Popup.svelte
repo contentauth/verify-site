@@ -48,6 +48,7 @@
 <div class="hidden md:flex">
   {#if isOpen && window.innerWidth >= 768}
     <div
+
       class="popup shadow-lg bg-brand-white absolute right-[3.5rem] top-[1rem] z-[9999] mb-10 rounded-lg"
       class:visible={isOpen}>
       <div class="bg-brand-white h-full w-64 rounded-xl">
