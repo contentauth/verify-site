@@ -30,9 +30,23 @@
 
 <MetaTags
   title="Content Credentials"
-  titleTemplate="Reveal Where That Content Came From | Content Credentials"
+  titleTemplate="Content Credentials"
   description="Introducing the new standard for content authentication. Content Credentials provide deeper transparency into how content was created or edited."
-  canonical="https://www.contentcredentials.org/" />
+  canonical="https://www.contentcredentials.org/"
+  openGraph={{
+    url: 'https://www.contentcredentials.org/',
+    title: 'Content Credentials',
+    description:
+      'Introducing the new standard for content authentication. Content Credentials provide deeper transparency into how content was created or edited.',
+    images: [
+      {
+        url: 'https://www.contentcredentials.org/assets/opengraph.png',
+        width: 1200,
+        height: 630,
+        alt: 'Content Credentials',
+      },
+    ],
+  }} />
 
 <!-- <Header>
 
