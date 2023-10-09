@@ -40,7 +40,7 @@
       'Introducing the new standard for content authentication. Content Credentials provide deeper transparency into how content was created or edited.',
     images: [
       {
-        url: 'https://www.contentcredentials.org/assets/opengraph.png',
+        url: 'https://www.contentcredentials.org/static/opengraph.png',
         width: 1200,
         height: 630,
         alt: 'Content Credentials',
