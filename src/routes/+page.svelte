@@ -31,7 +31,7 @@
   canonical="https://www.contentcredentials.org/"
   openGraph={{
     url: 'https://www.contentcredentials.org/',
-    title: 'Content Credentials',
+    title: 'Reveal Where That Content Came From | Content Credentials',
     description:
       'Introducing the new standard for content authentication. Content Credentials provide deeper transparency into how content was created or edited.',
     images: [
@@ -43,7 +43,6 @@
       },
     ],
   }} />
-
 
 <div class="overflow-x-hidden">
   <Header />
