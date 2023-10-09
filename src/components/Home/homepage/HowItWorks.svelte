@@ -103,7 +103,6 @@
             it has Content Credentials.
           </p>
         </div>
-
       </div>
       <div
         class="col-start-7 col-end-12 mt-[10rem] text-gray-900/60 2xl:text-hiw-desc-2xl">
