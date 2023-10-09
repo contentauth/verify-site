@@ -101,7 +101,6 @@
             time. The <a href="/verify" class="underline"> Verify </a> feature allows
             you to explore this information in depth. Check any content to see if
             it has Content Credentials.
-
           </p>
         </div>
       </div>
