@@ -101,8 +101,17 @@
             time. The <a href="/verify" class="underline"> Verify </a> feature allows
             you to explore this information in depth. Check any content to see if
             it has Content Credentials.
+
           </p>
         </div>
+      </div>
+      <div
+        class="col-start-7 col-end-12 mt-[10rem] text-gray-900/60 2xl:text-hiw-desc-2xl">
+        Once the content is made available, anyone can view its Content
+        Credentials by clicking the pin, which reveals the most relevant
+        information directly in context.
+      </div>
+      <div class="col-start-2 col-end-12 mt-[4rem]">
         <video
           autoplay
           loop
