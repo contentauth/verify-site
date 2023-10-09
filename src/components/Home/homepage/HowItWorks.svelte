@@ -154,6 +154,7 @@
         <div class="flex flex-row justify-start gap-2">
           <span
             class="mr-0.5 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-brand-orange px-4 py-4"
+
             >2</span>
           <p class="xl:text-hiw-label-xl">
             Content Credentials are viewable across the internet
