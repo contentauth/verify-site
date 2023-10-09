@@ -3,8 +3,7 @@
 </script>
 
 <div class="flex w-full justify-center">
-  <div
-    class="h-[66px] w-full max-w-[1440px] px-5 py-4 sm:px-8 md:h-[100px] lg:py-7 xl:px-[2rem]">
+  <div class="w-full max-w-[1440px] px-5 py-4 sm:px-8 lg:py-7 xl:px-[2rem]">
     <div class="flex flex-row items-center justify-between">
       <div class="pr-6">
         <a href="/">
