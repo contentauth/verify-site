@@ -18,6 +18,7 @@
   import Header from '../components/Home/header/Header.svelte';
   // import HeaderLink from '../components/Header/HeaderLink.svelte';
   // import { goto } from '$app/navigation';
+  // import { goto } from '$app/navigation';
   import Hero from '$src/components/Home/hero/NewHero.svelte';
   import Home1 from '$src/components/Home/homepage/Home1.svelte';
   import HowItWorks from '$src/components/Home/homepage/HowItWorks.svelte';
@@ -49,6 +50,7 @@
   }} />
 
 <!-- <Header>
+
   <svelte:fragment slot="links">
     <HeaderLink href="/verify">Verify</HeaderLink>
     <HeaderLink href="/apply">Apply</HeaderLink>
