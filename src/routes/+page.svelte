@@ -25,7 +25,7 @@
 </script>
 
 <MetaTags
-  title="Content Credentials"
+  title="Reveal Where That Content Came From | Content Credentials"
   titleTemplate="Content Credentials"
   description="Introducing the new standard for content authentication. Content Credentials provide deeper transparency into how content was created or edited."
   canonical="https://www.contentcredentials.org/"
