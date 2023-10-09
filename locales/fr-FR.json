@@ -13,7 +13,7 @@
   "dialog.close": "Fermer",
   "dialog.continue": "Continuer",
   "dialog.error.legacyCredential.message": "Cette ressource a été créée avec une ancienne version du service Informations de traçabilité du contenu. Vous devez utiliser une ancienne version de Verify pour consulter ses informations.",
-  "dialog.error.legacyCredential.title": "Vous utilisez une ancienne version de Verify ?",
+  "dialog.error.legacyCredential.title": "Utiliser une ancienne version de Verify ?",
   "emptyState.body": "Faites glisser le contenu dans Verify pour inspecter ses informations de traçabilité en détail et voir les modifications effectuées au fil du temps.",
   "emptyState.dropFile.linkText": "Sélectionnez un fichier sur votre appareil",
   "emptyState.dropFile": "ou faites-le glisser où vous voulez",

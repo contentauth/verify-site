@@ -60,7 +60,8 @@
         on:change={handleViewChange}
         class="back form-select w-full rounded-sm border border-gray-400 bg-[center_right_0.25rem] px-2 text-[0.8125rem] leading-3">
         {#each compareModeArray as item (item)}
-          <option value={item}>{$_(`sidebar.verify.compare.${item}`)}</option>
+          <option value={item} selected={item === $compareViewMode}
+            >{$_(`sidebar.verify.compare.${item}`)}</option>
         {/each}
       </select>
     </div>

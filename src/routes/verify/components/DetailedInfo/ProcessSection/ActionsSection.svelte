@@ -23,6 +23,7 @@
   import AboutSectionIconContentRow from '../AboutSection/AboutSectionIconContentRow.svelte';
 
   export let editsAndActivity: NonNullable<TranslatedDictionaryCategory[]>;
+  export let hasInference: boolean;
   export let reviewRatings: ManifestData['reviewRatings'];
 </script>
 
@@ -50,8 +51,19 @@
           {/if}
         </svelte:fragment>
         <div slot="content" class="flex flex-col">
-          <span>{category.label}</span>
-          <span class="text-gray-600">{category.description}</span>
+          {#if category.id === 'c2pa.created' && hasInference}
+            <span
+              >{$_(
+                'sidebar.verify.process.actions.styleReference.title',
+              )}</span>
+            <span class="text-gray-600"
+              >{$_(
+                'sidebar.verify.process.actions.styleReference.description',
+              )}</span>
+          {:else}
+            <span>{category.label}</span>
+            <span class="text-gray-600">{category.description}</span>
+          {/if}
         </div></AboutSectionIconContentRow>
     {/each}
   </div>

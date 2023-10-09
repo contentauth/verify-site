@@ -1,4 +1,4 @@
-name: stage-deploy
+name: Stage deploy
 
 on:
   push:
@@ -7,51 +7,16 @@ on:
 
 jobs:
   build-test:
-    name: Build and deploy
-    runs-on: ubuntu-latest
-    timeout-minutes: 60
-    env:
-      SITE_CONFIG: '{"env": "stage"}'
-      VITE_MAPBOX_TOKEN: ${{ secrets.VITE_MAPBOX_TOKEN }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          lfs: true
-
-      - name: Install pnpm
-        run: |
-          corepack enable
-          corepack prepare pnpm@latest --activate
-
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Run code checks
-        run: |
-          pnpm run lint
-          pnpm run check
-
-      - name: Run build script for deployment output
-        run: pnpm run build
-
-      - name: Set AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_STAGE_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_STAGE_SECRET_ACCESS_KEY }}
-          aws-region: ${{ vars.AWS_REGION }}
-
-      - name: Deploy to S3 bucket
-        run: |
-          aws s3 sync ${{ vars.DEPLOY_SOURCE_DIR }} s3://${{ vars.AWS_STAGE_S3_BUCKET }} --delete
-
-      - name: Purge Fastly cache
-        run: |
-          curl -i  -X POST "https://api.fastly.com/service/${{ vars.FASTLY_STAGE_SERVICE_ID }}/purge_all" -H "Fastly-Key: ${{ secrets.FASTLY_PURGE_API_TOKEN }}" -H "Accept: application/json"
+    uses: ./.github/workflows/deploy-template.yml
+    with:
+      aws-bucket: ${{ vars.AWS_STAGE_S3_BUCKET }}
+      aws-region: ${{ vars.AWS_REGION }}
+      deploy-branch: ${{ inputs.branch }}
+      deploy-source-dir: ${{ vars.DEPLOY_SOURCE_DIR }}
+      fastly-service-id: ${{ vars.FASTLY_STAGE_SERVICE_ID }}
+      site-config-json: '{ "env": "stage", "features": ["homepage"] }'
+    secrets:
+      aws-access-key-id: ${{ secrets.AWS_STAGE_ACCESS_KEY_ID }}
+      aws-secret-access-key: ${{ secrets.AWS_STAGE_SECRET_ACCESS_KEY }}
+      fastly-purge-api-token: ${{ secrets.FASTLY_PURGE_API_TOKEN }}
+      mapbox-token: ${{ secrets.VITE_MAPBOX_TOKEN }}

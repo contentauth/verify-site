@@ -1,5 +1,5 @@
 <script>
-  import Images from '$assets/jpg/flower.jpg';
+  import Image from '$assets/jpg/home2.jpg';
   import L2Overlay from '../L2Overlay/L2Overlay.svelte';
 </script>
 
@@ -7,9 +7,9 @@
   <!-- Mobile -->
   <div class="md:col-span-6 md:col-start-7 md:hidden">
     <L2Overlay
-      imageUrl={Images}
+      imageUrl={Image}
       class="w-full"
-      alt="Two people standing next to each other in front of a black background with their arms crossed, wearing ornate and colorful flower headdresses." />
+      alt="Two people standing next to each other in front of a black background with their arms crossed, wearing ornate and colorful flower headdresses. " />
   </div>
   <div
     class="pt-6 md:col-start-2 md:col-end-6 md:pt-0 xl:col-start-2 xl:col-end-6">
@@ -29,9 +29,8 @@
   <!-- Below hidden until Desktop -->
   <div class="hidden w-full md:col-span-6 md:col-start-7 md:flex">
     <L2Overlay
-      imageUrl={Images}
+      imageUrl={Image}
       class="w-full"
-      alt="A content creator sitting at her desk and smiling, with an
-    office behind her blurred in the background" />
+      alt="Two people standing next to each other in front of a black background with their arms crossed, wearing ornate and colorful flower headdresses." />
   </div>
 </div>

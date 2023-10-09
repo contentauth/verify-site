@@ -1,0 +1,40 @@
+name: Format locale JSON files
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - 'locales/*.json'
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          lfs: true
+
+      - name: Install pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Format files
+        run: pnpm prettier --check --write locales
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Apply locale JSON formatting changes
+          branch: ${{ github.head_ref }}
+          file_pattern: 'locales/*.json'

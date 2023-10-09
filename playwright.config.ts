@@ -14,8 +14,14 @@
 import type { PlaywrightTestConfig } from '@playwright/test';
 import testImageConfig from './e2e/c2pa-test-image-service.config';
 
-export const port = 4173;
-export const fixturesPort = 8080;
+export const port = parseInt(
+  (process.env.HOST_PORT as string | undefined) ?? '4173',
+  10,
+);
+export const fixturesPort = parseInt(
+  (process.env.FIXTURES_PORT as string | undefined) ?? '8081',
+  10,
+);
 const base = process.env.BASE_URL;
 const baseURL = `${base ?? `http://localhost`}:${port}/`;
 
@@ -32,8 +38,8 @@ const config: PlaywrightTestConfig = {
   },
   webServer: [
     {
-      command: 'pnpm preview',
-      port: port,
+      command: `pnpm preview --port=${port}`,
+      port,
       reuseExistingServer: !process.env.CI,
     },
     {

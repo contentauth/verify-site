@@ -127,10 +127,12 @@
     hasBorder={!!manifestData}
     on:click={handleThumbnailClick} />
 </div>
-{#if manifestData}
-  <ContentSummarySection {...assetDataToContentSummaryProps($assetData)} />
-  <CreditAndUsage {manifestData} />
-  <ProcessSection {manifestData} {ingredients} />
-  <CameraCaptureSection {manifestData} />
-  <AboutSection {manifestData} />
-{/if}
+<div data-testid="manifestData" data-has-manifest={!!manifestData}>
+  {#if manifestData}
+    <ContentSummarySection {...assetDataToContentSummaryProps($assetData)} />
+    <CreditAndUsage {manifestData} />
+    <ProcessSection {manifestData} {ingredients} />
+    <CameraCaptureSection {manifestData} />
+    <AboutSection {manifestData} />
+  {/if}
+</div>

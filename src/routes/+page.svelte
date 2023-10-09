@@ -17,20 +17,36 @@
   // import Header from './components/header/Header.svelte';
   import Header from '../components/Home/header/Header.svelte';
   // import HeaderLink from '../components/Header/HeaderLink.svelte';
+  // import { goto } from '$app/navigation';
   import Hero from '$src/components/Home/hero/NewHero.svelte';
   import Home1 from '$src/components/Home/homepage/Home1.svelte';
   import HowItWorks from '$src/components/Home/homepage/HowItWorks.svelte';
-  import Trust from '$src/components/Home/homepage/Trust.svelte';
   import Movement from '$src/components/Home/homepage/Movement.svelte';
   import Orgs from '$src/components/Home/homepage/Orgs.svelte';
+  import Trust from '$src/components/Home/homepage/Trust.svelte';
   import Powered from '$src/components/Home/homepage/Powered.svelte';
   import { MetaTags } from 'svelte-meta-tags';
 </script>
 
 <MetaTags
   title="Content Credentials"
+  titleTemplate="Content Credentials"
   description="Introducing the new standard for content authentication. Content Credentials provide deeper transparency into how content was created or edited."
-  canonical="https://www.contentcredentials.org/" />
+  canonical="https://www.contentcredentials.org/"
+  openGraph={{
+    url: 'https://www.contentcredentials.org/',
+    title: 'Content Credentials',
+    description:
+      'Introducing the new standard for content authentication. Content Credentials provide deeper transparency into how content was created or edited.',
+    images: [
+      {
+        url: 'https://www.contentcredentials.org/static/opengraph.png',
+        width: 1200,
+        height: 630,
+        alt: 'Content Credentials',
+      },
+    ],
+  }} />
 
 <!-- <Header>
   <svelte:fragment slot="links">
@@ -39,7 +55,8 @@
     <HeaderLink href="/">Embed</HeaderLink>
   </svelte:fragment>
 </Header> -->
-<div class="overflow-x-hidden font-base">
+
+<div class="overflow-x-hidden">
   <Header />
   <div class="flex flex-col items-center justify-center">
     <Hero />

@@ -1,0 +1,84 @@
+name: Reusable deployment workflow
+
+on:
+  workflow_call:
+    inputs:
+      site-config-json:
+        required: true
+        type: string
+      deploy-branch:
+        required: false
+        type: string
+      aws-region:
+        required: true
+        type: string
+      aws-bucket:
+        required: true
+        type: string
+      deploy-source-dir:
+        required: true
+        type: string
+      fastly-service-id:
+        required: true
+        type: string
+    secrets:
+      aws-access-key-id:
+        required: true
+      aws-secret-access-key:
+        required: true
+      fastly-purge-api-token:
+        required: true
+      mapbox-token:
+        required: true
+
+jobs:
+  build-test:
+    name: Build and deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      SITE_CONFIG: ${{ inputs.site-config-json }}
+      VITE_MAPBOX_TOKEN: ${{ secrets.mapbox-token }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          ref: ${{ inputs.deploy-branch || '' }}
+
+      - name: Install pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run code checks
+        run: |
+          pnpm run lint
+          pnpm run check
+
+      - name: Run build script for deployment output
+        run: pnpm run build
+
+      - name: Set AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.aws-access-key-id }}
+          aws-secret-access-key: ${{ secrets.aws-secret-access-key }}
+          aws-region: ${{ inputs.aws-region }}
+
+      - name: Deploy to S3 bucket
+        run: |
+          aws s3 sync ${{ inputs.deploy-source-dir }} s3://${{ inputs.aws-bucket }} --delete
+
+      - name: Purge Fastly cache
+        run: |
+          curl -i  -X POST "https://api.fastly.com/service/${{ inputs.fastly-service-id }}/purge_all" -H "Fastly-Key: ${{ secrets.fastly-purge-api-token }}" -H "Accept: application/json"

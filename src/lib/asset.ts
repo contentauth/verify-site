@@ -62,12 +62,17 @@ export type AssetData = {
   validationResult: ValidationStatusResult | null;
 };
 
+interface EditsAndActivityInferenceResponse {
+  editsAndActivity: TranslatedDictionaryCategory[];
+  hasInference: boolean;
+}
+
 export type ManifestData = {
   claimGenerator: string;
   date: Date | null;
   editsAndActivityForLocale: (
     locale: string | null,
-  ) => Promise<TranslatedDictionaryCategory[] | null>;
+  ) => Promise<EditsAndActivityInferenceResponse | null>;
   exif: ReturnType<typeof selectExif>;
   generativeInfo: GenerativeInfo | null;
   producer: string | null;
@@ -272,8 +277,23 @@ export async function resultToAssetMap({
       claimGenerator: selectFormattedGenerator(manifest),
       signatureInfo: manifest.signatureInfo,
       producer: selectProducer(manifest)?.name ?? null,
-      editsAndActivityForLocale: async (locale) =>
-        selectEditsAndActivity(manifest, locale ?? DEFAULT_LOCALE),
+      editsAndActivityForLocale: async (locale) => {
+        const editsAndActivity = await selectEditsAndActivity(
+          manifest,
+          locale ?? DEFAULT_LOCALE,
+        );
+
+        if (editsAndActivity) {
+          // Add inference information
+          const [actionsAssertion] = manifest.assertions.get('c2pa.actions');
+          const hasInference =
+            !!actionsAssertion?.data?.metadata?.['com.adobe.inference'];
+
+          return { editsAndActivity, hasInference };
+        }
+
+        return null;
+      },
       socialAccounts: selectSocialAccounts(manifest),
       generativeInfo: selectGenerativeInfo(manifest),
       exif: selectExif(manifest),

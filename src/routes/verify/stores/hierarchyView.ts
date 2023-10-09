@@ -13,11 +13,10 @@
 
 import { ROOT_ID, type AssetData, type AssetDataMap } from '$lib/asset';
 import type { Loadable } from '$lib/types';
-import { derived, get, type Readable, type Writable } from 'svelte/store';
+import { derived, type Readable, type Writable } from 'svelte/store';
 import { createAsset, type ReadableAssetStore } from './asset';
-import type { C2paReaderStore } from './c2paReader';
-import type { ManifestRecovererStore } from './manifestRecoverer';
-import type { SelectedSource } from './verifyStore';
+
+import type { SelectedAssetMapState } from './verifyStore';
 
 export type ReadableAssetMap = Record<string, ReadableAssetStore>;
 
@@ -41,41 +40,19 @@ export type HierarchyViewStore = Readable<HierarchyViewState>;
  * @param manifestRecoverer Store encapsulating the manifest recovery logic
  */
 export function createHierarchyView(
-  selectedSource: Readable<SelectedSource>,
+  selectedAssetMap: Readable<SelectedAssetMapState>,
   selectedAssetId: Writable<string>,
-  c2paReader: C2paReaderStore,
-  manifestRecoverer: ManifestRecovererStore,
 ): HierarchyViewStore {
-  return derived(
-    [selectedSource, c2paReader, manifestRecoverer],
-    ([$selectedSource, $c2paReader, $manifestRecoverer]) => {
-      if (['local', 'external'].includes($selectedSource.type)) {
-        if ($c2paReader.state === 'success') {
-          return {
-            state: 'success' as const,
-            ...getHierarchyViewData($c2paReader.assetMap, selectedAssetId),
-          };
-        }
+  return derived(selectedAssetMap, ($selectedAssetMap) => {
+    if ($selectedAssetMap.state === 'success') {
+      return {
+        state: 'success' as const,
+        ...getHierarchyViewData($selectedAssetMap.data, selectedAssetId),
+      };
+    }
 
-        return { state: $c2paReader.state };
-      } else if ($selectedSource.type === 'recovery') {
-        if ($manifestRecoverer.state === 'success') {
-          const { assetMap } = get(
-            $manifestRecoverer.manifests[$selectedSource.id],
-          );
-
-          return {
-            state: 'success' as const,
-            ...getHierarchyViewData(assetMap, selectedAssetId),
-          };
-        }
-
-        return { state: $manifestRecoverer.state };
-      }
-
-      return { state: 'none' as const };
-    },
-  );
+    return { state: $selectedAssetMap.state };
+  });
 }
 
 function getHierarchyViewData(

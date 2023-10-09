@@ -88,7 +88,19 @@ export const SUPPORTED_FORMATS: Record<string, FormatDefinition> = {
     browserViewable: async () => memoizedTestImageSupport('image/heif'),
     searchable: false,
   },
-  'audio/x-wav': {
+  'audio/mp4': {
+    name: 'M4A',
+    category: 'audio',
+    browserViewable: async () => false,
+    searchable: false,
+  },
+  'audio/mpeg': {
+    name: 'MP3',
+    category: 'audio',
+    browserViewable: async () => false,
+    searchable: false,
+  },
+  'audio/wav': {
     name: 'WAV',
     category: 'audio',
     browserViewable: async () => false,

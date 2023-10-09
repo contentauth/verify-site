@@ -156,7 +156,7 @@
   "sidebar.verify.title": "内容凭据",
   "sidebar.verify.website": "网站",
   "spinner.loading": "正在加载",
-  "toast.matchesUnavailable": "可能的匹配项当前不可用",
+  "toast.matchesUnavailable": "当前没有可能匹配的项可用",
   "toast.somethingWentWrong": "出现了一些问题",
   "toast.unsupportedFileType": "该文件类型不受支持",
   "wordListDelimiter": ", "

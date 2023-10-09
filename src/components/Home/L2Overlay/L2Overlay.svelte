@@ -1,10 +1,18 @@
-<script>
-  export let imageUrl;
+<script lang="ts">
   import Pin from '$assets/svg/color/cr-icon-fill.svg?component';
+  import { getSdk } from '$src/lib/sdk';
   // import Pin from '$assets/svg/color/cr-icon-fill.svg';
   import Popup from './Popup.svelte'; // Import the DesktopPopup component
 
+  export let imageUrl: string;
   let isPopupOpen = false;
+
+  async function getManifestStore() {
+    const sdk = await getSdk();
+    const { manifestStore } = await sdk.read(imageUrl);
+
+    return manifestStore;
+  }
 
   function togglePopup() {
     isPopupOpen = !isPopupOpen;
@@ -26,13 +34,18 @@
     <!-- Logo in the top-right corner -->
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <!-- svelte-ignore a11y-no-static-element-interactions -->
-    <div on:click={togglePopup}>
-      <Pin
-        class="absolute right-4 top-4 h-[24px] w-[24px] hover:cursor-pointer" />
-    </div>
+    {#await getManifestStore() then manifestStore}
+      {#if manifestStore}
+        <div on:click={togglePopup}>
+          <Pin
+            class="absolute right-4 top-4 h-[24px] w-[24px] hover:cursor-pointer" />
+        </div>
+        <Popup
+          isOpen={isPopupOpen}
+          {manifestStore}
+          {imageUrl}
+          on:close={handleClose} />
+      {/if}
+    {/await}
   </div>
-
-  <!-- Conditionally render the appropriate popup based on the device type -->
-  <!-- svelte-ignore missing-declaration -->
-  <Popup isOpen={isPopupOpen} on:close={handleClose} />
 </div>

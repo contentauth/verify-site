@@ -117,7 +117,7 @@
     <button
       on:click={$primaryAsset?.select}
       class={[
-        'pointer-events-none absolute left-0 top-0 h-full w-[--leftWidth] overflow-hidden',
+        'pointer-events-none absolute left-0 top-0 h-full w-[--leftWidth] cursor-default overflow-hidden',
         $primaryAsset?.isActive
           ? 'outline outline-offset-2 outline-blue-800'
           : '',
@@ -128,7 +128,7 @@
             src={$primaryAsset?.thumbnail?.url}
             alt=""
             aria-hidden="true"
-            class="h-[--height] w-[--width] object-contain object-center" />
+            class="h-[--height] w-[--width] cursor-pointer object-contain object-center" />
         {:else}
           <div class="flex w-[50%] flex-col items-center self-center">
             <NullState />
@@ -139,7 +139,7 @@
     <button
       on:click={$secondaryAsset?.select}
       class={[
-        'pointer-events-none absolute right-0 top-0 h-full w-[--rightWidth] overflow-hidden',
+        'pointer-events-none absolute right-0 top-0 h-full w-[--rightWidth] cursor-default overflow-hidden',
         $secondaryAsset?.isActive
           ? 'outline outline-offset-2 outline-blue-800'
           : '',
@@ -151,7 +151,7 @@
             src={$secondaryAsset?.thumbnail?.url}
             alt=""
             aria-hidden="true"
-            class="h-[--height] w-[--width] object-contain object-center" />
+            class="h-[--height] w-[--width] cursor-pointer object-contain object-center" />
         {:else}
           <div class="ms-[376px] flex w-1/2 flex-col items-center self-center">
             <NullState />
