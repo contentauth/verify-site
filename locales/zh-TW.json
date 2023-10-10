@@ -138,7 +138,7 @@
   "sidebar.verify.process.actions": "動作",
   "sidebar.verify.process.app": "使用的應用程式或裝置",
   "sidebar.verify.process.actions.styleReference.title": "已使用風格參考影像建立",
-  "sidebar.verify.process.actions.styleReference.description": "已使用風格參考影像建立新檔案或內容。",
+  "sidebar.verify.process.actions.styleReference.description": "已使用風格參考影像建立新檔案或內容",
   "sidebar.verify.process.description": "用於製作此內容的應用程式或裝置記錄了以下資訊:",
   "sidebar.verify.process.ingredients": "元素",
   "sidebar.verify.recovery.noMatches": "找不到相符項目",
@@ -159,5 +159,15 @@
   "toast.matchesUnavailable": "目前沒有可能的相符項目",
   "toast.somethingWentWrong": "發生問題",
   "toast.unsupportedFileType": "該檔案類型不受支援",
-  "wordListDelimiter": "、"
+  "wordListDelimiter": "、",
+  "l2popup.title": "內容憑證",
+  "l2popup.producedBy": "製作者",
+  "l2popup.issuedBy": "由 {issuer} 於 {date} 發行",
+  "l2popup.website": "網站",
+  "l2popup.socialMedia": "社交媒體",
+  "l2popup.deviceUsed": "使用的應用程式或裝置",
+  "l2popup.aiToolUsed": "使用的 AI 工具",
+  "l2popup.additionalHistory": "其他步驟記錄",
+  "l2popup.yes": "是",
+  "l2popup.inspect": "檢查"
 }

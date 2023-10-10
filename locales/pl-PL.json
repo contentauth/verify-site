@@ -138,7 +138,7 @@
   "sidebar.verify.process.actions": "Operacje",
   "sidebar.verify.process.app": "Użyta aplikacja lub urządzenie",
   "sidebar.verify.process.actions.styleReference.title": "Utworzono przy użyciu obrazu referencyjnego stylu",
-  "sidebar.verify.process.actions.styleReference.description": "Utworzono nowy plik lub zawartość, korzystając z obrazów referencyjnych stylu.",
+  "sidebar.verify.process.actions.styleReference.description": "Utworzono nowy plik lub zawartość, korzystając z obrazów referencyjnych stylu",
   "sidebar.verify.process.description": "Aplikacja lub urządzenie użyte do wytworzenia tych treści zarejestrowało następujące informacje:",
   "sidebar.verify.process.ingredients": "Składniki",
   "sidebar.verify.recovery.noMatches": "Nie znaleziono pasujących elementów",
@@ -159,5 +159,15 @@
   "toast.matchesUnavailable": "Funkcja Potencjalnie zgodne jest obecnie niedostępna",
   "toast.somethingWentWrong": "Coś poszło nie tak.",
   "toast.unsupportedFileType": "Pliki tego typu nie są obsługiwane",
-  "wordListDelimiter": ", "
+  "wordListDelimiter": ", ",
+  "l2popup.title": "Poświadczenia zawartości",
+  "l2popup.producedBy": "Wykonał(a)",
+  "l2popup.issuedBy": "Wydane przez {issuer} w dniu {date}",
+  "l2popup.website": "Serwis WWW",
+  "l2popup.socialMedia": "Media społecznościowe",
+  "l2popup.deviceUsed": "Użyta aplikacja lub urządzenie",
+  "l2popup.aiToolUsed": "Użyte narzędzie SI",
+  "l2popup.additionalHistory": "Dodatkowa historia",
+  "l2popup.yes": "Tak",
+  "l2popup.inspect": "Sprawdź"
 }

@@ -138,7 +138,7 @@
   "sidebar.verify.process.actions": "Ações",
   "sidebar.verify.process.app": "Aplicativo ou dispositivo usado",
   "sidebar.verify.process.actions.styleReference.title": "Criado usando uma imagem de referência de estilo",
-  "sidebar.verify.process.actions.styleReference.description": "Criou um novo arquivo ou conteúdo usando imagens de referência de estilo.",
+  "sidebar.verify.process.actions.styleReference.description": "Criou um novo arquivo ou conteúdo usando imagens de referência de estilo",
   "sidebar.verify.process.description": "O aplicativo ou dispositivo usado para produzir este conteúdo registrou as seguintes informações:",
   "sidebar.verify.process.ingredients": "Ingredientes",
   "sidebar.verify.recovery.noMatches": "Nenhuma correspondência encontrada",
@@ -159,5 +159,15 @@
   "toast.matchesUnavailable": "Possíveis correspondências não estão disponíveis no momento",
   "toast.somethingWentWrong": "Ocorreu algum erro",
   "toast.unsupportedFileType": "Esse tipo de arquivo não é compatível",
-  "wordListDelimiter": ", "
+  "wordListDelimiter": ", ",
+  "l2popup.title": "Credenciais de conteúdo",
+  "l2popup.producedBy": "Produzido por",
+  "l2popup.issuedBy": "Emitido por {issuer} em {date}",
+  "l2popup.website": "Site",
+  "l2popup.socialMedia": "Redes sociais",
+  "l2popup.deviceUsed": "Aplicativo ou dispositivo usado",
+  "l2popup.aiToolUsed": "Ferramenta de IA usada",
+  "l2popup.additionalHistory": "Histórico adicional",
+  "l2popup.yes": "Sim",
+  "l2popup.inspect": "Inspecionar"
 }

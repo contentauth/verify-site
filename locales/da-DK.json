@@ -138,7 +138,7 @@
   "sidebar.verify.process.actions": "Handlinger",
   "sidebar.verify.process.app": "Anvendt app eller enhed",
   "sidebar.verify.process.actions.styleReference.title": "Oprettet ved hjælp af et stilreferencebillede",
-  "sidebar.verify.process.actions.styleReference.description": "Oprettede en ny fil eller nyt indhold ved hjælp af stilreferencebilleder.",
+  "sidebar.verify.process.actions.styleReference.description": "Oprettede en ny fil eller nyt indhold ved hjælp af stilreferencebilleder",
   "sidebar.verify.process.description": "Den app eller enhed, der er blevet anvendt til at producere dette indhold, har registreret følgende oplysninger:",
   "sidebar.verify.process.ingredients": "Ingredienser",
   "sidebar.verify.recovery.noMatches": "Der blev ikke fundet nogen matches",
@@ -159,5 +159,15 @@
   "toast.matchesUnavailable": "Mulige matches er ikke tilgængelige i øjeblikket",
   "toast.somethingWentWrong": "Noget gik galt",
   "toast.unsupportedFileType": "Den filtype understøttes ikke",
-  "wordListDelimiter": ", "
+  "wordListDelimiter": ", ",
+  "l2popup.title": "Indholdsoplysninger",
+  "l2popup.producedBy": "Produceret af",
+  "l2popup.issuedBy": "Udstedt af {issuer} den {date}",
+  "l2popup.website": "Websted",
+  "l2popup.socialMedia": "Sociale medier",
+  "l2popup.deviceUsed": "Anvendt app eller enhed",
+  "l2popup.aiToolUsed": "Anvendt AI-værktøj",
+  "l2popup.additionalHistory": "Yderligere historik",
+  "l2popup.yes": "Ja",
+  "l2popup.inspect": "Inspicer"
 }

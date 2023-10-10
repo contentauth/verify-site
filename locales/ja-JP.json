@@ -138,7 +138,7 @@
   "sidebar.verify.process.actions": "アクション",
   "sidebar.verify.process.app": "使用するアプリまたはデバイス",
   "sidebar.verify.process.actions.styleReference.title": "スタイル参照画像を使用して作成",
-  "sidebar.verify.process.actions.styleReference.description": "スタイル参照画像を使用して新しいファイルまたはコンテンツを作成しました。",
+  "sidebar.verify.process.actions.styleReference.description": "スタイル参照画像を使用して新しいファイルまたはコンテンツを作成しました",
   "sidebar.verify.process.description": "このコンテンツの作成に使用されたアプリまたはデバイスには、次の情報が記録されました。",
   "sidebar.verify.process.ingredients": "構成要素",
   "sidebar.verify.recovery.noMatches": "一致が見つかりません",
@@ -159,5 +159,15 @@
   "toast.matchesUnavailable": "一致候補は現在利用できません",
   "toast.somethingWentWrong": "問題が発生しました",
   "toast.unsupportedFileType": "そのファイルタイプはサポートされていません",
-  "wordListDelimiter": ", "
+  "wordListDelimiter": ", ",
+  "l2popup.title": "コンテンツ認証情報",
+  "l2popup.producedBy": "制作元",
+  "l2popup.issuedBy": "{date} に {issuer} が発行",
+  "l2popup.website": "Web サイト",
+  "l2popup.socialMedia": "ソーシャルメディア",
+  "l2popup.deviceUsed": "使用するアプリまたはデバイス",
+  "l2popup.aiToolUsed": "使用した AI ツール",
+  "l2popup.additionalHistory": "追加履歴",
+  "l2popup.yes": "はい",
+  "l2popup.inspect": "検査"
 }
