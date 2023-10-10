@@ -1,10 +1,11 @@
 <script lang="ts">
-  import Pin from '$assets/svg/color/cr-icon-fill.svg?component';
+  import Pin from '$assets/svg/logos/homepage/pin.svg?component';
   import { getSdk } from '$src/lib/sdk';
   // import Pin from '$assets/svg/color/cr-icon-fill.svg';
   import Popup from './Popup.svelte'; // Import the DesktopPopup component
 
   export let imageUrl: string;
+  export let alt: string;
   let isPopupOpen = false;
 
   async function getManifestStore() {
@@ -26,9 +27,8 @@
 <div class="group relative aspect-[3/2]">
   <img
     src={imageUrl}
-    alt="overlay"
+    {alt}
     class="h-full w-full rounded-xl lg:rounded-[20px] object-cover" />
-
   <div
     class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 ease-in-out group-hover:opacity-100">
     <!-- Logo in the top-right corner -->
