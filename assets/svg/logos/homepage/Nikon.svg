@@ -20,103 +20,83 @@
 <stop offset="0.66" stop-color="white"/>
 <stop offset="1" stop-color="#EEEEEE"/>
 </linearGradient>
-<<<<<<< HEAD
-<linearGradient id="paint1_linear_1536_4086" x1="-45.6281" y1="97.8644" x2="85.5543" y2="55.2154" gradientUnits="userSpaceOnUse">
-=======
 <linearGradient id="paint1_linear_1549_5269" x1="-45.6281" y1="97.8624" x2="85.5543" y2="55.2135" gradientUnits="userSpaceOnUse">
->>>>>>> homepage-hot-fix
 <stop stop-color="#EEEEEE"/>
 <stop offset="0.355" stop-color="white"/>
 <stop offset="0.645" stop-color="white"/>
 <stop offset="1" stop-color="#EEEEEE"/>
 </linearGradient>
-<<<<<<< HEAD
-<linearGradient id="paint2_linear_1536_4086" x1="-34.5969" y1="86.0723" x2="91.5649" y2="41.0987" gradientUnits="userSpaceOnUse">
-=======
 <linearGradient id="paint2_linear_1549_5269" x1="-34.5969" y1="86.0703" x2="91.5649" y2="41.0968" gradientUnits="userSpaceOnUse">
->>>>>>> homepage-hot-fix
 <stop stop-color="#EEEEEE"/>
 <stop offset="0.37" stop-color="white"/>
 <stop offset="0.63" stop-color="white"/>
 <stop offset="1" stop-color="#EEEEEE"/>
 </linearGradient>
-<<<<<<< HEAD
-<linearGradient id="paint3_linear_1536_4086" x1="-24.146" y1="74.9065" x2="97.2893" y2="27.56" gradientUnits="userSpaceOnUse">
-=======
+
+
 <linearGradient id="paint3_linear_1549_5269" x1="-24.146" y1="74.9045" x2="97.2893" y2="27.558" gradientUnits="userSpaceOnUse">
->>>>>>> homepage-hot-fix
 <stop stop-color="#EEEEEE"/>
 <stop offset="0.385" stop-color="white"/>
 <stop offset="0.615" stop-color="white"/>
 <stop offset="1" stop-color="#EEEEEE"/>
 </linearGradient>
-<<<<<<< HEAD
-<linearGradient id="paint4_linear_1536_4086" x1="-14.1224" y1="64.2486" x2="102.859" y2="14.4731" gradientUnits="userSpaceOnUse">
-=======
+
+
+
+
 <linearGradient id="paint4_linear_1549_5269" x1="-14.1224" y1="64.2467" x2="102.859" y2="14.4712" gradientUnits="userSpaceOnUse">
->>>>>>> homepage-hot-fix
 <stop stop-color="#EEEEEE"/>
 <stop offset="0.4" stop-color="white"/>
 <stop offset="0.6" stop-color="white"/>
 <stop offset="1" stop-color="#EEEEEE"/>
 </linearGradient>
-<<<<<<< HEAD
-<linearGradient id="paint5_linear_1536_4086" x1="-4.534" y1="54.0634" x2="108.272" y2="1.77183" gradientUnits="userSpaceOnUse">
-=======
+
+
+
 <linearGradient id="paint5_linear_1549_5269" x1="-4.534" y1="54.0614" x2="108.272" y2="1.76987" gradientUnits="userSpaceOnUse">
->>>>>>> homepage-hot-fix
 <stop stop-color="#EEEEEE"/>
 <stop offset="0.415" stop-color="white"/>
 <stop offset="0.585" stop-color="white"/>
 <stop offset="1" stop-color="#EEEEEE"/>
 </linearGradient>
-<<<<<<< HEAD
-<linearGradient id="paint6_linear_1536_4086" x1="4.62318" y1="44.3092" x2="113.532" y2="-10.6086" gradientUnits="userSpaceOnUse">
-=======
+
+
+
 <linearGradient id="paint6_linear_1549_5269" x1="4.62318" y1="44.3073" x2="113.532" y2="-10.6105" gradientUnits="userSpaceOnUse">
->>>>>>> homepage-hot-fix
 <stop stop-color="#EEEEEE"/>
 <stop offset="0.43" stop-color="white"/>
 <stop offset="0.57" stop-color="white"/>
 <stop offset="1" stop-color="#EEEEEE"/>
 </linearGradient>
-<<<<<<< HEAD
-<linearGradient id="paint7_linear_1536_4086" x1="13.5482" y1="34.8601" x2="118.71" y2="-22.7614" gradientUnits="userSpaceOnUse">
-=======
+
+
+
 <linearGradient id="paint7_linear_1549_5269" x1="13.5482" y1="34.8581" x2="118.71" y2="-22.7633" gradientUnits="userSpaceOnUse">
->>>>>>> homepage-hot-fix
 <stop stop-color="#EEEEEE"/>
 <stop offset="0.445" stop-color="white"/>
 <stop offset="0.555" stop-color="white"/>
 <stop offset="1" stop-color="#EEEEEE"/>
 </linearGradient>
-<<<<<<< HEAD
-<linearGradient id="paint8_linear_1536_4086" x1="22.3592" y1="25.5405" x2="123.686" y2="-34.744" gradientUnits="userSpaceOnUse">
-=======
+
+
 <linearGradient id="paint8_linear_1549_5269" x1="22.3592" y1="25.5385" x2="123.686" y2="-34.746" gradientUnits="userSpaceOnUse">
->>>>>>> homepage-hot-fix
 <stop stop-color="#EEEEEE"/>
 <stop offset="0.46" stop-color="white"/>
 <stop offset="0.54" stop-color="white"/>
 <stop offset="1" stop-color="#EEEEEE"/>
 </linearGradient>
-<<<<<<< HEAD
-<linearGradient id="paint9_linear_1536_4086" x1="31.2611" y1="16.1667" x2="128.841" y2="-46.8388" gradientUnits="userSpaceOnUse">
-=======
+
 <linearGradient id="paint9_linear_1549_5269" x1="31.2611" y1="16.1647" x2="128.841" y2="-46.8408" gradientUnits="userSpaceOnUse">
->>>>>>> homepage-hot-fix
 <stop stop-color="#EEEEEE"/>
 <stop offset="0.475" stop-color="white"/>
 <stop offset="0.525" stop-color="white"/>
 <stop offset="1" stop-color="#EEEEEE"/>
 </linearGradient>
-<<<<<<< HEAD
-<clipPath id="clip0_1536_4086">
-<rect width="100" height="100" fill="white" transform="translate(0.733398 0.00195312)"/>
-=======
+
+
+
 <clipPath id="clip0_1549_5269">
 <rect width="100" height="100" fill="white" transform="translate(0.733398)"/>
->>>>>>> homepage-hot-fix
 </clipPath>
 </defs>
 </svg>
