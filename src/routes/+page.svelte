@@ -64,7 +64,6 @@
   <meta name="linkedin:image:alt" content="Content Credentials" />
 </svelte:head>
 
-
 <div class="overflow-x-hidden">
   <Header />
   <div class="flex flex-col items-center justify-center">
