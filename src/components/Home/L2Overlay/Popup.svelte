@@ -48,9 +48,9 @@
 <div class="hidden md:flex">
   {#if isOpen && window.innerWidth >= 768}
     <div
-      class="popup shadow-lg bg-brand-white absolute right-[3.5rem] top-[1rem] z-[9999] mb-10 rounded-lg"
+      class="popup shadow-lg absolute right-[3.5rem] top-[1rem] z-[9999] mb-10 rounded-lg bg-brand-white"
       class:visible={isOpen}>
-      <div class="bg-brand-white h-full w-64 rounded-xl">
+      <div class="h-full w-64 rounded-xl bg-brand-white">
         <div class="justify-center px-4 py-[0.625rem]">
           <h1 class="text-popup-title font-bold">
             {$_('l2popup.title')}
@@ -68,7 +68,7 @@
         </div>
         <hr />
         <div class="px-4">
-          <div class="text-popup-text items-center py-[0.625rem]">
+          <div class="items-center py-[0.625rem] text-popup-text">
             {#if generativeInfoType === 'compositeWithTrainedAlgorithmicMedia'}
               {$_('contentSummary.compositeWithTrainedAlgorithmicMedia')}
             {:else if generativeInfoType === 'trainedAlgorithmicMedia'}
@@ -78,7 +78,7 @@
           <hr />
           {#if producer}
             <div class="py-[0.625rem]">
-              <span class="text-popup-text pb-1 font-bold">
+              <span class="pb-1 text-popup-text font-bold">
                 {$_('l2popup.producedBy')}
               </span>
               <span class="text-popup-text">{producer}</span>
@@ -87,7 +87,7 @@
           {/if}
           {#if socialMedia}
             <div class="py-[0.625rem]">
-              <span class="text-popup-text pb-1 font-bold">
+              <span class="pb-1 text-popup-text font-bold">
                 {$_('l2popup.socialMedia')}
               </span>
               <span class="text-popup-text">
@@ -105,24 +105,24 @@
             <hr />
           {/if}
           <div class="justify-center py-[0.625rem]">
-            <span class="text-popup-text py-1 font-bold">
+            <span class="py-1 text-popup-text font-bold">
               {$_('l2popup.deviceUsed')}
             </span>
-            <span class="text-popup-text whitespace-nowrap pb-1"
+            <span class="whitespace-nowrap pb-1 text-popup-text"
               >{formattedGenerator}</span>
           </div>
           <hr />
           <div class="justify-center py-[0.625rem]">
-            <span class="text-popup-text py-1 font-bold">
+            <span class="py-1 text-popup-text font-bold">
               {$_('l2popup.aiToolUsed')}
             </span>
-            <span class="text-popup-text whitespace-nowrap pb-1"
+            <span class="whitespace-nowrap pb-1 text-popup-text"
               >{aiToolUsed}</span>
           </div>
           {#if hasAdditionalHistory}
             <hr />
             <div class="py-[0.625rem]">
-              <span class="text-popup-text pb-1 font-bold">
+              <span class="pb-1 text-popup-text font-bold">
                 {$_('l2popup.additionalHistory')}
               </span>
               <span class="text-popup-text">{$_('l2popup.yes')}</span>
@@ -147,8 +147,8 @@
     <div
       class="fixed inset-0 z-[9999] flex items-center justify-center md:hidden">
       <div
-        class="text-popup-text fixed bottom-0 h-auto w-screen rounded-t-xl bg-white p-0.5 shadow">
-        <div class="bg-brand-white h-full rounded-xl px-2 py-4">
+        class="fixed bottom-0 h-auto w-screen rounded-t-xl bg-white p-0.5 text-popup-text shadow">
+        <div class="h-full rounded-xl bg-brand-white px-2 py-4">
           <div class="flex px-4 py-[0.625rem]">
             <div>
               <h1 class="text-popup-title font-bold">
@@ -171,7 +171,7 @@
           </div>
           <hr />
           <div class="px-4">
-            <div class="text-popup-text items-center py-[0.625rem]">
+            <div class="items-center py-[0.625rem] text-popup-text">
               {#if generativeInfoType === 'compositeWithTrainedAlgorithmicMedia'}
                 {$_('contentSummary.compositeWithTrainedAlgorithmicMedia')}
               {:else if generativeInfoType === 'trainedAlgorithmicMedia'}
@@ -181,7 +181,7 @@
             <hr />
             {#if producer}
               <div class="py-[0.625rem]">
-                <span class="text-popup-text pb-1 font-bold">
+                <span class="pb-1 text-popup-text font-bold">
                   {$_('l2popup.producedBy')}
                 </span>
                 <span class="text-popup-text">{producer}</span>
@@ -190,7 +190,7 @@
             {/if}
             {#if socialMedia}
               <div class="py-[0.625rem]">
-                <span class="text-popup-text pb-1 font-bold">
+                <span class="pb-1 text-popup-text font-bold">
                   {$_('l2popup.socialMedia')}
                 </span>
                 <span class="text-popup-text">
@@ -208,24 +208,24 @@
               <hr />
             {/if}
             <div class="justify-center py-[0.625rem]">
-              <span class="text-popup-text py-1 font-bold">
+              <span class="py-1 text-popup-text font-bold">
                 {$_('l2popup.deviceUsed')}
               </span>
-              <span class="text-popup-text whitespace-nowrap pb-1"
+              <span class="whitespace-nowrap pb-1 text-popup-text"
                 >{formattedGenerator}</span>
             </div>
             <hr />
             <div class="justify-center py-[0.625rem]">
-              <span class="text-popup-text py-1 font-bold">
+              <span class="py-1 text-popup-text font-bold">
                 {$_('l2popup.aiToolUsed')}
               </span>
-              <span class="text-popup-text whitespace-nowrap pb-1"
+              <span class="whitespace-nowrap pb-1 text-popup-text"
                 >{aiToolUsed}</span>
             </div>
             {#if hasAdditionalHistory}
               <hr />
               <div class="py-[0.625rem]">
-                <span class="text-popup-text pb-1 font-bold">
+                <span class="pb-1 text-popup-text font-bold">
                   {$_('l2popup.additionalHistory')}
                 </span>
                 <span class="text-popup-text">{$_('l2popup.yes')}</span>
