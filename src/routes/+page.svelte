@@ -21,28 +21,49 @@
   import Orgs from '$src/components/Home/homepage/Orgs.svelte';
   import Trust from '$src/components/Home/homepage/Trust.svelte';
   import Powered from '$src/components/Home/homepage/Powered.svelte';
-  import { MetaTags } from 'svelte-meta-tags';
 </script>
 
-<MetaTags
-  title="Reveal Where That Content Came From | Content Credentials"
-  titleTemplate="Reveal Where That Content Came From | Content Credentials"
-  description="Introducing the new standard for content authentication. Content Credentials provide deeper transparency into how content was created or edited."
-  canonical="https://www.contentcredentials.org/"
-  openGraph={{
-    url: 'https://www.contentcredentials.org/',
-    title: 'Reveal Where That Content Came From | Content Credentials',
-    description:
-      'Introducing the new standard for content authentication. Content Credentials provide deeper transparency into how content was created or edited.',
-    images: [
-      {
-        url: 'https://www.contentcredentials.org/static/opengraph.png',
-        width: 1200,
-        height: 630,
-        alt: 'Content Credentials',
-      },
-    ],
-  }} />
+<svelte:head>
+  <title>Content Credentials</title>
+  <meta
+    name="description"
+    content="Introducing the new standard for content authentication. Content Credentials provide deeper transparency into how content was created or edited." />
+  <meta
+    property="og:title"
+    content="Reveal Where That Content Came From | Content Credentials" />
+  <meta
+    property="og:description"
+    content="Introducing the new standard for content authentication. Content Credentials provide deeper transparency into how content was created or edited." />
+  <meta
+    property="og:image"
+    content="https://www.contentcredentials.org/static/opengraph.png" />
+  <meta property="og:url" content="https://www.contentcredentials.org/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@ContentCreds" />
+  <meta name="twitter:creator" content="@ContentCreds" />
+  <meta
+    name="twitter:title"
+    content="Reveal Where That Content Came From | Content Credentials" />
+  <meta
+    name="twitter:description"
+    content="Introducing the new standard for content authentication. Content Credentials provide deeper transparency into how content was created or edited." />
+  <meta
+    name="twitter:image"
+    content="https://www.contentcredentials.org/static/opengraph.png" />
+  <meta name="twitter:image:alt" content="Content Credentials" />
+
+  <meta
+    name="linkedin:title"
+    content="Reveal Where That Content Came From | Content Credentials" />
+  <meta
+    name="linkedin:description"
+    content="Introducing the new standard for content authentication. Content Credentials provide deeper transparency into how content was created or edited." />
+  <meta
+    name="linkedin:image"
+    content="https://www.contentcredentials.org/static/opengraph.png" />
+  <meta name="linkedin:image:alt" content="Content Credentials" />
+</svelte:head>
+
 
 <div class="overflow-x-hidden">
   <Header />
