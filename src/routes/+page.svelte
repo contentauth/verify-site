@@ -21,28 +21,7 @@
   import Orgs from '$src/components/Home/homepage/Orgs.svelte';
   import Trust from '$src/components/Home/homepage/Trust.svelte';
   import Powered from '$src/components/Home/homepage/Powered.svelte';
-  import { MetaTags } from 'svelte-meta-tags';
 </script>
-
-<MetaTags
-  title="Reveal Where That Content Came From | Content Credentials"
-  titleTemplate="Reveal Where That Content Came From | Content Credentials"
-  description="Introducing the new standard for content authentication. Content Credentials provide deeper transparency into how content was created or edited."
-  canonical="https://www.contentcredentials.org/"
-  openGraph={{
-    url: 'https://www.contentcredentials.org/',
-    title: 'Reveal Where That Content Came From | Content Credentials',
-    description:
-      'Introducing the new standard for content authentication. Content Credentials provide deeper transparency into how content was created or edited.',
-    images: [
-      {
-        url: 'https://www.contentcredentials.org/static/opengraph.png',
-        width: 1200,
-        height: 630,
-        alt: 'Content Credentials',
-      },
-    ],
-  }} />
 
 <div class="overflow-x-hidden">
   <Header />
