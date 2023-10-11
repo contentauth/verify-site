@@ -44,6 +44,14 @@
   }
 </script>
 
+<!-- Add background div -->
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<div
+  class="fixed inset-0 z-[9998] bg-black opacity-50"
+  on:click={closePopup}
+  class:hidden={!isOpen} />
+
 <!-- Desktop Popup -->
 <div class="hidden md:flex">
   {#if isOpen && window.innerWidth >= 768}
