@@ -10,6 +10,7 @@
   } from 'c2pa';
   import { createEventDispatcher } from 'svelte';
   import { _, date as formatDate } from 'svelte-i18n';
+  import { slide } from 'svelte/transition';
 
   const dispatch = createEventDispatcher();
 
@@ -48,7 +49,7 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
-  class="fixed inset-0 z-[9998] bg-black opacity-50"
+  class="bg-black fixed inset-0 z-[9998] opacity-50"
   on:click={closePopup}
   class:hidden={!isOpen} />
 
@@ -155,6 +156,7 @@
     <div
       class="fixed inset-0 z-[9999] flex items-center justify-center md:hidden">
       <div
+        transition:slide={{ axis: 'y' }}
         class="fixed bottom-0 h-auto w-screen rounded-t-xl bg-white p-0.5 text-popup-text shadow">
         <div class="h-full rounded-xl bg-brand-white px-2 py-4">
           <div class="flex px-4 py-[0.625rem]">
