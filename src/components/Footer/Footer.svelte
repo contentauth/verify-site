@@ -17,7 +17,7 @@
 </script>
 
 <div
-  class="flex h-[238px] w-screen flex-col items-center border-t-2 border-solid border-gray-200 px-6 py-5 md:h-[140px] md:py-8 lg:h-[86px] lg:py-6 lg:py-6 lg:mt-12 xl:mt-[7.5rem]">
+  class="flex h-[238px] w-screen flex-col items-center border border-solid border-brand-gray px-6 py-5 md:h-[140px] md:py-8 lg:h-[86px] lg:py-6 lg:py-6 lg:mt-12 xl:mt-[7.5rem]">
   <div
     class="text-gray-900/60 flex w-full h-full flex-col justify-between lg:flex-row lg:items-center">
     <div class="text-footer-text flex flex-col items-start gap-6 md:flex-row">
