@@ -277,14 +277,14 @@ export default {
           lineHeight: '1.35rem ',
         },
       ],
-      'key-sub-text-xl': [
+      'key-sub-text-lg': [
         '1.125rem',
         {
           fontWeight: '400',
           lineHeight: '1.51875rem',
         },
       ],
-      'key-sub-text-2xl': [
+      'key-sub-text-xl': [
         '1.3125rem',
         {
           fontWeight: '400',
@@ -308,56 +308,12 @@ export default {
           letterSpacing: '-0.0175rem',
         },
       ],
-      'hiw-desc': [
-        '1rem',
-        {
-          fontWeight: '400',
-          lineHeight: '1.35rem',
-        },
-      ],
-      'hiw-desc-xl': [
-        '1.125rem',
-        {
-          fontWeight: '400',
-          lineHeight: '1.51875rem ',
-        },
-      ],
-      'hiw-desc-2xl': [
-        '1.3125rem',
-        {
-          fontWeight: '400',
-          lineHeight: '1.77188rem',
-          letterSpacing: '-0.01313rem',
-        },
-      ],
       'trust-label': [
         '1.5rem',
         {
           fontWeight: '400',
           lineHeight: '2.025rem',
           letterSpacing: '-0.015rem',
-        },
-      ],
-      'trust-desc': [
-        '1.125rem',
-        {
-          fontWeight: '400',
-          lineHeight: '1.51875rem',
-        },
-      ],
-      'trust-desc-xl': [
-        '1rem',
-        {
-          fontWeight: '400',
-          lineHeight: '1.35rem',
-        },
-      ],
-      'trust-desc-2xl': [
-        '1.3125rem',
-        {
-          fontWeight: '400',
-          lineHeight: '1.77188rem',
-          letterSpacing: '-0.01313rem',
         },
       ],
       'stories-title': [
