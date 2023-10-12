@@ -18,7 +18,7 @@
         Empowering creators to get credit for their work
       </h3>
       <p
-        class="text-key-sub-text text-gray-900/60 xl:text-key-sub-text-xl 2xl:text-key-sub-text-2xl">
+        class="text-key-sub-text text-brand-gray lg:text-key-sub-text-lg 2xl:text-key-sub-text-xl">
         Content is often miscredited or not credited at all when shared online,
         creating tons of lost opportunity for creators. Content Credentials
         enable creators to get recognized for their work, market it, and build

@@ -18,8 +18,8 @@
             Truly open standards
           </h3>
           <div
-            class="h-[365px] rounded-b-xl bg-[#f5f5f5] px-[32px] py-6 text-trust-desc lg:rounded-b-[20px] xl:text-trust-desc-xl 2xl:text-trust-desc-2xl">
-            <p class="">
+            class="h-[365px] rounded-b-xl bg-[#f5f5f5] px-[32px] py-6 lg:rounded-b-[20px]">
+            <p class="2xl:text-key-sub-text-xl">
               Content Credentials are based on an open technical specification
               developed and maintained by the <a
                 href="https://c2pa.org/"
@@ -40,7 +40,7 @@
           </h3>
           <div
             class="h-[365px] rounded-b-xl bg-[#f5f5f5] px-[32px] py-6 text-trust-desc lg:rounded-b-[20px] xl:text-trust-desc-xl 2xl:text-trust-desc-2xl">
-            <p class="">
+            <p class="2xl:text-key-sub-text-xl">
               Content Credentials use technology that makes it clear if content
               has been altered since its Content Credentials were created.
               Up-to-date context travels with the content, wherever it goes.
@@ -56,7 +56,7 @@
           </h3>
           <div
             class="h-[365px] rounded-b-xl bg-[#f5f5f5] px-[32px] py-6 text-trust-desc lg:rounded-b-[20px] xl:text-trust-desc-xl 2xl:text-trust-desc-2xl">
-            <p class="">
+            <p class="2xl:text-key-sub-text-xl">
               Devices, software, and organizations that issue Content
               Credentials identify themselves in the Content Credentials they
               issue. Issuers therefore stake their reputations on their ability
@@ -81,7 +81,7 @@
               </h3>
               <div
                 class="h-[248px] rounded-b-xl bg-[#f5f5f5] px-[32px] py-6 text-trust-desc lg:rounded-b-[20px] xl:text-trust-desc-xl 2xl:text-trust-desc-2xl">
-                <p class="">
+                <p class="text-key-sub-text lg:text-key-sub-text-lg">
                   Content Credentials are based on an open technical
                   specification developed and maintained by the <a
                     href="https://c2pa.org/"
@@ -101,8 +101,8 @@
                 Clear tampering detection
               </h3>
               <div
-                class="h-[248px] rounded-b-xl bg-[#f5f5f5] px-[32px] py-6 text-trust-desc lg:rounded-b-[20px] xl:text-trust-desc-xl 2xl:text-trust-desc-2xl">
-                <p class="">
+                class="h-[248px] rounded-b-xl bg-[#f5f5f5] px-[32px] py-6 lg:rounded-b-[20px]">
+                <p class="text-key-sub-text lg:text-key-sub-text-lg">
                   Content Credentials use technology that makes it clear if
                   content has been altered since its Content Credentials were
                   created. Up-to-date context travels with the content, wherever
@@ -120,8 +120,8 @@
                 Accountability
               </h3>
               <div
-                class="h-[248px] rounded-b-xl bg-[#f5f5f5] px-[32px] py-6 text-trust-desc lg:rounded-b-[20px] xl:text-trust-desc-xl 2xl:text-trust-desc-2xl">
-                <p class="">
+                class="h-[248px] rounded-b-xl bg-[#f5f5f5] px-[32px] py-6 lg:rounded-b-[20px]">
+                <p class="text-key-sub-text lg:text-key-sub-text-lg">
                   Devices, software, and organizations that issue Content
                   Credentials identify themselves in the Content Credentials
                   they issue. Issuers therefore stake their reputations on their
@@ -145,8 +145,8 @@
             Truly open standards
           </h3>
           <div
-            class="h-full rounded-b-xl bg-[#f5f5f5] px-[32px] py-6 text-trust-desc sm:h-[208px] lg:rounded-b-[20px] xl:text-trust-desc-xl 2xl:text-trust-desc-2xl">
-            <p class="">
+            class="h-full rounded-b-xl bg-[#f5f5f5] px-[32px] py-6 sm:h-[208px] lg:rounded-b-[20px]">
+            <p class="text-key-sub-text lg:text-key-sub-text-lg">
               Content Credentials are based on an open technical standards
               developed and maintained by the <a
                 href="https://c2pa.org/"
@@ -166,8 +166,8 @@
             Clear tampering detection
           </h3>
           <div
-            class="h-full rounded-b-xl bg-[#f5f5f5] px-[32px] py-6 text-trust-desc sm:h-[208px] lg:rounded-b-[20px] xl:text-trust-desc-xl 2xl:text-trust-desc-2xl">
-            <p class="">
+            class="h-full rounded-b-xl bg-[#f5f5f5] px-[32px] py-6 sm:h-[208px] lg:rounded-b-[20px]">
+            <p class="text-key-sub-text lg:text-key-sub-text-lg">
               Content Credentials use technology that makes it clear if content
               has been altered since its Content Credentials were created.
               Up-to-date context travels with the content, wherever it goes.
@@ -182,8 +182,8 @@
             Accountability
           </h3>
           <div
-            class="h-full rounded-b-xl bg-[#f5f5f5] px-[32px] py-6 text-trust-desc sm:h-[208px] lg:rounded-b-[20px] xl:text-trust-desc-xl 2xl:text-trust-desc-2xl">
-            <p class="">
+            class="h-full rounded-b-xl bg-[#f5f5f5] px-[32px] sm:h-[208px] lg:rounded-b-[20px]">
+            <p class="text-key-sub-text lg:text-key-sub-text-lg">
               Devices, software, and organizations that issue Content
               Credentials identify themselves in the Content Credentials they
               issue. Issuers therefore stake their reputations on their ability

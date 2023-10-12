@@ -19,7 +19,7 @@
         Building trust in what you see online
       </h3>
       <p
-        class="text-key-sub-text text-gray-900/60 xl:text-key-sub-text-xl 2xl:text-key-sub-text-2xl">
+        class="text-key-sub-text text-brand-gray lg:text-key-sub-text-lg 2xl:text-key-sub-text-xl">
         Content Credentials make the origin and history of content available for
         everyone to access, anytime. With this information at your fingertips,
         you have the ability to decide if you trust the content you

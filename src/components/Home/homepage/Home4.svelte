@@ -23,7 +23,7 @@
         Introducing the Content Credentials pin
       </h3>
       <p
-        class="2xl:text-key-sub-text-2xl text-key-sub-text text-gray-900/60 xl:text-key-sub-text-xl">
+        class="text-key-sub-text text-brand-gray lg:text-key-sub-text-lg 2xl:text-key-sub-text-xl">
         When you see the Content Credentials pin, it means Content Credentials
         are attached! Simply click the pin to reveal more information about the
         content you’re viewing.
