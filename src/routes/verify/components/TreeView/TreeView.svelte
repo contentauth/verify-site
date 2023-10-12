@@ -144,7 +144,8 @@
         class:cursor-not-allowed={!transforms.canZoomIn}
         disabled={!transforms.canZoomIn}
         on:click={() => zoomIn({ svgSel, zoom })}
-        aria-roledescription={$_('page.verify.zoomIn')}>
+        aria-roledescription={$_('page.verify.zoomIn')}
+        data-testid="tree-zoom-in">
         <ZoomIn width="1rem" height="1rem" class="text-gray-800" />
       </button>
       <div class="h-[85%] w-px bg-gray-200" />
@@ -154,6 +155,7 @@
         class:cursor-not-allowed={!transforms.canZoomOut}
         disabled={!transforms.canZoomOut}
         aria-roledescription={$_('page.verify.zoomOut')}
+        data-testid="tree-zoom-out"
         on:click={() =>
           zoomOut({
             svgSel,

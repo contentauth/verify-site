@@ -23,8 +23,9 @@
 <ul
   class="pointer-events-none absolute inset-0 flex flex-col items-center justify-end overflow-hidden px-4 pb-10"
   role="alert">
-  {#each $toast as toastItem (toastItem.id)}
+  {#each $toast as toastItem, idx (toastItem.id)}
     <li
+      data-testid={`toast-${idx}`}
       class="mt-2"
       in:fly={{ y: 128 }}
       out:fade={{ duration: 100 }}
