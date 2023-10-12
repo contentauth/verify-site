@@ -100,3 +100,47 @@ test.describe('Verify - base functionality', () => {
     );
   });
 });
+
+test('Clicking on the compare button should take you to compare mode', async ({
+  page,
+}) => {
+  const verify = new VerifyPage(page);
+  const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
+  await verify.goto(source);
+  await page.getByTestId('compare-button').click({ force: true });
+  await page.locator('span', { hasText: 'Compare view' }).waitFor();
+  await verify.takeSnapshot(`result for clicking the compare button`, {
+    widths: [1280],
+  });
+});
+
+test.only('Clicking on an ingredient should compare that with the currently selected asset in side by side mode', async ({
+  page,
+}) => {
+  const verify = new VerifyPage(page);
+  const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
+  await verify.goto(source);
+  await page.getByTestId('compare-button').click({ force: true });
+  await page.locator('span', { hasText: 'Compare view' }).waitFor();
+  await page
+    .getByRole('button', { name: 'CAI.jpg Aug 29, 2023', exact: true })
+    .click({ force: true });
+  await page.getByLabel('CAICAI.jpg and CAI.jpg are being compared').waitFor();
+  await verify.takeSnapshot(
+    `result for comparing an ingredient with the root element`,
+    {
+      widths: [1280],
+    },
+  );
+});
+
+test.only('Switching to slider mode should work', async ({ page }) => {
+  const verify = new VerifyPage(page);
+  const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
+  await verify.goto(source);
+  await page.getByTestId('compare-button').click({ force: true });
+  await page.locator('span', { hasText: 'Compare view' }).waitFor();
+  await page
+    .locator('select', { hasText: 'Side by Side' })
+    .click({ force: true });
+});

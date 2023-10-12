@@ -171,6 +171,7 @@
         on:click={() => verifyStore.setCompareView()}
         disabled={!canCompare}
         class="transition-opacity"
+        data-testid="compare-button"
         class:opacity-40={!canCompare}
         class:cursor-not-allowed={!canCompare}
         ><div class="mx-3 my-2 flex items-center">

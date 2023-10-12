@@ -30,7 +30,7 @@ const config: PlaywrightTestConfig = {
   retries: process.env.CI ? 1 : 0,
   use: {
     baseURL,
-    headless: true,
+    headless: false,
     locale: 'en-US',
     timezoneId: 'America/New_York',
     ignoreHTTPSErrors: true,
