@@ -6,7 +6,7 @@
   <div
     class="flex h-full w-full flex-col items-center justify-center gap-[5rem]">
     <h2
-      class="col-start-3 col-end-9 w-[22rem] pt-20 text-center text-trust-title md:w-[40rem] md:text-trust-title-md xl:py-0 xl:text-trust-title-xl 2xl:w-[58rem] 2xl:text-trust-title-2xl">
+      class="2xl:text-home-title-2xl text-center text-home-secondary-title sm:text-home-title-md lg:text-home-title-lg xl:text-hero-title">
       What makes Content Credentials trustworthy
     </h2>
     <!-- Desktop 1281px+ -->

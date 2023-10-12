@@ -8,7 +8,7 @@
   class="flex h-full w-screen flex-col items-center bg-[#f5f5f5] px-[20px] pb-40 pt-[4rem] sm:px-[1.5rem] md:pt-[6rem] lg:pt-[8rem] xl:pt-[10rem]"
   id="how-it-works">
   <h2
-    class="2xl:text-hiw-title-2xl mb-[64px] text-hiw-title sm:mb-[80px] md:text-hiw-title-md xl:text-hiw-title-xl">
+    class="mb-[64px] sm:mb-[80px] 2xl:text-home-title-2xl text-center text-home-secondary-title sm:text-home-title-md lg:text-home-title-lg xl:text-hero-title">
     How it works
   </h2>
   <div class="flex w-full flex-col items-center 2xl:hidden">

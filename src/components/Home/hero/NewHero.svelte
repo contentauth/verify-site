@@ -14,7 +14,7 @@
           Wait, where did this image come from?
         </h1>
         <p
-          class="2xl:text-hero-sub-desktop text-center text-hero-sub text-gray-900/60 font-base">
+          class="2xl:text-hero-sub-desktop lg:text-hero-sub-tablet text-center text-hero-sub text-gray-900/60">
           Deepfakes. Voice cloning. Synthetic media. It’s hard to tell what’s
           accurate and authentic these days.
         </p>
