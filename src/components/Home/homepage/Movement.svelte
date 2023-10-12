@@ -2,11 +2,11 @@
   <div
     class="flex flex-col items-center justify-evenly gap-[40px] max-w-[56rem] w-2/3">
     <h2
-      class="text-center text-movement-title md:text-movement-title-md xl:text-movement-title-xl 2xl:text-movement-title-2xl">
+      class="2xl:text-home-title-2xl text-center text-home-secondary-title sm:text-home-title-md lg:text-home-title-lg xl:text-hero-title">
       Content Credentials are rolling out across the internet
     </h2>
     <p
-      class="text-center text-movement-text text-gray-900/60 xl:text-movement-text-xl 2xl:text-movement-text-2xl">
+      class="2xl:text-hero-sub-desktop lg:text-hero-sub-tablet text-center text-hero-sub text-gray-900/60">
       Expect to see the Content Credentials pin popping up in more and more
       places as it gets implemented by partners far and wide.
     </p>

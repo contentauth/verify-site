@@ -207,6 +207,14 @@ export default {
           lineHeight: '1.77188rem',
         },
       ],
+      'hero-sub-tablet': [
+        '1.5rem',
+        {
+          fontWeight: '400',
+          lineHeight: ' 2.025rem',
+          letterSpacing: '-0.015rem',
+        },
+      ],
       'hero-sub-desktop': [
         '1.875rem',
         {
@@ -230,7 +238,7 @@ export default {
           lineHeight: '3.3rem',
         },
       ],
-      'home-title-xl': [
+      'home-title-lg': [
         '3.5rem',
         {
           fontWeight: '700',
@@ -244,30 +252,6 @@ export default {
           fontWeight: '700',
           lineHeight: '4.95rem',
           letterSpacing: '-0.135rem',
-        },
-      ],
-      'home-sub': [
-        '1.3125rem',
-        {
-          fontWeight: '400',
-          lineHeight: '1.77188rem',
-          letterSpacing: '-0.01313rem',
-        },
-      ],
-      'home-sub-XL': [
-        '1.5rem',
-        {
-          fontWeight: '400',
-          lineHeight: '2.025rem',
-          letterSpacing: '-0.015rem',
-        },
-      ],
-      'home-sub-2xl': [
-        '1.875rem',
-        {
-          fontWeight: '400',
-          lineHeight: '2.53125rem',
-          letterSpacing: '-0.01875rem',
         },
       ],
       'key-title': [
@@ -324,36 +308,6 @@ export default {
           letterSpacing: '-0.0175rem',
         },
       ],
-      'hiw-title': [
-        '2.5rem',
-        {
-          fontWeight: '700',
-          lineHeight: '2.75rem',
-        },
-      ],
-      'hiw-title-md': [
-        '3rem',
-        {
-          fontWeight: '700',
-          lineHeight: '3.3rem',
-        },
-      ],
-      'hiw-title-xl': [
-        '3.5rem',
-        {
-          fontWeight: '700',
-          lineHeight: '3.85rem',
-          letterSpacing: '-0.105rem',
-        },
-      ],
-      'hiw-title-2xl:': [
-        '5.5rem',
-        {
-          fontWeight: '700',
-          lineHeight: '4.95rem',
-          letterSpacing: '-0.135rem',
-        },
-      ],
       'hiw-desc': [
         '1rem',
         {
@@ -374,38 +328,6 @@ export default {
           fontWeight: '400',
           lineHeight: '1.77188rem',
           letterSpacing: '-0.01313rem',
-        },
-      ],
-      'trust-title': [
-        '2.5rem',
-        {
-          fontWeight: '700',
-          lineHeight: '2.75rem',
-          letterSpacing: '-0.075rem',
-        },
-      ],
-      'trust-title-md': [
-        '3rem',
-        {
-          fontWeight: '700',
-          lineHeight: '3.3rem',
-          letterSpacing: '-0.075rem',
-        },
-      ],
-      'trust-title-xl': [
-        '3.5rem',
-        {
-          fontWeight: '700',
-          lineHeight: '3.85rem',
-          letterSpacing: '-0.105rem',
-        },
-      ],
-      'trust-title-2xl': [
-        '4.5rem',
-        {
-          fontWeight: '700',
-          lineHeight: '4.95rem',
-          letterSpacing: '-0.135rem',
         },
       ],
       'trust-label': [
@@ -436,61 +358,6 @@ export default {
           fontWeight: '400',
           lineHeight: '1.77188rem',
           letterSpacing: '-0.01313rem',
-        },
-      ],
-      'movement-title': [
-        '2.5rem',
-        {
-          fontWeight: '700',
-          lineHeight: '2.75rem',
-          letterSpacing: '-0.075rem',
-        },
-      ],
-      'movement-title-md': [
-        '3rem',
-        {
-          fontWeight: '700',
-          lineHeight: '3.3rem',
-        },
-      ],
-      'movement-title-xl': [
-        '3.5rem',
-        {
-          fontWeight: '700',
-          lineHeight: '3.85rem',
-          letterSpacing: '-0.105rem',
-        },
-      ],
-      'movement-title-2xl': [
-        '4.5rem',
-        {
-          fontWeight: '700',
-          lineHeight: '3.95rem',
-          letterSpacing: '-0.135rem',
-        },
-      ],
-      'movement-text': [
-        '1.3125rem',
-        {
-          fontWeight: '400',
-          lineHeight: '1.77188rem',
-          letterSpacing: '-0.01313rem',
-        },
-      ],
-      'movement-text-xl': [
-        '1.5rem',
-        {
-          fontWeight: '400',
-          lineHeight: '2.025rem ',
-          letterSpacing: '-0.015rem',
-        },
-      ],
-      'movement-text-2xl': [
-        '1.875rem',
-        {
-          fontWeight: '400',
-          lineHeight: '2.53125rem',
-          letterSpacing: '-0.01875rem',
         },
       ],
       'stories-title': [
