@@ -2,7 +2,7 @@
 </script>
 
 <div
-  class="m-w-[90rem] w-full px-[20px] py-[4rem] sm:px-[2rem] md:py-[6rem] xl:py-[10rem]">
+  class="max-w-[90rem] w-full px-[20px] py-[4rem] sm:px-[2rem] md:py-[6rem] xl:py-[10rem]">
   <div
     class="flex h-full w-full flex-col items-center justify-center gap-[5rem]">
     <h2
