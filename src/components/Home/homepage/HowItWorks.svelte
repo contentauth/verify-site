@@ -1,14 +1,14 @@
 <script>
+  import Video from '$assets/video/hiw.mp4';
   import Hiw1 from '$assets/video/how-it-works-1.mp4';
   import Hiw2 from '$assets/video/how-it-works-2.mp4';
-  import Video from '$assets/video/hiw.mp4';
 </script>
 
 <div
   class="flex h-full w-screen flex-col items-center bg-[#f5f5f5] px-[20px] pb-40 pt-[4rem] sm:px-[1.5rem] md:pt-[6rem] lg:pt-[8rem] xl:pt-[10rem]"
   id="how-it-works">
   <h2
-    class="mb-[64px] sm:mb-[80px] 2xl:text-home-title-2xl text-center text-home-secondary-title sm:text-home-title-md lg:text-home-title-lg xl:text-hero-title">
+    class="mb-[64px] text-center text-home-secondary-title sm:mb-[80px] sm:text-home-title-md lg:text-home-title-lg xl:text-hero-title 2xl:text-home-title-2xl">
     How it works
   </h2>
   <div class="flex w-full flex-col items-center 2xl:hidden">
@@ -19,9 +19,13 @@
           class="flex max-w-[86rem] flex-col items-start justify-between md:flex-row md:pb-[4rem] xl:pb-[4rem]">
           <div
             class="flex flex-col items-center gap-4 md:w-1/2 md:flex-row md:items-start md:justify-start">
-            <div
-              class="text-hiw-label xl:text-hiw-label-xl mr-0.5 flex h-[44px] w-[44px] items-center justify-center rounded-full bg-brand-yellow px-4 pt-5 pb-4">
-              1
+            <div class="relative md:mt-[-4px]">
+              <div
+                class="mr-0.5 h-[40px] w-[40px] rounded-full bg-brand-yellow" />
+              <div
+                class="absolute left-[15px] top-[6px] text-hiw-label xl:text-hiw-label-xl">
+                1
+              </div>
             </div>
             <h3 class="text-hiw-label md:pr-10 xl:text-hiw-label-xl">
               Anytime content is captured, created, or edited, Content
@@ -29,7 +33,7 @@
             </h3>
           </div>
           <p
-            class="mb-[32px] pt-[16px] text-brand-gray md:mb-0 md:w-1/2 md:pt-0 lg:pt-0 text-key-sub-text lg:text-key-sub-text-lg 2xl:text-key-sub-text-xl">
+            class="mb-[32px] pt-[16px] text-key-sub-text text-brand-gray md:mb-0 md:w-1/2 md:pt-0 lg:pt-0 lg:text-key-sub-text-lg 2xl:text-key-sub-text-xl">
             Creators can choose to attach Content Credentials to their content,
             which might include things like whether AI was used or not. Voila!
             This information is added to the edit history of the
@@ -51,9 +55,13 @@
           class="flex max-w-[86rem] flex-col items-start justify-between md:flex-row md:pb-[4rem] xl:pb-[4rem]">
           <div
             class="flex w-full flex-col items-center gap-4 md:w-1/2 md:flex-row md:items-start md:justify-start">
-            <div
-              class="text-hiw-label xl:text-hiw-label-xl mr-0.5 flex h-[44px] w-[44px] items-center justify-center rounded-full bg-brand-orange px-4 pt-5 pb-4">
-              2
+            <div class="relative md:mt-[-4px]">
+              <div
+                class="mr-0.5 h-[40px] w-[40px] rounded-full bg-brand-orange" />
+              <div
+                class="absolute left-[13px] top-[6px] text-hiw-label xl:text-hiw-label-xl">
+                2
+              </div>
             </div>
             <h3
               class="w-full text-left text-hiw-label md:pr-10 xl:text-hiw-label-xl">
@@ -61,7 +69,7 @@
             </h3>
           </div>
           <p
-            class="mb-[32px] pt-[16px] text-brand-gray md:mb-0 md:w-1/2 md:pt-0 lg:pt-0 text-key-sub-text lg:text-key-sub-text-lg 2xl:text-key-sub-text-xl">
+            class="mb-[32px] pt-[16px] text-key-sub-text text-brand-gray md:mb-0 md:w-1/2 md:pt-0 lg:pt-0 lg:text-key-sub-text-lg 2xl:text-key-sub-text-xl">
             Once the content is made available, anyone can view its Content
             Credentials by clicking the pin, which reveals the most relevant
             information directly in context.
@@ -86,9 +94,12 @@
           class="flex max-w-[86rem] flex-col items-start justify-between md:flex-row md:pb-[4rem] lg:pb-[3.5rem] xl:pb-[4rem]">
           <div
             class="flex w-full flex-col items-center gap-4 md:w-1/2 md:flex-row md:items-start md:justify-start">
-            <div
-              class="text-hiw-label xl:text-hiw-label-xl mr-0.5 flex h-[44px] w-[44px] items-center justify-center rounded-full bg-brand-red px-4 pb-4 pt-5">
-              3
+            <div class="relative md:mt-[-4px]">
+              <div class="mr-0.5 h-[40px] w-[40px] rounded-full bg-brand-red" />
+              <div
+                class="absolute left-[13px] top-[5px] text-hiw-label xl:text-hiw-label-xl">
+                3
+              </div>
             </div>
             <h3
               class="w-full text-left text-hiw-label md:pr-10 xl:text-hiw-label-xl">
@@ -96,7 +107,7 @@
             </h3>
           </div>
           <p
-            class="mb-[32px] pt-[16px] text-brand-gray md:mb-0 md:w-1/2 md:pt-0 lg:pt-0 text-key-sub-text lg:text-key-sub-text-lg 2xl:text-key-sub-text-xl">
+            class="mb-[32px] pt-[16px] text-key-sub-text text-brand-gray md:mb-0 md:w-1/2 md:pt-0 lg:pt-0 lg:text-key-sub-text-lg 2xl:text-key-sub-text-xl">
             Content Credentials can capture a detailed history of changes over
             time. The <a href="/verify" class="underline"> Verify </a> feature allows
             you to explore this information in depth. Check any content to see if
@@ -122,9 +133,14 @@
     <div class="grid grid-cols-12">
       <div class="col-start-2 col-end-6">
         <div class="flex flex-row justify-start gap-2">
-          <span
-            class="xl:text-hiw-label-xl mr-0.5 flex h-[44px] w-[44px] items-center justify-center rounded-full bg-brand-yellow px-4 pb-4 pt-5"
-            >1</span>
+          <div class="relative md:mt-[-4px]">
+            <div
+              class="mr-0.5 h-[40px] w-[40px] rounded-full bg-brand-yellow xl:h-[44px] xl:w-[44px]" />
+            <div
+              class="absolute left-[16px] top-[5px] text-hiw-label xl:text-hiw-label-xl">
+              1
+            </div>
+          </div>
           <p class="xl:text-hiw-label-xl">
             Anytime content is captured, created, or edited, Content Credentials
             can be attached
@@ -152,9 +168,14 @@
       </div>
       <div class="col-start-2 col-end-6 mt-[10rem]">
         <div class="flex flex-row justify-start gap-2">
-          <span
-            class="xl:text-hiw-label-xl mr-0.5 flex h-[44px] w-[44px] items-center justify-center rounded-full bg-brand-orange px-4 pt-5 pb-4"
-            >2</span>
+          <div class="relative md:mt-[-4px]">
+            <div
+              class="mr-0.5 h-[40px] w-[40px] rounded-full bg-brand-orange xl:h-[44px] xl:w-[44px]" />
+            <div
+              class="absolute left-[15px] top-[5px] text-hiw-label xl:text-hiw-label-xl">
+              2
+            </div>
+          </div>
           <p class="xl:text-hiw-label-xl">
             Content Credentials are viewable across the internet
           </p>
@@ -180,9 +201,14 @@
       </div>
       <div class="col-start-2 col-end-6 mt-[10rem]">
         <div class="flex flex-row justify-start gap-2">
-          <span
-            class="xl:text-hiw-label-xl mr-0.5 flex h-[44px] w-[44px] items-center justify-center rounded-full bg-brand-red px-4 pt-4 pb-3"
-            >3</span>
+          <div class="relative md:mt-[-4px]">
+            <div
+              class="mr-0.5 h-[40px] w-[40px] rounded-full bg-brand-red xl:h-[44px] xl:w-[44px]" />
+            <div
+              class="absolute left-[15px] top-[5px] text-hiw-label xl:text-hiw-label-xl">
+              3
+            </div>
+          </div>
           <p class="xl:text-hiw-label-xl">
             Go deeper to explore the full edit history
           </p>
