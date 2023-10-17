@@ -30,13 +30,13 @@ test.describe('Verify - loading states', () => {
     await verify.takeTallSnapshot(`result for CAICAI.jpg via source`);
   });
 
-  test('specifying an image without content credentials via source should work (nocredentials.jpg)', async ({
+  test('specifying an image without content credentials via source should work (A.jpg)', async ({
     page,
   }) => {
     const verify = new VerifyPage(page);
-    const source = VerifyPage.getFixtureUrl('nocredentials.jpg', 'file');
+    const source = VerifyPage.getFixtureUrl('A.jpg', 'file');
     await verify.goto(source);
-    await verify.takeTallSnapshot(`result for nocredentials.jpg via source`);
+    await verify.takeTallSnapshot(`result for A.jpg via source`);
   });
 
   test('specifying an image via source should work (fake-news.jpg)', async ({
@@ -108,9 +108,9 @@ test.describe('Verify - loading states', () => {
   test('loading an image with no credentials should work', async ({ page }) => {
     const verify = new VerifyPage(page);
     await verify.goto();
-    await verify.chooseFile('nocredentials.jpg');
+    await verify.chooseFile('A.jpg');
 
-    await verify.takeTallSnapshot(`result for nocredentials.jpg`, {
+    await verify.takeTallSnapshot(`result for A.jpg`, {
       widths: [1280],
     });
   });
