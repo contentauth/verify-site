@@ -64,7 +64,10 @@
       <BodyBold>
         {$_('sidebar.verify.recovery.possibleMatches')}
       </BodyBold>
-      <button class="-me-1" on:click={clearManifestResults}
+      <button
+        class="-me-1"
+        data-testid="manifest-recovery-clear"
+        on:click={clearManifestResults}
         ><CloseIcon width="1rem" height="1rem" /></button>
     </div>
     <div slot="content">
