@@ -27,7 +27,7 @@ test.describe('Verify - loading states', () => {
     const verify = new VerifyPage(page);
     const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
     await verify.goto(source);
-    await verify.takeSnapshot(`result for CAICAI.jpg via source`);
+    await verify.takeTallSnapshot(`result for CAICAI.jpg via source`);
   });
 
   test('specifying an image without content credentials via source should work (A.jpg)', async ({
@@ -45,7 +45,7 @@ test.describe('Verify - loading states', () => {
     const verify = new VerifyPage(page);
     const source = VerifyPage.getFixtureUrl('fake-news.jpg', 'file');
     await verify.goto(source);
-    await verify.takeSnapshot(`result for fake-news.jpg via source`, {
+    await verify.takeTallSnapshot(`result for fake-news.jpg via source`, {
       widths: [1280],
     });
   });
@@ -151,6 +151,8 @@ test.describe('Verify - loading states', () => {
     const verify = new VerifyPage(page);
     const source = VerifyPage.getFixtureUrl('no-thumbnail.jpg', 'file');
     await verify.goto(source);
-    await verify.takeSnapshot(`result showing valid claim without thumbnail`);
+    await verify.takeTallSnapshot(
+      `result showing valid claim without thumbnail`,
+    );
   });
 });

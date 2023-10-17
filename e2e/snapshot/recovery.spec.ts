@@ -31,11 +31,15 @@ test.describe('Verify - manifest recovery', () => {
       .first()
       .click();
 
+    await page.waitForTimeout(500);
+
     await verify.takeSnapshot('result for manifest recovery', {
       widths: [1024],
     });
 
     await page.getByTestId('manifest-recovery-clear').click();
+
+    await page.waitForTimeout(500);
 
     await verify.takeSnapshot('result for clearing manifest recovery', {
       widths: [1024],
