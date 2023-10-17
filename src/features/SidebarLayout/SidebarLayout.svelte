@@ -39,7 +39,7 @@
   <div class="flex h-screen flex-col border-gray-100 bg-white lg:border-e-2">
     <div
       class={[
-        'shrink-0 overflow-hidden transition-all duration-300',
+        'shrink-0 overflow-hidden transition-all duration-300 motion-reduce:transition-none',
         showHeader
           ? 'max-h-16 opacity-100 ease-in'
           : 'max-h-0 opacity-0 ease-out',
@@ -60,7 +60,7 @@
   </div>
   {#if !leftColumnTakeover}
     <div
-      class="z-0 h-screen overflow-hidden transition-transform lg:transform-none"
+      class="z-0 h-screen overflow-hidden transition-transform motion-reduce:transition-none lg:transform-none"
       class:-translate-x-full={$sidebarLayoutPageState === 1}>
       <!-- Mobile header -->
       <div

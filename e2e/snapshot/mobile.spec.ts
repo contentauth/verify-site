@@ -24,13 +24,11 @@ test.describe('Verify - mobile view', () => {
     await verify.takeSnapshot(`mobile - left column`, { widths: [375] });
 
     await page.getByRole('button', { name: 'CAICAI.jpg' }).click();
-    // Wait for animation to complete
-    await page.waitForTimeout(500);
+
     await verify.takeSnapshot(`mobile - tree view`, { widths: [375] });
 
     await page.getByTestId('tree-node-0.0').click({ force: true });
-    // Wait for animation to complete
-    await page.waitForTimeout(500);
+
     await verify.takeSnapshot(`mobile - right column`, { widths: [375] });
   });
 });

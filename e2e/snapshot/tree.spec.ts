@@ -69,15 +69,13 @@ test.describe('Verify - tree view', () => {
     await verify.goto(source);
 
     await page.getByTestId('tree-zoom-out').click();
-    // Wait for animation to complete
-    await page.waitForTimeout(500);
+
     await verify.takeSnapshot('result for tree zoom out', {
       widths: [1024],
     });
 
     await page.getByTestId('tree-zoom-in').click();
-    // Wait for animation to complete
-    await page.waitForTimeout(500);
+
     await verify.takeSnapshot('result for tree zoom in', {
       widths: [1024],
     });

@@ -35,7 +35,7 @@
 <div class="flex min-w-0 items-center">
   <div
     class={[
-      `transition-all duration-300 ease-in-out`,
+      `transition-all duration-300 ease-in-out motion-reduce:transition-none`,
       hideThumbnail
         ? `me-0 w-0 overflow-hidden opacity-0`
         : `me-2 w-auto opacity-100`,

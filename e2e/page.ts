@@ -82,6 +82,8 @@ export class VerifyPage {
   ) {
     const params = new URLSearchParams(otherParams);
 
+    await this.preferReducedMotion();
+
     if (source) {
       params.set('source', source);
       await this.page.goto(`/verify?${params.toString()}`);
@@ -174,6 +176,10 @@ export class VerifyPage {
 
       await writeFile(outputFile, data);
     }
+  }
+
+  async preferReducedMotion() {
+    await this.page.emulateMedia({ reducedMotion: 'reduce' });
   }
 
   async takeSnapshot(name: string, options: SnapshotOptions = {}) {

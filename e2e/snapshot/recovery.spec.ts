@@ -31,15 +31,11 @@ test.describe('Verify - manifest recovery', () => {
       .first()
       .click();
 
-    await page.waitForTimeout(500);
-
     await verify.takeSnapshot('result for manifest recovery', {
       widths: [1024],
     });
 
     await page.getByTestId('manifest-recovery-clear').click();
-
-    await page.waitForTimeout(500);
 
     await verify.takeSnapshot('result for clearing manifest recovery', {
       widths: [1024],
@@ -61,8 +57,6 @@ test.describe('Verify - manifest recovery', () => {
     await page.getByText('Search for possible matches').click();
 
     await page.getByTestId('toast-0').waitFor();
-
-    await page.waitForTimeout(500);
 
     await verify.takeSnapshot('result for manifest recovery error');
   });
@@ -100,7 +94,6 @@ test.describe('Verify - manifest recovery', () => {
     );
 
     await page.getByText('Content Credentials', { exact: true }).click();
-    await page.waitForTimeout(500);
 
     await page.getByTestId('manifest-recovery-clear').click();
 

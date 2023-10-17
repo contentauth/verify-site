@@ -18,6 +18,10 @@
   import { fade, fly } from 'svelte/transition';
   import Toast from './Toast.svelte';
   import { toast } from './store/toastState';
+
+  const prefersReducedMotion = !window.matchMedia(
+    '(prefers-reduced-motion: reduce)',
+  ).matches;
 </script>
 
 <ul
@@ -27,9 +31,9 @@
     <li
       data-testid={`toast-${idx}`}
       class="mt-2"
-      in:fly={{ y: 128 }}
+      in:fly={{ y: prefersReducedMotion ? 128 : 0 }}
       out:fade={{ duration: 100 }}
-      animate:flip={{ duration: 100 }}>
+      animate:flip={{ duration: prefersReducedMotion ? 100 : 0 }}>
       <Toast {toastItem} />
     </li>
   {/each}
