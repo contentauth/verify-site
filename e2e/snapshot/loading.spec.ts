@@ -27,7 +27,7 @@ test.describe('Verify - loading states', () => {
     const verify = new VerifyPage(page);
     const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
     await verify.goto(source);
-    await verify.takeTallSnapshot(`result for CAICAI.jpg via source`);
+    await verify.takeSnapshot(`result for CAICAI.jpg via source`);
   });
 
   test('specifying an image without content credentials via source should work (A.jpg)', async ({
@@ -36,7 +36,7 @@ test.describe('Verify - loading states', () => {
     const verify = new VerifyPage(page);
     const source = VerifyPage.getFixtureUrl('A.jpg', 'file');
     await verify.goto(source);
-    await verify.takeTallSnapshot(`result for A.jpg via source`);
+    await verify.takeSnapshot(`result for A.jpg via source`);
   });
 
   test('specifying an image via source should work (fake-news.jpg)', async ({
@@ -45,19 +45,7 @@ test.describe('Verify - loading states', () => {
     const verify = new VerifyPage(page);
     const source = VerifyPage.getFixtureUrl('fake-news.jpg', 'file');
     await verify.goto(source);
-    await verify.takeTallSnapshot(`result for fake-news.jpg via source`, {
-      widths: [1280],
-    });
-  });
-
-  // @TODO is this test redundant with the one above?
-  test('specifying an image via source should work (moonrise.jpg)', async ({
-    page,
-  }) => {
-    const verify = new VerifyPage(page);
-    const source = VerifyPage.getFixtureUrl('moonrise.jpg', 'file');
-    await verify.goto(source);
-    await verify.takeTallSnapshot(`result for moonrise.jpg via source`, {
+    await verify.takeSnapshot(`result for fake-news.jpg via source`, {
       widths: [1280],
     });
   });
@@ -70,7 +58,7 @@ test.describe('Verify - loading states', () => {
     await verify.goto();
     await verify.dropFile('CAICAI.jpg');
     await verify.treeViewVisible();
-    await verify.takeTallSnapshot(`result for CAICAI.jpg via drag and drop`, {
+    await verify.takeSnapshot(`result for CAICAI.jpg via drag and drop`, {
       widths: [1280],
     });
   });
@@ -82,7 +70,7 @@ test.describe('Verify - loading states', () => {
     await verify.goto();
     await verify.chooseFile('CAICAI.jpg');
 
-    await verify.takeTallSnapshot(`result for CAICAI.jpg via file picker`, {
+    await verify.takeSnapshot(`result for CAICAI.jpg via file picker`, {
       widths: [1280],
     });
   });
@@ -99,7 +87,7 @@ test.describe('Verify - loading states', () => {
     });
     await verify.treeViewVisible();
 
-    await verify.takeTallSnapshot(
+    await verify.takeSnapshot(
       `result for CAICAI.jpg via left-column file picker`,
       { widths: [1280] },
     );
@@ -110,7 +98,7 @@ test.describe('Verify - loading states', () => {
     await verify.goto();
     await verify.chooseFile('A.jpg');
 
-    await verify.takeTallSnapshot(`result for A.jpg`, {
+    await verify.takeSnapshot(`result for A.jpg`, {
       widths: [1280],
     });
   });
@@ -124,7 +112,7 @@ test.describe('Verify - loading states', () => {
 
     await page.getByText('Use an older version of Verify?').waitFor();
 
-    await verify.takeTallSnapshot('result for beta image');
+    await verify.takeSnapshot('result for beta image');
   });
 
   test('loading an image with an OTGP head claim should work', async ({
@@ -163,8 +151,6 @@ test.describe('Verify - loading states', () => {
     const verify = new VerifyPage(page);
     const source = VerifyPage.getFixtureUrl('no-thumbnail.jpg', 'file');
     await verify.goto(source);
-    await verify.takeTallSnapshot(
-      `result showing valid claim without thumbnail`,
-    );
+    await verify.takeSnapshot(`result showing valid claim without thumbnail`);
   });
 });
