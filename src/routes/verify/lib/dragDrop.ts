@@ -33,7 +33,7 @@ export function dragDropAction(
 
   const cleanupDragDrop = dragDrop(node, {
     async onDrop(files: File[]) {
-      clearTimeout(dragTimeout);
+      clearTimeout(dragTimeout as NonNullable<typeof dragTimeout>);
       onDragStateChange(false);
       const fileArray = Array.from(files);
 
@@ -54,7 +54,7 @@ export function dragDropAction(
       }
     },
     onDragOver() {
-      clearTimeout(dragTimeout);
+      clearTimeout(dragTimeout as NonNullable<typeof dragTimeout>);
       onDragStateChange(true);
     },
     onDragLeave() {

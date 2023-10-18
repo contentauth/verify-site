@@ -30,6 +30,7 @@ const EXIF_DATE_FORMAT_STRING = 'yyyy:MM:dd HH:mm:ss X';
 export interface ExifTags {
   'dc:creator'?: string;
   'dc:rights'?: string;
+  'exif:copyright'?: string;
   'exif:datetimeoriginal'?: string;
   'exif:exposuretime'?: string | number;
   'exif:fnumber'?: number;
@@ -233,7 +234,9 @@ export function selectExif(manifest: Manifest): ExifSummary | null {
 
     const summary: Omit<ExifSummary, 'mapUrl'> = {
       creator: exif['dc:creator'] ?? null,
-      copyright: exif['dc:rights'] ?? null,
+      copyright:
+        (findExifValue(exif, ['exif:copyright', 'dc:rights']) as string) ??
+        null,
       captureDate: isValid(captureDate) ? captureDate : null,
       captureDetails: getCaptureDetails(exif),
       location: getApproximateLocation(exif),
