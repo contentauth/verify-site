@@ -13,7 +13,7 @@
 <div
   class="flex w-screen max-w-[90rem] flex-col items-center justify-evenly gap-6 px-[20px] sm:px-[1.5rem] pt-[1.5rem]">
   <div
-    class="2xl:w-[910px] flex flex-col items-center justify-center pb-10 pt-20 xl:w-[802px]">
+    class="2xl:w-[910px] flex flex-col items-center justify-center pb-10 pt-20 xl:w-[802px] lg:max-w-[56rem] lg:w-2/3">
     <h2
       class="2xl:text-home-title-2xl text-center text-home-secondary-title sm:text-home-title-md lg:text-home-title-lg xl:text-hero-title">
       Content Credentials reveal helpful information that's usually hidden
