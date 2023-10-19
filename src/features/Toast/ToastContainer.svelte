@@ -14,14 +14,11 @@
 -->
 
 <script lang="ts">
+  import { prefersReducedMotion } from '$src/lib/matchMedia';
   import { flip } from 'svelte/animate';
   import { fade, fly } from 'svelte/transition';
   import Toast from './Toast.svelte';
   import { toast } from './store/toastState';
-
-  const prefersReducedMotion = !window.matchMedia(
-    '(prefers-reduced-motion: reduce)',
-  ).matches;
 </script>
 
 <ul
