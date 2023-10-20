@@ -116,7 +116,7 @@ dependencies:
 devDependencies:
   '@axe-core/playwright':
     specifier: ^4.7.3
-    version: 4.7.3(playwright-core@1.38.1)
+    version: 4.7.3(playwright-core@1.39.0)
   '@fullhuman/postcss-purgecss':
     specifier: ^4.0.3
     version: 4.1.3(postcss@8.4.31)
@@ -131,10 +131,10 @@ devDependencies:
     version: 1.27.2(typescript@5.2.2)
   '@percy/playwright':
     specifier: ^1.0.4
-    version: 1.0.4(playwright-core@1.38.1)
+    version: 1.0.4(playwright-core@1.39.0)
   '@playwright/test':
-    specifier: ^1.38.1
-    version: 1.38.1
+    specifier: ^1.39.0
+    version: 1.39.0
   '@rollup/pluginutils':
     specifier: ^4.1.0
     version: 4.2.1
@@ -290,7 +290,7 @@ devDependencies:
     version: 3.1.0
   playwright-msw:
     specifier: ^2.2.1
-    version: 2.2.1(@playwright/test@1.38.1)(msw@1.3.2)
+    version: 2.2.1(@playwright/test@1.39.0)(msw@1.3.2)
   postcss:
     specifier: ^8.4.30
     version: 8.4.31
@@ -385,13 +385,13 @@ packages:
       default-browser-id: 3.0.0
     dev: true
 
-  /@axe-core/playwright@4.7.3(playwright-core@1.38.1):
+  /@axe-core/playwright@4.7.3(playwright-core@1.39.0):
     resolution: {integrity: sha512-v2PRgAyGvop7bamrTpNJtc5b1R7giAPnMzZXrS/VDZBCY5+uwVYtCNgDvBsqp5P1QMZxUMoBN+CERJUTMjFN0A==}
     peerDependencies:
       playwright-core: '>= 1.0.0'
     dependencies:
       axe-core: 4.7.1
-      playwright-core: 1.38.1
+      playwright-core: 1.39.0
     dev: true
 
   /@babel/code-frame@7.22.10:
@@ -5249,14 +5249,14 @@ packages:
     engines: {node: '>=14'}
     dev: true
 
-  /@percy/playwright@1.0.4(playwright-core@1.38.1):
+  /@percy/playwright@1.0.4(playwright-core@1.39.0):
     resolution: {integrity: sha512-prXvaEyvM6M7vGx0YujdMmFf+rZqkQpDEK32ZOwXbMzKYhGXjyiYESa4Axhc+Pz/c0THhXZWH4/70IW0RcyCQA==}
     engines: {node: '>=14'}
     peerDependencies:
       playwright-core: '>=1'
     dependencies:
       '@percy/sdk-utils': 1.26.3
-      playwright-core: 1.38.1
+      playwright-core: 1.39.0
     dev: true
 
   /@percy/sdk-utils@1.26.3:
@@ -5285,12 +5285,12 @@ packages:
     requiresBuild: true
     optional: true
 
-  /@playwright/test@1.38.1:
-    resolution: {integrity: sha512-NqRp8XMwj3AK+zKLbZShl0r/9wKgzqI/527bkptKXomtuo+dOjU9NdMASQ8DNC9z9zLOMbG53T4eihYr3XR+BQ==}
+  /@playwright/test@1.39.0:
+    resolution: {integrity: sha512-3u1iFqgzl7zr004bGPYiN/5EZpRUSFddQBra8Rqll5N0/vfpqlP9I9EXqAoGacuAbX6c9Ulg/Cjqglp5VkK6UQ==}
     engines: {node: '>=16'}
     hasBin: true
     dependencies:
-      playwright: 1.38.1
+      playwright: 1.39.0
     dev: true
 
   /@polka/url@1.0.0-next.21:
@@ -14948,13 +14948,13 @@ packages:
       pathe: 1.1.1
     dev: true
 
-  /playwright-core@1.38.1:
-    resolution: {integrity: sha512-tQqNFUKa3OfMf4b2jQ7aGLB8o9bS3bOY0yMEtldtC2+spf8QXG9zvXLTXUeRsoNuxEYMgLYR+NXfAa1rjKRcrg==}
+  /playwright-core@1.39.0:
+    resolution: {integrity: sha512-+k4pdZgs1qiM+OUkSjx96YiKsXsmb59evFoqv8SKO067qBA+Z2s/dCzJij/ZhdQcs2zlTAgRKfeiiLm8PQ2qvw==}
     engines: {node: '>=16'}
     hasBin: true
     dev: true
 
-  /playwright-msw@2.2.1(@playwright/test@1.38.1)(msw@1.3.2):
+  /playwright-msw@2.2.1(@playwright/test@1.39.0)(msw@1.3.2):
     resolution: {integrity: sha512-LjT68LWqzJX8boy4KbnPp5ACLf7WDpt6RUem0tQQcQKys+45KNlluzBx8HEl1HNiCBYV/XZw1aI1aD2giKXWRg==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -14962,17 +14962,17 @@ packages:
       msw: '>=0.47.3'
     dependencies:
       '@mswjs/cookies': 0.2.2
-      '@playwright/test': 1.38.1
+      '@playwright/test': 1.39.0
       msw: 1.3.2(typescript@5.2.2)
       strict-event-emitter: 0.4.6
     dev: true
 
-  /playwright@1.38.1:
-    resolution: {integrity: sha512-oRMSJmZrOu1FP5iu3UrCx8JEFRIMxLDM0c/3o4bpzU5Tz97BypefWf7TuTNPWeCe279TPal5RtPPZ+9lW/Qkow==}
+  /playwright@1.39.0:
+    resolution: {integrity: sha512-naE5QT11uC/Oiq0BwZ50gDmy8c8WLPRTEWuSSFVG2egBka/1qMoSqYQcROMT9zLwJ86oPofcTH2jBY/5wWOgIw==}
     engines: {node: '>=16'}
     hasBin: true
     dependencies:
-      playwright-core: 1.38.1
+      playwright-core: 1.39.0
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
