@@ -13,6 +13,7 @@
 
 import { analytics } from '$src/lib/analytics';
 import { ROOT_ID, type AssetData } from '$src/lib/asset';
+import { prefersReducedMotion } from '$src/lib/matchMedia';
 import { hierarchy as d3Hierarchy, tree as d3Tree } from 'd3-hierarchy';
 import type { Selection } from 'd3-selection';
 import { zoomIdentity, type ZoomBehavior, type ZoomTransform } from 'd3-zoom';
@@ -191,7 +192,7 @@ interface ZoomInProps {
 
 export function zoomIn({ svgSel, zoom }: ZoomInProps) {
   analytics.track('treeViewZoom', { dir: 'in' });
-  zoom.scaleTo(svgSel.transition(), 1);
+  zoom.scaleTo(svgSel.transition().duration(prefersReducedMotion ? 0 : 250), 1);
 }
 
 interface ZoomOutProps extends ZoomInProps {
@@ -210,7 +211,7 @@ export function zoomOut({
   minZoomScale,
 }: ZoomOutProps) {
   analytics.track('treeViewZoom', { dir: 'out' });
-  const sel = svgSel.transition();
+  const sel = svgSel.transition().duration(prefersReducedMotion ? 0 : 250);
   const bbox = boundsElement.getBBox();
   sel.call(
     zoom.transform,

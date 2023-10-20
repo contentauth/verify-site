@@ -12,17 +12,32 @@
 // from Adobe.
 
 import { test } from '@playwright/test';
-import { VerifyPage } from './page';
+import { VerifyPage } from '../page';
 
-test.describe('Verify - lightbox ', () => {
-  test('lightbox launches correctly', async ({ page }) => {
+test.describe('Verify - i18n', () => {
+  test('specifying a different language via dropdown should work', async ({
+    page,
+  }) => {
     const verify = new VerifyPage(page);
     const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
-
     await verify.goto(source);
+    await verify.languagePicker.click();
+    verify.languagePicker.selectOption('Français');
 
-    await page.getByTestId('lightbox-button').click();
+    await verify.takeTallSnapshot(
+      `result setting language as fr-FR via dropdown`,
+    );
+  });
 
-    await verify.takeSnapshot('lightbox');
+  test('specifying a different language via URL parameter should work', async ({
+    page,
+  }) => {
+    const verify = new VerifyPage(page);
+    const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
+    await verify.goto(source, { lang: 'ja-JP' });
+
+    await verify.takeTallSnapshot(
+      `result setting language as ja-JP via URL parameter`,
+    );
   });
 });

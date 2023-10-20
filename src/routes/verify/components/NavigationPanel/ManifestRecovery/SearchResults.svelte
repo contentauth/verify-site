@@ -6,7 +6,7 @@
   export let results: ReadableRecoveredManifestStore[];
 </script>
 
-<div>
+<div data-testid="manifest-recovery-results">
   {#if results.length > 0}
     {#each results as result}
       <ManifestRecoveryItem recoveredManifestStore={result} />

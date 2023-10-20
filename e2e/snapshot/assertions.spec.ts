@@ -12,7 +12,7 @@
 // from Adobe.
 
 import { test } from '@playwright/test';
-import { VerifyPage } from './page';
+import { VerifyPage } from '../page';
 
 test.describe('Verify - assertion display', () => {
   test('exif data should be displayed correctly', async ({ page }) => {

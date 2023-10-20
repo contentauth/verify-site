@@ -138,7 +138,7 @@
   "sidebar.verify.process.actions": "[6] _üActions",
   "sidebar.verify.process.app": "[7] _üApp or device used",
   "sidebar.verify.process.actions.styleReference.title": "[Cl] _üCreated using a style reference image",
-  "sidebar.verify.process.actions.styleReference.description": "[Ck] _üCreated a new file or content using style reference imagery.",
+  "sidebar.verify.process.actions.styleReference.description": "[Ck] _üCreated a new file or content using style reference imagery",
   "sidebar.verify.process.description": "[8] _üThe app or device used to produce this content recorded the following info:",
   "sidebar.verify.process.ingredients": "[9] _üIngredients",
   "sidebar.verify.recovery.noMatches": "[B4] _üNo matches found",
@@ -159,5 +159,15 @@
   "toast.matchesUnavailable": "[B8] _üPossible matches are currently unavailable",
   "toast.somethingWentWrong": "[B9] _üSomething went wrong",
   "toast.unsupportedFileType": "[B+] _üThat file type isn't supported",
-  "wordListDelimiter": "[Ch] _ü, "
+  "wordListDelimiter": "[Ch] _ü, ",
+  "l2popup.title": "[Ct] _üContent Credentials",
+  "l2popup.producedBy": "[Cr] _üProduced by",
+  "l2popup.issuedBy": "[Cq] _üIssued by {issuer} on {date}",
+  "l2popup.website": "[Cu] _üWebsite",
+  "l2popup.socialMedia": "[Cs] _üSocial media",
+  "l2popup.deviceUsed": "[Co] _üApp or device used",
+  "l2popup.aiToolUsed": "[Cn] _üAI tool used",
+  "l2popup.additionalHistory": "[Cm] _üAdditional history",
+  "l2popup.yes": "[Cv] _üYes",
+  "l2popup.inspect": "[Cp] _üInspect"
 }

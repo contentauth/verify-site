@@ -65,7 +65,7 @@
   role="treeitem"
   aria-selected={$assetStore.state === 'selected' ? 'true' : 'false'}
   data-testid={`tree-node-${$assetStore.id}`}
-  class="absolute left-0 top-0 flex flex-col overflow-hidden rounded border-2 bg-white transition focus:shadow"
+  class="absolute left-0 top-0 flex flex-col overflow-hidden rounded border-2 bg-white transition-all focus:shadow motion-reduce:transition-none"
   on:keypress={handleKeyPress($assetStore.select)}
   class:border-gray-400={$assetStore.state === 'none'}
   class:border-gray-700={$assetStore.state === 'path'}

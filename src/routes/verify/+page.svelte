@@ -90,7 +90,8 @@
 
 <div
   use:dragDropAction={dragDropParams}
-  aria-busy={showLoadingOverlay ? 'true' : 'false'}>
+  aria-busy={showLoadingOverlay ? 'true' : 'false'}
+  data-testid="file-dropzone">
   <DragDropOverlay visible={showDropOverlay} />
   <LoadingOverlay visible={showLoadingOverlay} />
   <FilePicker bind:this={filePicker} />

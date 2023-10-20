@@ -16,18 +16,26 @@
 import type { SnapshotOptions } from '@percy/core';
 import percySnapshot from '@percy/playwright';
 import { expect, type Locator, type Page } from '@playwright/test';
+import fs from 'fs';
 import { mkdirp } from 'mkdirp';
 import { writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import percyConfig from '../../.percy.json' assert { type: 'json' };
-import { fixturesPort } from '../../playwright.config';
-import testImageConfig from '../c2pa-test-image-service.config';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import percyConfig from '../.percy.json' assert { type: 'json' };
+import { fixturesPort } from '../playwright.config';
+import testImageConfig from './c2pa-test-image-service.config';
 
 const TALL_SNAPSHOT_HEIGHT = 2000;
 
 const SNAPSHOT_DEBUG_MODE = process.env.SNAPSHOT_DEBUG_MODE;
 
 type FixtureType = 'file' | 'generated';
+
+interface ChooseFileOpts {
+  waitForTree?: boolean;
+  locator?: Locator;
+}
 
 export class VerifyPage {
   readonly page: Page;
@@ -46,17 +54,40 @@ export class VerifyPage {
     return `http://localhost:${port}/${filename}`;
   }
 
+  async dropFile(filename: string, filetype = 'image/jpeg') {
+    const dirname = fileURLToPath(import.meta.url);
+    const buffer = fs.readFileSync(
+      path.resolve(dirname, `../fixtures/${filename}`),
+    );
+
+    const dataTransfer = await this.page.evaluateHandle(async (data) => {
+      const dt = new DataTransfer();
+
+      const file = new File([data.toString('hex')], filename, {
+        type: filetype,
+      });
+
+      dt.items.add(file);
+
+      return dt;
+    }, buffer);
+
+    const dropzone = this.page.getByTestId('file-dropzone');
+    await dropzone.dispatchEvent('drop', { dataTransfer });
+  }
+
   async goto(
     source: string | null = null,
     otherParams: Record<string, string> = {},
   ) {
     const params = new URLSearchParams(otherParams);
 
+    await this.preferReducedMotion();
+
     if (source) {
       params.set('source', source);
       await this.page.goto(`/verify?${params.toString()}`);
-      await this.waitForTreeView();
-      await this.waitForActions();
+      await this.treeViewVisible();
     } else {
       await this.page.goto(
         `/verify${params.keys.length > 0 ? `?${params.toString()}` : ``}`,
@@ -67,7 +98,25 @@ export class VerifyPage {
     }
   }
 
-  async waitForTreeView() {
+  async chooseFile(fixture: string, opts?: ChooseFileOpts) {
+    const waitForTree = opts?.waitForTree ?? true;
+    const locator =
+      opts?.locator ?? this.page.getByText('Select a file from your device');
+
+    const fileChooserPromise = this.page.waitForEvent('filechooser');
+    await locator.click();
+    const fileChooser = await fileChooserPromise;
+
+    const dirname = fileURLToPath(import.meta.url);
+    const file = path.resolve(dirname, `../fixtures/${fixture}`);
+    await fileChooser.setFiles(file);
+
+    if (waitForTree) {
+      await this.treeViewVisible();
+    }
+  }
+
+  async treeViewVisible() {
     await this.page.waitForFunction(() => {
       const loadingOverlay = document.querySelector(
         'div[data-testid="loading-overlay"]',
@@ -127,6 +176,10 @@ export class VerifyPage {
 
       await writeFile(outputFile, data);
     }
+  }
+
+  async preferReducedMotion() {
+    await this.page.emulateMedia({ reducedMotion: 'reduce' });
   }
 
   async takeSnapshot(name: string, options: SnapshotOptions = {}) {

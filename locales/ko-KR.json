@@ -159,5 +159,15 @@
   "toast.matchesUnavailable": "가능한 일치 항목은 현재 사용할 수 없습니다.",
   "toast.somethingWentWrong": "문제 발생",
   "toast.unsupportedFileType": "해당 파일 유형은 지원되지 않습니다.",
-  "wordListDelimiter": ", "
+  "wordListDelimiter": ", ",
+  "l2popup.title": "콘텐츠 자격 증명",
+  "l2popup.producedBy": "제작자",
+  "l2popup.issuedBy": "{date}에 {issuer}이(가) 발행함",
+  "l2popup.website": "웹 사이트",
+  "l2popup.socialMedia": "소셜 미디어",
+  "l2popup.deviceUsed": "사용된 앱 또는 디바이스",
+  "l2popup.aiToolUsed": "사용된 AI 도구",
+  "l2popup.additionalHistory": "추가 기록",
+  "l2popup.yes": "예",
+  "l2popup.inspect": "검사"
 }
