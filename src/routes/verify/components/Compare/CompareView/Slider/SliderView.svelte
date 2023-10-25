@@ -20,7 +20,7 @@
   import { _ } from 'svelte-i18n';
   import type { Readable } from 'svelte/store';
   import type { CompareSelectedAssetStore } from '../../../../stores/compareSelectedAsset';
-  import NullState from './NullState.svelte';
+  import NullState from '../NullState.svelte';
 
   export let selectedAssets: Readable<(CompareSelectedAssetStore | null)[]>;
   let primaryAsset: CompareSelectedAssetStore | null;
