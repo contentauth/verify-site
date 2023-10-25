@@ -132,7 +132,7 @@ export class VerifyPage {
         (loadingOverlay === null &&
           treeViewThumbnailsImgs.length > 0 &&
           treeViewThumbnailsImgs.every((x) => x.complete)) ||
-        treeViewThumbnailsSvgs.length > 0
+        (loadingOverlay === null && treeViewThumbnailsSvgs.length > 0)
       );
     });
   }
