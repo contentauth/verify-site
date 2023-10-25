@@ -121,14 +121,18 @@ export class VerifyPage {
       const loadingOverlay = document.querySelector(
         'div[data-testid="loading-overlay"]',
       );
-      const treeViewThumbnails = Array.from<HTMLImageElement>(
+      const treeViewThumbnailsImgs = Array.from<HTMLImageElement>(
         document.querySelectorAll('button[role="treeitem"] img'),
+      );
+      const treeViewThumbnailsSvgs = Array.from<HTMLImageElement>(
+        document.querySelectorAll('button[role="treeitem"] svg'),
       );
 
       return (
-        loadingOverlay === null &&
-        treeViewThumbnails.length > 0 &&
-        treeViewThumbnails.every((x) => x.complete)
+        (loadingOverlay === null &&
+          treeViewThumbnailsImgs.length > 0 &&
+          treeViewThumbnailsImgs.every((x) => x.complete)) ||
+        treeViewThumbnailsSvgs.length > 0
       );
     });
   }
