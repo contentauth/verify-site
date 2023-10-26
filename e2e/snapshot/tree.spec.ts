@@ -62,7 +62,7 @@ test.describe('Verify - tree view', () => {
     });
   });
 
-  test.only('tree zoom works as expected', async ({ page }) => {
+  test('tree zoom works as expected', async ({ page }) => {
     const verify = new VerifyPage(page);
     await page.setViewportSize({ width: 1024, height: 1024 });
     const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
