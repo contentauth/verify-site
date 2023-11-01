@@ -21,7 +21,7 @@ test('Clicking on the compare button should take you to compare mode', async ({
   const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
   await verify.goto(source);
   await page.getByText('Compare').click();
-  await page.locator('span', { hasText: 'Compare view' }).waitFor();
+  await page.getByText('Compare view').waitFor();
   await verify.takeSnapshot(`result for clicking the compare button`, {
     widths: [1280],
   });
@@ -34,7 +34,7 @@ test('Clicking on an ingredient should compare that with the currently selected 
   const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
   await verify.goto(source);
   await page.getByText('Compare').click();
-  await page.locator('span', { hasText: 'Compare view' }).waitFor();
+  await page.getByText('Compare view').waitFor();
   await page
     .getByRole('button', { name: 'CAI.jpg Aug 29, 2023', exact: true })
     .click();
@@ -52,7 +52,7 @@ test('Switching to slider mode should work', async ({ page }) => {
   const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
   await verify.goto(source);
   await page.getByText('Compare').click();
-  await page.locator('span', { hasText: 'Compare view' }).waitFor();
+  await page.getByText('Compare view').waitFor();
   await page
     .locator('select', { hasText: 'Side by Side' })
     .selectOption('Slider');
@@ -68,7 +68,7 @@ test('Dragging the slider handle should move the slider position', async ({
   const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
   await verify.goto(source);
   await page.getByText('Compare').click();
-  await page.locator('span', { hasText: 'Compare view' }).waitFor();
+  await page.getByText('Compare view').waitFor();
   await page
     .locator('select', { hasText: 'Side by Side' })
     .selectOption('Slider');
@@ -89,7 +89,7 @@ test('Clicking the back button in the Compare view header should exit out of com
   const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
   await verify.goto(source);
   await page.getByText('Compare').click();
-  await page.locator('span', { hasText: 'Compare view' }).waitFor();
+  await page.getByText('Compare view').waitFor();
   await page.getByTestId('compare-back-button').click({ force: true });
   await verify.takeSnapshot(
     `result for clicking the back button in compare mode`,
