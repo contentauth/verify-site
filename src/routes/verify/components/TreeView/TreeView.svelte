@@ -135,8 +135,7 @@
     </div>
   </div>
   <div
-    class="absolute bottom-5 right-5 z-20 hidden flex-col items-end justify-end space-y-5 lg:flex"
-    data-testId="zoom-compare-block">
+    class="absolute bottom-5 right-5 z-20 hidden flex-col items-end justify-end space-y-5 lg:flex">
     <div class="flex h-8 items-center rounded-full bg-white shadow-md">
       <button
         class="h-full pe-2 ps-2.5 transition-opacity"
@@ -173,7 +172,6 @@
         on:click={() => verifyStore.setCompareView()}
         disabled={!canCompare}
         class="transition-opacity"
-        data-testid="compare-button"
         class:opacity-40={!canCompare}
         class:cursor-not-allowed={!canCompare}
         ><div class="mx-3 my-2 flex items-center">

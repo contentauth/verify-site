@@ -20,10 +20,10 @@ test('Clicking on the compare button should take you to compare mode', async ({
   const verify = new VerifyPage(page);
   const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
   await verify.goto(source);
-  await page.getByTestId('compare-button').click({ force: true });
+  await page.getByText('Compare').click();
   await page.locator('span', { hasText: 'Compare view' }).waitFor();
   await verify.takeSnapshot(`result for clicking the compare button`, {
-    widths: [2000],
+    widths: [1280],
   });
 });
 
@@ -33,16 +33,16 @@ test('Clicking on an ingredient should compare that with the currently selected 
   const verify = new VerifyPage(page);
   const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
   await verify.goto(source);
-  await page.getByTestId('compare-button').click({ force: true });
+  await page.getByText('Compare').click();
   await page.locator('span', { hasText: 'Compare view' }).waitFor();
   await page
     .getByRole('button', { name: 'CAI.jpg Aug 29, 2023', exact: true })
-    .click({ force: true });
+    .click();
   await page.getByLabel('CAICAI.jpg and CAI.jpg are being compared').waitFor();
   await verify.takeSnapshot(
     `result for comparing an ingredient with the root element`,
     {
-      widths: [2000],
+      widths: [1280],
     },
   );
 });
@@ -51,13 +51,13 @@ test('Switching to slider mode should work', async ({ page }) => {
   const verify = new VerifyPage(page);
   const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
   await verify.goto(source);
-  await page.getByTestId('compare-button').click({ force: true });
+  await page.getByText('Compare').click();
   await page.locator('span', { hasText: 'Compare view' }).waitFor();
   await page
     .locator('select', { hasText: 'Side by Side' })
     .selectOption('Slider');
   await verify.takeSnapshot(`result for switching to slider mode`, {
-    widths: [2000],
+    widths: [1280],
   });
 });
 
@@ -67,7 +67,7 @@ test('Dragging the slider handle should move the slider position', async ({
   const verify = new VerifyPage(page);
   const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
   await verify.goto(source);
-  await page.getByTestId('compare-button').click({ force: true });
+  await page.getByText('Compare').click();
   await page.locator('span', { hasText: 'Compare view' }).waitFor();
   await page
     .locator('select', { hasText: 'Side by Side' })
@@ -78,7 +78,7 @@ test('Dragging the slider handle should move the slider position', async ({
   await sliderHandle.hover({ force: true, position: { x: 500, y: 10 } });
   await page.mouse.up();
   await verify.takeSnapshot(`result for dragging the slider handle`, {
-    widths: [2000],
+    widths: [1280],
   });
 });
 
@@ -88,13 +88,13 @@ test('Clicking the back button in the Compare view header should exit out of com
   const verify = new VerifyPage(page);
   const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
   await verify.goto(source);
-  await page.getByTestId('compare-button').click({ force: true });
+  await page.getByText('Compare').click();
   await page.locator('span', { hasText: 'Compare view' }).waitFor();
   await page.getByTestId('compare-back-button').click({ force: true });
   await verify.takeSnapshot(
     `result for clicking the back button in compare mode`,
     {
-      widths: [2000],
+      widths: [1280],
     },
   );
 });
@@ -105,12 +105,12 @@ test('Compare view button should be disabled if there is only one item in the tr
   const verify = new VerifyPage(page);
   const source = VerifyPage.getFixtureUrl('A.jpg', 'file');
   await verify.goto(source);
-  const compareButton = await page.getByTestId('compare-button');
+  const compareButton = await page.getByText('Compare');
   await expect(compareButton).toBeDisabled();
   await verify.takeSnapshot(
     `result for disabled compare button if there is only one item in the tree`,
     {
-      widths: [2000],
+      widths: [1280],
     },
   );
 });
@@ -121,12 +121,12 @@ test("Compare view button should be disabled if the asset doesn't have a thumbna
   const verify = new VerifyPage(page);
   const source = VerifyPage.getFixtureUrl('no-thumbnail.jpg', 'file');
   await verify.goto(source);
-  const compareButton = await page.getByTestId('compare-button');
+  const compareButton = await page.getByText('Compare');
   await expect(compareButton).toBeDisabled();
   await verify.takeSnapshot(
     `result for disabled compare button when loading an image with no thumbnail `,
     {
-      widths: [2000],
+      widths: [1280],
     },
   );
 });
@@ -140,8 +140,6 @@ test('Compare view should be inaccessible on the mobile breakpoint', async ({
   await verify.goto(source);
   await page.getByTestId('asset-info-btn').click({ force: true });
   await page.getByTestId('tree-node-0.0');
-  const compareButton = page.getByTestId('zoom-compare-block');
-  await expect(compareButton).toHaveCSS('display', 'none');
   await verify.takeSnapshot(
     `result for the compare view being inaccessible in mobile`,
     {

@@ -124,15 +124,18 @@ export class VerifyPage {
       const treeViewThumbnailsImgs = Array.from<HTMLImageElement>(
         document.querySelectorAll('button[role="treeitem"] img'),
       );
-      const treeViewThumbnailsSvgs = Array.from<HTMLImageElement>(
+      const treeViewThumbnailsSvgs = Array.from<SVGElement>(
         document.querySelectorAll('button[role="treeitem"] svg'),
       );
 
+      const thumbnailImagesVisible =
+        treeViewThumbnailsImgs.length > 0 &&
+        treeViewThumbnailsImgs.every((x) => x.complete);
+      const thumbnailSvgsVisible = treeViewThumbnailsSvgs.length > 0;
+
       return (
-        (loadingOverlay === null &&
-          treeViewThumbnailsImgs.length > 0 &&
-          treeViewThumbnailsImgs.every((x) => x.complete)) ||
-        (loadingOverlay === null && treeViewThumbnailsSvgs.length > 0)
+        loadingOverlay === null &&
+        (thumbnailImagesVisible || thumbnailSvgsVisible)
       );
     });
   }

@@ -7,3 +7,4 @@ e2e/fixtures/*.heic filter=lfs diff=lfs merge=lfs -text
 e2e/fixtures/*.mp4 filter=lfs diff=lfs merge=lfs -text
 e2e/fixtures/*.tif filter=lfs diff=lfs merge=lfs -text
 e2e/fixtures/*.wav filter=lfs diff=lfs merge=lfs -text
+e2e/fixtures/*.tiff filter=lfs diff=lfs merge=lfs -text
