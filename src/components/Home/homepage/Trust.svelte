@@ -147,7 +147,7 @@
           <div
             class="h-full rounded-b-xl bg-[#f5f5f5] px-[32px] py-6 sm:h-[208px] lg:rounded-b-[20px]">
             <p class="text-key-sub-text lg:text-key-sub-text-lg">
-              Content Credentials are based on an open technical standards
+              Content Credentials are based on an open technical specification
               developed and maintained by the <a
                 href="https://c2pa.org/"
                 target="_blank"
