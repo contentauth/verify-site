@@ -26,6 +26,7 @@
   import DragDropOverlay from './components/DragDropOverlay/DragDropOverlay.svelte';
   import EmptyState from './components/EmptyState/EmptyState.svelte';
   import FilePicker from './components/FilePicker/FilePicker.svelte';
+  import L4View from './components/L4View/L4View.svelte';
   import LoadingOverlay from './components/LoadingOverlay/LoadingOverlay.svelte';
   import NavigationPanel from './components/NavigationPanel/NavigationPanel.svelte';
   import RevealablePanel from './components/RevealablePanel/RevealablePanel.svelte';
@@ -40,7 +41,8 @@
     getElement?: () => HTMLDivElement | undefined;
   }>;
   let isSidebarScrolled = false;
-  const { hierarchyView, compareView, viewState } = verifyStore;
+  const { hierarchyView, l4View, compareView, viewState, viewLevel } =
+    verifyStore;
   // Number of pixels to scroll for shadow to be shown
   const sidebarScrollThreshold = 10;
 
@@ -52,13 +54,19 @@
 
   $: hasEmptyState = $hierarchyView.state === 'none';
   $: showLoadingOverlay = $hierarchyView.state === 'loading';
+  $: showL4 = $viewLevel === 'L4';
 
   // Check for `source` parameter and load that asset if it exists
   afterNavigate((nav: import('@sveltejs/kit').AfterNavigate) => {
     const { searchParams } = nav.to?.url ?? {};
     const source = searchParams?.get('source');
+    const view = searchParams?.get('view')?.toUpperCase();
 
     if (!source) return;
+
+    if (view === 'L4') {
+      verifyStore.setViewLevel('L4');
+    }
 
     try {
       const sourceUrl = new URL(source);
@@ -115,39 +123,46 @@
       {/if}
     </svelte:fragment>
     <!-- Content (main 2/3rds) -->
-    <div
-      slot="content"
-      class="h-full grid-cols-[auto_theme(spacing.sidebar)] bg-gray-40 sm:grid">
-      <!-- Center panel -->
-      <div class="h-full lg:h-screen">
-        {#if $viewState === 'hierarchy' && $hierarchyView.state === 'success'}
-          <TreeView
-            assetStoreMap={$hierarchyView.assets}
-            selectedAsset={$hierarchyView.selectedAssetStore}
-            on:mobileTap={() => (showPanel = true)} />
-        {:else if $viewState === 'compare' && $compareView.state === 'success'}
-          <CompareView selectedAssets={$compareView.selectedAssets} />
-        {/if}
-        <button
-          class="m-2 bg-blue-600 p-2 text-white sm:hidden"
-          on:click={() => (showPanel = !showPanel)}>Reveal</button>
-      </div>
-      <!-- Right panel -->
-      <RevealablePanel {showPanel} bind:this={rightPanel}>
-        {#if $viewState === 'hierarchy' && $hierarchyView.state === 'success' && $hierarchyView.selectedAssetStore}
-          <DetailedInfo
-            on:close={() => (showPanel = false)}
-            assetData={$hierarchyView.selectedAssetStore}
-            viewportElement={rightPanel?.getElement()} />
-        {:else if $viewState === 'compare' && $compareView.state === 'success'}
-          {#if $compareView.activeAssetData}
-            <CompareDetailedInfo
-              on:close={() => (showPanel = false)}
-              assetData={$compareView.activeAssetData} />
-          {/if}
-        {/if}
-      </RevealablePanel>
-    </div>
+    <svelte:fragment slot="content">
+      {#if showL4}
+        <div class="h-full w-full bg-gray-40">
+          <L4View data={$l4View} />
+        </div>
+      {:else}
+        <div
+          class="h-full grid-cols-[auto_theme(spacing.sidebar)] bg-gray-40 sm:grid">
+          <!-- Center panel -->
+          <div class="h-full lg:h-screen">
+            {#if $viewState === 'hierarchy' && $hierarchyView.state === 'success'}
+              <TreeView
+                assetStoreMap={$hierarchyView.assets}
+                selectedAsset={$hierarchyView.selectedAssetStore}
+                on:mobileTap={() => (showPanel = true)} />
+            {:else if $viewState === 'compare' && $compareView.state === 'success'}
+              <CompareView selectedAssets={$compareView.selectedAssets} />
+            {/if}
+            <button
+              class="m-2 bg-blue-600 p-2 text-white sm:hidden"
+              on:click={() => (showPanel = !showPanel)}>Reveal</button>
+          </div>
+          <!-- Right panel -->
+          <RevealablePanel {showPanel} bind:this={rightPanel}>
+            {#if $viewState === 'hierarchy' && $hierarchyView.state === 'success' && $hierarchyView.selectedAssetStore}
+              <DetailedInfo
+                on:close={() => (showPanel = false)}
+                assetData={$hierarchyView.selectedAssetStore}
+                viewportElement={rightPanel?.getElement()} />
+            {:else if $viewState === 'compare' && $compareView.state === 'success'}
+              {#if $compareView.activeAssetData}
+                <CompareDetailedInfo
+                  on:close={() => (showPanel = false)}
+                  assetData={$compareView.activeAssetData} />
+              {/if}
+            {/if}
+          </RevealablePanel>
+        </div>
+      {/if}
+    </svelte:fragment>
     <svelte:fragment slot="back-bar">{$_('page.home.title')}</svelte:fragment>
   </SidebarLayout>
 </div>

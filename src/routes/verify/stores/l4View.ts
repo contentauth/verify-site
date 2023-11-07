@@ -1,0 +1,198 @@
+// ADOBE CONFIDENTIAL
+// Copyright 2023 Adobe
+// All Rights Reserved.
+//
+// NOTICE: All information contained herein is, and remains
+// the property of Adobe and its suppliers, if any. The intellectual
+// and technical concepts contained herein are proprietary to Adobe
+// and its suppliers and are protected by all applicable intellectual
+// property laws, including trade secret and copyright laws.
+// Dissemination of this information or reproduction of this material
+// is strictly forbidden unless prior written permission is obtained
+// from Adobe.
+
+import type { Loadable } from '$src/lib/types';
+import { decode } from 'cbor-x';
+import { hierarchy as d3Hierarchy } from 'd3-hierarchy';
+import { zip } from 'lodash';
+import { derived, type Readable } from 'svelte/store';
+import type { C2paReaderStore } from './c2paReader';
+
+type L4ViewState = Loadable<any>;
+
+export type L4ViewStore = Readable<L4ViewState>;
+
+export function createL4View(c2paReader: C2paReaderStore) {
+  return derived(c2paReader, ($c2paReader) => {
+    if ($c2paReader.state === 'success') {
+      return {
+        state: 'success' as const,
+        ...getL4ViewData($c2paReader.l4Info),
+      };
+    }
+
+    return {
+      state: $c2paReader.state,
+    };
+  });
+}
+
+const claimFields = [
+  'alg',
+  'alg_soft',
+  'claim_generator',
+  'claim_generator_info',
+  'signature',
+  'dc:format',
+  'instanceID',
+  'dc:title',
+  'redacted_assertions',
+  'metadata',
+];
+
+export type AssertionDataType = 'binary' | 'cbor' | 'json' | 'uuid';
+
+export interface SizeSummary {
+  claimSize: number;
+  assertionSize: number;
+  signatureSize: number;
+  vcSize: number;
+  databoxSize: number;
+  total: number;
+}
+
+export interface ParsedAssertion {
+  type: AssertionDataType;
+  data: Blob;
+  size: number;
+  parsed?: any;
+}
+
+function parseAssertionData(
+  data: Record<string, any>,
+  contentType: string,
+): ParsedAssertion | null {
+  if (data?.Binary) {
+    const blob = new Blob([new Uint8Array(data.Binary)], { type: contentType });
+
+    return {
+      type: 'binary',
+      data: blob,
+      size: blob.size,
+    };
+  } else if (data?.Cbor) {
+    const buffer = new Uint8Array(data.Cbor);
+    const blob = new Blob([buffer], { type: contentType });
+
+    return {
+      type: 'cbor',
+      data: blob,
+      parsed: decode(buffer),
+      size: blob.size,
+    };
+  } else if (data?.Json) {
+    const blob = new Blob([data?.Json ?? '']);
+
+    return {
+      type: 'json',
+      data: data?.Json,
+      parsed: JSON.parse(data?.Json),
+      size: blob.size,
+    };
+  } else if (data?.Uuid) {
+    const blob = new Blob([new Uint8Array(data.Uuid)], { type: contentType });
+
+    return {
+      type: 'uuid',
+      data: blob,
+      size: blob.size,
+    };
+  }
+
+  console.error('Unknown assertion handler for', data);
+
+  return null;
+}
+
+function formatClaim(claimData: any) {
+  const {
+    claim,
+    uri,
+    signature_info: signatureInfo,
+    signature_size: signatureSize,
+    size: claimSize,
+  } = claimData;
+  console.log('claimData', claimData);
+  const formattedClaim = claimFields.reduce<Record<string, any>>(
+    (acc, field) => {
+      acc[field] = claim[field] ?? null;
+
+      return acc;
+    },
+    {},
+  );
+
+  const mergedAssertions = zip(claim.assertions, claim.assertion_store);
+  const assertions = mergedAssertions.map(([{ url }, assertionStore]: any) => {
+    const { assertion, hash_alg: hashAlg, instance } = assertionStore;
+    const { content_type: contentType, data, label, version } = assertion;
+
+    return {
+      url,
+      label,
+      ...parseAssertionData(data, contentType),
+      version: version ?? 1,
+      instance,
+      hashAlg,
+    };
+  });
+
+  const assertionSize = assertions.reduce(
+    (acc, curr: any) => (acc += curr.size),
+    0,
+  );
+
+  const sizeBreakdown: Omit<SizeSummary, 'total'> = {
+    claimSize,
+    assertionSize,
+    signatureSize,
+    // TODO: Get these
+    databoxSize: 0,
+    vcSize: 0,
+  };
+  const size: SizeSummary = {
+    ...sizeBreakdown,
+    total: Object.values(sizeBreakdown).reduce((acc, curr) => (acc += curr), 0),
+  };
+
+  const ingredients = assertions
+    .filter((assertion) => assertion.label === 'c2pa.ingredient')
+    .map((ingredient) => {
+      return ingredient.parsed?.c2pa_manifest?.url;
+    })
+    .filter((assertion) => !!assertion);
+
+  return {
+    uri,
+    claim: formattedClaim,
+    size,
+    assertions,
+    ingredients,
+    signatureInfo,
+  };
+}
+
+function getL4ViewData(data: any) {
+  const { claims, active_manifest: activeManifest } = data;
+  const root = claims.find((x: any) => x.claim.label === activeManifest);
+
+  return {
+    hierarchy: d3Hierarchy(formatClaim(root), (claim: any) => {
+      return (
+        claim.ingredients?.map((uri: string) =>
+          formatClaim(claims.find((c: any) => c.uri === uri)),
+        ) ?? []
+      );
+    }),
+  };
+}

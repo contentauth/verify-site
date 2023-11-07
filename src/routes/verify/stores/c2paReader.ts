@@ -28,6 +28,7 @@ import LegacyCredentialModal from '../components/modals/LegacyCredentialModal/Le
 interface SourceData {
   assetMap: AssetDataMap;
   data: C2paSource;
+  l4Info: any;
 }
 
 export type SourceState = Loadable<SourceData>;
@@ -110,6 +111,7 @@ export function createC2paReader(): C2paReaderStore {
 
         const timingStart = performance.now();
         const result = await sdk.read(source);
+        const detail = await sdk.getDetailedInfo(source);
         const timingEnd = performance.now();
 
         const { assetMap, dispose: assetMapDisposer } =
@@ -128,6 +130,7 @@ export function createC2paReader(): C2paReaderStore {
           state: 'success',
           assetMap,
           data: result.source,
+          l4Info: detail,
         });
       } catch (e: unknown) {
         if ((e as Record<string, unknown>)?.name === 'InvalidMimeTypeError') {

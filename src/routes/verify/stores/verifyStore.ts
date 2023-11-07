@@ -30,12 +30,15 @@ import {
   type CompareStore,
 } from './compareView';
 import { createHierarchyView, type HierarchyViewStore } from './hierarchyView';
+import { createL4View, type L4ViewStore } from './l4View';
 import {
   createManifestRecoverer,
   type ManifestRecovererStore,
 } from './manifestRecoverer';
 
 const dbg = debug('stores:verifyStore');
+
+export type ViewLevel = 'L3' | 'L4';
 
 export type ViewState = 'hierarchy' | 'compare';
 
@@ -59,6 +62,7 @@ interface VerifyStore {
   clearManifestResults: ManifestRecovererStore['clear'];
   compareView: CompareStore;
   hierarchyView: Pick<HierarchyViewStore, 'subscribe'>;
+  l4View: Pick<L4ViewStore, 'subscribe'>;
   // Gets the most recently loaded asset (i.e. was dragged in or passed via source)
   mostRecentlyLoaded: Readable<MostRecentlyLoaded>;
   readC2paSource: (source: C2paSourceType) => void;
@@ -67,7 +71,9 @@ interface VerifyStore {
   setCompareActiveId: (id: string | null) => void;
   setCompareView: () => void;
   setHierarchyView: () => void;
+  setViewLevel: (level: ViewLevel) => void;
   viewState: Readable<ViewState>;
+  viewLevel: Readable<ViewLevel>;
   clear: () => void;
 }
 
@@ -76,9 +82,11 @@ interface VerifyStore {
  */
 export function createVerifyStore(): VerifyStore {
   const viewState = writable<ViewState>('hierarchy');
+  const viewLevel = writable<ViewLevel>('L3');
   const selectedSource = writable<SelectedSource>({ type: 'local' });
   const selectedAssetId = writable<string>(ROOT_ID);
   const c2paReader = createC2paReader();
+  const l4View = createL4View(c2paReader);
 
   const manifestRecoverer = createManifestRecoverer(
     selectedSource,
@@ -164,8 +172,10 @@ export function createVerifyStore(): VerifyStore {
 
   return {
     viewState,
+    viewLevel,
     hierarchyView,
     compareView,
+    l4View,
     recoveredManifestResults: manifestRecoverer,
     mostRecentlyLoaded,
     readC2paSource: (source: C2paSourceType) => {
@@ -223,6 +233,9 @@ export function createVerifyStore(): VerifyStore {
       analytics.track('setHierarchyView');
       viewState.set('hierarchy');
       selectedAssetId.set(get(compareActiveAssetId) ?? ROOT_ID);
+    },
+    setViewLevel: (level: ViewLevel) => {
+      viewLevel.set(level);
     },
     setCompareActiveId: (id: string | null) => {
       compareActiveAssetId.set(id);
