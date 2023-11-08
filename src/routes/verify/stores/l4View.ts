@@ -14,7 +14,7 @@
 import type { Loadable } from '$src/lib/types';
 import { decode } from 'cbor-x';
 import { flextree } from 'd3-flextree';
-import { zip } from 'lodash';
+import { uniq, zip } from 'lodash';
 import { derived, type Readable } from 'svelte/store';
 import type { C2paReaderStore } from './c2paReader';
 
@@ -130,21 +130,25 @@ function formatClaim(claimData: any) {
     },
     {},
   );
+  formattedClaim.ref = [uri, 'claim'];
 
   const mergedAssertions = zip(claim.assertions, claim.assertion_store);
-  const assertions = mergedAssertions.map(([{ url }, assertionStore]: any) => {
-    const { assertion, hash_alg: hashAlg, instance } = assertionStore;
-    const { content_type: contentType, data, label, version } = assertion;
+  const assertions = mergedAssertions.map(
+    ([{ url: assertionUri }, assertionStore]: any) => {
+      const { assertion, hash_alg: hashAlg, instance } = assertionStore;
+      const { content_type: contentType, data, label, version } = assertion;
 
-    return {
-      url,
-      label,
-      ...parseAssertionData(data, contentType),
-      version: version ?? 1,
-      instance,
-      hashAlg,
-    };
-  });
+      return {
+        ref: [uri, 'assertions', label],
+        uri: assertionUri,
+        label,
+        ...parseAssertionData(data, contentType),
+        version: version ?? 1,
+        instance,
+        hashAlg,
+      };
+    },
+  );
 
   const ingredients = assertions
     .filter((assertion) => assertion.label === 'c2pa.ingredient')
@@ -159,9 +163,15 @@ function formatClaim(claimData: any) {
     (ingredient) => !!ingredient.manifestUri,
   );
 
-  const verifiableCredentials = claim.vc_store.map(([, data]: [any, any]) => {
-    return parseAssertionData(data, 'application/json');
-  });
+  const verifiableCredentials = claim.vc_store.map(
+    ([{ uri: vcUri }, data]: [any, any]) => {
+      return {
+        uri: vcUri,
+        ref: [uri, 'verifiableCredentials', vcUri],
+        ...parseAssertionData(data, 'application/json'),
+      };
+    },
+  );
 
   const [assertionSize, vcSize] = [assertions, verifiableCredentials].map((x) =>
     x.reduce((acc: number, curr: any) => (acc += curr.size), 0),
@@ -180,11 +190,13 @@ function formatClaim(claimData: any) {
     total: Object.values(sizeBreakdown).reduce((acc, curr) => (acc += curr), 0),
   };
 
+  const uniqueAssertionLabels = uniq(assertions.map((a) => a.label));
   const padding = [50, 10];
-  const width = 300 + padding[1] * 2;
-  const height = Math.round(Math.random() * 200 + 200) + padding[0] * 2;
+  const width = 420 + padding[1] * 2;
+  const height = 210 + uniqueAssertionLabels.length * 40 + padding[0] * 2;
 
   return {
+    ref: [uri],
     uri,
     claim: formattedClaim,
     dataSize,
@@ -195,7 +207,10 @@ function formatClaim(claimData: any) {
     ingredients,
     ingredientsWithClaims,
     verifiableCredentials,
-    signatureInfo,
+    signatureInfo: {
+      ref: [uri, 'signatureInfo'],
+      ...signatureInfo,
+    },
   };
 }
 

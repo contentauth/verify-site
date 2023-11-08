@@ -26,6 +26,8 @@
   import SearchForMatches from './SearchForMatches.svelte';
   import SearchResults from './SearchResults.svelte';
 
+  export let hideSearch = false;
+
   const { recoveredManifestResults, clearManifestResults, mostRecentlyLoaded } =
     verifyStore;
 
@@ -58,41 +60,43 @@
     {/if}
   </svelte:fragment>
 </Section>
-{#if $recoveredManifestResults.state === 'success'}
-  <Section hasBorder={false}>
-    <div slot="title" class="text-md flex justify-between">
-      <BodyBold>
-        {$_('sidebar.verify.recovery.possibleMatches')}
-      </BodyBold>
-      <button
-        class="-me-1"
-        data-testid="manifest-recovery-clear"
-        on:click={clearManifestResults}
-        ><CloseIcon width="1rem" height="1rem" /></button>
-    </div>
-    <div slot="content">
-      <SearchResults results={$recoveredManifestResults.manifests} />
-    </div>
-  </Section>
-{:else if $recoveredManifestResults.state === 'loading'}
-  <Section hasBorder={false}>
-    <div
-      slot="content"
-      class="relative top-0.5 origin-left scale-125"
-      aria-label={$_('spinner.loading')}
-      aria-live="polite">
-      <Spinner size="s" />
-    </div>
-  </Section>
-{:else if !isSearchSupported}
-  <Section hasBorder={false}>
-    <Body slot="content">
-      {$_('sidebar.verify.recovery.searchNotSupported')}
-      {searchableFormats}
-    </Body>
-  </Section>
-{:else}
-  <Section hasBorder={false}>
-    <SearchForMatches on:click={handleRecovery} slot="content" />
-  </Section>
+{#if !hideSearch}
+  {#if $recoveredManifestResults.state === 'success'}
+    <Section hasBorder={false}>
+      <div slot="title" class="text-md flex justify-between">
+        <BodyBold>
+          {$_('sidebar.verify.recovery.possibleMatches')}
+        </BodyBold>
+        <button
+          class="-me-1"
+          data-testid="manifest-recovery-clear"
+          on:click={clearManifestResults}
+          ><CloseIcon width="1rem" height="1rem" /></button>
+      </div>
+      <div slot="content">
+        <SearchResults results={$recoveredManifestResults.manifests} />
+      </div>
+    </Section>
+  {:else if $recoveredManifestResults.state === 'loading'}
+    <Section hasBorder={false}>
+      <div
+        slot="content"
+        class="relative top-0.5 origin-left scale-125"
+        aria-label={$_('spinner.loading')}
+        aria-live="polite">
+        <Spinner size="s" />
+      </div>
+    </Section>
+  {:else if !isSearchSupported}
+    <Section hasBorder={false}>
+      <Body slot="content">
+        {$_('sidebar.verify.recovery.searchNotSupported')}
+        {searchableFormats}
+      </Body>
+    </Section>
+  {:else}
+    <Section hasBorder={false}>
+      <SearchForMatches on:click={handleRecovery} slot="content" />
+    </Section>
+  {/if}
 {/if}

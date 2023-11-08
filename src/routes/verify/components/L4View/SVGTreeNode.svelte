@@ -31,5 +31,5 @@
     y={-height / 2}
     rx={6}
     ry={6}
-    class="pointer-events-none fill-current text-gray-300 opacity-10 focus:outline-none" />
+    class="pointer-events-none fill-current text-gray-300 opacity-0 focus:outline-none" />
 </g>

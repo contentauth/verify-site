@@ -66,14 +66,34 @@ from Adobe. */
   --red-900: #d31510;
 
   --brand-red: #c37891;
+  --brand-red-200: #f3e4e9;
+  --brand-red-400: #e7c9d3;
+  --brand-red-1400: #754857;
+  --brand-red-1600: #4e303a;
 
-  --brand-blue: #84c7fc;
+  --brand-blue: #85a0fa;
+  --brand-blue-200: #e7ecfe;
+  --brand-blue-400: #ced9fd;
+  --brand-blue-1400: #506096;
+  --brand-blue-1600: #354064;
 
-  --brand-green: #5ac97d;
+  --brand-green: #b9f2d7;
+  --brand-green-200: #dcf9eb;
+  --brand-green-400: #e7c9d3;
+  --brand-green-1400: #30865c;
+  --brand-green-1600: #20593e;
 
   --brand-yellow: #ffc840;
+  --brand-yellow-200: #fff4d9;
+  --brand-yellow-400: #ffe9b2;
+  --brand-yellow-1400: #997826;
+  --brand-yellow-1600: #665019;
 
   --brand-orange: #ffa573;
+  --brand-orange-200: #ffede3;
+  --brand-orange-400: #ffdbc7;
+  --brand-orange-1400: #996345;
+  --brand-orange-1600: #66422e;
 
   --brand-violet: #85a0fa;
 

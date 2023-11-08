@@ -72,8 +72,10 @@ interface VerifyStore {
   setCompareView: () => void;
   setHierarchyView: () => void;
   setViewLevel: (level: ViewLevel) => void;
+  selectL4Node: (ref: string[] | null) => void;
   viewState: Readable<ViewState>;
   viewLevel: Readable<ViewLevel>;
+  selectedL4Node: Readable<string[] | null>;
   clear: () => void;
 }
 
@@ -83,6 +85,7 @@ interface VerifyStore {
 export function createVerifyStore(): VerifyStore {
   const viewState = writable<ViewState>('hierarchy');
   const viewLevel = writable<ViewLevel>('L3');
+  const selectedL4Node = writable<string[] | null>(null);
   const selectedSource = writable<SelectedSource>({ type: 'local' });
   const selectedAssetId = writable<string>(ROOT_ID);
   const c2paReader = createC2paReader();
@@ -173,6 +176,7 @@ export function createVerifyStore(): VerifyStore {
   return {
     viewState,
     viewLevel,
+    selectedL4Node,
     hierarchyView,
     compareView,
     l4View,
@@ -236,6 +240,9 @@ export function createVerifyStore(): VerifyStore {
     },
     setViewLevel: (level: ViewLevel) => {
       viewLevel.set(level);
+    },
+    selectL4Node: (ref: string[] | null) => {
+      selectedL4Node.set(ref);
     },
     setCompareActiveId: (id: string | null) => {
       compareActiveAssetId.set(id);

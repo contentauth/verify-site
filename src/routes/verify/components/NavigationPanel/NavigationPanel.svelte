@@ -21,6 +21,7 @@
   import ManifestRecoverySection from './ManifestRecovery/ManifestRecoverySection.svelte';
 
   export let isScrolled = false;
+  export let hideManifestRecovery = false;
 
   const { hierarchyView } = verifyStore;
 
@@ -41,5 +42,5 @@
   </Body>
 </div>
 {#if $hierarchyView.state === 'success'}
-  <ManifestRecoverySection />
+  <ManifestRecoverySection hideSearch={hideManifestRecovery} />
 {/if}

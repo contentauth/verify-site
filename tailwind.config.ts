@@ -101,6 +101,27 @@ export default {
       'brand-violet': defs['brand-violet'],
       'brand-white': defs['brand-white'],
       'brand-gray': defs['brand-gray'],
+      'brand-yellow-200': defs['brand-yellow-200'],
+      'brand-yellow-400': defs['brand-yellow-400'],
+      'brand-yellow-1400': defs['brand-yellow-1400'],
+      'brand-yellow-1600': defs['brand-yellow-1600'],
+      'brand-orange-200': defs['brand-orange-200'],
+      'brand-orange-400': defs['brand-orange-400'],
+      'brand-orange-1400': defs['brand-orange-1400'],
+      'brand-orange-1600': defs['brand-orange-1600'],
+      'brand-blue-200': defs['brand-blue-200'],
+      'brand-blue-400': defs['brand-blue-400'],
+      'brand-blue-1400': defs['brand-blue-1400'],
+      'brand-blue-1600': defs['brand-blue-1600'],
+      'brand-red-200': defs['brand-red-200'],
+      'brand-red-400': defs['brand-red-400'],
+      'brand-red-1400': defs['brand-red-1400'],
+      'brand-red-1600': defs['brand-red-1600'],
+      'brand-green-200': defs['brand-green-200'],
+      'brand-green-400': defs['brand-green-400'],
+      'brand-green-1400': defs['brand-green-1400'],
+      'brand-green-1600': defs['brand-green-1600'],
+
       transparent: 'transparent',
       current: 'currentColor',
     },
@@ -121,6 +142,13 @@ export default {
       ],
       header: [
         '1.125rem',
+        {
+          lineHeight: '1.4625rem',
+          fontWeight: '500',
+        },
+      ],
+      'l4-section-header': [
+        '1rem',
         {
           lineHeight: '1.4625rem',
           fontWeight: '500',
@@ -433,6 +461,7 @@ export default {
     extend: {
       spacing: {
         sidebar: '20rem',
+        sidebarWide: '40rem',
         header: '3.5rem',
       },
       translate: {

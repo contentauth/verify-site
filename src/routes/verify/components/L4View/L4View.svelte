@@ -51,7 +51,7 @@
     svgSel
       .call(zoom)
       // Initially center on the root
-      .call(zoom.transform, zoomIdentity.translate(width / 2, height * 0.3));
+      .call(zoom.transform, zoomIdentity.translate(width / 2, height / 2));
 
     return () => {
       svgSel.on('.zoom', null);

@@ -22,6 +22,7 @@
 
   export let leftColumnTakeover = false;
   export let showHeader = true;
+  export let wide = false;
 
   const dispatch = createEventDispatcher();
 
@@ -34,7 +35,11 @@
 <div
   class={[
     'grid h-screen grid-cols-[100vw_100vw] overflow-hidden bg-gray-40 transition-colors duration-100',
-    !leftColumnTakeover ? 'lg:grid-cols-[theme(spacing.sidebar)_auto]' : '',
+    !leftColumnTakeover
+      ? wide
+        ? `lg:grid-cols-[theme(spacing.sidebarWide)_auto]`
+        : `lg:grid-cols-[theme(spacing.sidebar)_auto]`
+      : '',
   ].join(' ')}>
   <div class="flex h-screen flex-col border-gray-100 bg-white lg:border-e-2">
     <div

@@ -105,6 +105,7 @@
   <FilePicker bind:this={filePicker} />
   <SidebarLayout
     leftColumnTakeover={hasEmptyState}
+    wide={showL4}
     on:sidebarScroll={handleSidebarScroll}
     showHeader={$viewState !== 'compare'}>
     <!-- Left panel -->
@@ -116,7 +117,8 @@
         {:else}
           <NavigationPanel
             on:launchFilePicker={handleLaunchFilePicker('leftPanel')}
-            isScrolled={isSidebarScrolled} />
+            isScrolled={isSidebarScrolled}
+            hideManifestRecovery={showL4} />
         {/if}
       {:else if $viewState === 'compare' && $compareView.state === 'success'}
         <ComparePanel assetStoreMap={$compareView.compareAssetMap} />

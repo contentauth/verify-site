@@ -22,6 +22,14 @@ function getSupportedLocales() {
   return fs.readdirSync(dictPath).map((file) => path.basename(file, '.json'));
 }
 
+const fullReloadAlways = {
+  handleHotUpdate({ server }) {
+    server.ws.send({ type: 'full-reload' });
+
+    return [];
+  },
+};
+
 /** @type {import('vite').UserConfig} */
 const config = {
   server: {
@@ -62,7 +70,7 @@ const config = {
       }
     },
   },
-  plugins: [sveltekit(), svelteSvg()],
+  plugins: [sveltekit(), svelteSvg(), fullReloadAlways],
   test: {
     include: ['src/**/*.spec.ts'],
     environment: 'jsdom',
