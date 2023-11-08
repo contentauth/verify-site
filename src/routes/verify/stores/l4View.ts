@@ -13,7 +13,7 @@
 
 import type { Loadable } from '$src/lib/types';
 import { decode } from 'cbor-x';
-import { hierarchy as d3Hierarchy } from 'd3-hierarchy';
+import { flextree } from 'd3-flextree';
 import { zip } from 'lodash';
 import { derived, type Readable } from 'svelte/store';
 import type { C2paReaderStore } from './c2paReader';
@@ -122,7 +122,6 @@ function formatClaim(claimData: any) {
     signature_size: signatureSize,
     size: claimSize,
   } = claimData;
-  console.log('claimData', claimData);
   const formattedClaim = claimFields.reduce<Record<string, any>>(
     (acc, field) => {
       acc[field] = claim[field] ?? null;
@@ -147,52 +146,80 @@ function formatClaim(claimData: any) {
     };
   });
 
-  const assertionSize = assertions.reduce(
-    (acc, curr: any) => (acc += curr.size),
-    0,
+  const ingredients = assertions
+    .filter((assertion) => assertion.label === 'c2pa.ingredient')
+    .map((ingredient) => {
+      return {
+        ...ingredient,
+        manifestUri: ingredient.parsed?.c2pa_manifest?.url ?? null,
+      };
+    });
+
+  const ingredientsWithClaims = ingredients.filter(
+    (ingredient) => !!ingredient.manifestUri,
+  );
+
+  const verifiableCredentials = claim.vc_store.map(([, data]: [any, any]) => {
+    return parseAssertionData(data, 'application/json');
+  });
+
+  const [assertionSize, vcSize] = [assertions, verifiableCredentials].map((x) =>
+    x.reduce((acc: number, curr: any) => (acc += curr.size), 0),
   );
 
   const sizeBreakdown: Omit<SizeSummary, 'total'> = {
     claimSize,
     assertionSize,
     signatureSize,
-    // TODO: Get these
+    vcSize,
+    // TODO: Get databoxes
     databoxSize: 0,
-    vcSize: 0,
   };
-  const size: SizeSummary = {
+  const dataSize: SizeSummary = {
     ...sizeBreakdown,
     total: Object.values(sizeBreakdown).reduce((acc, curr) => (acc += curr), 0),
   };
 
-  const ingredients = assertions
-    .filter((assertion) => assertion.label === 'c2pa.ingredient')
-    .map((ingredient) => {
-      return ingredient.parsed?.c2pa_manifest?.url;
-    })
-    .filter((assertion) => !!assertion);
+  const padding = [50, 10];
+  const width = 300 + padding[1] * 2;
+  const height = Math.round(Math.random() * 200 + 200) + padding[0] * 2;
 
   return {
     uri,
     claim: formattedClaim,
-    size,
+    dataSize,
+    // We are reversing width and height to make this horizontal
+    size: [height, width],
+    padding,
     assertions,
     ingredients,
+    ingredientsWithClaims,
+    verifiableCredentials,
     signatureInfo,
   };
 }
 
 function getL4ViewData(data: any) {
+  const layout = flextree({
+    spacing: 0,
+  });
   const { claims, active_manifest: activeManifest } = data;
   const root = claims.find((x: any) => x.claim.label === activeManifest);
 
+  const hierarchy = layout.hierarchy(formatClaim(root), (claim: any) => {
+    return (
+      claim.ingredientsWithClaims?.map((ingredient: any) => {
+        return formatClaim(
+          claims.find((c: any) => c.uri === ingredient.manifestUri),
+        );
+      }) ?? []
+    );
+  });
+
+  const tree = layout(hierarchy);
+
   return {
-    hierarchy: d3Hierarchy(formatClaim(root), (claim: any) => {
-      return (
-        claim.ingredients?.map((uri: string) =>
-          formatClaim(claims.find((c: any) => c.uri === uri)),
-        ) ?? []
-      );
-    }),
+    hierarchy,
+    tree,
   };
 }

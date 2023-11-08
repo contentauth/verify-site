@@ -1,0 +1,82 @@
+<!--
+  ADOBE CONFIDENTIAL
+  Copyright 2021 Adobe
+  All Rights Reserved.
+
+  NOTICE: All information contained herein is, and remains
+  the property of Adobe and its suppliers, if any. The intellectual
+  and technical concepts contained herein are proprietary to Adobe
+  and its suppliers and are protected by all applicable intellectual
+  property laws, including trade secret and copyright laws.
+  Dissemination of this information or reproduction of this material
+  is strictly forbidden unless prior written permission is obtained
+  from Adobe.
+-->
+<script lang="ts">
+  import type { Path } from 'd3-path';
+  import { path as d3Path } from 'd3-path';
+
+  export let link: any;
+  export let isAncestor = false;
+
+  // This creates the connectors using the same line shape that is used in the design.
+  // Since there were none in the D3 library that looked like the ones in the mock, we
+  // had to make our own, so we create a custom path using this function.
+  function curve(
+    context: Path,
+    x0: number,
+    y0: number,
+    h0: number,
+    x1: number,
+    y1: number,
+    h1: number,
+  ) {
+    const startY = y0 + h0 / 2;
+    const endY = y1 - h1 / 2;
+    context.moveTo(x0, startY);
+
+    if (x0 === x1) {
+      context.lineTo(x1, endY);
+
+      return context;
+    }
+
+    const midOffset = (endY - startY) / 2;
+    const midY = startY + midOffset;
+    const left = x0 > x1;
+
+    if (left) {
+      const midX = x0 - midOffset;
+      context.bezierCurveTo(x0, midY, x0 - 20, midY, midX, midY);
+      context.lineTo(x1 + midOffset, midY);
+      context.bezierCurveTo(x1 + midOffset, midY, x1, midY, x1, endY);
+    } else {
+      const midX = x0 + midOffset;
+      context.bezierCurveTo(x0, midY, x0 + 20, midY, midX, midY);
+      context.lineTo(x1 - midOffset, midY);
+      context.bezierCurveTo(x1 - midOffset, midY, x1, midY, x1, endY);
+    }
+
+    return context;
+  }
+
+  $: source = link.source;
+  $: target = link.target;
+  $: path = curve(
+    d3Path(),
+    source.y,
+    source.x,
+    source.xSize,
+    target.y,
+    target.x,
+    target.xSize,
+  );
+  $: pathData = path.toString();
+</script>
+
+{console.log('source', source)}
+
+<path
+  d={pathData}
+  class="fill-none stroke-current stroke-2 text-gray-300 transition-all"
+  class:text-gray-600={isAncestor} />

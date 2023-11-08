@@ -12,12 +12,12 @@
 // from Adobe.
 
 import { analytics } from '$src/lib/analytics';
-import { ROOT_ID, type AssetData } from '$src/lib/asset';
+import type { AssetData } from '$src/lib/asset';
 import { prefersReducedMotion } from '$src/lib/matchMedia';
-import { hierarchy as d3Hierarchy, tree as d3Tree } from 'd3-hierarchy';
+import { tree as d3Tree, type HierarchyNode } from 'd3-hierarchy';
 import type { Selection } from 'd3-selection';
 import { zoomIdentity, type ZoomBehavior, type ZoomTransform } from 'd3-zoom';
-import { get, type Readable } from 'svelte/store';
+import type { Readable } from 'svelte/store';
 import type { ReadableAssetStore } from '../stores/asset';
 import type { ReadableAssetMap } from '../stores/hierarchyView';
 
@@ -80,29 +80,28 @@ function getMinScale(
   return 1;
 }
 
-export interface CreateTreeProps {
-  assetStoreMap: ReadableAssetMap;
+export interface CreateTreeProps<T> {
+  hierarchy: HierarchyNode<T>;
   width: number;
   height: number;
   config: TreeViewConfig;
 }
 
-export function createTree({
-  assetStoreMap,
+export function createTree<T>({
+  hierarchy,
   width,
   height,
   config,
-}: CreateTreeProps) {
+}: CreateTreeProps<T>) {
   const { nodeWidth, nodeHeight, vPad, hPad } = config;
-  const hierarchy = d3Hierarchy(assetStoreMap[ROOT_ID], (readableAsset) => {
-    const assetData = get(readableAsset);
-    const childrenIds = assetData.children;
 
-    return childrenIds ? childrenIds.map((id) => assetStoreMap[id]) : [];
-  });
-  const d3tree = d3Tree<ReadableAssetStore>();
+  const d3tree = d3Tree<T>();
   d3tree.size([width, height]);
-  d3tree.nodeSize([nodeWidth + vPad, nodeHeight + hPad]);
+
+  if (nodeWidth && nodeHeight) {
+    d3tree.nodeSize([nodeWidth + vPad, nodeHeight + hPad]);
+  }
+
   d3tree.separation((a, b) => (a.parent == b.parent ? 1 : 1));
 
   return d3tree(hierarchy);
@@ -153,20 +152,19 @@ export function calculateTransforms({
   };
 }
 
-export function createLinks(
-  tree: ReturnType<typeof createTree>,
+export function createLinks<T>(
+  tree: ReturnType<typeof createTree<T>>,
+  isAncestorFn: (source: HierarchyNode<T>, target: HierarchyNode<T>) => boolean,
   // We are including this so it can reactively update
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  _selectedAsset: AssetData,
+  _triggerVar: any,
 ) {
   return (
     tree
       .links()
       .map((link, idx) => {
         const { source, target } = link;
-        const isAncestor =
-          get(source.data).state !== 'none' &&
-          get(target.data).state !== 'none';
+        const isAncestor = isAncestorFn(source, target);
 
         return { link, idx, isAncestor };
       })

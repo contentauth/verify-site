@@ -124,9 +124,9 @@
     </svelte:fragment>
     <!-- Content (main 2/3rds) -->
     <svelte:fragment slot="content">
-      {#if showL4}
+      {#if showL4 && $l4View.tree}
         <div class="h-full w-full bg-gray-40">
-          <L4View data={$l4View} />
+          <L4View tree={$l4View.tree} />
         </div>
       {:else}
         <div

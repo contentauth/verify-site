@@ -18,13 +18,14 @@
   import ZoomIn from '$assets/svg/monochrome/zoom-in.svg?component';
   import ZoomOut from '$assets/svg/monochrome/zoom-out.svg?component';
   import Body from '$src/components/typography/Body.svelte';
-  import type { AssetData } from '$src/lib/asset';
+  import { ROOT_ID, type AssetData } from '$src/lib/asset';
+  import { hierarchy as d3Hierarchy } from 'd3-hierarchy';
   import { select as d3Select } from 'd3-selection';
   import type { ZoomTransform } from 'd3-zoom';
   import { zoom as d3Zoom, zoomIdentity } from 'd3-zoom';
   import { onMount } from 'svelte';
   import { _ } from 'svelte-i18n';
-  import type { Readable } from 'svelte/store';
+  import { get, type Readable } from 'svelte/store';
   import {
     calculateTransforms,
     createLinks,
@@ -78,7 +79,18 @@
     };
   });
 
-  $: tree = createTree({ assetStoreMap, width, height, config });
+  $: hierarchy = d3Hierarchy(assetStoreMap[ROOT_ID], (readableAsset) => {
+    const assetData = get(readableAsset);
+    const childrenIds = assetData.children;
+
+    return childrenIds ? childrenIds.map((id) => assetStoreMap[id]) : [];
+  });
+  $: tree = createTree<ReadableAssetStore>({
+    hierarchy,
+    width,
+    height,
+    config,
+  });
   $: transforms = calculateTransforms({
     boundsElement,
     boundsTransform,
@@ -86,7 +98,15 @@
     height,
     margin: config.margin,
   });
-  $: links = createLinks(tree, $selectedAsset);
+  $: links = createLinks<ReadableAssetStore>(
+    tree,
+    (source, target) => {
+      return (
+        get(source.data).state !== 'none' && get(target.data).state !== 'none'
+      );
+    },
+    $selectedAsset,
+  );
   $: descendants = tree.descendants();
   $: canCompare = descendants.length > 1 && !!$selectedAsset?.thumbnail;
   $: {
