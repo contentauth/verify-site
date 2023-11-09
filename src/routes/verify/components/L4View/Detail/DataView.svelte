@@ -8,6 +8,7 @@
 <script lang="ts">
   import TreeView, { type ValueComponent } from 'svelte-tree-view';
   import Preview from './Preview.svelte';
+  import TextEditor from './TextEditor.svelte';
   import TreeNodeFormatter from './TreeNodeFormatter.svelte';
 
   const valueComponent = TreeNodeFormatter as unknown as ValueComponent<any>;
@@ -31,10 +32,6 @@
     {
       id: 'data',
       label: 'Data',
-    },
-    {
-      id: 'hex',
-      label: 'Hex',
     },
   ];
 
@@ -64,28 +61,36 @@
       class:bg-blue-100={index === selectedIndex}>{tab.label}</button>
   {/each}
 </nav>
-<div class="overflow-x-auto rounded border border-gray-100 bg-gray-40 p-4">
+<div class="overflow-x-auto rounded border border-gray-100 bg-gray-40">
   {#if selectedTab === 'preview' && blob}
-    {#key blob}
-      <Preview {blob} />
-    {/key}
-  {:else if selectedTab === 'tree'}
-    <div class="mb-3 flex justify-start space-x-4">
-      <button
-        on:click={() => (treeExpanded = true)}
-        class="rounded-full bg-white px-2.5 py-0.5 text-informational text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
-        >Expand all</button>
-      <button
-        on:click={() => (treeExpanded = false)}
-        class="rounded-full bg-white px-2.5 py-0.5 text-informational text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
-        >Collapse all</button>
+    <div class="p-4">
+      {#key blob}
+        <Preview {blob} />
+      {/key}
     </div>
-    {#key treeExpanded}
-      <TreeView
-        data={parsed}
-        {valueComponent}
-        recursionOpts={{ shouldExpandNode: () => treeExpanded }} />
-    {/key}
+  {:else if selectedTab === 'tree'}
+    <div class="p-4">
+      <div class="mb-3 flex justify-start space-x-4">
+        <button
+          on:click={() => (treeExpanded = true)}
+          class="rounded-full bg-white px-2.5 py-0.5 text-informational text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
+          >Expand all</button>
+        <button
+          on:click={() => (treeExpanded = false)}
+          class="rounded-full bg-white px-2.5 py-0.5 text-informational text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
+          >Collapse all</button>
+      </div>
+      {#key treeExpanded}
+        <TreeView
+          data={parsed}
+          {valueComponent}
+          recursionOpts={{ shouldExpandNode: () => treeExpanded }} />
+      {/key}
+    </div>
+  {:else if selectedTab === 'data'}
+    <div class="p-0.5">
+      <TextEditor contents={JSON.stringify(parsed, null, 2)} />
+    </div>
   {/if}
 </div>
 

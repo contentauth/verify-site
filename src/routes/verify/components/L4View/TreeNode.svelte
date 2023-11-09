@@ -87,22 +87,35 @@
           <div class="text-l4-section-header">Assertion store</div>
         </div>
         {#each assertions as [label, instances]}
-          <button
-            on:click={() => selectL4Ref(instances[0].ref)}
-            class={[
-              `pointer-events-auto mb-1 flex w-full items-center justify-between rounded border p-2 text-informational transition-colors`,
-              isEqual(instances[0].ref, $selectedL4Ref)
-                ? `border-blue-900 bg-blue-900 text-white`
-                : `border-brand-red-400 bg-white hover:border-brand-red hover:text-brand-red`,
-            ].join(' ')}>
-            <div class="truncate">{label}</div>
-            {#if instances.length > 1}
-              <div
-                class="flex items-center rounded-full border border-gray-300 bg-white px-2 text-[0.75rem] text-gray-500">
-                <div>{instances.length}</div>
-              </div>
-            {/if}
-          </button>
+          {#if instances.length > 1}
+            <div
+              class="mb-1 w-full items-center justify-between rounded border bg-white/30 p-2 text-informational">
+              <div class="truncate">{label}</div>
+              {#each instances as instance}
+                <button
+                  on:click={() => selectL4Ref(instance.ref)}
+                  class={[
+                    `pointer-events-auto mt-1 flex w-full items-center justify-between rounded border p-2 text-informational transition-colors`,
+                    isEqual(instance.ref, $selectedL4Ref)
+                      ? `border-blue-900 bg-blue-900 text-white`
+                      : `border-brand-red-400 bg-white hover:border-brand-red hover:text-brand-red`,
+                  ].join(' ')}>
+                  <div class="truncate">{label}__{instance.instance}</div>
+                </button>
+              {/each}
+            </div>
+          {:else}
+            <button
+              on:click={() => selectL4Ref(instances[0].ref)}
+              class={[
+                `pointer-events-auto mb-1 flex w-full items-center justify-between rounded border p-2 text-informational transition-colors`,
+                isEqual(instances[0].ref, $selectedL4Ref)
+                  ? `border-blue-900 bg-blue-900 text-white`
+                  : `border-brand-red-400 bg-white hover:border-brand-red hover:text-brand-red`,
+              ].join(' ')}>
+              <div class="truncate">{label}</div>
+            </button>
+          {/if}
         {/each}
       </div>
     </div>

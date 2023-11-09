@@ -112,6 +112,7 @@
   },
   "dependencies": {
     "@ccx-public/ingest": "file:etc/packages/ingest-4.3.0.tgz",
+    "@codemirror/lang-json": "^6.0.1",
     "@intl/adobe-locales": "file:etc/packages/adobe-locales-2.35.2.tgz",
     "@mapbox/mapbox-sdk": "^0.13.7",
     "@netlify/functions": "^2.1.0",

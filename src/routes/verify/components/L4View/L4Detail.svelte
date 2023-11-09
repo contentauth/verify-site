@@ -54,7 +54,7 @@
   <Nav {rootLabel} title={navTitle} items={navItems} />
 {/if}
 
-<div class="p-4">
+<div class="px-4 pt-2">
   {#if type === 'assertions'}
     {#each $selectedL4Node.items as assertion}
       <DataView {...dataViewMap.assertions(assertion)} />

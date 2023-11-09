@@ -15,7 +15,7 @@ import { normalizeUri } from '$src/lib/jumbf';
 import type { Loadable } from '$src/lib/types';
 import { decode } from 'cbor-x';
 import { flextree } from 'd3-flextree';
-import { uniq, zip } from 'lodash';
+import { groupBy, reduce, zip } from 'lodash';
 import { derived, type Readable } from 'svelte/store';
 import type { C2paReaderStore } from './c2paReader';
 
@@ -195,11 +195,23 @@ function formatClaim(claimData: any, index: number, activeManifest: string) {
     total: Object.values(sizeBreakdown).reduce((acc, curr) => (acc += curr), 0),
   };
 
-  const uniqueAssertionLabels = uniq(assertions.map((a) => a.label));
   const padding = [50, 10];
   const width = BASE_WIDTH + padding[1] * 2;
-  const height =
-    BASE_HEIGHT + uniqueAssertionLabels.length * 40 + padding[0] * 2;
+  const assertionHeight = 40;
+  const sumAssertionHeights = reduce(
+    groupBy(assertions, 'label'),
+    (acc, instances) => {
+      if (instances.length > 1) {
+        acc += instances.length * assertionHeight + 40;
+      } else {
+        acc += assertionHeight;
+      }
+
+      return acc;
+    },
+    0,
+  );
+  const height = BASE_HEIGHT + sumAssertionHeights + padding[0] * 2;
 
   return {
     ref: [uri],
