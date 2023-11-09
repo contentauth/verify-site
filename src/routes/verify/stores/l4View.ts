@@ -20,6 +20,9 @@ import type { C2paReaderStore } from './c2paReader';
 
 type L4ViewState = Loadable<any>;
 
+const BASE_HEIGHT = 230;
+const BASE_WIDTH = 400;
+
 export type L4ViewStore = Readable<L4ViewState>;
 
 export function createL4View(c2paReader: C2paReaderStore) {
@@ -139,7 +142,7 @@ function formatClaim(claimData: any) {
       const { content_type: contentType, data, label, version } = assertion;
 
       return {
-        ref: [uri, 'assertions', label],
+        ref: [uri, 'assertions', label, 'label'],
         uri: assertionUri,
         label,
         ...parseAssertionData(data, contentType),
@@ -192,8 +195,9 @@ function formatClaim(claimData: any) {
 
   const uniqueAssertionLabels = uniq(assertions.map((a) => a.label));
   const padding = [50, 10];
-  const width = 420 + padding[1] * 2;
-  const height = 210 + uniqueAssertionLabels.length * 40 + padding[0] * 2;
+  const width = BASE_WIDTH + padding[1] * 2;
+  const height =
+    BASE_HEIGHT + uniqueAssertionLabels.length * 40 + padding[0] * 2;
 
   return {
     ref: [uri],

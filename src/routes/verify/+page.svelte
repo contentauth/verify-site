@@ -26,6 +26,7 @@
   import DragDropOverlay from './components/DragDropOverlay/DragDropOverlay.svelte';
   import EmptyState from './components/EmptyState/EmptyState.svelte';
   import FilePicker from './components/FilePicker/FilePicker.svelte';
+  import L4Detail from './components/L4View/L4Detail.svelte';
   import L4View from './components/L4View/L4View.svelte';
   import LoadingOverlay from './components/LoadingOverlay/LoadingOverlay.svelte';
   import NavigationPanel from './components/NavigationPanel/NavigationPanel.svelte';
@@ -119,6 +120,9 @@
             on:launchFilePicker={handleLaunchFilePicker('leftPanel')}
             isScrolled={isSidebarScrolled}
             hideManifestRecovery={showL4} />
+          {#if showL4}
+            <L4Detail />
+          {/if}
         {/if}
       {:else if $viewState === 'compare' && $compareView.state === 'success'}
         <ComparePanel assetStoreMap={$compareView.compareAssetMap} />

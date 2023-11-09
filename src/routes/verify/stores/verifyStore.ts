@@ -59,6 +59,7 @@ export type SelectedAssetMapState = Loadable<{
 }>;
 
 interface VerifyStore {
+  clear: () => void;
   clearManifestResults: ManifestRecovererStore['clear'];
   compareView: CompareStore;
   hierarchyView: Pick<HierarchyViewStore, 'subscribe'>;
@@ -68,15 +69,15 @@ interface VerifyStore {
   readC2paSource: (source: C2paSourceType) => void;
   recoveredManifestResults: Pick<ManifestRecovererStore, 'subscribe'>;
   recoverManifests: () => void;
+  selectedL4Node: Readable<any>;
+  selectedL4Ref: Readable<string[] | null>;
+  selectL4Ref: (ref: string[] | null) => void;
   setCompareActiveId: (id: string | null) => void;
   setCompareView: () => void;
   setHierarchyView: () => void;
   setViewLevel: (level: ViewLevel) => void;
-  selectL4Node: (ref: string[] | null) => void;
-  viewState: Readable<ViewState>;
   viewLevel: Readable<ViewLevel>;
-  selectedL4Node: Readable<string[] | null>;
-  clear: () => void;
+  viewState: Readable<ViewState>;
 }
 
 /**
@@ -85,7 +86,7 @@ interface VerifyStore {
 export function createVerifyStore(): VerifyStore {
   const viewState = writable<ViewState>('hierarchy');
   const viewLevel = writable<ViewLevel>('L3');
-  const selectedL4Node = writable<string[] | null>(null);
+  const selectedL4Ref = writable<string[] | null>(null);
   const selectedSource = writable<SelectedSource>({ type: 'local' });
   const selectedAssetId = writable<string>(ROOT_ID);
   const c2paReader = createC2paReader();
@@ -167,6 +168,44 @@ export function createVerifyStore(): VerifyStore {
     },
   );
 
+  const selectedL4Node = derived(
+    [selectedL4Ref, l4View],
+    ([$selectedRef, $l4View]) => {
+      if ($l4View.state === 'success') {
+        const { hierarchy } = $l4View;
+        const [claimUri, groupId, itemId, searchField = 'ref'] =
+          $selectedRef ?? [];
+
+        if (claimUri) {
+          const claim = hierarchy.nodes.find(
+            (node: any) => node.data.uri === claimUri,
+          );
+
+          if (groupId) {
+            const group = (claim?.data as any)?.[groupId];
+
+            if (itemId) {
+              return {
+                type: groupId,
+                items:
+                  group?.filter((item: any) => item[searchField] === itemId) ??
+                  [],
+              };
+            }
+
+            return { type: groupId, ...group };
+          } else {
+            return { type: 'manifest', ...claim };
+          }
+        } else {
+          return { type: 'manifestStore', hierarchy };
+        }
+      }
+
+      return null;
+    },
+  );
+
   function resetCompare() {
     viewState.set('hierarchy');
     compareActiveAssetId.set(null);
@@ -176,6 +215,7 @@ export function createVerifyStore(): VerifyStore {
   return {
     viewState,
     viewLevel,
+    selectedL4Ref,
     selectedL4Node,
     hierarchyView,
     compareView,
@@ -241,8 +281,8 @@ export function createVerifyStore(): VerifyStore {
     setViewLevel: (level: ViewLevel) => {
       viewLevel.set(level);
     },
-    selectL4Node: (ref: string[] | null) => {
-      selectedL4Node.set(ref);
+    selectL4Ref: (ref: string[] | null) => {
+      selectedL4Ref.set(ref);
     },
     setCompareActiveId: (id: string | null) => {
       compareActiveAssetId.set(id);
