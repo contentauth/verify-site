@@ -70,7 +70,7 @@ const config = {
       }
     },
   },
-  plugins: [sveltekit(), svelteSvg(), fullReloadAlways],
+  plugins: [sveltekit(), svelteSvg()],
   test: {
     include: ['src/**/*.spec.ts'],
     environment: 'jsdom',

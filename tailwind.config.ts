@@ -66,6 +66,7 @@ export default {
     },
     fontFamily: {
       base: defs['family-base'],
+      mono: defs['family-mono'],
     },
     colors: {
       white: '#ffffff',
@@ -461,7 +462,7 @@ export default {
     extend: {
       spacing: {
         sidebar: '20rem',
-        sidebarWide: '40rem',
+        sidebarWide: '45rem',
         header: '3.5rem',
       },
       translate: {

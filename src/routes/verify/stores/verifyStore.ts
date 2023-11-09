@@ -171,6 +171,8 @@ export function createVerifyStore(): VerifyStore {
   const selectedL4Node = derived(
     [selectedL4Ref, l4View],
     ([$selectedRef, $l4View]) => {
+      console.log('$selectedRef', $selectedRef);
+
       if ($l4View.state === 'success') {
         const { hierarchy } = $l4View;
         const [claimUri, groupId, itemId, searchField = 'ref'] =

@@ -15,6 +15,7 @@ from Adobe. */
   --family-base: 'Store Norske Ja', Arial, Helvetica, sans-serif;
   --family-serif: adobe-clean-serif, 'Source Serif Pro', Georgia, serif;
   --family-home: 'Store Norske Ja', Arial, Helvetica, sans-serif;
+  --family-mono: 'JetBrains Mono', 'Consolas', monospace;
   --font-family-ar: myriad-arabic, adobe-clean, 'Source Sans Pro', -apple-system,
     BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, 'Trebuchet MS',
     'Lucida Grande', sans-serif;
@@ -68,6 +69,8 @@ from Adobe. */
   --brand-red: #c37891;
   --brand-red-200: #f3e4e9;
   --brand-red-400: #e7c9d3;
+  --brand-red-1000: #c37891;
+  --brand-red-1200: #9c6074;
   --brand-red-1400: #754857;
   --brand-red-1600: #4e303a;
 
@@ -80,6 +83,8 @@ from Adobe. */
   --brand-green: #b9f2d7;
   --brand-green-200: #dcf9eb;
   --brand-green-400: #e7c9d3;
+  --brand-green-1000: #50df9a;
+  --brand-green-1200: #40b27b;
   --brand-green-1400: #30865c;
   --brand-green-1600: #20593e;
 

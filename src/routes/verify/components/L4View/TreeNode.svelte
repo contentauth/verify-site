@@ -57,17 +57,17 @@
     </button>
     <div class="mx-4 border-t border-gray-200 pt-4">
       <button
-        on:click={() => selectL4Ref(data.signatureInfo.ref)}
+        on:click={() => selectL4Ref(data.signature.ref)}
         class={[
           `pointer-events-auto mb-4 flex h-14 w-full items-center rounded border p-3 transition-colors`,
-          isEqual(data.signatureInfo.ref, $selectedL4Ref)
+          isEqual(data.signature.ref, $selectedL4Ref)
             ? `border-blue-900 bg-blue-900 text-white`
             : `bg-brand-yellow-200 hover:border-brand-yellow-1400 hover:text-brand-yellow-1400 border-brand-yellow-400`,
         ].join(' ')}>
         <div>
           <div class="text-l4-section-header">Signature</div>
           <div class="truncate text-informational opacity-50">
-            {data.signatureInfo.issuer_org}
+            {data.signature.issuer_org}
           </div>
         </div>
       </button>

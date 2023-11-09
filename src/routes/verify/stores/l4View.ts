@@ -11,6 +11,7 @@
 // is strictly forbidden unless prior written permission is obtained
 // from Adobe.
 
+import { normalizeUri } from '$src/lib/jumbf';
 import type { Loadable } from '$src/lib/types';
 import { decode } from 'cbor-x';
 import { flextree } from 'd3-flextree';
@@ -117,7 +118,7 @@ function parseAssertionData(
   return null;
 }
 
-function formatClaim(claimData: any) {
+function formatClaim(claimData: any, index: number, activeManifest: string) {
   const {
     claim,
     uri,
@@ -140,10 +141,11 @@ function formatClaim(claimData: any) {
     ([{ url: assertionUri }, assertionStore]: any) => {
       const { assertion, hash_alg: hashAlg, instance } = assertionStore;
       const { content_type: contentType, data, label, version } = assertion;
+      const normalizedUri = normalizeUri(assertionUri, uri);
 
       return {
         ref: [uri, 'assertions', label, 'label'],
-        uri: assertionUri,
+        uri: normalizedUri,
         label,
         ...parseAssertionData(data, contentType),
         version: version ?? 1,
@@ -201,6 +203,8 @@ function formatClaim(claimData: any) {
 
   return {
     ref: [uri],
+    index,
+    isActive: uri === activeManifest,
     uri,
     claim: formattedClaim,
     dataSize,
@@ -211,8 +215,8 @@ function formatClaim(claimData: any) {
     ingredients,
     ingredientsWithClaims,
     verifiableCredentials,
-    signatureInfo: {
-      ref: [uri, 'signatureInfo'],
+    signature: {
+      ref: [uri, 'signature'],
       ...signatureInfo,
     },
   };
@@ -224,16 +228,22 @@ function getL4ViewData(data: any) {
   });
   const { claims, active_manifest: activeManifest } = data;
   const root = claims.find((x: any) => x.claim.label === activeManifest);
+  let claimIndex = 1;
 
-  const hierarchy = layout.hierarchy(formatClaim(root), (claim: any) => {
-    return (
-      claim.ingredientsWithClaims?.map((ingredient: any) => {
-        return formatClaim(
-          claims.find((c: any) => c.uri === ingredient.manifestUri),
-        );
-      }) ?? []
-    );
-  });
+  const hierarchy = layout.hierarchy(
+    formatClaim(root, claimIndex++, activeManifest),
+    (claim: any) => {
+      return (
+        claim.ingredientsWithClaims?.map((ingredient: any) => {
+          return formatClaim(
+            claims.find((c: any) => c.uri === ingredient.manifestUri),
+            claimIndex++,
+            activeManifest,
+          );
+        }) ?? []
+      );
+    },
+  );
 
   const tree = layout(hierarchy);
 

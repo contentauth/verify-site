@@ -41,6 +41,6 @@
       ></button>
   </Body>
 </div>
-{#if $hierarchyView.state === 'success'}
-  <ManifestRecoverySection hideSearch={hideManifestRecovery} />
+{#if $hierarchyView.state === 'success' && !hideManifestRecovery}
+  <ManifestRecoverySection />
 {/if}
