@@ -12,7 +12,7 @@
 // from Adobe.
 
 const JUMBF_REGEX = /^self#jumbf=(\/c2pa\/)?(.*)/;
-const ABSOLUTE_JUMBF_REGEX = /^self#jumbf=\/c2pa\/(.*)/;
+const ABSOLUTE_JUMBF_REGEX = /^(self#jumbf=\/c2pa\/)(.*)/;
 
 export function normalizeUri(uri: string, manifestUri: string) {
   const [, absolutePrefix, rest] = JUMBF_REGEX.exec(uri) ?? [];
@@ -22,6 +22,13 @@ export function normalizeUri(uri: string, manifestUri: string) {
   } else {
     return [manifestUri, rest].join('/');
   }
+}
+
+export function getClaimUri(uri: string) {
+  const [, prefix, rest] = ABSOLUTE_JUMBF_REGEX.exec(uri) ?? [];
+  const [uuid] = rest.split('/');
+
+  return [prefix, uuid].join('');
 }
 
 export function isJumbfUri(uri: string) {

@@ -6,7 +6,7 @@
   const { selectedL4Node, mostRecentlyLoaded } = verifyStore;
   const rootItem: NavItem = { label: 'Manifest store' };
   const dataViewMap = {
-    assertions: (data: any) => {
+    assertion: (data: any) => {
       return {
         blob: data.data,
         parsed: data.parsed,
@@ -41,9 +41,9 @@
         case 'claim':
           navTitle = 'Claim';
           break;
-        case 'assertions':
+        case 'assertion':
           navItems = [...navItems, { label: 'Assertions' }];
-          navTitle = $selectedL4Node.items[0]?.label;
+          navTitle = $selectedL4Node.assertion?.label;
           break;
       }
     }
@@ -55,9 +55,7 @@
 {/if}
 
 <div class="px-4 pt-2">
-  {#if type === 'assertions'}
-    {#each $selectedL4Node.items as assertion}
-      <DataView {...dataViewMap.assertions(assertion)} />
-    {/each}
+  {#if type === 'assertion'}
+    <DataView {...dataViewMap.assertion($selectedL4Node.assertion)} />
   {/if}
 </div>

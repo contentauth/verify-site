@@ -21,7 +21,7 @@ import type { C2paReaderStore } from './c2paReader';
 
 type L4ViewState = Loadable<any>;
 
-const BASE_HEIGHT = 230;
+const BASE_HEIGHT = 215;
 const BASE_WIDTH = 400;
 
 export type L4ViewStore = Readable<L4ViewState>;
@@ -144,8 +144,9 @@ function formatClaim(claimData: any, index: number, activeManifest: string) {
       const normalizedUri = normalizeUri(assertionUri, uri);
 
       return {
-        ref: [uri, 'assertions', label, 'label'],
+        ref: [normalizedUri],
         uri: normalizedUri,
+        manifestUri: uri,
         label,
         ...parseAssertionData(data, contentType),
         version: version ?? 1,

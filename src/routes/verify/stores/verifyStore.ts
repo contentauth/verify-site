@@ -13,6 +13,7 @@
 
 import { ROOT_ID, type AssetData, type AssetDataMap } from '$lib/asset';
 import { analytics } from '$src/lib/analytics';
+import { getClaimUri } from '$src/lib/jumbf';
 import type { Loadable } from '$src/lib/types';
 import type { C2paSourceType } from 'c2pa';
 import debug from 'debug';
@@ -171,33 +172,30 @@ export function createVerifyStore(): VerifyStore {
   const selectedL4Node = derived(
     [selectedL4Ref, l4View],
     ([$selectedRef, $l4View]) => {
-      console.log('$selectedRef', $selectedRef);
-
       if ($l4View.state === 'success') {
         const { hierarchy } = $l4View;
-        const [claimUri, groupId, itemId, searchField = 'ref'] =
-          $selectedRef ?? [];
+        const [uri, groupId] = $selectedRef ?? [];
 
-        if (claimUri) {
+        if (uri) {
           const claim = hierarchy.nodes.find(
-            (node: any) => node.data.uri === claimUri,
+            (node: any) => node.data.uri === getClaimUri(uri),
           );
 
           if (groupId) {
             const group = (claim?.data as any)?.[groupId];
 
-            if (itemId) {
-              return {
-                type: groupId,
-                items:
-                  group?.filter((item: any) => item[searchField] === itemId) ??
-                  [],
-              };
-            }
-
             return { type: groupId, ...group };
           } else {
-            return { type: 'manifest', ...claim };
+            if (uri.includes('/c2pa.assertions/')) {
+              return {
+                type: 'assertion',
+                assertion: (claim?.data as any)?.assertions.find(
+                  (item: any) => item['uri'] === uri,
+                ),
+              };
+            } else {
+              return { type: 'manifest', ...claim };
+            }
           }
         } else {
           return { type: 'manifestStore', hierarchy };

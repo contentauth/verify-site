@@ -38,9 +38,10 @@
 </script>
 
 <div
-  class="absolute left-0 top-0 overflow-hidden bg-transparent transition-all focus:shadow motion-reduce:transition-none"
+  class="user-select-none absolute left-0 top-0 overflow-hidden bg-transparent transition-all focus:shadow motion-reduce:transition-none"
   {style}>
   <div
+    data-uri={data.uri}
     class="flex h-full w-full flex-col overflow-hidden rounded-lg border-2 bg-white p-0 transition-colors"
     class:border-blue-600={manifestHover && !selectedManifest}
     class:border-blue-900={selectedManifest}>
@@ -74,7 +75,7 @@
       <button
         on:click={() => selectL4Ref(data.claim.ref)}
         class={[
-          `pointer-events-auto mb-4 flex h-14 w-full items-center rounded border p-3 transition-colors`,
+          `pointer-events-auto mb-4 flex h-10 w-full items-center rounded border p-3 transition-colors`,
           isEqual(data.claim.ref, $selectedL4Ref)
             ? `border-blue-900 bg-blue-900 text-white`
             : `bg-brand-blue-200 hover:border-brand-blue-1400 hover:text-brand-blue-1400 border-brand-blue-400`,
@@ -93,6 +94,7 @@
               <div class="truncate">{label}</div>
               {#each instances as instance}
                 <button
+                  data-uri={instance.uri}
                   on:click={() => selectL4Ref(instance.ref)}
                   class={[
                     `pointer-events-auto mt-1 flex w-full items-center justify-between rounded border p-2 text-informational transition-colors`,
@@ -106,6 +108,7 @@
             </div>
           {:else}
             <button
+              data-uri={instances[0].uri}
               on:click={() => selectL4Ref(instances[0].ref)}
               class={[
                 `pointer-events-auto mb-1 flex w-full items-center justify-between rounded border p-2 text-informational transition-colors`,

@@ -109,11 +109,11 @@
     --tree-view-base06: #f7f4f1;
     --tree-view-base07: #faf8f5;
     --tree-view-base08: #fa3e7e;
-    --tree-view-base09: var(--brand-green-1200);
+    --tree-view-base09: var(--brand-orange-1200);
     --tree-view-base0A: #f6bf81;
     --tree-view-base0B: var(--brand-red-1200);
     --tree-view-base0C: #b4efe4;
-    --tree-view-base0D: var(--blue-900);
+    --tree-view-base0D: var(--brand-green-1400);
     --tree-view-base0E: #be87ff;
     --tree-view-base0F: #ffcc00;
   }
