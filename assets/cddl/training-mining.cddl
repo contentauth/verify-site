@@ -1,0 +1,23 @@
+; Assertion for specifying whether the associated asset and its data
+; may be used for training an AI/ML model or mined for its data (or both).
+
+
+; Possible values
+$training-mining-choice /=  "allowed"
+$training-mining-choice /=  "notAllowed"
+$training-mining-choice /=  "constrained"
+
+; Description of the data structure
+training-mining-map-entry = {
+	"use" : $training-mining-choice,
+	? "constraint_info" : tstr .size (1..max-tstr-length) ; information about the use of `constrained`
+}
+
+training-mining-map = {
+	? "c2pa.data_mining"				: $training-mining-map-entry,		
+	? "c2pa.ai_inference"				: $training-mining-map-entry,		
+	? "c2pa.ai_training"				: $training-mining-map-entry,		
+	? "c2pa.ai_generative_training"  	: $training-mining-map-entry,
+	* tstr => any	; allow for any other custom use case
+	? "metadata": $assertion-metadata-map    	; additional information about the assertion
+}

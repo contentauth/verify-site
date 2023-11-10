@@ -462,7 +462,7 @@ export default {
     extend: {
       spacing: {
         sidebar: '20rem',
-        sidebarWide: '45rem',
+        sidebarWide: 'calc(100vw * (3/7))',
         header: '3.5rem',
       },
       translate: {

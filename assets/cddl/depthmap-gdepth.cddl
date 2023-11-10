@@ -1,0 +1,40 @@
+; Assertion that encodes a GDepth-formatted 3D depth map of the captured scene
+depthmap-gdepth-map = {
+  "GDepth:Format": format-type, ; The format that describes how to convert the depthmap data into a valid float-point depthmap. Current valid values are 'RangeInverse' and 'RangeLinear'
+  "GDepth:Near": float, ; The near value of the depthmap in depth units
+  "GDepth:Far": float,  ; The far value of the depthmap in depth units
+  "GDepth:Mime": mime-type,  ;  The mime type for the base64 string describing the depth image content, e.g. 'image/jpeg' or 'image/png'",
+  "GDepth:Data": base64-string-type,  ; The base64 encoded depth image. Please see GDepth encoding page at developers.google.com. The depthmap will be stretched-to-fit the corresponding color image
+  ? "GDepth:Units": unit-type,   ; The units of the depthmap, e.g. 'm' for meters or 'mm' for millimeters
+  ? "GDepth:MeasureType": depth-meas-type,  ; The type of depth measurement. Current valid values are 'OpticalAxis' and 'OpticRay
+  ? "GDepth:ConfidenceMime": confidence-mime-type,  ; The mime type for the base64 string describing the confidence image content, e.g. 'image/png'.",
+  ? "GDepth:Confidence": base64-string-type,   ; The base64 encoded confidence image. Please see GDepth encoding page at developers.google.com. The confidence map should have the same size as the depthmap
+  ? "GDepth:Manufacturer": tstr .size (1..max-tstr-length),  ; The manufacturer of the device that created this depthmap
+  ? "GDepth:Model": tstr .size (1..max-tstr-length),  ; The model of the device that created this depthmap
+  ? "GDepth:Software": tstr .size (1..max-tstr-length), ; The software that created this depthmap
+  ? "GDepth:ImageWidth": float, ; The width in pixels of the original color image associated to this depthmap. This is NOT the depthmap width. If present, apps must update this property when scaling, cropping or rotating the color image. Clients use this property to verify the integrity of the depthmap w.r.t. the color image
+  ? "GDepth:ImageHeight": float, ; The height in pixels of the original color image associated to this depthmap. This is NOT the depthmap height. If present, apps must update this property when scaling, cropping or rotating the color image. Clients use this property to verify the integrity of the depthmap w.r.t. the color image
+  ? "metadata": $assertion-metadata-map, ; additional information about the assertion
+}
+
+base64-string-type = tstr
+
+$mime-choice /= "image/jpeg" 
+$mime-choice /= "image/png"
+
+mime-type = $mime-choice .default "image/jpeg"
+confidence-mime-type = $mime-choice .default "image/png"
+
+$format-choice /= "RangeInverse"
+$format-choice /= "RangeLinear"
+
+format-type = $format-choice .default "RangeInverse"
+
+; Unit can be meter represented as "m" or could be millimeter represented as "mm"
+$unit-choice /= "m"
+$unit-choice /= "mm"
+unit-type = $unit-choice .default "m"
+
+$depth-meas-choice /= "OpticalAxis"
+$depth-meas-choice /= "OpticRay"
+depth-meas-type = $depth-meas-choice .default "OpticalAxis"

@@ -174,7 +174,9 @@ export function createVerifyStore(): VerifyStore {
     ([$selectedRef, $l4View]) => {
       if ($l4View.state === 'success') {
         const { hierarchy } = $l4View;
-        const [uri, groupId] = $selectedRef ?? [];
+        const [uri, groupId] = Array.isArray($selectedRef)
+          ? $selectedRef
+          : [$selectedRef];
 
         if (uri) {
           const claim = hierarchy.nodes.find(
@@ -193,8 +195,13 @@ export function createVerifyStore(): VerifyStore {
                   (item: any) => item['uri'] === uri,
                 ),
               };
+            } else if (claim && uri.endsWith('c2pa.signature')) {
+              return {
+                type: 'signature',
+                ...(claim.data as any).signature,
+              };
             } else {
-              return { type: 'manifest', ...claim };
+              return { type: 'manifest', manifest: claim };
             }
           }
         } else {

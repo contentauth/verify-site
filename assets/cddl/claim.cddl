@@ -1,0 +1,23 @@
+; CDDL schema for a claim map in C2PA
+claim-map = {
+  "claim_generator": tstr, ; A User-Agent string formatted as per http://tools.ietf.org/html/rfc7231#section-5.5.3, for including the name and version of the claims generator that created the claim
+  "claim_generator_info": [1* generator-info-map],
+  "signature": jumbf-uri-type, ; JUMBF URI reference to the signature of this claim
+  "assertions": [1* $hashed-uri-map],
+  "dc:format": tstr, ; media type of the asset
+  "instanceID": tstr .size (1..max-tstr-length), ; uniquely identifies a specific version of an asset
+  ? "dc:title": tstr .size (1..max-tstr-length), ; name of the asset,
+  ? "redacted_assertions": [1* jumbf-uri-type], ; List of hashed URI references to the assertions of ingredient manifests being redacted
+  ? "alg": tstr .size (1..max-tstr-length), ; A string identifying the cryptographic hash algorithm used to compute all data hash assertions listed in this claim unless otherwise overridden, taken from the C2PA data hash algorithm identifier registry. This provides the value for the 'alg' field in data-hash and hashed-uri structures contained in this claim
+  ? "alg_soft": tstr .size (1..max-tstr-length), ; A string identifying the algorithm used to compute all soft binding assertions listed in this claim unless otherwise overridden, taken from the C2PA soft binding algorithm identifier registry."
+  ? "metadata": $assertion-metadata-map, ; additional information about the assertion
+}
+
+jumbf-uri-type = tstr .regexp "self#jumbf=[\\w\\d][\\w\\d\\.\/:-]+[\\w\\d]"
+
+generator-info-map = {
+  "name": tstr .size (1..max-tstr-length), ; A human readable string naming the claim_generator	  ? "Sec-CH-UA": [1* tstr], ; A human readable string naming the claim_generator
+  ? "version": tstr, ; A human readable string of the product's version	
+  ? "icon": hashed-uri-map / $hashed-ext-uri-map, ; hashed URI to the icon (either embedded or remote)
+  * tstr => any
+}

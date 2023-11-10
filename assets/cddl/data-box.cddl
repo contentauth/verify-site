@@ -1,0 +1,7 @@
+; box allowing for the storage of arbitrary data
+
+data-box-map = {
+  "dc:format": format-string, ; IANA media type of the data
+  "data" : bstr, ; arbitrary text/binary data
+  ? "data_types": [1* $asset-type-map],  ; additional information about the data's type
+}

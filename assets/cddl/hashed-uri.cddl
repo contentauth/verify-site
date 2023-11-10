@@ -1,0 +1,9 @@
+; The data structure used to store a reference to a URL within the same JUMBF and its hash. We use a socket/plug here to allow hashed-uri-map to be used in individual files without having the map defined in the same file
+$hashed-uri-map /= {
+  "url": url-regexp-type, ; JUMBF URI reference
+  ? "alg": tstr .size (1..max-tstr-length), ; A string identifying the cryptographic hash algorithm used to compute all hashes in this claim, taken from the C2PA hash algorithm identifier list. If this field is absent, the hash algorithm is taken from an enclosing structure as defined by that structure. If both are present, the field in this structure is used. If no value is present in any of these places, this structure is invalid; there is no default.
+  "hash": bstr, ;  byte string containing the hash value
+}
+
+; with CBOR Head (#) and tail ($) are introduced in regexp, so not needed explicitly
+url-regexp-type  /= tstr .regexp "self#jumbf=[\\w\\d][\\w\\d\\.\/:-]+[\\w\\d]"

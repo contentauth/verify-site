@@ -1,0 +1,8 @@
+; The data structure used to store sufficient information to validate a single 'mdat' box or 
+; a portion of an 'mdat' box when a Merkle tree is used",
+bmff-merkle-map = {
+  "uniqueId": int, ; A unique integer used to differentiate local ids
+  "localId": int, ; A local id indicating which 'mdat' box this entry pertains to.  This may not be globally unique
+  "location": int, ; Zero-based index into the leaf-most Merkle tree row corresponding to this 'mdat' box or portion of this 'mdat' box
+  ? "hashes": [1* bstr], ; An ordered array representing the set of additional hashes required to reach a hash in the Merkle tree specified in the manifest from leaf-most (peer of this node) to root-most (child of node in manifest).  Note that this array may not be present, e.g. if the manifest itself contains the leaf-most row of the Merkle tree.  Null hashes are not included in this array.  The algorithm used shall be determined using the `alg` field from the corresponding entry in the `merkle` field array in the BMFF hash structure.
+}

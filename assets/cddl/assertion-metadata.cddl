@@ -1,0 +1,2 @@
+;Assertion that describes additional information about an assertion, including a hashed-uri reference to it
+assertion-metadata-assertion = $assertion-metadata-map

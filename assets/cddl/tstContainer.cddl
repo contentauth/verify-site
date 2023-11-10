@@ -1,0 +1,8 @@
+; CBOR version of tstContainer and related structures based on JSON schema at https://forge.etsi.org/rep/esi/x19_182_JAdES/raw/v1.1.1/19182-jsonSchema.json
+tstContainer = {
+  "tstTokens": [1* tstToken]
+}
+
+tstToken = {
+  "val": bstr
+}

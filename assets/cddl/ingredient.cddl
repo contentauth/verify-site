@@ -1,0 +1,109 @@
+;Assertion that describes an ingredient used in the asset
+ingredient-map = {
+  "dc:title": tstr, ; name of the ingredient
+  "dc:format": format-string, ; Media Type of the ingredient
+  ? "documentID": tstr, ; value of the ingredient's `xmpMM:DocumentID`
+  "instanceID": tstr, ; unique identifier, such as the value of the ingredient's `xmpMM:InstanceID`
+  "relationship": $relation-choice, ; The relationship of this ingredient to the asset it is an ingredient of.
+                                        ; For example, if an ingredient with a 'parentOf' relationship is added to
+                                        ; an asset, then the asserter is stating that the current asset is a derived asset of the ingredient.
+  ? "c2pa_manifest": $hashed-uri-map, ; hashed_uri reference to the C2PA Manifest of the ingredient
+  ? "thumbnail": $hashed-uri-map, ; hashed_uri reference to an ingredient thumbnail
+  ? "validationStatus": [1* $status-map] ; validation status of the ingredient
+  ? "metadata": $assertion-metadata-map ; additional information about the assertion
+}
+
+; Version 2 (v2) of the ingredient assertion
+; Assertion that describes an ingredient used in the asset
+ingredient-map-v2 = {
+  "dc:title": tstr, ; name of the ingredient
+  "dc:format": format-string, ; Media Type of the ingredient
+  "relationship": $relation-choice, ; The relationship of this ingredient to the asset it is an ingredient of.
+                                        ; For example, if an ingredient with a 'parentOf' relationship is added to
+                                        ; an asset, then the asserter is stating that the current asset is a derived asset of the ingredient.
+  ? "documentID": tstr, ; value of the ingredient's `xmpMM:DocumentID`
+  ? "instanceID": tstr, ; unique identifier, such as the value of the ingredient's `xmpMM:InstanceID`
+  ? "data" : $hashed-uri-map / $hashed-ext-uri-map, ; hashed_uri reference to a data box or a hashed_ext_uri to external data
+  ? "c2pa_manifest": $hashed-uri-map, ; hashed_uri reference to the C2PA Manifest of the ingredient
+  ? "thumbnail": $hashed-uri-map, ; hashed_uri reference to a thumbnail in a data box
+  ? "validationStatus": [1* $status-map] ; validation status of the ingredient
+  ? "description": tstr .size (1..max-tstr-length) ; Additional description of the ingredient
+  ? "informational_URI": tstr .size (1..max-tstr-length) ; URI to an informational page about the ingredient or its data
+  ? "metadata": $assertion-metadata-map ; additional information about the assertion
+}
+
+
+format-string = tstr .regexp "^\\w+\/[-+.\\w]+$"
+
+; Choices that describe the reason for how the ingredient is related to the asset
+$relation-choice /= "parentOf"
+$relation-choice /= "componentOf"
+$relation-choice /= "inputTo"
+
+; Success codes
+$status-code /= "claimSignature.validated"
+$status-code /= "signingCredential.trusted"
+$status-code /= "signingCredential.notRevoked"
+$status-code /= "timeStamp.trusted"
+$status-code /= "assertion.hashedURI.match"
+$status-code /= "assertion.dataHash.match"
+$status-code /= "assertion.bmffHash.match"
+$status-code /= "assertion.boxesHash.match"
+$status-code /= "assertion.collectionHash.match"
+$status-code /= "assertion.accessible"
+
+; Failure codes
+$status-code /= "claim.missing"
+$status-code /= "claim.multiple"
+$status-code /= "claim.hardBindings.missing"
+$status-code /= "claim.required.missing"
+$status-code /= "claim.cbor.invalid"
+$status-code /= "ingredient.hashedURI.mismatch"
+$status-code /= "claimSignature.missing"
+$status-code /= "claimSignature.mismatch"
+$status-code /= "manifest.compressed.invalid"
+$status-code /= "manifest.inaccessible"
+$status-code /= "manifest.multipleParents"
+$status-code /= "manifest.update.invalid"
+$status-code /= "manifest.update.wrongParents"
+$status-code /= "signingCredential.untrusted"
+$status-code /= "signingCredential.invalid"
+$status-code /= "signingCredential.revoked"
+$status-code /= "signingCredential.expired"
+$status-code /= "timeStamp.mismatch"
+$status-code /= "timeStamp.untrusted"
+$status-code /= "timeStamp.outsideValidity"
+$status-code /= "assertion.hashedURI.mismatch"
+$status-code /= "assertion.missing"
+$status-code /= "assertion.multipleHardBindings"
+$status-code /= "assertion.undeclared"
+$status-code /= "assertion.inaccessible"
+$status-code /= "assertion.notRedacted"
+$status-code /= "assertion.selfRedacted"
+$status-code /= "assertion.required.missing"
+$status-code /= "assertion.json.invalid"
+$status-code /= "assertion.cbor.invalid"
+$status-code /= "assertion.action.ingredientMismatch"
+$status-code /= "assertion.action.redactionMismatch"
+$status-code /= "assertion.action.redacted"
+$status-code /= "assertion.dataHash.mismatch"
+$status-code /= "assertion.bmffHash.mismatch"
+$status-code /= "assertion.boxesHash.mismatch"
+$status-code /= "assertion.boxesHash.unknownBox"
+$status-code /= "assertion.cloud-data.hardBinding"
+$status-code /= "assertion.cloud-data.actions"
+$status-code /= "assertion.collectionHash.mismatch"
+$status-code /= "assertion.collectionHash.incorrectFileCount"
+$status-code /= "assertion.collectionHash.invalidURI"
+$status-code /= "algorithm.unsupported"
+$status-code /= "general.error" ; when nothing else applies
+
+; custom status codes
+$status-code /= tstr .regexp "([\\da-zA-Z_-]+\\.)+[\\da-zA-Z_-]+"
+
+status-map = {
+  "code": $status-code, ; A label-formatted string that describes the status
+  ? "url": url-regexp-type, ; JUMBF URI reference
+  ? "explanation": tstr .size (1..max-tstr-length), ; A human readable string explaining the status
+  ? "success": bool ; does the code reflect success (true) or failure (false)
+}

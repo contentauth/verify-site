@@ -1,0 +1,4 @@
+; CBOR version of rVals and related structures based on JSON schema in https://www.etsi.org/deliver/etsi_ts/119100_119199/11918201/01.01.01_60/ts_11918201v010101p.pdf section 5.3.5.2
+rVals = {
+  "ocspVals": [1* bstr] 
+}

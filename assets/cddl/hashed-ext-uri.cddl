@@ -1,0 +1,15 @@
+; The data structure used to store a reference to an external URL and its hash. 
+; We use a socket/plug here to allow hashed-ext-uri-map to be used in individual files 
+; without having the map defined in the same file
+$hashed-ext-uri-map /= {
+  "url": ext-url-regexp-type, ; http/https URI reference
+  "alg": tstr .size (1..max-tstr-length), ; A string identifying the cryptographic hash algorithm used to compute the hash on this URI's data, taken from the C2PA hash algorithm identifier list. Unlike alg fields in other types, this field is mandatory here.
+  "hash": bstr, ;  byte string containing the hash value
+  ? "dc:format": format-string, ; IANA media type of the data
+  ? "size": size-type, ; Number of bytes of data
+  ? "data_types": [1* $asset-type-map],  ; additional information about the data's type
+}
+
+; with CBOR Head (#) and tail ($) are introduced in regexp, so not needed explicitly
+ext-url-regexp-type  /= tstr .regexp "https?:\/\/[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b[-a-zA-Z0-9@:%_\\+.~#?&//=]*"
+

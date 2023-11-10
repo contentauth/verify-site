@@ -1,0 +1,70 @@
+; The data structure used to store a reference to a URL within the same JUMBF and its hash. We use a socket/plug here to allow hashed-uri-map to be used in individual files without having the map defined in the same file
+$hashed-uri-map /= {
+  "url": url-regexp-type, ; JUMBF URI reference
+  ? "alg": tstr .size (1..max-tstr-length), ; A string identifying the cryptographic hash algorithm used to compute all hashes in this claim, taken from the C2PA hash algorithm identifier list. If this field is absent, the hash algorithm is taken from an enclosing structure as defined by that structure. If both are present, the field in this structure is used. If no value is present in any of these places, this structure is invalid; there is no default.
+  "hash": bstr, ;  byte string containing the hash value
+}
+
+; with CBOR Head (#) and tail ($) are introduced in regexp, so not needed explicitly
+url-regexp-type  /= tstr .regexp "self#jumbf=[\\w\\d][\\w\\d\\.\/:-]+[\\w\\d]"
+
+;Describes additional information about an assertion, including a hashed-uri reference to it. We use a socket/plug here to allow hashed-uri-map to be used in individual files without having the map defined in the same file
+$assertion-metadata-map /= {
+  ? "dateTime":  tdate, ; The ISO 8601 date-time string when the assertion was created/generated
+  ? "reviewRatings": [1* rating-map], ; Ratings given to the assertion (may be empty)
+  ? "reference": $hashed-uri-map, ;hashed_uri reference to another assertion that this review is about
+  ? "dataSource": source-map, ; A description of the source of the assertion data, selected from a predefined list
+  ? "localizations" : [1* localization-data-entry] ; localizations for strings in the assertion
+  ? "regionOfInterest" : $region-map ; describes a region of the asset where this assertion is relevant
+  * $$assertion-metadata-map-extension
+}
+
+$source-type /= "signer"
+$source-type /= "claimGenerator.REE"
+$source-type /= "claimGenerator.TEE"
+$source-type /= "localProvider.REE"
+$source-type /= "localProvider.TEE"
+$source-type /= "remoteProvider.1stParty"
+$source-type /= "remoteProvider.3rdParty"
+$source-type /= "humanEntry.anonymous"
+$source-type /= "humanEntry.identified"
+
+
+source-map = {
+  "type": $source-type, ; A value from among the enumerated list indicating whether the source of the assertion is a claim generator running in a rich execution environment (REE), a claim generator running in a trusted execution environment (TEE), a local data provider in REE (e.g. the location API from a mobile operating system), a local data running in a TEE (e.g. a trusted location trusted app from a chipset vendor), a remote data provider such as a server (e.g. Google's geolocation API service), entry by a human who wishes to remain anonymous, or a human who is credentialed with a W3C Verifiable Credential that's included in the asset.
+  ? "details": tstr .size (1..max-tstr-length), ; A human readable string giving details about the source of the assertion data, e.g. the URL of the remote server that provided the data
+  ? "actors" : [1* actor-map] ; array of hashed_uri references to W3C Verifiable Credentials
+}
+
+actor-map = {
+  ? "identifier": tstr .size (1..max-tstr-length), ; An identifier for a human actor, used when the "type" is humanEntry.identified
+  ? "credentials" : [1* $hashed-uri-map / $hashed-ext-uri-map] ; array of hashed_uri references to W3C Verifiable Credentials
+}
+
+int-range = 1..5
+
+$review-code /= "actions.unknownActionsPerformed"
+$review-code /= "actions.missing"
+$review-code /= "actions.possiblyMissing"
+$review-code /= "depthMap.sceneMismatch"
+$review-code /= "ingredient.modified"
+$review-code /= "ingredient.possiblyModified"
+$review-code /= "thumbnail.primaryMismatch"
+$review-code /= "stds.iptc.location.inaccurate"
+$review-code /= "stds.schema-org.CreativeWork.misattributed"
+$review-code /= "stds.schema-org.CreativeWork.missingAttribution"
+
+rating-map = {
+  "value":  int-range, ; "A value from 1 (worst) to 5 (best) of the rating of the item"
+  ? "code": $review-code, ; A label-formatted string that describes the reason for the rating
+  ? "explanation": tstr .size (1..max-tstr-length), ; A human readable string explaining why the rating is what it is
+}
+
+; The data structures used to store localization dictionaries
+$localization-data-entry /= {
+  * $$language-string
+}
+
+language-string /= tstr .size (1..max-tstr-length)
+
+max-tstr-length = 1000000

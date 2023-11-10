@@ -1,0 +1,86 @@
+; Assertion data for c2pa.font.metadata assertion.
+font-info-map = {
+  "fullName": tstr, ; The full name of the font.
+  ; A version in the semantic versioning (semver) format.
+  ? "version": tstr .regexp "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$", 
+  ? "versionUrl": ext-url-regexp-type, ; A URL to the release notes associated with this version of the font.
+  ? "releaseDate": tdate, ; The date this version of the font was released or published.
+  "familyName": tstr, ; The Font Family.
+  "style": $font-style, ; The style of the font, e.g. italic or regular.
+  "weight": font-weight-map, ; The weight of the font with name and value.
+  ; The PostScript name, ID 6, from the font 'name' table.
+  "postScriptName": tstr .regexp "^(?!.*[\\[\\]\\(\\)\\{\\}<>\\/%])[!-~]{1,63}$", ; Characters from ASCII 33-126 except the following: [](){}<>/%
+  "format": $font-format-choice, ; The format of this font.
+  "copyrightNotice": tstr, ; The copyright associated with this font.
+  ? "copyrightHolder": font-entity-map, ; The entity that holds the copyright to the font.
+  ? "copyrightYears": [1* font-copyright-year-range], ; The years for which the holder asserts copyright.
+  ? "designers": [1* font-designer-map], ; The individuals that designed the font. 
+  ? "designFoundry": font-entity-map, ; The foundry that designed the font.
+  ? "sourceFoundry": font-entity-map, ; The foundry that distributes the font.
+  ? "identifier": tstr, ; Internal identier of font for foundry or vendor use.
+}
+
+; Font Formats
+$font-format-choice /= "TrueType"
+$font-format-choice /= "OpenType"
+
+; Copyright year range
+font-copyright-year-range = 1..9999
+
+; Font weight range
+font-weight-range = 1..1000
+
+; Font weight class descriptors
+$font-weight-class /= "Microline"
+$font-weight-class /= "Hairline"
+$font-weight-class /= "UltraThin"
+$font-weight-class /= "ExtraThin"
+$font-weight-class /= "Thin"
+$font-weight-class /= "UltraLight"
+$font-weight-class /= "ExtraLight"
+$font-weight-class /= "Light"
+$font-weight-class /= "SemiLight"
+$font-weight-class /= "Book"
+$font-weight-class /= "Normal"
+$font-weight-class /= "Regular"
+$font-weight-class /= "Medium"
+$font-weight-class /= "DemiBold"
+$font-weight-class /= "SemiBold"
+$font-weight-class /= "Bold"
+$font-weight-class /= "Heavy"
+$font-weight-class /= "ExtraBold"
+$font-weight-class /= "UltraBold"
+$font-weight-class /= "SemiBlack"
+$font-weight-class /= "Black"
+$font-weight-class /= "ExtraBlack"
+$font-weight-class /= "UltraBlack"
+$font-weight-class /= "MegaBlack"
+
+; The font style
+$font-style /= "Normal"
+$font-style /= "Italic"
+$font-style /= "Oblique"
+$font-style /= "Roman"
+$font-style /= "Regular"
+
+; Data for a font weight
+font-weight-map = {
+  "class": $font-weight-class, ; The descriptive name of the weight class, e.g. bold or thin.
+  "value": font-weight-range, ; The value of the weight.
+}
+
+; Data for an entity with a name and credentials
+font-entity-map = {
+  "name": tstr, ; The name of the person or foundry.
+  ? "credentials": [1* ($hashed-uri-map / $hashed-ext-uri-map)], ; URI(s) to W3C Verifiable Credential(s) for the person.
+  ? "url": ext-url-regexp-type, ; A URL for additional information about this person or foundry.
+}
+
+; Data for a font designer
+font-designer-map = {
+  "person": font-entity-map, ; The person who designed the font.
+  ? "foundry": font-entity-map, ; The name of the foundry with which the designer was associated when contributing to the font design.
+  ? "contribution": tstr, ; A description of what the designer contributed to the font. For example, 'All the Latin and Arabic characters'.
+  ? "startDate": tdate, ; "When the designer started to contribute to the font design.
+  ? "endDate": tdate, ; When the designer ended contributions to the font design.
+}

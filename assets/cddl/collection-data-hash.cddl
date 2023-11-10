@@ -1,0 +1,19 @@
+; An array of URIs and their associated hashes
+$collection-data-hash-map /= {
+  "uris": [1* uri-hashed-data-map],
+  "alg": tstr .size (1..max-tstr-length), ; A string identifying the cryptographic hash algorithm used to compute the hash on each entry of the `uris` array, taken from the C2PA hash algorithm identifier list. 
+	? "zip_central_directory_hash" : bstr,
+	}
+}
+
+; The data structure used to store a reference to a URI and its hash. 
+$uri-hashed-data-map /= {
+  "uri": relative-url-regexp-type, ; relative URI reference
+  "hash": bstr, ;  byte string containing the hash value
+  ? "size": size-type, ; Number of bytes of data
+  ? "dc:format": format-string, ; IANA media type of the data
+  ? "data_types": [1* $asset-type-map],  ; additional information about the data's type
+}
+
+; with CBOR Head (#) and tail ($) are introduced in regexp, so not needed explicitly
+relative-url-regexp-type  /= tstr .regexp "[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b[-a-zA-Z0-9@:%_\\+.~#?&//=]*"

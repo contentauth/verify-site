@@ -126,15 +126,18 @@ function formatClaim(claimData: any, index: number, activeManifest: string) {
     signature_size: signatureSize,
     size: claimSize,
   } = claimData;
-  const formattedClaim = claimFields.reduce<Record<string, any>>(
-    (acc, field) => {
-      acc[field] = claim[field] ?? null;
+  const formattedClaim = {
+    ref: [uri, 'claim'],
+    data: claimFields.reduce<Record<string, any>>((acc, field) => {
+      const value = claim[field];
+
+      if (value) {
+        acc[field] = value;
+      }
 
       return acc;
-    },
-    {},
-  );
-  formattedClaim.ref = [uri, 'claim'];
+    }, {}),
+  };
 
   const mergedAssertions = zip(claim.assertions, claim.assertion_store);
   const assertions = mergedAssertions.map(
@@ -217,7 +220,7 @@ function formatClaim(claimData: any, index: number, activeManifest: string) {
   return {
     ref: [uri],
     index,
-    isActive: uri === activeManifest,
+    isActive: uri === `self#jumbf=/c2pa/${activeManifest}`,
     uri,
     claim: formattedClaim,
     dataSize,
@@ -229,7 +232,7 @@ function formatClaim(claimData: any, index: number, activeManifest: string) {
     ingredientsWithClaims,
     verifiableCredentials,
     signature: {
-      ref: [uri, 'signature'],
+      ref: [normalizeUri(formattedClaim.data.signature, uri)],
       ...signatureInfo,
     },
   };

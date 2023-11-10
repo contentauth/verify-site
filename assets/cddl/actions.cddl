@@ -1,0 +1,117 @@
+actions-map = {
+  "actions" : [1* action-items-map],  ; list of actions
+  ? "metadata": $assertion-metadata-map, ; additional information about the assertion
+}
+
+
+buuid = #6.37(bstr)
+
+$action-choice /= "c2pa.color_adjustments"
+$action-choice /= "c2pa.converted"
+$action-choice /= "c2pa.copied"
+$action-choice /= "c2pa.created"
+$action-choice /= "c2pa.cropped"
+$action-choice /= "c2pa.drawing"
+$action-choice /= "c2pa.edited"
+$action-choice /= "c2pa.edited.metadata"
+$action-choice /= "c2pa.filtered"
+$action-choice /= "c2pa.font.edited"
+$action-choice /= "c2pa.font.subset"
+$action-choice /= "c2pa.font.createdFromVariableFont"
+$action-choice /= "c2pa.font.charactersAdded"
+$action-choice /= "c2pa.font.charactersDeleted"
+$action-choice /= "c2pa.font.charactersModified"
+$action-choice /= "c2pa.font.hinted"
+$action-choice /= "c2pa.font.openTypeFeatureAdded"
+$action-choice /= "c2pa.font.openTypeFeatureModified"
+$action-choice /= "c2pa.font.openTypeFeatureRemoved"
+$action-choice /= "c2pa.font.merged"
+$action-choice /= "c2pa.formatted"
+$action-choice /= "c2pa.managed"
+$action-choice /= "c2pa.opened"
+$action-choice /= "c2pa.orientation"
+$action-choice /= "c2pa.produced"
+$action-choice /= "c2pa.placed"
+$action-choice /= "c2pa.printed"
+$action-choice /= "c2pa.published"
+$action-choice /= "c2pa.redacted"
+$action-choice /= "c2pa.removed"
+$action-choice /= "c2pa.repackaged"
+$action-choice /= "c2pa.resized"
+$action-choice /= "c2pa.saved"
+$action-choice /= "c2pa.transcoded"
+$action-choice /= "c2pa.unknown"
+$action-choice /= "c2pa.version_updated"
+$action-choice /= tstr .regexp "([\\da-zA-Z_-]+\\.)+[\\da-zA-Z_-]+"
+
+actor-map = {
+  ? "credentials": [1* $hashed-uri-map / $hashed-ext-uri-map],
+  ? "identifier": tstr .size (1..max-tstr-length), ; An identifier for a human actor
+}
+
+action-items-map = {
+  "action": $action-choice,
+  ? "when": tdate, ; Timestamp of when the action occurred. 
+  ? "softwareAgent": tstr .size (1..max-tstr-length), ;The software agent that performed the action.
+  ? "changed": tstr .size (1..max-tstr-length), ; A semicolon-delimited list of the parts of the resource that were changed since the previous event history. If not present, presumed to be undefined. When tracking changes and the scope of the changed components is unknown, it should be assumed that anything might have changed.
+  ? "instanceID": buuid, ; The value of the xmpMM:InstanceID property for the modified (output) resource
+  ? "parameters": parameters-map, ; Additional parameters of the action. These will often vary by the type of action
+  ? "actors": [1* actor-map], ; An array of the creators that undertook this action
+  ? "digitalSourceType": tstr .size (1..max-tstr-length), ; One of the defined source types at https://cv.iptc.org/newscodes/digitalsourcetype/
+}
+
+parameters-map = {
+  ? "ingredient": $hashed-uri-map, ; A hashed-uri to the ingredient assertion that this action acts on
+  ? "description": tstr .size (1..max-tstr-length) ; Additional description of the action
+  * tstr => any
+}
+
+
+; Version 2 (v2) of the actions assertion
+
+$action-reason /= "c2pa.PII.present"
+$action-reason /= "c2pa.invalid.data"
+$action-reason /= "c2pa.tradesecret.present"
+$action-reason /= "c2pa.government.confidential"
+$action-reason /= tstr .regexp "([\\da-zA-Z_-]+\\.)+[\\da-zA-Z_-]+"
+
+actions-map-v2 = {
+  "actions" : [1* action-items-map-v2],     ; list of actions
+  ? "templates": [1* $action-template-map-v2], ; list of templates for the actions
+  ? "metadata": $assertion-metadata-map,    ; additional information about the assertion
+}
+
+action-common-map-v2 = {
+  "action": $action-choice,
+  ? "softwareAgent": $generator-info-map, ; Description of the software/hardware that did the action
+  ? "description": tstr .size (1..max-tstr-length), ; Additional description of the action, important for custom actions
+  ? "digitalSourceType": tstr .size (1..max-tstr-length), ; One of the defined source types at https://cv.iptc.org/newscodes/digitalsourcetype/ or in this specification
+}
+
+action-items-map-v2 = {
+  action-common-map-v2, ; start with the common set of items
+
+  ? "when": tdate, ; Timestamp of when the action occurred. 
+  ? "changed": [1* region-map], ; A list of the regions of interest of the resource that were changed. If not present, presumed to be undefined. 
+  ? "actors": [1* actor-map], ; An array of the actors that undertook this action
+  ? "related": [1* action-items-map-v2], ; List of related actions
+  ? "reason": $action-reason, ; the reason why this action was performed, required when the action is `c2pa.redacted`
+  ? "parameters": parameters-map-v2 ; Additional parameters of the action. These will often vary by the type of action
+}
+
+action-template-map-v2 = {
+  action-common-map-v2, ; start with the common set of items
+  ? "icon": $hashed-uri-map / $hashed-ext-uri-map,  ; hashed_uri reference to a data box or a hashed_ext_uri to external data
+  ? "templateParameters": parameters-common-map-v2 ; Additional parameters of the template.
+}
+
+parameters-common-map-v2 = {
+  * tstr => any
+}
+
+parameters-map-v2 = {
+  ? "instanceID": buuid, ; The value of the xmpMM:InstanceID property for the modified (output) resource
+  ? "redacted": $jumbf-uri-type, ; A JUMBF URI to the redacted assertion, required when the action is `c2pa.redacted`
+  ? "ingredients": [1* $hashed-uri-map], ; A list of hashed JUMBF URI(s) to the ingredient (v2) assertion(s) that this action acts on
+  parameters-common-map-v2  ; anything from the common parameters
+}

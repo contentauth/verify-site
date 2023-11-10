@@ -29,7 +29,7 @@
 </script>
 
 <div
-  class="sticky top-0 bg-white p-5 transition-shadow duration-200"
+  class="sticky top-0 z-10 bg-white p-5 transition-shadow duration-200"
   class:shadow={isScrolled}>
   <Body>
     <button

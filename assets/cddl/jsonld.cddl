@@ -1,0 +1,72 @@
+$context-type-choice /= tstr
+$context-type-choice /= nil
+$context-type-choice /= []
+$context-type-choice /= { }
+
+context-schema = {
+"@context": $context-type-choice,
+* $$context-schema-extension,
+}
+
+$graph-type-choice /= { }
+$graph-type-choice /= []
+
+graph-type = {
+$graph-type-choice,
+~common-schema,
+* $$graph-type-extension
+}
+
+
+
+$value-type-choice /= tstr
+$value-type-choice /= bool
+$value-type-choice /= float
+$value-type-choice /= nil
+
+$type-type-choice /= tstr
+$type-type-choice /= nil
+$type-type-choice /= []
+
+
+$language-type-choice /= tstr
+$language-type-choice /= nil
+
+$nil-or-str-type-choice /= tstr
+$nil-or-str-type-choice /= nil
+
+reverse-schema = {
+$reverse-type-choice,
+~common-schema,
+}
+
+$$container-group-choice //= (
+"@language" : $language-type-choice
+"@list":  $nil-or-str-type-choice ; Used to express an ordered set of data
+"@set": $nil-or-str-type-choice   ; Used to express an unordered set of data and to ensure that values are always represented as arrays
+"@reverse": reverse-schema, ; Used to express reverse properties
+"@base": $nil-or-str-type-choice, ; Used to set the base IRI against which relative IRIs are resolved
+"@vocab": $nil-or-str-type-choice, ;Used to expand properties and values in @type with a common prefix IRI
+)
+
+$reverse-type-choice /= tstr
+$reverse-type-choice /= nil
+$reverse-type-choice /= { }
+
+
+
+common-schema = {
+"@id": uri, ; Used to uniquely identify things that are being described in the document with IRIs or blank node identifiers
+"@value": $value-type-choice, ; Used to specify the data that is associated with a particular property in the graph
+"@language": $language-type-choice, ; Used to specify the language for a particular string value or the default language of a JSON-LD document
+"@type": $type-type-choice, ; Used to set the data type of a node or typed value
+"@container": $$container-group-choice, ; Used to set the default container type for a term
+}
+
+; Schema for JSON-LD CDDL
+jsonld-schema-map = {
+"context": context-schema, ; Used to define the short-hand names that are used throughout a JSON-LD document
+"graph": graph-type, ; Used to express a graph
+"common": common-schema,; Used to define common things
+* $$jsonld-schema-map-extension, ; Used to support extension on the schema
+}

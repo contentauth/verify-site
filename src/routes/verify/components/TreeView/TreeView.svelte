@@ -15,6 +15,7 @@
 
 <script lang="ts">
   import Compare from '$assets/svg/monochrome/compare.svg?component';
+  import TechnicalInfo from '$assets/svg/monochrome/technical-info.svg?component';
   import ZoomIn from '$assets/svg/monochrome/zoom-in.svg?component';
   import ZoomOut from '$assets/svg/monochrome/zoom-out.svg?component';
   import Body from '$src/components/typography/Body.svelte';
@@ -188,20 +189,29 @@
         <ZoomOut width="1rem" height="1rem" class="text-gray-800" />
       </button>
     </div>
-    <div class="flex h-8 items-center rounded-full bg-white shadow-md">
-      <button
-        on:click={() => verifyStore.setCompareView()}
-        disabled={!canCompare}
-        class="transition-opacity"
-        class:opacity-40={!canCompare}
-        class:cursor-not-allowed={!canCompare}
-        ><div class="mx-3 my-2 flex items-center">
-          <Compare class="me-2 h-4 w-4" />
-          <Body
-            ><div class="relative top-px">
-              {$_('sidebar.verify.compare')}
-            </div></Body>
-        </div></button>
+    <div class="flex space-x-3">
+      <div class="flex h-8 items-center rounded-full bg-white shadow-md">
+        <button
+          on:click={() => verifyStore.setCompareView()}
+          disabled={!canCompare}
+          class="transition-opacity"
+          class:opacity-40={!canCompare}
+          class:cursor-not-allowed={!canCompare}
+          ><div class="mx-3 my-2 flex items-center">
+            <Compare class="me-2 h-4 w-4" />
+            <Body
+              ><div class="relative top-px">
+                {$_('sidebar.verify.compare')}
+              </div></Body>
+          </div></button>
+      </div>
+      <div class="flex h-8 items-center rounded-full bg-white shadow-md">
+        <button on:click={() => verifyStore.setViewLevel('L4')}
+          ><div class="mx-3 my-2 flex items-center">
+            <TechnicalInfo class="me-2 h-4 w-4" />
+            <Body><div class="relative top-px">Technical info</div></Body>
+          </div></button>
+      </div>
     </div>
   </div>
 </figure>

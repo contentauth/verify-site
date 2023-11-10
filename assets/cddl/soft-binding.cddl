@@ -1,0 +1,31 @@
+;The data structure used to store one or more soft bindings across some or all of the asset's content
+soft-binding-map = {
+  "alg": tstr, ; A string identifying the soft binding algorithm and version of that algorithm used 
+              ; to compute the value, taken from the C2PA soft binding algorithm identifier list. If this field is absent, the algorithm is taken from the `softbinding-alg` value of the enclosing structure. If both are present, the field in this structure is used. 
+              ; If no value is present in any of these places, this structure is invalid; there is no default.
+  "blocks": [1* soft-binding-block-map],
+  "pad": bytes, ; zero-filled byte string used for filling up space
+  ? "pad2": bytes, ; optional zero-filled byte string used for filling up space
+  ? "name": tstr .size (1..max-tstr-length), ; (optional) a human-readable description of what this hash covers
+  ? "alg-params": bstr, ; (optional) CBOR byte string describing parameters of the soft binding algorithm. 
+                        ; If this field is absent, the algorithm is taken from the `softbinding-alg-params` 
+                        ; value of the enclosing structure, if present."
+  ? "url": uri, ; Unused and deprecated. Claim generators shall not add this field and consumers shall ignore it if present.
+}
+
+soft-binding-block-map = {
+  "scope": soft-binding-scope-map,
+  "value": bstr, ; CBOR byte string describing, in algorithm specific format, 
+                ; the value of the soft binding computed over this block of digital content"
+}
+
+soft-binding-scope-map = {
+  ? "extent": bstr, ;CBOR byte string describing, in algorithm specific format, 
+                    ; the part of the digital content over which the soft binding value has been computed"
+  ? "timespan":soft-binding-timespan-map,
+}
+
+soft-binding-timespan-map = {
+  "start": uint, ; Start of the time range (as milliseconds from media start) over which the soft binding value has been computed.
+  "end": uint,   ; End of the time range (as milliseconds from media start) over which the soft binding value has been computed.
+}

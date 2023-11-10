@@ -1,0 +1,17 @@
+; Also check optionality within the hash-map
+; The data structure used to store the cryptographic hash of some or all of the asset's data 
+; and additional information required to compute the hash.
+data-hash-map = {
+  ? "exclusions": [1* EXCLUSION_RANGE-map],
+  ? "alg":tstr .size (1..max-tstr-length), ; A string identifying the cryptographic hash algorithm used to compute the hash in this assertion, taken from the C2PA hash algorithm identifier list. If this field is absent, the hash algorithm is taken the `alg` value of the enclosing structure. If both are present, the field in this structure is used. If no value is present in any of these places, this structure is invalid; there is no default.
+  "hash": bstr, ; byte string of the hash value
+  "pad": bstr, ; zero-filled byte string used for filling up space
+  ? "pad2": bstr, ; optional zero-filled byte string used for filling up space
+  ? "name": tstr .size (1..max-tstr-length), ; (optional) a human-readable description of what this hash cover
+  ? "url": uri, ; Unused and deprecated. Claim generators shall not add this field and consumers shall ignore it if present.
+}
+
+EXCLUSION_RANGE-map = {
+  "start": int, ; Starting byte of the range
+  "length": int, ; Number of bytes of data to exclude
+}

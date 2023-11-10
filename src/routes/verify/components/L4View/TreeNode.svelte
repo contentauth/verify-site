@@ -53,7 +53,20 @@
       on:click={() => selectL4Ref(data.ref)}
       on:mouseover={() => (manifestHover = true)}
       on:mouseout={() => (manifestHover = false)}>
-      <div class="text-header">Manifest</div>
+      <div class="flex items-start justify-between">
+        <div class="text-header">Manifest</div>
+        {#if data.isActive}
+          <div
+            class={[
+              `rounded-full px-2 py-0.5 text-[0.75rem] transition-colors`,
+              selectedManifest && atManifestLevel
+                ? `bg-white text-blue-900`
+                : `bg-blue-900 text-white`,
+            ].join(' ')}>
+            Active
+          </div>
+        {/if}
+      </div>
       <div class="truncate text-informational opacity-50">{data.uri}</div>
     </button>
     <div class="mx-4 border-t border-gray-200 pt-4">

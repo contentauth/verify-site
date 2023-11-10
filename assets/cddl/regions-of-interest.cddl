@@ -1,0 +1,85 @@
+$role-choice /= "c2pa.areaOfInterest"  ; arbitrary area worth identifying
+$role-choice /= "c2pa.cropped"         ; this area is all that is left after a crop action
+$role-choice /= "c2pa.edited"          ; this area has had edits applied to it
+$role-choice /= "c2pa.placed"          ; the area where an ingredient was placed/added
+$role-choice /= "c2pa.redacted"        ; something in this area was redacted
+$role-choice /= "c2pa.subjectArea"     ; area specific to a subject (human or not)
+$role-choice /= "c2pa.deleted"         ; a range of information was removed/deleted
+$role-choice /= "c2pa.styled"          ; styling was applied to this area
+
+region-map = {
+	"region":		[1* $range-map],		; definition of the range, one or more ranges
+	? "name": tstr .size (1..max-tstr-length),  ; a free-text string representing a human-readable name for the region which might be used in a user interface.
+	? "identifier": tstr .size (1..max-tstr-length),  ; a free-text string representing a machine-readable, unique to this assertion, identifier for the region.
+	? "type": 	tstr .size (1..max-tstr-length),	; from a controlled list
+	? "role": 	$role-choice, 	; from a controlled list 
+	? "description": tstr .size (1..max-tstr-length),
+	? "metadata": $assertion-metadata-map, ; additional information about the assertion
+}
+
+$range-choice /= "spatial"  	; a range identified by physical area
+$range-choice /= "temporal"  	; a range identified by a time period
+$range-choice /= "frame"  		; a range identified by a series of frames or pages
+$range-choice /= "textual"  	; a range identified by a range of text
+
+range-map = {
+	"type": 	$range-choice,		; either "spatial", "temporal", "frame" or "textual"
+	? "shape": 	$shape-map, 	  	; description of the shape of a spatial range 
+	? "time": 	$time-map, 		  	; description of the time boundaries of a temporal range
+	? "frame": 	$frame-map, 		; description of the frame boundaries of a temporal range
+	? "text": 	$text-map, 			; description of the boundaries of a textual range
+}
+
+coordinate-map = {
+	"x": float,		; coordinate along the x-axis
+	"y": float,		; coordinate along the y-axis
+}
+
+$shape-choice /= "rectangle"  	; a rectangular shape
+$shape-choice /= "circle"  		; a circular shape
+$shape-choice /= "polygon"  	; a polygonal shape
+
+$unit-choice /= "pixel"  	; units are in pixels
+$unit-choice /= "percent"   ; units are in percent of the total size
+
+
+shape-map = {
+	"type": 	$shape-choice,			; either "rectangle", "circle" or "polygon"
+	"unit":		$unit-choice,		  	; either "pixel" or "percent"
+	"origin": 	$coordinate-map, 		; starting/origin coordinate of the shape. 
+	? "width": 	float, 				    ; width for rectangles, diameter for circles (ignored for polygons)
+	? "height":	float				    ; height for rectangles
+	? "inside" : bool,            		; inside or outside the shape, default is `true`
+	? "vertices":	[1* $coordinate-map]	; remaining points/vertices of the polygon
+}
+
+$time-choice /= "npt"  ; Normal Play Time
+
+time-map = {
+	"type": 	$time-choice,
+	? "start": 	tstr .regexp "^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)(\.(\d{1,9}))?$", 	; start time (or beginning of asset if not present). 
+	? "end": 	tstr .regexp "^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)(\.(\d{1,9}))?$", 	; end time (or end of asset if not present).
+}
+
+; this can be used for either frames of a video or pages of a document
+frame-map = {
+	? "start": 	int, 	; start frame (or beginning of asset if not present). 
+	? "end": 	int		; end frame (or end of asset if not present). 
+}
+
+; this is modeled after the W3C Web Annotation selector model
+text-selector-map = {
+	"fragment": 	tstr,	; fragment identifier, as per RFC3023 or ISO 32000-2, Annex O
+	? "start": 		int, 	; start character offset (or beginning of fragment if not present).
+	? "end": 		int		; end character offset (or end of fragment if not present).
+}
+
+; one or two text-selector-maps used to identify the range
+text-selector-range-map = {
+	"selector": 	$text-selector-map, 	; start (or only) text selector
+	? "end": 		$text-selector-map		; if present, represents the end of the text range
+}
+
+text-map = {
+	"selectors": [1* $text-selector-range-map]	; array of (possibly discontinuous) ranges of text
+}

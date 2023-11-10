@@ -1,0 +1,11 @@
+; Assertion that references the actual assertion stored in the cloud
+cloud-data-map = {
+  "label": tstr, ; label for the cloud-based assertion (eg.c2pa.actions)
+  "size": size-type, ; Number of bytes of data
+  "location": $hashed-ext-uri-map, ; http(s) URL to where the cloud-hosted assertion can be found
+  "content_type": tstr .regexp "^[-\\w.]+/[-+\\w.]+$", ; media/MIME type for the data
+  ? "metadata": $assertion-metadata-map,  ; additional information about the assertion
+}
+
+; size is minimum 1 in multiples of 1.0
+size-type = int .ge 1

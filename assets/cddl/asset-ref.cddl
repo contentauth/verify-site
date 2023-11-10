@@ -1,0 +1,13 @@
+;The asset reference assertion (ARA) describes where a copy of the asset may be obtained.
+asset-ref-map = {
+  "references": [1* ara-reference-block-map]
+}
+
+ara-reference-block-map = {
+  "reference": ara-reference-uri-map,
+  ? "description": tstr, ; Human readable description of the location.
+}
+
+ara-reference-uri-map = {
+  "uri": tstr, ; URI reference a location where a copy of the asset may be obtained from
+}
