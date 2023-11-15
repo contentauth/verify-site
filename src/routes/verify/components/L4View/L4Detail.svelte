@@ -96,8 +96,9 @@
         <ol class="list-inside list-disc space-y-0.5 pt-2">
           {#each $selectedL4Node.hierarchy.nodes as node}
             <li>
-              <button on:click={() => selectL4Ref(node.data.ref)}
-                ><Link>{node.data.uri}</Link></button>
+              <button
+                on:click={() => selectL4Ref(node.data.ref)}
+                class="text-left"><Link>{node.data.uri}</Link></button>
             </li>
           {/each}
         </ol>

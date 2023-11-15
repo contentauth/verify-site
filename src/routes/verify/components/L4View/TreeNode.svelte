@@ -78,7 +78,7 @@
             ? `border-blue-900 bg-blue-900 text-white`
             : `bg-brand-yellow-200 hover:border-brand-yellow-1400 hover:text-brand-yellow-1400 border-brand-yellow-400`,
         ].join(' ')}>
-        <div>
+        <div class="text-left">
           <div class="text-l4-section-header">Signature</div>
           <div class="truncate text-informational opacity-50">
             {data.signature.issuer_org}

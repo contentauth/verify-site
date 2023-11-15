@@ -14,6 +14,7 @@
 -->
 
 <script lang="ts">
+  import { treemap } from 'd3-hierarchy';
   import { select as d3Select } from 'd3-selection';
   import type { ZoomTransform } from 'd3-zoom';
   import { zoom as d3Zoom, zoomIdentity } from 'd3-zoom';
@@ -28,7 +29,7 @@
   import SVGTreeNode from './SVGTreeNode.svelte';
   import TreeNode from './TreeNode.svelte';
 
-  export let tree: any;
+  export let hierarchy: any;
 
   const clickDistance = 10;
   const config: TreeViewConfig = {
@@ -48,46 +49,58 @@
 
   onMount(() => {
     svgSel = d3Select<SVGElement, any>(svgElement);
+    const root = hierarchy.sum((d: any) => {
+      return d.dataSize?.total ?? d.size ?? 1;
+    });
+
+    treemap().size([width, height]).padding(2)(root);
+
+    console.log('root', root);
+
     svgSel
-      .call(zoom)
-      // Initially center on the root
-      .call(zoom.transform, zoomIdentity.translate(width / 3, height / 2));
+      .selectAll('rect')
+      .data(root.leaves())
+      .enter()
+      .append('rect')
+      .attr('x', function (d: any) {
+        return d.x0;
+      })
+      .attr('y', function (d: any) {
+        return d.y0;
+      })
+      .attr('width', function (d: any) {
+        return d.x1 - d.x0;
+      })
+      .attr('height', function (d: any) {
+        return d.y1 - d.y0;
+      })
+      .style('stroke', 'black')
+      .style('fill', 'slateblue');
 
-    return () => {
-      svgSel.on('.zoom', null);
-    };
-  });
+    svgSel
+      .selectAll('text')
+      .data(root.leaves())
+      .enter()
+      .append('text')
+      .attr('x', function (d: any) {
+        return d.x0 + 5;
+      })
+      .attr('y', function (d: any) {
+        return d.y0 + 20;
+      })
+      .text(function (d: any) {
+        console.log('d', d);
 
-  $: transforms = calculateTransforms({
-    boundsElement,
-    boundsTransform,
-    width,
-    height,
-    margin: config.margin,
+        return d.data.uri;
+      })
+      .attr('font-size', '15px')
+      .attr('fill', 'white');
   });
-  $: descendants = tree.descendants();
-  $: {
-    // Set the proper scaleExtent whenever the width/height changes
-    zoom.scaleExtent([transforms.minScale, 1]);
-  }
 </script>
 
 <figure
   class="h-full w-full overflow-clip"
   bind:clientWidth={width}
   bind:clientHeight={height}>
-  <svg bind:this={svgElement} viewBox={`0 0 ${width} ${height}`}>
-    <g bind:this={boundsElement} transform={transforms.gTransform ?? ''}>
-      {#each descendants as { x: y, y: x, xSize, ySize }, key (key)}
-        <SVGTreeNode {x} {y} width={ySize} height={xSize} />
-      {/each}
-    </g>
-  </svg>
-  <div
-    class="pointer-events-none absolute left-0 top-0"
-    style={`transform: ${transforms.htmlTransform ?? ''};`}>
-    {#each descendants as { data, x: y, y: x, xSize, ySize }, key (key)}
-      <TreeNode {data} {x} {y} width={ySize} height={xSize} />
-    {/each}
-  </div>
+  <svg bind:this={svgElement} viewBox={`0 0 ${width} ${height}`} />
 </figure>
