@@ -15,43 +15,60 @@ jobs:
     env:
       VITE_MAPBOX_TOKEN: ${{ secrets.VITE_MAPBOX_TOKEN }}
     steps:
+      - uses: actions/cache@v3
+        id: check-cache
+        with:
+          lookup-only: true
+          path: dist
+          key: build-cache-${{ github.sha }}
+
       - name: Checkout
         uses: actions/checkout@v3
+        if: steps.check-cache.outputs.cache-hit != 'true'
         with:
           lfs: true
 
       - name: Install pnpm
+        if: steps.check-cache.outputs.cache-hit != 'true'
         run: |
           corepack enable
           corepack prepare pnpm@latest --activate
 
       - name: Install Node.js
+        if: steps.check-cache.outputs.cache-hit != 'true'
         uses: actions/setup-node@v3
         with:
           node-version: 18
           cache: pnpm
 
       - name: Install dependencies
+        if: steps.check-cache.outputs.cache-hit != 'true'
         run: pnpm install
 
       - name: Run code checks
+        if: steps.check-cache.outputs.cache-hit != 'true'
         run: |
           pnpm run lint
           pnpm run check
 
       - name: Run build script for test output
+        if: steps.check-cache.outputs.cache-hit != 'true'
         run: pnpm run build
         env:
           THUMBNAIL_DATA_TYPE: datauri
 
       - name: Cache build output
+        if: steps.check-cache.outputs.cache-hit != 'true'
         id: cache-build
         uses: actions/cache/save@v3
         with:
-          path: dist
+          path: |
+            dist
+            .svelte-kit
           key: build-cache-${{ github.sha }}
 
       - name: Run unit tests
+        if: steps.check-cache.outputs.cache-hit != 'true'
         run: pnpm run test:unit
   snapshot_test:
     name: Snapshot testing
@@ -91,14 +108,10 @@ jobs:
         id: restore-build-cache
         uses: actions/cache/restore@v3
         with:
-          path: dist
+          path: |
+            dist
+            .svelte-kit
           key: build-cache-${{ github.sha }}
-
-      - name: Re-build if needed
-        if: steps.restore-build-cache.outputs.cache-hit != 'true'
-        run: pnpm run build
-        env:
-          THUMBNAIL_DATA_TYPE: datauri
 
       - name: Get Playwright version
         id: playwright-version
