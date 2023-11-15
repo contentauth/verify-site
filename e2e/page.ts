@@ -138,7 +138,6 @@ export class VerifyPage {
     await manifestDataLoc.waitFor();
     expect(await manifestDataLoc.count()).toBe(1);
     const hasManifest = await manifestDataLoc.getAttribute('data-has-manifest');
-    console.log('hasManifest', hasManifest);
     expect(hasManifest).toMatch(/^(true|false)$/);
 
     if (hasManifest === 'true') {

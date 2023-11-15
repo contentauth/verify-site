@@ -31,7 +31,7 @@
     "@axe-core/playwright": "^4.7.3",
     "@fullhuman/postcss-purgecss": "^4.0.3",
     "@interactjs/types": "^1.10.19",
-    "@percy/cli": "^1.27.2",
+    "@percy/cli": "^1.27.4",
     "@percy/core": "^1.27.2",
     "@percy/playwright": "^1.0.4",
     "@playwright/test": "^1.39.0",
