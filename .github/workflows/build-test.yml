@@ -5,16 +5,14 @@ on:
     branches:
       - main
   pull_request:
-    types: [opened, synchronize]
+    types: [opened, labeled, ready_for_review]
 
 jobs:
-  build-test:
-    name: Build and test
+  build:
+    name: Build
     runs-on: ubuntu-latest
     timeout-minutes: 60
     env:
-      PERCY_POSTINSTALL_BROWSER: true
-      PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
       VITE_MAPBOX_TOKEN: ${{ secrets.VITE_MAPBOX_TOKEN }}
     steps:
       - name: Checkout
@@ -41,6 +39,67 @@ jobs:
           pnpm run lint
           pnpm run check
 
+      - name: Run build script for test output
+        run: pnpm run build
+        env:
+          THUMBNAIL_DATA_TYPE: datauri
+
+      - name: Cache build output
+        id: cache-build
+        uses: actions/cache/save@v3
+        with:
+          path: dist
+          key: build-cache-${{ github.sha }}
+
+      - name: Run unit tests
+        run: pnpm run test:unit
+  snapshot_test:
+    name: Snapshot testing
+    needs: build
+    runs-on: ubuntu-latest
+    # Run if:
+    # - we open up a pull request that's not a draft
+    # - we mark a pull request as ready for review
+    # - we label a pull request with
+    if: ${{ !github.event.pull_request.draft && github.event.action == 'opened' || github.event.action == 'ready_for_review' || github.event.action == 'labeled' && github.event.label == vars.SNAPSHOT_TRIGGER_LABEL }}
+    timeout-minutes: 60
+    env:
+      PERCY_POSTINSTALL_BROWSER: true
+      PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+      VITE_MAPBOX_TOKEN: ${{ secrets.VITE_MAPBOX_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          lfs: true
+
+      - name: Install pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Restore build cache
+        id: restore-build-cache
+        uses: actions/cache/restore@v3
+        with:
+          path: dist
+          key: build-cache-${{ github.sha }}
+
+      - name: Re-build if needed
+        if: steps.restore-build-cache.outputs.cache-hit != 'true'
+        run: pnpm run build
+        env:
+          THUMBNAIL_DATA_TYPE: datauri
+
       - name: Get Playwright version
         id: playwright-version
         run: |
@@ -63,16 +122,12 @@ jobs:
         if: steps.cache-playwright-browsers.outputs.cache-hit == 'true'
         run: npx playwright install
 
-      - name: Run build script for test output
-        run: pnpm run build
-        env:
-          THUMBNAIL_DATA_TYPE: datauri
-
-      - name: Run unit tests
-        run: pnpm run test:unit
-
       - name: Run end-to-end tests
         run: npx percy exec -- playwright test
+
+      - uses: actions-ecosystem/action-remove-labels@v1
+        with:
+          labels: ${{ vars.SNAPSHOT_TRIGGER_LABEL }}
 
       - name: Upload Playwright trace
         uses: actions/upload-artifact@v3
