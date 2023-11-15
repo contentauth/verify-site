@@ -77,7 +77,7 @@ jobs:
     # Run if:
     # - we open up a pull request that's not a draft
     # - we mark a pull request as ready for review
-    # - we label a pull request with
+    # - we label a pull request with the snapshot requested tag
     if: ${{ !github.event.pull_request.draft && github.event.action == 'opened' || github.event.action == 'ready_for_review' || github.event.action == 'labeled' && github.event.label == vars.SNAPSHOT_TRIGGER_LABEL }}
     timeout-minutes: 60
     env:
