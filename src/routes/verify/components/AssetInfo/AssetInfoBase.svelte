@@ -16,11 +16,11 @@
   import L1Incomplete from '$assets/svg/color/cr-icon-incomplete.svg?component';
   import L1Invalid from '$assets/svg/color/cr-icon-invalid.svg?component';
   import L1Icon from '$assets/svg/monochrome/cr-icon.svg?component';
-  import FormattedDateTime from '$src/components/FormattedDateTime/FormattedDateTime.svelte';
   import Body from '$src/components/typography/Body.svelte';
   import Truncate from '$src/components/typography/Truncate.svelte';
   import type { AssetData } from '$src/lib/asset';
   import { _ } from 'svelte-i18n';
+  import AssetInfoIssuer from './AssetInfoIssuer.svelte';
 
   export let assetData: AssetData;
   export let hideThumbnail = false;
@@ -30,6 +30,8 @@
     !!assetData.manifestData?.signatureInfo?.cert_serial_number;
   $: date = assetData.manifestData?.date;
   $: issuer = assetData.manifestData?.signatureInfo?.issuer;
+
+  console.log('this', date);
 </script>
 
 <div class="flex min-w-0 items-center">
@@ -50,12 +52,10 @@
           width="1rem"
           height="1rem"
           class="me-1.5 h-4 w-4 text-gray-900" />
-        <Truncate
-          ><Body
-            >{#if date}<span data-testid="signedOn" class="text-gray-900"
-                ><FormattedDateTime {date} noTime /></span
-              >{:else}<span class="text-gray-900">{issuer}</span>{/if}</Body
-          ></Truncate>
+        <Truncate>
+          {#if date}<slot name="date" />{:else}<Body
+              ><AssetInfoIssuer {issuer} /></Body
+            >{/if}</Truncate>
       {:else if statusCode === 'incomplete'}
         <L1Incomplete
           width="1.25rem"

@@ -15,12 +15,16 @@
 <script lang="ts">
   import Body from '$src/components/typography/Body.svelte';
   import type { AssetData } from '$src/lib/asset';
+  import AssetInfoDate from './AssetInfoDate.svelte';
   import AssetInfoThumbnailBase from './AssetInfoThumbnailBase.svelte';
 
   export let assetData: AssetData;
   export let highlighted = false;
+  $: date = assetData.manifestData?.date;
 </script>
 
 <AssetInfoThumbnailBase {assetData} {highlighted}>
   <Body slot="name"><slot name="name" /></Body>
+  <Body slot="date"
+    >{#if date}<AssetInfoDate {date} />{/if}</Body>
 </AssetInfoThumbnailBase>
