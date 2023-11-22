@@ -1,16 +1,80 @@
 name: build-test
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
-    types: [opened, synchronize]
+    types: [opened, synchronize, labeled, ready_for_review]
 
 jobs:
-  build-test:
-    name: Build and test
+  build:
+    name: Build
     runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      VITE_MAPBOX_TOKEN: ${{ secrets.VITE_MAPBOX_TOKEN }}
+    steps:
+      - uses: actions/cache@v3
+        id: check-cache
+        with:
+          lookup-only: true
+          path: dist
+          key: build-cache-${{ github.sha }}
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        if: steps.check-cache.outputs.cache-hit != 'true'
+        with:
+          lfs: true
+
+      - name: Install pnpm
+        if: steps.check-cache.outputs.cache-hit != 'true'
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
+
+      - name: Install Node.js
+        if: steps.check-cache.outputs.cache-hit != 'true'
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: pnpm
+
+      - name: Install dependencies
+        if: steps.check-cache.outputs.cache-hit != 'true'
+        run: pnpm install
+
+      - name: Run code checks
+        if: steps.check-cache.outputs.cache-hit != 'true'
+        run: |
+          pnpm run lint
+          pnpm run check
+
+      - name: Run build script for test output
+        if: steps.check-cache.outputs.cache-hit != 'true'
+        run: pnpm run build
+        env:
+          THUMBNAIL_DATA_TYPE: datauri
+
+      - name: Cache build output
+        if: steps.check-cache.outputs.cache-hit != 'true'
+        id: cache-build
+        uses: actions/cache/save@v3
+        with:
+          path: |
+            dist
+            .svelte-kit
+          key: build-cache-${{ github.sha }}
+
+      - name: Run unit tests
+        if: steps.check-cache.outputs.cache-hit != 'true'
+        run: pnpm run test:unit
+  snapshot_test:
+    name: Snapshot testing
+    needs: build
+    runs-on: ubuntu-latest
+    # Run if:
+    # - we open up a pull request that's not a draft
+    # - we mark a pull request as ready for review
+    # - we label a pull request with the snapshot requested tag
     timeout-minutes: 60
     env:
       PERCY_POSTINSTALL_BROWSER: true
@@ -36,10 +100,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Run code checks
-        run: |
-          pnpm run lint
-          pnpm run check
+      - name: Restore build cache
+        id: restore-build-cache
+        uses: actions/cache/restore@v3
+        with:
+          path: |
+            dist
+            .svelte-kit
+          key: build-cache-${{ github.sha }}
 
       - name: Get Playwright version
         id: playwright-version
@@ -63,16 +131,12 @@ jobs:
         if: steps.cache-playwright-browsers.outputs.cache-hit == 'true'
         run: npx playwright install
 
-      - name: Run build script for test output
-        run: pnpm run build
-        env:
-          THUMBNAIL_DATA_TYPE: datauri
-
-      - name: Run unit tests
-        run: pnpm run test:unit
-
       - name: Run end-to-end tests
         run: npx percy exec -- playwright test
+
+      - uses: actions-ecosystem/action-remove-labels@v1
+        with:
+          labels: ${{ vars.SNAPSHOT_TRIGGER_LABEL }}
 
       - name: Upload Playwright trace
         uses: actions/upload-artifact@v3

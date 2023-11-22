@@ -219,5 +219,211 @@ export default {
         ],
       },
     },
+    'review-ratings': {
+      image: { r: 218, g: 218, b: 12, width: 500, height: 300 },
+      manifest: {
+        title: 'review-ratings.jpg',
+        claim_generator: 'test-image-service',
+        format: 'image/jpeg',
+        instance_id: 'xmp:iid:61f7ffbf-2fdc-4c3f-9e5c-4a6591ac809c',
+        assertions: [
+          {
+            label: 'c2pa.actions',
+            data: {
+              actions: [
+                {
+                  action: 'c2pa.created',
+                  digitalSourceType:
+                    'https://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia',
+                  softwareAgent: 'Adobe Firefly',
+                },
+              ],
+              metadata: {
+                reviewRatings: [
+                  {
+                    code: 'com.adobe.enabledCAI',
+                    explanation: 'Photoshop specific review',
+                    value: 5,
+                  },
+                  {
+                    code: 'actions.unknownActionsPerformed',
+                    explanation: 'CAI was enabled while editing',
+                    value: 4,
+                  },
+                ],
+              },
+            },
+          },
+        ],
+      },
+    },
+    'adobe-stock': {
+      image: { r: 98, g: 98, b: 98, width: 500, height: 300 },
+      manifest: {
+        title: 'adobe-stock.jpg',
+        claim_generator: 'Adobe_Stock adobe_c2pa/0.7.7 c2pa-rs/0.25.2',
+        format: 'image/jpeg',
+        assertions: [
+          {
+            label: 'stds.schema-org.CreativeWork',
+            data: {
+              '@context': 'https://schema.org',
+              '@type': 'CreativeWork',
+              url: 'https://stock.adobe.com/647059723',
+            },
+          },
+          {
+            label: 'adobe.dictionary',
+            data: {
+              url: 'https://cai-assertions.adobe.com/stock/dictionary.json',
+            },
+          },
+          {
+            label: 'c2pa.actions',
+            data: {
+              actions: [
+                {
+                  action: 'adobe.delivered',
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    'kitchen-sink': {
+      image: { r: 6, g: 214, b: 78, width: 500, height: 300 },
+      manifest: {
+        title: 'test-image.jpg',
+        claim_generator: 'test-image-service',
+        format: 'image/jpeg',
+        assertions: [
+          {
+            label: 'adobe.crypto.addresses',
+            data: {
+              ethereum: ['0x12558883cd468e515145db5e7a412d63b763949d'],
+              solana: ['0x12558883cd468e515145db5e7a412d63b763949d'],
+            },
+          },
+          {
+            label: 'stds.schema-org.CreativeWork',
+            data: {
+              '@context': 'https://schema.org',
+              '@type': 'CreativeWork',
+              author: [
+                {
+                  '@type': 'Person',
+                  credential: [
+                    {
+                      alg: 'sha256',
+                      hash: [
+                        86, 41, 219, 71, 195, 159, 32, 172, 102, 204, 254, 144,
+                        21, 63, 103, 49, 64, 251, 79, 80, 207, 131, 12, 79, 164,
+                        204, 93, 39, 194, 227, 5, 201,
+                      ],
+                      url: 'self#jumbf=/c2pa/adobe:urn:uuid:c5a3bba2-634f-4ff5-959b-680c586994d2/c2pa.credentials/did:adobe:f50f50a1f6cc5ef5b5cb51a5c457fb4537b274351e40cf1d2bdf5d3f45b1d9d69',
+                    },
+                  ],
+                  identifier:
+                    'did:adobe:f50f50a1f6cc5ef5b5cb51a5c457fb4537b274351e40cf1d2bdf5d3f45b1d9d69',
+                  name: 'Foo Bar',
+                },
+                {
+                  '@id': 'https://www.behance.net/foobar',
+                  '@type': 'Person',
+                  identifier:
+                    'did:adobe:f50f50a1f6cc5ef5b5cb51a5c457fb4537b274351e40cf1d2bdf5d3f45b1d9d69',
+                  name: 'Foo Bar1234567890123456789012345678901234567890',
+                },
+                {
+                  '@id': 'https://www.instagram.com/foobar',
+                  '@type': 'Person',
+                  identifier:
+                    'did:adobe:f50f50a1f6cc5ef5b5cb51a5c457fb4537b274351e40cf1d2bdf5d3f45b1d9d69',
+                  name: 'foobarbaz',
+                },
+                {
+                  '@id': 'https://www.linkedin.com/in/foobar',
+                  '@type': 'Person',
+                  identifier:
+                    'did:adobe:f50f50a1f6cc5ef5b5cb51a5c457fb4537b274351e40cf1d2bdf5d3f45b1d9d69',
+                  name: 'Foo Bar',
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    'legacy-trained-algorithmic-media': {
+      image: { r: 173, g: 148, b: 10, width: 500, height: 300 },
+      manifest: {
+        title: 'test-image.jpg',
+        claim_generator: 'test-image-service',
+        format: 'image/jpeg',
+        assertions: [
+          {
+            label: 'com.adobe.generative-ai',
+            data: {
+              description: 'Some AI tool',
+              version: '1.0.0',
+            },
+          },
+        ],
+      },
+    },
+    'v1-actions-trained-algorithmic-media': {
+      image: { r: 173, g: 148, b: 10, width: 500, height: 300 },
+      manifest: {
+        title: 'test-image.jpg',
+        claim_generator: 'test-image-service',
+        format: 'image/jpeg',
+        assertions: [
+          {
+            label: 'c2pa.actions',
+            data: {
+              actions: [
+                {
+                  action: 'c2pa.placed',
+                  digitalSourceType:
+                    'http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia',
+                  parameters: {
+                    'com.adobe.icon':
+                      'https://cai-assertions.adobe.com/icons/save-to-light-dark.svg',
+                    'com.adobe.tool': 'generative_fill',
+                    description: 'Added pre-existing content to this file',
+                    instanceId: 'xmp:iid:23c849a4-6d5c-47ef-895c-09f37274953a',
+                  },
+                  softwareAgent: 'Adobe Firefly',
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    'v1-actions-composite-algorithmic-media': {
+      image: { r: 173, g: 148, b: 10, width: 500, height: 300 },
+      manifest: {
+        title: 'test-image.jpg',
+        claim_generator: 'test-image-service',
+        format: 'image/jpeg',
+        assertions: [
+          {
+            label: 'c2pa.actions',
+            data: {
+              actions: [
+                {
+                  action: 'c2pa.edited',
+                  digitalSourceType:
+                    'https://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia',
+                  softwareAgent: 'Adobe Firefly',
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
   },
 } satisfies C2paTestImageServiceConfig;
