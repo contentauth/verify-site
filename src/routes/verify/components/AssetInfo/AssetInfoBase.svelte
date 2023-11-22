@@ -30,8 +30,6 @@
     !!assetData.manifestData?.signatureInfo?.cert_serial_number;
   $: date = assetData.manifestData?.date;
   $: issuer = assetData.manifestData?.signatureInfo?.issuer;
-
-  console.log('this', date);
 </script>
 
 <div class="flex min-w-0 items-center">

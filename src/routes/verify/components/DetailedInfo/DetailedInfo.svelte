@@ -49,7 +49,6 @@
   $: manifestData = isValid ? $assetData.manifestData : null;
   $: title = $assetData.title ?? $_('asset.defaultTitle');
 
-  console.log('date', $assetData);
   const dispatch = createEventDispatcher();
   const { hierarchyView } = verifyStore;
 
