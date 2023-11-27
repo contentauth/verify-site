@@ -20,7 +20,6 @@
   import Truncate from '$src/components/typography/Truncate.svelte';
   import type { AssetData } from '$src/lib/asset';
   import { _ } from 'svelte-i18n';
-  import AssetInfoIssuer from './AssetInfoIssuer.svelte';
 
   export let assetData: AssetData;
   export let hideThumbnail = false;
@@ -52,8 +51,8 @@
           class="me-1.5 h-4 w-4 text-gray-900" />
         <Truncate>
           {#if date}<slot name="date" />{:else}<Body
-              ><AssetInfoIssuer {issuer} /></Body
-            >{/if}</Truncate>
+              >{issuer}
+            </Body>{/if}</Truncate>
       {:else if statusCode === 'incomplete'}
         <L1Incomplete
           width="1.25rem"

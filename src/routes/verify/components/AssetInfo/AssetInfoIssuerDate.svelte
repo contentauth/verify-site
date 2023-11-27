@@ -17,7 +17,6 @@
   import type { ManifestData } from '$src/lib/asset';
   import { _ } from 'svelte-i18n';
   import AssetInfoDate from './AssetInfoDate.svelte';
-  import AssetInfoIssuer from './AssetInfoIssuer.svelte';
 
   export let manifestData: ManifestData | null;
   $: date = manifestData?.date;
@@ -26,7 +25,7 @@
 
 <Description>
   {$_('sidebar.verify.about.issuedby')}
-  <AssetInfoIssuer {issuer} />
+  {issuer}
   {#if date}
     {$_('sidebar.verify.asset.date.on')} <AssetInfoDate {date} />{/if}
 </Description>

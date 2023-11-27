@@ -21,10 +21,14 @@
   export let assetData: AssetData;
   export let highlighted = false;
   $: date = assetData.manifestData?.date;
+
+  console.log('small', date);
 </script>
 
 <AssetInfoThumbnailBase {assetData} {highlighted}>
   <Body slot="name"><slot name="name" /></Body>
-  <Body slot="date"
-    >{#if date}<AssetInfoDate {date} />{/if}</Body>
+
+  <Body slot="date">
+    {#if date}
+      <AssetInfoDate {date} />{/if}</Body>
 </AssetInfoThumbnailBase>

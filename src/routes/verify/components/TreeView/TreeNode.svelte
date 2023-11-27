@@ -79,8 +79,8 @@
   <div class="pt-2" style:width={`${width}px`} aria-label={ariaLabel}>
     <AssetInfoBase assetData={$assetStore}>
       <Body slot="name"><span {title}>{title}</span></Body>
-      <Body slot="date"
-        >{#if date}<AssetInfoDate {date} />{/if}</Body>
+      {#if date}
+        <Body slot="date"><AssetInfoDate {date} /></Body>{/if}
     </AssetInfoBase>
   </div>
 </button>
