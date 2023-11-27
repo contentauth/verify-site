@@ -13,7 +13,6 @@
   from Adobe.
 -->
 <script lang="ts">
-  import Body from '$src/components/typography/Body.svelte';
   import type { HierarchyPointNode } from 'd3-hierarchy';
   import { _ } from 'svelte-i18n';
   import { get } from 'svelte/store';
@@ -21,7 +20,7 @@
     ReadableAssetData,
     ReadableAssetStore,
   } from '../../stores/asset';
-  import AssetInfoBase from '../AssetInfo/AssetInfoBase.svelte';
+
   import TreeThumbnail from '../Thumbnail/TreeThumbnail.svelte';
 
   export let assetStore: ReadableAssetStore;
@@ -65,7 +64,7 @@
   role="treeitem"
   aria-selected={$assetStore.state === 'selected' ? 'true' : 'false'}
   data-testid={`tree-node-${$assetStore.id}`}
-  class="absolute left-0 top-0 flex flex-col overflow-hidden rounded border-2 bg-white transition-all focus:shadow motion-reduce:transition-none"
+  class="absolute left-0 top-0 flex flex-col overflow-hidden rounded border-2 bg-gray-40 transition-all focus:shadow motion-reduce:transition-none"
   on:keypress={handleKeyPress($assetStore.select)}
   class:border-gray-400={$assetStore.state === 'none'}
   class:border-gray-700={$assetStore.state === 'path'}
@@ -74,9 +73,9 @@
   <TreeThumbnail
     thumbnail={$assetStore.thumbnail}
     mimeType={$assetStore.mimeType} />
-  <div class="pt-2" style:width={`${width}px`} aria-label={ariaLabel}>
-    <AssetInfoBase assetData={$assetStore}>
+  <div aria-label={ariaLabel}>
+    <!-- <AssetInfoBase assetData={$assetStore}>
       <Body slot="name"><span {title}>{title}</span></Body>
-    </AssetInfoBase>
+    </AssetInfoBase> -->
   </div>
 </button>

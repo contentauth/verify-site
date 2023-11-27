@@ -20,6 +20,6 @@
   export let mimeType: string;
 </script>
 
-<div class="h-[6.5rem] w-full bg-gray-100">
-  <ThumbnailImage {thumbnail} {mimeType} fillMode="cover" />
+<div class="h-full w-full">
+  <ThumbnailImage {thumbnail} {mimeType} fillMode="contain" />
 </div>
