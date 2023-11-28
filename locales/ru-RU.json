@@ -117,6 +117,7 @@
   "sidebar.verify.compare.slider": "Ползунок",
   "sidebar.verify.compare.view.ariaLabel": "{primaryTitle} и {secondaryTitle} сравниваются",
   "sidebar.verify.compare": "Сравнить",
+  "sidebar.verify.asset.date.on": "on",
   "sidebar.verify.credit.AI.description": "Не использовать мой контент для обучения моделей ИИ",
   "sidebar.verify.credit.AI": "Используемый инструмент ИИ",
   "sidebar.verify.credit.description": "Автор поделился следующей информацией:",

@@ -117,6 +117,7 @@
   "sidebar.verify.compare.slider": "Controle deslizante",
   "sidebar.verify.compare.view.ariaLabel": "{primaryTitle} e {secondaryTitle} estão sendo comparados",
   "sidebar.verify.compare": "Comparar",
+  "sidebar.verify.asset.date.on": "on",
   "sidebar.verify.credit.AI.description": "Não usar meu conteúdo para treinar modelos de IA",
   "sidebar.verify.credit.AI": "Ferramenta de IA usada",
   "sidebar.verify.credit.description": "O produtor optou por compartilhar as seguintes informações:",

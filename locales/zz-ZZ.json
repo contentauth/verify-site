@@ -117,6 +117,7 @@
   "sidebar.verify.compare.slider": "[Bp] _üSlider",
   "sidebar.verify.compare.view.ariaLabel": "[CU] _ü{primaryTitle} and {secondaryTitle} are being compared",
   "sidebar.verify.compare": "[Bk] _üCompare",
+  "sidebar.verify.asset.date.on": "[Cw] _üon",
   "sidebar.verify.credit.AI.description": "[1] _üDo not use my content to train AI models",
   "sidebar.verify.credit.AI": "[0] _üAI tool used",
   "sidebar.verify.credit.description": "[2] _üThe producer chose to share the following info:",

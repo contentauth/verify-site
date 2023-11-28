@@ -117,6 +117,7 @@
   "sidebar.verify.compare.slider": "Regulador",
   "sidebar.verify.compare.view.ariaLabel": "Se están comparando {primaryTitle} y {secondaryTitle}",
   "sidebar.verify.compare": "Comparar",
+  "sidebar.verify.asset.date.on": "on",
   "sidebar.verify.credit.AI.description": "No usar mi contenido para entrenar modelos de IA",
   "sidebar.verify.credit.AI": "Herramienta de IA utilizada",
   "sidebar.verify.credit.description": "El productor ha elegido compartir la siguiente información:",
