@@ -13,7 +13,7 @@
   from Adobe.
 -->
 <script lang="ts">
-  import L1Icon from '$assets/svg/monochrome/cr-icon-white-fill.svg';
+  import L1Icon from '$assets/svg/color/cr-icon-white-fill.svg?component';
   import type { HierarchyPointNode } from 'd3-hierarchy';
   import { _ } from 'svelte-i18n';
   import { get } from 'svelte/store';
@@ -76,17 +76,11 @@
     mimeType={$assetStore.mimeType} />
   <div
     aria-label={ariaLabel}
-    class="absolute ms-2 mt-2 flex items-center rounded-full bg-white pe-2 ps-0.5 pt-0.5 shadow-md"
-    class:bg-transparent={removeL1}
-    class:shadow-none={removeL1}
+    class="rounded-ful absolute ms-2 mt-2 flex items-center pe-2 ps-0.5 pt-0.5"
+    class:bg-white={!removeL1}
+    class:shadow-md={!removeL1}
     class:rounded-none={removeL1}>
-    <img
-      src={L1Icon}
-      alt=""
-      width="1rem"
-      height="1rem"
-      class="me-2 h-4 w-4 text-gray-900" />
-    <!-- <L1Icon width="1rem" height="1rem" class="me-2 h-4 w-4 text-gray-900" /> -->
+    <L1Icon width="1rem" height="1rem" class="me-2 h-4 w-4 text-gray-900" />
     <span class="text-body text-gray-900" class:hidden={removeL1}
       >Mar 1, 2022</span>
   </div>
