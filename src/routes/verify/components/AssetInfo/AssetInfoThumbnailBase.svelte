@@ -29,5 +29,5 @@
     {highlighted}
     slot="thumbnail" />
   <slot slot="name" name="name" />
-  <slot slot="date" name="date" />
+  <slot slot="CRInfo" name="CRInfo" />
 </AssetInfoBase>

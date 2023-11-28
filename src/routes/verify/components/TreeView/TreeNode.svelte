@@ -53,6 +53,7 @@
     values: { title, hasContentCredentials, parentLabel },
   });
   $: date = $assetStore.manifestData?.date;
+  $: issuer = $assetStore.manifestData?.signatureInfo?.issuer;
 
   function handleKeyPress(onKeyPress: ReadableAssetData['select']) {
     return (evt: KeyboardEvent) => {
@@ -79,8 +80,10 @@
   <div class="pt-2" style:width={`${width}px`} aria-label={ariaLabel}>
     <AssetInfoBase assetData={$assetStore}>
       <Body slot="name"><span {title}>{title}</span></Body>
-      {#if date}
-        <Body slot="date"><AssetInfoDate {date} /></Body>{/if}
+
+      <Body slot="CRInfo">
+        {#if date}<AssetInfoDate {date} />{:else}
+          {issuer}{/if}</Body>
     </AssetInfoBase>
   </div>
 </button>

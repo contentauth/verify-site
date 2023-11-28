@@ -16,7 +16,6 @@
   import FormattedDateTime from '$src/components/FormattedDateTime/FormattedDateTime.svelte';
 
   export let date: Date;
-  console.log('date2', date);
 </script>
 
 <span data-testid="signedOn"><FormattedDateTime {date} noTime /></span>

@@ -23,5 +23,5 @@
 
 <AssetInfoThumbnailBase {assetData} {hideThumbnail}>
   <Header slot="name"><slot name="name" /></Header>
-  <slot slot="date" name="date" />
+  <slot slot="CRInfo" name="CRInfo" />
 </AssetInfoThumbnailBase>

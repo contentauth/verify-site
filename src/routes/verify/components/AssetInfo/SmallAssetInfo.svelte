@@ -21,14 +21,13 @@
   export let assetData: AssetData;
   export let highlighted = false;
   $: date = assetData.manifestData?.date;
-
-  console.log('small', date);
+  $: issuer = assetData.manifestData?.signatureInfo?.issuer;
 </script>
 
 <AssetInfoThumbnailBase {assetData} {highlighted}>
   <Body slot="name"><slot name="name" /></Body>
 
-  <Body slot="date">
+  <Body slot="CRInfo">
     {#if date}
-      <AssetInfoDate {date} />{/if}</Body>
+      <AssetInfoDate {date} />{:else}{issuer}{/if}</Body>
 </AssetInfoThumbnailBase>

@@ -27,8 +27,6 @@
   $: statusCode = assetData.validationResult?.statusCode;
   $: hasCredentials =
     !!assetData.manifestData?.signatureInfo?.cert_serial_number;
-  $: date = assetData.manifestData?.date;
-  $: issuer = assetData.manifestData?.signatureInfo?.issuer;
 </script>
 
 <div class="flex min-w-0 items-center">
@@ -50,9 +48,8 @@
           height="1rem"
           class="me-1.5 h-4 w-4 text-gray-900" />
         <Truncate>
-          {#if date}<slot name="date" />{:else}<Body
-              >{issuer}
-            </Body>{/if}</Truncate>
+          <slot name="CRInfo" />
+        </Truncate>
       {:else if statusCode === 'incomplete'}
         <L1Incomplete
           width="1.25rem"
