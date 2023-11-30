@@ -117,7 +117,7 @@
   "sidebar.verify.compare.slider": "Liukusäädin",
   "sidebar.verify.compare.view.ariaLabel": "{primaryTitle} ja {secondaryTitle} ovat vertailussa.",
   "sidebar.verify.compare": "Vertaa",
-  "sidebar.verify.asset.date.on": "on",
+  "sidebar.verify.asset.date.on": " ",
   "sidebar.verify.credit.AI.description": "Älä käytä sisältöjäni AI-mallien kouluttamiseen",
   "sidebar.verify.credit.AI": "Käytetty tekoälytyökalu",
   "sidebar.verify.credit.description": "Tuottaja päätti jakaa seuraavat tiedot:",

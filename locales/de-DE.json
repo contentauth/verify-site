@@ -117,7 +117,7 @@
   "sidebar.verify.compare.slider": "Schieberegler",
   "sidebar.verify.compare.view.ariaLabel": "{primaryTitle} und {secondaryTitle} werden verglichen",
   "sidebar.verify.compare": "Vergleichen",
-  "sidebar.verify.asset.date.on": "on",
+  "sidebar.verify.asset.date.on": "am",
   "sidebar.verify.credit.AI.description": "Verwenden Sie meine Inhalte nicht zum Trainieren von KI-Modellen",
   "sidebar.verify.credit.AI": "Verwendetes KI-Tool",
   "sidebar.verify.credit.description": "Der Produzent hat beschlossen, die folgenden Informationen zu teilen:",

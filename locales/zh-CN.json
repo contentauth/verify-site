@@ -117,7 +117,7 @@
   "sidebar.verify.compare.slider": "滑块",
   "sidebar.verify.compare.view.ariaLabel": "正在比较 {primaryTitle} 和 {secondaryTitle}",
   "sidebar.verify.compare": "比较",
-  "sidebar.verify.asset.date.on": "on",
+  "sidebar.verify.asset.date.on": "上的",
   "sidebar.verify.credit.AI.description": "不要使用我的内容来训练人工智能模型",
   "sidebar.verify.credit.AI": "所使用的 AI 工具",
   "sidebar.verify.credit.description": "制作者已选择共享以下信息：",
