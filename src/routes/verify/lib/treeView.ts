@@ -138,7 +138,7 @@ export function calculateTransforms({
   const tx = boundsTransform?.x ?? 0;
   const ty = boundsTransform?.y ?? 0;
   const scale = boundsTransform?.k ?? 0;
-  const minScale = getMinScale(boundsElement, margin, width, height);
+  const minScale = 0.0625;
 
   return {
     tx,
@@ -149,7 +149,7 @@ export function calculateTransforms({
     minScale,
     minZoomScale: getMinScale(boundsElement, margin, width, height / 2),
     canZoomIn: scale < 1,
-    canZoomOut: scale > minScale,
+    canZoomOut: scale > 0.0625,
   };
 }
 
@@ -190,9 +190,16 @@ interface ZoomInProps {
   zoom: ZoomBehavior<SVGElement, ReadableAssetStore>;
 }
 
-export function zoomIn({ svgSel, zoom }: ZoomInProps) {
+export function zoomIn({ svgSel, zoom }: ZoomInProps, currentScale: number) {
   analytics.track('treeViewZoom', { dir: 'in' });
-  zoom.scaleTo(svgSel.transition().duration(prefersReducedMotion ? 0 : 250), 1);
+  currentScale *= 2;
+  console.log('current in', currentScale);
+  zoom.scaleTo(
+    svgSel.transition().duration(prefersReducedMotion ? 0 : 250),
+    currentScale,
+  );
+
+  return currentScale;
 }
 
 interface ZoomOutProps extends ZoomInProps {
@@ -202,25 +209,26 @@ interface ZoomOutProps extends ZoomInProps {
   minZoomScale: number;
 }
 
-export function zoomOut({
-  svgSel,
-  zoom,
-  boundsElement,
-  width,
-  height,
-  minZoomScale,
-}: ZoomOutProps) {
+export function zoomOut(
+  { svgSel, zoom, boundsElement, width, height }: ZoomOutProps,
+  currentScale: number,
+) {
   analytics.track('treeViewZoom', { dir: 'out' });
   const sel = svgSel.transition().duration(prefersReducedMotion ? 0 : 250);
   const bbox = boundsElement.getBBox();
+  currentScale = currentScale / 2;
+  console.log('current', currentScale);
+
   sel.call(
     zoom.transform,
     zoomIdentity
       .translate(width / 2, height / 2)
-      .scale(minZoomScale)
+      .scale(currentScale)
       .translate(
         -(bbox.x * 2 + bbox.width) / 2,
         -(bbox.y * 6 + bbox.height) / 2,
       ),
   );
+
+  return currentScale;
 }

@@ -15,12 +15,19 @@
 <script lang="ts">
   import Body from '$src/components/typography/Body.svelte';
   import type { AssetData } from '$src/lib/asset';
+  import AssetInfoDate from './AssetInfoDate.svelte';
   import AssetInfoThumbnailBase from './AssetInfoThumbnailBase.svelte';
 
   export let assetData: AssetData;
   export let highlighted = false;
+  $: date = assetData.manifestData?.date;
+  $: issuer = assetData.manifestData?.signatureInfo?.issuer;
 </script>
 
 <AssetInfoThumbnailBase {assetData} {highlighted}>
   <Body slot="name"><slot name="name" /></Body>
+
+  <Body slot="CRInfo">
+    {#if date}
+      <AssetInfoDate {date} />{:else}{issuer}{/if}</Body>
 </AssetInfoThumbnailBase>

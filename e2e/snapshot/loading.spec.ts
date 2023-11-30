@@ -27,6 +27,7 @@ test.describe('Verify - loading states', () => {
     const verify = new VerifyPage(page);
     const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
     await verify.goto(source);
+    await verify.waitForActions();
     await verify.takeTallSnapshot(`result for CAICAI.jpg via source`);
   });
 
@@ -45,6 +46,7 @@ test.describe('Verify - loading states', () => {
     const verify = new VerifyPage(page);
     const source = VerifyPage.getFixtureUrl('fake-news.jpg', 'file');
     await verify.goto(source);
+    await verify.waitForActions();
     await verify.takeTallSnapshot(`result for fake-news.jpg via source`, {
       widths: [1280],
     });

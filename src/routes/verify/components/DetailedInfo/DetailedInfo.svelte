@@ -22,6 +22,7 @@
   import { openModal } from 'svelte-modals';
   import type { Readable } from 'svelte/store';
   import { verifyStore } from '../../stores';
+  import AssetInfoIssuerDate from '../AssetInfo/AssetInfoIssuerDate.svelte';
   import BigAssetInfo from '../AssetInfo/BigAssetInfo.svelte';
   import ErrorBanner from '../ErrorBanner/ErrorBanner.svelte';
   import ThumbnailSection from '../Thumbnail/ThumbnailSection.svelte';
@@ -102,7 +103,9 @@
   <div class="bg-gray-50 flex h-20 shrink-0 items-center justify-between px-6">
     {#if $assetData}
       <BigAssetInfo assetData={$assetData} hideThumbnail={hideHeaderThumbnail}>
-        <span slot="name" {title}>{title}</span></BigAssetInfo>
+        <span slot="name" {title}>{title}</span>
+        <AssetInfoIssuerDate {manifestData} slot="CRInfo" />
+      </BigAssetInfo>
     {/if}
     <button on:click={handleCloseClick} class="ms-2 shrink-0 sm:hidden">
       <img

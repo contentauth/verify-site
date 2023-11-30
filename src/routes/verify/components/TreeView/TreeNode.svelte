@@ -13,16 +13,13 @@
   from Adobe.
 -->
 <script lang="ts">
-  import L1Icon from '$assets/svg/color/cr-icon-white-fill.svg?component';
   import type { HierarchyPointNode } from 'd3-hierarchy';
-  import { _ } from 'svelte-i18n';
-  import { get } from 'svelte/store';
   import type {
     ReadableAssetData,
     ReadableAssetStore,
   } from '../../stores/asset';
-
   import TreeThumbnail from '../Thumbnail/TreeThumbnail.svelte';
+  import TreeAssetInfo from './TreeAssetInfo.svelte';
 
   export let assetStore: ReadableAssetStore;
   export let x: number;
@@ -30,28 +27,12 @@
   export let width: number;
   export let height: number;
   export let parent: HierarchyPointNode<ReadableAssetStore> | null;
+  export let transformScale: number;
 
   $: tx = x - width / 2;
   $: ty = y - height / 2;
   $: style = `width: ${width}px; height: ${height}px; transform: translate3d(${tx}px, ${ty}px, 0)`;
-  $: title = $assetStore.title ?? $_('asset.defaultTitle');
-  $: hasContentCredentials = $assetStore.manifestData
-    ? $_('page.verify.hasCC.date', {
-        values: { date: $assetStore.manifestData?.date },
-      })
-    : $_('sidebar.verify.noCC');
-  $: parentData = parent?.data ? get(parent?.data) : null;
-  $: parentTitle = parentData?.title;
-  $: parentLabel =
-    parent == null
-      ? $_('sidebar.verify.compare.root')
-      : $_('sidebar.verify.compare.child', {
-          values: { parentTitle },
-        });
-  $: ariaLabel = $_('page.verify.treeNode.ariaLabel', {
-    values: { title, hasContentCredentials, parentLabel },
-  });
-  $: removeL1 = true;
+
   function handleKeyPress(onKeyPress: ReadableAssetData['select']) {
     return (evt: KeyboardEvent) => {
       if (['Space', 'Enter'].includes(evt.code)) {
@@ -65,7 +46,7 @@
   role="treeitem"
   aria-selected={$assetStore.state === 'selected' ? 'true' : 'false'}
   data-testid={`tree-node-${$assetStore.id}`}
-  class="absolute left-0 top-0 flex flex-col overflow-hidden rounded border-2 bg-gray-40 transition-all focus:shadow motion-reduce:transition-none"
+  class="absolute left-0 top-0 flex flex-col overflow-hidden rounded-3xl border-8 bg-gray-40 transition-all focus:shadow motion-reduce:transition-none"
   on:keypress={handleKeyPress($assetStore.select)}
   class:border-gray-400={$assetStore.state === 'none'}
   class:border-gray-700={$assetStore.state === 'path'}
@@ -74,14 +55,5 @@
   <TreeThumbnail
     thumbnail={$assetStore.thumbnail}
     mimeType={$assetStore.mimeType} />
-  <div
-    aria-label={ariaLabel}
-    class="rounded-ful absolute ms-2 mt-2 flex items-center pe-2 ps-0.5 pt-0.5"
-    class:bg-white={!removeL1}
-    class:shadow-md={!removeL1}
-    class:rounded-none={removeL1}>
-    <L1Icon width="1rem" height="1rem" class="me-2 h-4 w-4 text-gray-900" />
-    <span class="text-body text-gray-900" class:hidden={removeL1}
-      >Mar 1, 2022</span>
-  </div>
+  <TreeAssetInfo {assetStore} {parent} {transformScale} />
 </button>

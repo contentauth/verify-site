@@ -46,8 +46,8 @@
   export let assetStoreMap: ReadableAssetMap;
   export let selectedAsset: Readable<AssetData>;
 
-  const nodeWidth = remToPx(10.25);
-  const nodeHeight = remToPx(10.25);
+  const nodeWidth = remToPx(64);
+  const nodeHeight = remToPx(64);
   const clickDistance = 10;
   const config: TreeViewConfig = {
     ...defaultConfig,
@@ -57,6 +57,7 @@
   let svgElement: SVGElement;
   let boundsElement: SVGGraphicsElement;
   let svgSel: SVGSelection;
+  let currentScale = 1;
   let width = 1;
   let height = 1;
   let boundsTransform: ZoomTransform;
@@ -130,7 +131,8 @@
           {y}
           width={nodeWidth}
           height={nodeHeight}
-          {parent} />
+          {parent}
+          transformScale={transforms.scale} />
       {/each}
     </div>
   </div>
@@ -143,7 +145,7 @@
         class:opacity-40={!transforms.canZoomIn}
         class:cursor-not-allowed={!transforms.canZoomIn}
         disabled={!transforms.canZoomIn}
-        on:click={() => zoomIn({ svgSel, zoom })}
+        on:click={() => (currentScale = zoomIn({ svgSel, zoom }, currentScale))}
         aria-roledescription={$_('page.verify.zoomIn')}
         data-testid="tree-zoom-in">
         <ZoomIn width="1rem" height="1rem" class="text-gray-800" />
@@ -157,14 +159,17 @@
         aria-roledescription={$_('page.verify.zoomOut')}
         data-testid="tree-zoom-out"
         on:click={() =>
-          zoomOut({
-            svgSel,
-            zoom,
-            boundsElement,
-            width,
-            height,
-            minZoomScale: transforms.minZoomScale,
-          })}>
+          (currentScale = zoomOut(
+            {
+              svgSel,
+              zoom,
+              boundsElement,
+              width,
+              height,
+              minZoomScale: transforms.minZoomScale,
+            },
+            currentScale,
+          ))}>
         <ZoomOut width="1rem" height="1rem" class="text-gray-800" />
       </button>
     </div>
