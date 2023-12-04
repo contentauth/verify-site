@@ -127,6 +127,17 @@ test.describe('Verify - assertion display', () => {
     });
   });
 
+  test('(XSS) image with a non-https website or social link should not render those values as interactive links', async ({
+    page,
+  }) => {
+    const verify = new VerifyPage(page);
+    const source = VerifyPage.getFixtureUrl('xss');
+    await verify.goto(source);
+    await verify.takeTallSnapshot(`result for XSS image`, {
+      widths: [1280],
+    });
+  });
+
   test('image without all other assertions should be displayed correctly', async ({
     page,
   }) => {
