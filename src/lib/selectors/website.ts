@@ -12,6 +12,7 @@
 // from Adobe.
 
 import type { Manifest } from 'c2pa';
+import { isSecureUrl } from '../url';
 
 declare module 'c2pa' {
   interface Reference {
@@ -33,13 +34,5 @@ export function selectWebsite(manifest: Manifest): string | null {
       .uri ??
     manifest.assertions.get('stds.schema-org.CreativeWork')[0]?.data.url;
 
-  if (site) {
-    const url = new URL(site);
-
-    if (url.protocol === 'https:' && url.hostname === 'stock.adobe.com') {
-      return site;
-    }
-  }
-
-  return null;
+  return site && isSecureUrl(site) ? site : null;
 }
