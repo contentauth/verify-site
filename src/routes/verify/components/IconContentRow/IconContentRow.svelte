@@ -14,7 +14,7 @@
 -->
 
 <div class="flex items-baseline gap-x-2">
-  <div class="relative top-0.5 shrink-0 empty:hidden">
+  <div class="relative top-0.5 w-4 shrink-0 empty:hidden">
     <slot name="icon" />
   </div>
 
