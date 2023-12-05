@@ -18503,7 +18503,7 @@ packages:
     dev: false
 
   file:etc/packages/c2pa-0.17.5.tgz:
-    resolution: {integrity: sha512-J2FijX0HqVDo9xRKclEWobmu9oQ9csnqSAzzLEXrA4HrOOCY1ZcXEaDLutpeqqzFOcsCXncnb6bw1gs/3aeFRg==, tarball: file:etc/packages/c2pa-0.17.5.tgz}
+    resolution: {integrity: sha512-7QEWMRXuFnz28buGeo+h2mOJLK48HywIN4xRNMyN3e/i6jvk0gC+8ISvpmCyT5wa/T64C4zsy0pLpjxfN7Jzzw==, tarball: file:etc/packages/c2pa-0.17.5.tgz}
     name: c2pa
     version: 0.17.5
     dependencies:
