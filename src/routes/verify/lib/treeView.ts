@@ -26,7 +26,6 @@ import type { ReadableAssetMap } from '../stores/hierarchyView';
 
 const { hierarchyView } = verifyStore;
 
-const hierarchy = get(hierarchyView);
 let assetStore: ReadableAssetData;
 let translateX = 0;
 let translateY = 0;
@@ -203,6 +202,8 @@ export function zoomIn(
   analytics.track('treeViewZoom', { dir: 'in' });
   const sel = svgSel.transition().duration(prefersReducedMotion ? 0 : 250);
 
+  const hierarchy = get(hierarchyView);
+
   if (hierarchy.state == 'success') {
     console.log('zoomin');
 
@@ -249,7 +250,10 @@ export function zoomOut(
   console.log('in zoom out');
   const sel = svgSel.transition().duration(prefersReducedMotion ? 0 : 250);
 
+  const hierarchy = get(hierarchyView);
+
   if (hierarchy.state == 'success') {
+    console.log('in zoom out state success');
     const selectedAssetStore = get(hierarchy.selectedAssetStore);
 
     descendants.map((descendant) => {
@@ -285,12 +289,11 @@ export function fitToScreen(
   const bbox = boundsElement.getBBox();
   const fitToSizeScale = Math.min(height / bbox.height, width / bbox.width);
   console.log('fitToSizeScale', fitToSizeScale);
-  const closest = [1, 0.5, 0.25, 0.125].reduce((a, b) => {
-    return Math.abs(b - fitToSizeScale) < Math.abs(a - fitToSizeScale) ? b : a;
-  });
-
-  currentScale = closest;
-
+  const zoomOptions = [1, 0.5, 0.25, 0.125];
+  const fitToScreenZoom = Math.max(
+    ...zoomOptions.filter((num) => num <= fitToSizeScale),
+  );
+  currentScale = fitToScreenZoom;
   sel.call(
     zoom.transform,
     zoomIdentity
