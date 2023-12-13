@@ -114,21 +114,21 @@
         class="h-[1.15rem] w-[1.15rem]"
         alt={$_('sidebar.verify.hideInfo')} /></button>
   </div>
-  {#if isIncomplete}
-    <ErrorBanner type="error"
-      ><Body><span class="text-white">{$_('error.incomplete')}</span></Body
-      ></ErrorBanner>
-  {/if}
-  {#if isInvalid}
-    <ErrorBanner type="error"
-      ><Body><span class="text-white">{$_('error.invalid')}</span></Body
-      ></ErrorBanner>
-  {:else if isUntrusted}
-    <ErrorBanner type="warning"
-      ><Body><span class="text-white">{$_('error.untrusted')}</span></Body
-      ></ErrorBanner>
-  {/if}
 </div>
+{#if isIncomplete}
+  <ErrorBanner type="info"
+    ><Body><span class="text-white">{$_('error.incomplete')}</span></Body
+    ></ErrorBanner>
+{/if}
+{#if isInvalid}
+  <ErrorBanner type="error"
+    ><Body><span class="text-white">{$_('error.invalid')}</span></Body
+    ></ErrorBanner>
+{:else if isUntrusted}
+  <ErrorBanner type="warning"
+    ><Body><span class="text-white">{$_('error.untrusted')}</span></Body
+    ></ErrorBanner>
+{/if}
 <div bind:this={thumbnailElement}>
   <ThumbnailSection
     thumbnail={$assetData.thumbnail}
