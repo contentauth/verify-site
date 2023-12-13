@@ -15,6 +15,7 @@
 
 <script lang="ts">
   import Compare from '$assets/svg/monochrome/compare.svg?component';
+  import FitToScreen from '$assets/svg/monochrome/maximize.svg?component';
   import ZoomIn from '$assets/svg/monochrome/zoom-in.svg?component';
   import ZoomOut from '$assets/svg/monochrome/zoom-out.svg?component';
   import Body from '$src/components/typography/Body.svelte';
@@ -30,6 +31,7 @@
     createLinks,
     createTree,
     defaultConfig,
+    fitToScreen,
     remToPx,
     zoomIn,
     zoomOut,
@@ -46,8 +48,8 @@
   export let assetStoreMap: ReadableAssetMap;
   export let selectedAsset: Readable<AssetData>;
 
-  const nodeWidth = remToPx(64);
-  const nodeHeight = remToPx(64);
+  const nodeWidth = remToPx(32);
+  const nodeHeight = remToPx(32);
   const clickDistance = 10;
   const config: TreeViewConfig = {
     ...defaultConfig,
@@ -103,7 +105,11 @@
   <svg bind:this={svgElement} viewBox={`0 0 ${width} ${height}`}>
     <g bind:this={boundsElement} transform={transforms.gTransform ?? ''}>
       {#each links as { link, idx, isAncestor } (idx)}
-        <TreeLink {link} {isAncestor} {nodeHeight} />
+        <TreeLink
+          {link}
+          {isAncestor}
+          {nodeHeight}
+          transformScale={transforms.scale} />
       {/each}
       {#each descendants as { data, x, y }, key (key)}
         <SvgTreeNode
@@ -139,27 +145,11 @@
 
   <div
     class="absolute bottom-5 right-5 z-20 hidden flex-col items-end justify-end space-y-5 lg:flex">
-    <div class="flex h-8 items-center rounded-full bg-white shadow-md">
+    <div class="space-between flex">
       <button
-        class="h-full pe-2 ps-2.5 transition-opacity"
-        class:opacity-40={!transforms.canZoomIn}
-        class:cursor-not-allowed={!transforms.canZoomIn}
-        disabled={!transforms.canZoomIn}
-        on:click={() => (currentScale = zoomIn({ svgSel, zoom }, currentScale))}
-        aria-roledescription={$_('page.verify.zoomIn')}
-        data-testid="tree-zoom-in">
-        <ZoomIn width="1rem" height="1rem" class="text-gray-800" />
-      </button>
-      <div class="h-[85%] w-px bg-gray-200" />
-      <button
-        class="h-full pe-2.5 ps-2 transition-opacity"
-        class:opacity-40={!transforms.canZoomOut}
-        class:cursor-not-allowed={!transforms.canZoomOut}
-        disabled={!transforms.canZoomOut}
-        aria-roledescription={$_('page.verify.zoomOut')}
-        data-testid="tree-zoom-out"
+        class="me-4 rounded-full bg-white p-2 shadow-md"
         on:click={() =>
-          (currentScale = zoomOut(
+          (currentScale = fitToScreen(
             {
               svgSel,
               zoom,
@@ -170,8 +160,57 @@
             },
             currentScale,
           ))}>
-        <ZoomOut width="1rem" height="1rem" class="text-gray-800" />
-      </button>
+        <FitToScreen
+          width="1rem"
+          height="1rem"
+          class="text-gray-800" /></button>
+      <div class="flex h-8 items-center rounded-full bg-white shadow-md">
+        <button
+          class="h-full pe-2 ps-2.5 transition-opacity"
+          class:opacity-40={currentScale >= 1}
+          class:cursor-not-allowed={currentScale >= 1}
+          disabled={currentScale >= 1}
+          on:click={() =>
+            (currentScale = zoomIn(
+              {
+                svgSel,
+                zoom,
+                boundsElement,
+                width,
+                height,
+                minZoomScale: transforms.minZoomScale,
+              },
+              currentScale,
+              descendants,
+            ))}
+          aria-roledescription={$_('page.verify.zoomIn')}
+          data-testid="tree-zoom-in">
+          <ZoomIn width="1rem" height="1rem" class="text-gray-800" />
+        </button>
+        <div class="h-[85%] w-px bg-gray-200" />
+        <button
+          class="h-full pe-2.5 ps-2 transition-opacity"
+          class:opacity-40={currentScale <= 0.125}
+          class:cursor-not-allowed={currentScale <= 0.125}
+          disabled={currentScale <= 0.125}
+          aria-roledescription={$_('page.verify.zoomOut')}
+          data-testid="tree-zoom-out"
+          on:click={() =>
+            (currentScale = zoomOut(
+              {
+                svgSel,
+                zoom,
+                boundsElement,
+                width,
+                height,
+                minZoomScale: transforms.minZoomScale,
+              },
+              currentScale,
+              descendants,
+            ))}>
+          <ZoomOut width="1rem" height="1rem" class="text-gray-800" />
+        </button>
+      </div>
     </div>
     <div class="flex h-8 items-center rounded-full bg-white shadow-md">
       <button

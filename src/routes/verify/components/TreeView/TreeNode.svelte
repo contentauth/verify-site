@@ -31,7 +31,8 @@
 
   $: tx = x - width / 2;
   $: ty = y - height / 2;
-  $: style = `width: ${width}px; height: ${height}px; transform: translate3d(${tx}px, ${ty}px, 0)`;
+  $: borderWidth = transformScale > 0.5 ? 0.3 : 0.3 + 0.5 / transformScale / 10;
+  $: style = `width: ${width}px; height: ${height}px; transform: translate3d(${tx}px, ${ty}px, 0); border-width: ${borderWidth}rem`;
 
   function handleKeyPress(onKeyPress: ReadableAssetData['select']) {
     return (evt: KeyboardEvent) => {
@@ -46,7 +47,7 @@
   role="treeitem"
   aria-selected={$assetStore.state === 'selected' ? 'true' : 'false'}
   data-testid={`tree-node-${$assetStore.id}`}
-  class="absolute left-0 top-0 flex flex-col overflow-hidden rounded-3xl border-8 bg-gray-40 transition-all focus:shadow motion-reduce:transition-none"
+  class="absolute left-0 top-0 flex flex-col overflow-hidden rounded-3xl border-gray-400 bg-gray-40 transition-all focus:shadow motion-reduce:transition-none"
   on:keypress={handleKeyPress($assetStore.select)}
   class:border-gray-400={$assetStore.state === 'none'}
   class:border-gray-700={$assetStore.state === 'path'}

@@ -13,16 +13,50 @@
   from Adobe.
 -->
 <script lang="ts">
-  import L1Icon from '$assets/svg/color/cr-icon-white-fill.svg?component';
+  import L1Icon from '$assets/svg/color/cr-icon-fill.svg?component';
   import type { HierarchyPointNode } from 'd3-hierarchy';
   import { _ } from 'svelte-i18n';
+
   import { get } from 'svelte/store';
+
   import type { ReadableAssetStore } from '../../stores/asset';
   import AssetInfoDate from '../AssetInfo/AssetInfoDate.svelte';
 
   export let assetStore: ReadableAssetStore;
   export let parent: HierarchyPointNode<ReadableAssetStore> | null;
   export let transformScale: number;
+
+  // function L1toPin() {
+  //   return {
+  //     delay: 0,
+  //     duration: 250,
+  //     css: () => {
+  //       return `
+  //       animation: mask;
+  //       animation-timing-function: cubic-bezier(0.1, -0.6, 0.2, 0);
+  //       @keyframes mask{
+  //         0% : clip-path=inset(0px, 0px, 0px,0px)
+  //         100% : clip-path=inset(0px, 120px, 0px,0px)
+  //       }
+  // 				);`;
+  //     },
+  //   };
+  // }
+  // function rotates(node, { duration }) {
+  //   return {
+  //     duration,
+  //     css: () => {
+  //       return `
+  //       animation: mask;
+  //       animation-timing-function: cubic-bezier(0.1, -0.6, 0.2, 0);
+  //      @keyframes mask{
+  //         0% : clip-path=inset(0px, 0px, 0px,0px)
+  //         100% : clip-path=inset(0px, 120px, 0px,0px)
+  //       }
+  // 		`;
+  //     },
+  //   };
+  // }
 
   $: title = $assetStore.title ?? $_('asset.defaultTitle');
   $: hasContentCredentials = $assetStore.manifestData
@@ -41,7 +75,7 @@
   $: ariaLabel = $_('page.verify.treeNode.ariaLabel', {
     values: { title, hasContentCredentials, parentLabel },
   });
-  $: removeL1 = transformScale < 0.125 ? true : false;
+  $: removeL1 = transformScale < 0.25 ? true : false;
   $: date = $assetStore.manifestData?.date;
   $: issuer = $assetStore.manifestData?.signatureInfo?.issuer;
   $: statusCode = $assetStore.validationResult?.statusCode;
@@ -51,15 +85,14 @@
   $: L1margin = transformScale >= 0.25 ? 1 : transformScale / 0.25;
 </script>
 
-{console.log('1 - 0.25/', transformScale, '=', L1margin)}
 {#if statusCode === 'valid' && hasCredentials}
   <div
-    class="absolute"
+    class="absolute flex"
     style="transform: scale({scale}); transform-origin: top left">
     <div
       aria-label={ariaLabel}
       style="margin-inline-start: {L1margin}rem; margin-top:{L1margin}rem"
-      class="ms-[{L1margin}px] mt-[{L1margin}px] flex items-center rounded-full py-1 pe-3 ps-1"
+      class="flex items-center rounded-full py-1 pe-3 ps-1"
       class:bg-white={!removeL1}
       class:shadow-md={!removeL1}
       class:rounded-none={removeL1}>
@@ -71,5 +104,6 @@
         </div>
       {/if}
     </div>
+    <!-- <div class=" w-48 -translate-x-28 bg-white">mask</div> -->
   </div>
 {/if}

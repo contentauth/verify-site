@@ -42,7 +42,7 @@
     y={-nodeHeight / 2}
     rx={6}
     ry={6}
-    class="cursor-pointer fill-current text-gray-300 focus:outline-none" />
+    class="cursor-pointer bg-transparent fill-current text-transparent focus:outline-none" />
   <!-- Key events are handled in TreeNode -->
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <rect
@@ -58,5 +58,5 @@
     y={-nodeHeight / 2}
     rx={6}
     ry={6}
-    class="cursor-pointer fill-transparent sm:hidden focus:outline-none" />
+    class="cursor-pointer fill-transparent focus:outline-none sm:hidden" />
 </g>

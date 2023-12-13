@@ -22,6 +22,7 @@
   export let isAncestor = false;
   export let nodeHeight: number;
   export let dashSize = 3;
+  export let transformScale: number;
 
   // This creates the connectors using the same line shape that is used in the design.
   // Since there were none in the D3 library that looked like the ones in the mock, we
@@ -68,10 +69,13 @@
   $: isDashed = $sourceAsset.validationResult?.hasOtgp;
   $: path = curve(d3Path(), source.x, source.y, target.x, target.y);
   $: pathData = path.toString();
+  $: strokeWidth = transformScale > 0.5 ? 0.3 : 0.3 + 0.5 / transformScale / 10;
+  $: style = `stroke-width: ${strokeWidth}rem`;
 </script>
 
 <path
   d={pathData}
-  class="fill-none stroke-current stroke-[0.5rem] text-gray-300 transition-all"
+  class="fill-none stroke-current text-gray-400 transition-all"
+  {style}
   class:text-gray-600={isAncestor}
   stroke-dasharray={isDashed ? dashSize.toString() : `0`} />
