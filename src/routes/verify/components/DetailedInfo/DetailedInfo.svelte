@@ -97,6 +97,8 @@
   }
 </script>
 
+{console.log('isUntrusted', isUntrusted)}
+
 <div
   bind:offsetHeight={headerHeight}
   class="sticky top-0 z-30 bg-white transition-shadow duration-300"
@@ -140,8 +142,8 @@
   {#if manifestData}
     <ContentSummarySection {...assetDataToContentSummaryProps($assetData)} />
     <CreditAndUsage {manifestData} />
-    <ProcessSection {manifestData} {ingredients} />
+    <ProcessSection {manifestData} {ingredients} {isUntrusted} />
     <CameraCaptureSection {manifestData} />
-    <AboutSection {manifestData} />
+    <AboutSection {manifestData} {isUntrusted} />
   {/if}
 </div>
