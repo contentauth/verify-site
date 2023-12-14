@@ -19,6 +19,7 @@
 
   import { get } from 'svelte/store';
 
+  import { sineIn } from 'svelte/easing';
   import type { ReadableAssetStore } from '../../stores/asset';
   import AssetInfoDate from '../AssetInfo/AssetInfoDate.svelte';
 
@@ -26,37 +27,43 @@
   export let parent: HierarchyPointNode<ReadableAssetStore> | null;
   export let transformScale: number;
 
-  // function L1toPin() {
-  //   return {
-  //     delay: 0,
-  //     duration: 250,
-  //     css: () => {
-  //       return `
-  //       animation: mask;
-  //       animation-timing-function: cubic-bezier(0.1, -0.6, 0.2, 0);
-  //       @keyframes mask{
-  //         0% : clip-path=inset(0px, 0px, 0px,0px)
-  //         100% : clip-path=inset(0px, 120px, 0px,0px)
-  //       }
-  // 				);`;
-  //     },
-  //   };
-  // }
-  // function rotates(node, { duration }) {
-  //   return {
-  //     duration,
-  //     css: () => {
-  //       return `
-  //       animation: mask;
-  //       animation-timing-function: cubic-bezier(0.1, -0.6, 0.2, 0);
-  //      @keyframes mask{
-  //         0% : clip-path=inset(0px, 0px, 0px,0px)
-  //         100% : clip-path=inset(0px, 120px, 0px,0px)
-  //       }
-  // 		`;
-  //     },
-  //   };
-  // }
+  function L1SlidesIn(node, { duration }) {
+    return {
+      duration,
+      easing: sineIn,
+      css: (timer) => {
+        return `
+        clip-path: inset(0px ${timer * 180}px 0px 0px)
+
+  		`;
+      },
+    };
+  }
+  function L1SlidesOut(node, { duration }) {
+    return {
+      duration,
+      easing: sineIn,
+
+      css: (timer) => {
+        console.log('isscale', isScaleIncreasing);
+
+        return `
+        clip-path: inset(0px ${180 - timer * 180}px 0px 0px);
+      
+  		`;
+      },
+    };
+  }
+  let previous: number;
+  let isScaleIncreasing: boolean;
+
+  $: {
+    if (previous !== undefined) {
+      isScaleIncreasing = transformScale > previous ? true : false;
+    }
+
+    previous = transformScale;
+  }
 
   $: title = $assetStore.title ?? $_('asset.defaultTitle');
   $: hasContentCredentials = $assetStore.manifestData
@@ -75,7 +82,8 @@
   $: ariaLabel = $_('page.verify.treeNode.ariaLabel', {
     values: { title, hasContentCredentials, parentLabel },
   });
-  $: removeL1 = transformScale < 0.25 ? true : false;
+  $: L1toPinTransition = transformScale < 0.25 ? true : false;
+  $: removeL1 = transformScale == 0.125 ? true : false;
   $: date = $assetStore.manifestData?.date;
   $: issuer = $assetStore.manifestData?.signatureInfo?.issuer;
   $: statusCode = $assetStore.validationResult?.statusCode;
@@ -89,21 +97,54 @@
   <div
     class="absolute flex"
     style="transform: scale({scale}); transform-origin: top left">
-    <div
-      aria-label={ariaLabel}
-      style="margin-inline-start: {L1margin}rem; margin-top:{L1margin}rem"
-      class="flex items-center rounded-full py-1 pe-3 ps-1"
-      class:bg-white={!removeL1}
-      class:shadow-md={!removeL1}
-      class:rounded-none={removeL1}>
-      <L1Icon width="2rem" height="2rem" class="me-2" />
-      {#if !removeL1}
-        <div class="text-[1.7em]">
+    {#if !L1toPinTransition}
+      <div
+        aria-label={ariaLabel}
+        style="margin-inline-start: {L1margin}rem; margin-top:{L1margin}rem"
+        class="flex items-center rounded-full py-1 pe-3 ps-1"
+        class:bg-white={!removeL1}
+        class:shadow-md={!removeL1}
+        class:rounded-none={removeL1}>
+        <L1Icon width="2rem" height="2rem" class="me-2" />
+
+        <div class="rounded-full bg-white text-[1.7em]">
           {#if date}<AssetInfoDate {date} />{:else}
             {issuer}{/if}
         </div>
-      {/if}
-    </div>
-    <!-- <div class=" w-48 -translate-x-28 bg-white">mask</div> -->
+      </div>
+    {:else if isScaleIncreasing}
+      <div
+        style="margin-inline-start: {L1margin}rem; margin-top:{L1margin}rem"
+        class="flex items-center py-1 pe-3">
+        <L1Icon width="2rem" height="2rem" class="me-2 shrink-0" />
+        <div
+          in:L1SlidesOut={{ duration: 500 }}
+          aria-label={ariaLabel}
+          class=" h-full w-full rounded-full bg-white ps-1 shadow-md">
+          {#if !removeL1}
+            <div class="rounded-full bg-white text-[1.7em]">
+              {#if date}<AssetInfoDate {date} />{:else}
+                {issuer}{/if}
+            </div>
+          {/if}
+        </div>
+      </div>
+    {:else}
+      <div
+        in:L1SlidesIn={{ duration: 250 }}
+        aria-label={ariaLabel}
+        style="margin-inline-start: {L1margin}rem; margin-top:{L1margin}rem"
+        class="flex items-center rounded-full py-1 pe-3 ps-1"
+        class:bg-white={!removeL1}
+        class:shadow-md={!removeL1}
+        class:rounded-none={removeL1}>
+        <L1Icon width="2rem" height="2rem" class="me-2" />
+        {#if !removeL1}
+          <div class="rounded-full bg-white text-[1.7em]">
+            {#if date}<AssetInfoDate {date} />{:else}
+              {issuer}{/if}
+          </div>
+        {/if}
+      </div>{/if}
   </div>
 {/if}
