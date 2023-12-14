@@ -27,33 +27,6 @@
   export let parent: HierarchyPointNode<ReadableAssetStore> | null;
   export let transformScale: number;
 
-  function L1SlidesIn(node, { duration }) {
-    return {
-      duration,
-      easing: sineIn,
-      css: (timer) => {
-        return `
-        clip-path: inset(0px ${timer * 180}px 0px 0px)
-
-  		`;
-      },
-    };
-  }
-  function L1SlidesOut(node, { duration }) {
-    return {
-      duration,
-      easing: sineIn,
-
-      css: (timer) => {
-        console.log('isscale', isScaleIncreasing);
-
-        return `
-        clip-path: inset(0px ${180 - timer * 180}px 0px 0px);
-      
-  		`;
-      },
-    };
-  }
   let previous: number;
   let isScaleIncreasing: boolean;
 
@@ -84,6 +57,7 @@
   });
   $: L1toPinTransition = transformScale < 0.25 ? true : false;
   $: removeL1 = transformScale == 0.125 ? true : false;
+  $: clipPathOffset = transformScale >= 0.25 ? 0 : 180;
   $: date = $assetStore.manifestData?.date;
   $: issuer = $assetStore.manifestData?.signatureInfo?.issuer;
   $: statusCode = $assetStore.validationResult?.statusCode;
@@ -97,54 +71,18 @@
   <div
     class="absolute flex"
     style="transform: scale({scale}); transform-origin: top left">
-    {#if !L1toPinTransition}
-      <div
-        aria-label={ariaLabel}
-        style="margin-inline-start: {L1margin}rem; margin-top:{L1margin}rem"
-        class="flex items-center rounded-full py-1 pe-3 ps-1"
-        class:bg-white={!removeL1}
-        class:shadow-md={!removeL1}
-        class:rounded-none={removeL1}>
-        <L1Icon width="2rem" height="2rem" class="me-2" />
-
-        <div class="rounded-full bg-white text-[1.7em]">
-          {#if date}<AssetInfoDate {date} />{:else}
-            {issuer}{/if}
-        </div>
+    <div
+      aria-label={ariaLabel}
+      style="margin-inline-start: {L1margin}rem; margin-top:{L1margin}rem; clip-path: inset(-10px {clipPathOffset}px -10px 0px);"
+      class="flex items-center rounded-full py-1 pe-3 ps-1 transition-all duration-200"
+      class:bg-white={!removeL1}
+      class:shadow-md={!removeL1}
+      class:rounded-none={removeL1}>
+      <L1Icon width="2rem" height="2rem" class="me-2" />
+      <div class="rounded-full bg-white text-[1.7em]">
+        {#if date}<AssetInfoDate {date} />{:else}
+          {issuer}{/if}
       </div>
-    {:else if isScaleIncreasing}
-      <div
-        style="margin-inline-start: {L1margin}rem; margin-top:{L1margin}rem"
-        class="flex items-center py-1 pe-3">
-        <L1Icon width="2rem" height="2rem" class="me-2 shrink-0" />
-        <div
-          in:L1SlidesOut={{ duration: 500 }}
-          aria-label={ariaLabel}
-          class=" h-full w-full rounded-full bg-white ps-1 shadow-md">
-          {#if !removeL1}
-            <div class="rounded-full bg-white text-[1.7em]">
-              {#if date}<AssetInfoDate {date} />{:else}
-                {issuer}{/if}
-            </div>
-          {/if}
-        </div>
-      </div>
-    {:else}
-      <div
-        in:L1SlidesIn={{ duration: 250 }}
-        aria-label={ariaLabel}
-        style="margin-inline-start: {L1margin}rem; margin-top:{L1margin}rem"
-        class="flex items-center rounded-full py-1 pe-3 ps-1"
-        class:bg-white={!removeL1}
-        class:shadow-md={!removeL1}
-        class:rounded-none={removeL1}>
-        <L1Icon width="2rem" height="2rem" class="me-2" />
-        {#if !removeL1}
-          <div class="rounded-full bg-white text-[1.7em]">
-            {#if date}<AssetInfoDate {date} />{:else}
-              {issuer}{/if}
-          </div>
-        {/if}
-      </div>{/if}
+    </div>
   </div>
 {/if}
