@@ -18503,7 +18503,7 @@ packages:
     dev: false
 
   file:etc/packages/c2pa-0.17.5-trust-list-dee1aeb.tgz:
-    resolution: {integrity: sha512-vl8ayo3nRvoSS9uhO7jJK6on6yOPDAx+vWCXoCNujzvJMdlQN/j7Svg1/c6iATZCCVjYrfLS9QplT9oJMUmONw==, tarball: file:etc/packages/c2pa-0.17.5-trust-list-dee1aeb.tgz}
+    resolution: {integrity: sha512-1KolNvM6AD+715BgD9gbZnKUvex/aLiIcOAgWLSDshAEKQ3/QgRjvC6NDetcSt/bvVingDrMrz8gcfP8+9MAZQ==, tarball: file:etc/packages/c2pa-0.17.5-trust-list-dee1aeb.tgz}
     name: c2pa
     version: 0.17.5
     dependencies:
