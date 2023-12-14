@@ -97,8 +97,6 @@
   }
 </script>
 
-{console.log('isUntrusted', isUntrusted)}
-
 <div
   bind:offsetHeight={headerHeight}
   class="sticky top-0 z-30 bg-white transition-shadow duration-300"
@@ -117,14 +115,13 @@
         alt={$_('sidebar.verify.hideInfo')} /></button>
   </div>
 </div>
-{#if isIncomplete}
-  <ErrorBanner type="info"
-    ><Body><span class="text-white">{$_('error.incomplete')}</span></Body
-    ></ErrorBanner>
-{/if}
 {#if isInvalid}
   <ErrorBanner type="error"
     ><Body><span class="text-white">{$_('error.invalid')}</span></Body
+    ></ErrorBanner>
+{:else if isIncomplete}
+  <ErrorBanner type="info"
+    ><Body><span class="text-white">{$_('error.incomplete')}</span></Body
     ></ErrorBanner>
 {:else if isUntrusted}
   <ErrorBanner type="warning"
