@@ -14,19 +14,17 @@
 import { analytics } from '$src/lib/analytics';
 import { ROOT_ID, type AssetData } from '$src/lib/asset';
 import { prefersReducedMotion } from '$src/lib/matchMedia';
+import type { HierarchyPointNode } from 'd3-hierarchy';
 import { hierarchy as d3Hierarchy, tree as d3Tree } from 'd3-hierarchy';
 import type { Selection } from 'd3-selection';
 import { zoomIdentity, type ZoomBehavior, type ZoomTransform } from 'd3-zoom';
-// import { closestTo } from 'date-fns';
-import type { HierarchyPointNode } from 'd3-hierarchy';
 import { get, type Readable } from 'svelte/store';
 import { verifyStore } from '../stores';
-import type { ReadableAssetData, ReadableAssetStore } from '../stores/asset';
+import type { ReadableAssetStore } from '../stores/asset';
 import type { ReadableAssetMap } from '../stores/hierarchyView';
 
 const { hierarchyView } = verifyStore;
 
-let assetStore: ReadableAssetData;
 let translateX = 0;
 let translateY = 0;
 
@@ -201,27 +199,20 @@ export function zoomIn(
 ) {
   analytics.track('treeViewZoom', { dir: 'in' });
   const sel = svgSel.transition().duration(prefersReducedMotion ? 0 : 250);
-
   const hierarchy = get(hierarchyView);
 
   if (hierarchy.state == 'success') {
-    console.log('zoomin');
-
     const selectedAssetStore = get(hierarchy.selectedAssetStore);
-    //use a find
-    descendants.map((descendant) => {
-      assetStore = get(descendant.data);
+    const selectedAsset = descendants.find(
+      (descendant) => get(descendant.data).id === selectedAssetStore.id,
+    );
 
-      if (assetStore.id === selectedAssetStore.id) {
-        console.log('we get here');
-        translateX = descendant.x;
-        translateY = descendant.y;
-      }
-    });
-    const desiredScale = currentScale * 2;
+    if (selectedAsset) {
+      translateX = selectedAsset?.x;
+      translateY = selectedAsset?.y;
+    }
 
-    currentScale = desiredScale;
-    console.log(currentScale);
+    currentScale = currentScale * 2;
     sel.call(
       zoom.transform,
       zoomIdentity
@@ -247,25 +238,20 @@ export function zoomOut(
   descendants: HierarchyPointNode<ReadableAssetStore>[],
 ) {
   analytics.track('treeViewZoom', { dir: 'out' });
-  console.log('in zoom out');
   const sel = svgSel.transition().duration(prefersReducedMotion ? 0 : 250);
 
   const hierarchy = get(hierarchyView);
 
   if (hierarchy.state == 'success') {
-    console.log('in zoom out state success');
     const selectedAssetStore = get(hierarchy.selectedAssetStore);
+    const selectedAsset = descendants.find(
+      (descendant) => get(descendant.data).id === selectedAssetStore.id,
+    );
 
-    descendants.map((descendant) => {
-      assetStore = get(descendant.data);
-
-      if (assetStore.id === selectedAssetStore.id) {
-        translateX = descendant.x;
-        translateY = descendant.y;
-      }
-    });
-
-    console.log('in zoom out');
+    if (selectedAsset) {
+      translateX = selectedAsset?.x;
+      translateY = selectedAsset?.y;
+    }
 
     currentScale = currentScale / 2;
 
@@ -288,12 +274,13 @@ export function fitToScreen(
   const sel = svgSel.transition().duration(prefersReducedMotion ? 0 : 250);
   const bbox = boundsElement.getBBox();
   const fitToSizeScale = Math.min(height / bbox.height, width / bbox.width);
-  console.log('fitToSizeScale', fitToSizeScale);
   const zoomOptions = [1, 0.5, 0.25, 0.125];
   const fitToScreenZoom = Math.max(
     ...zoomOptions.filter((num) => num <= fitToSizeScale),
   );
+
   currentScale = fitToScreenZoom;
+
   sel.call(
     zoom.transform,
     zoomIdentity

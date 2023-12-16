@@ -24,17 +24,6 @@
   export let parent: HierarchyPointNode<ReadableAssetStore> | null;
   export let transformScale: number;
 
-  // let previous: number;
-  // let isScaleIncreasing: boolean;
-
-  // $: {
-  //   if (previous !== undefined) {
-  //     isScaleIncreasing = transformScale > previous ? true : false;
-  //   }
-
-  //   previous = transformScale;
-  // }
-
   $: title = $assetStore.title ?? $_('asset.defaultTitle');
   $: hasContentCredentials = $assetStore.manifestData
     ? $_('page.verify.hasCC.date', {
@@ -70,8 +59,8 @@
     <L1Icon width="2rem" height="2rem" class="z-10 me-2 mt-1" />
     <div
       aria-label={ariaLabel}
-      style=" clip-path: inset(-10px {clipPathOffset}px -10px 0px);"
-      class="-ms-12 flex items-center rounded-full py-3 pe-3 ps-12 transition-all duration-200"
+      style="clip-path: inset(-10px {clipPathOffset}px -10px 0px);"
+      class="-ms-11 flex items-center rounded-full py-3 pe-3 ps-11 transition-all duration-150"
       class:bg-white={!removeL1}
       class:shadow-md={!removeL1}
       class:rounded-none={removeL1}>
