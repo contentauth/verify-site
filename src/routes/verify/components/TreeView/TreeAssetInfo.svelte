@@ -16,10 +16,7 @@
   import L1Icon from '$assets/svg/color/cr-icon-fill.svg?component';
   import type { HierarchyPointNode } from 'd3-hierarchy';
   import { _ } from 'svelte-i18n';
-
   import { get } from 'svelte/store';
-
-  import { sineIn } from 'svelte/easing';
   import type { ReadableAssetStore } from '../../stores/asset';
   import AssetInfoDate from '../AssetInfo/AssetInfoDate.svelte';
 
@@ -27,16 +24,16 @@
   export let parent: HierarchyPointNode<ReadableAssetStore> | null;
   export let transformScale: number;
 
-  let previous: number;
-  let isScaleIncreasing: boolean;
+  // let previous: number;
+  // let isScaleIncreasing: boolean;
 
-  $: {
-    if (previous !== undefined) {
-      isScaleIncreasing = transformScale > previous ? true : false;
-    }
+  // $: {
+  //   if (previous !== undefined) {
+  //     isScaleIncreasing = transformScale > previous ? true : false;
+  //   }
 
-    previous = transformScale;
-  }
+  //   previous = transformScale;
+  // }
 
   $: title = $assetStore.title ?? $_('asset.defaultTitle');
   $: hasContentCredentials = $assetStore.manifestData
@@ -55,9 +52,8 @@
   $: ariaLabel = $_('page.verify.treeNode.ariaLabel', {
     values: { title, hasContentCredentials, parentLabel },
   });
-  $: L1toPinTransition = transformScale < 0.25 ? true : false;
-  $: removeL1 = transformScale == 0.125 ? true : false;
   $: clipPathOffset = transformScale >= 0.25 ? 0 : 180;
+  $: removeL1 = transformScale == 0.125 ? true : false;
   $: date = $assetStore.manifestData?.date;
   $: issuer = $assetStore.manifestData?.signatureInfo?.issuer;
   $: statusCode = $assetStore.validationResult?.statusCode;
@@ -70,19 +66,21 @@
 {#if statusCode === 'valid' && hasCredentials}
   <div
     class="absolute flex"
-    style="transform: scale({scale}); transform-origin: top left">
+    style="transform: scale({scale}); transform-origin: top left; margin-inline-start: {L1margin}rem; margin-top:{L1margin}rem;">
+    <L1Icon width="2rem" height="2rem" class="z-10 me-2 mt-1" />
     <div
       aria-label={ariaLabel}
-      style="margin-inline-start: {L1margin}rem; margin-top:{L1margin}rem; clip-path: inset(-10px {clipPathOffset}px -10px 0px);"
-      class="flex items-center rounded-full py-1 pe-3 ps-1 transition-all duration-200"
+      style=" clip-path: inset(-10px {clipPathOffset}px -10px 0px);"
+      class="-ms-12 flex items-center rounded-full py-3 pe-3 ps-12 transition-all duration-200"
       class:bg-white={!removeL1}
       class:shadow-md={!removeL1}
       class:rounded-none={removeL1}>
-      <L1Icon width="2rem" height="2rem" class="me-2" />
-      <div class="rounded-full bg-white text-[1.7em]">
-        {#if date}<AssetInfoDate {date} />{:else}
-          {issuer}{/if}
-      </div>
+      {#if !removeL1}
+        <div class="rounded-full bg-white text-[1.7em]">
+          {#if date}<AssetInfoDate {date} />{:else}
+            {issuer}{/if}
+        </div>
+      {/if}
     </div>
   </div>
 {/if}

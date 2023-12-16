@@ -15,10 +15,10 @@
 
 <script lang="ts">
   import Compare from '$assets/svg/monochrome/compare.svg?component';
-  import FitToScreen from '$assets/svg/monochrome/maximize.svg?component';
   import ZoomIn from '$assets/svg/monochrome/zoom-in.svg?component';
   import ZoomOut from '$assets/svg/monochrome/zoom-out.svg?component';
   import Body from '$src/components/typography/Body.svelte';
+  import BodyBold from '$src/components/typography/BodyBold.svelte';
   import type { AssetData } from '$src/lib/asset';
   import { select as d3Select } from 'd3-selection';
   import type { ZoomTransform } from 'd3-zoom';
@@ -146,24 +146,6 @@
   <div
     class="absolute bottom-5 right-5 z-20 hidden flex-col items-end justify-end space-y-5 lg:flex">
     <div class="space-between flex">
-      <button
-        class="me-4 rounded-full bg-white p-2 shadow-md"
-        on:click={() =>
-          (currentScale = fitToScreen(
-            {
-              svgSel,
-              zoom,
-              boundsElement,
-              width,
-              height,
-              minZoomScale: transforms.minZoomScale,
-            },
-            currentScale,
-          ))}>
-        <FitToScreen
-          width="1rem"
-          height="1rem"
-          class="text-gray-800" /></button>
       <div class="flex h-8 items-center rounded-full bg-white shadow-md">
         <button
           class="h-full pe-2 ps-2.5 transition-opacity"
@@ -186,6 +168,24 @@
           aria-roledescription={$_('page.verify.zoomIn')}
           data-testid="tree-zoom-in">
           <ZoomIn width="1rem" height="1rem" class="text-gray-800" />
+        </button>
+        <div class="h-[85%] w-px bg-gray-200" />
+        <button
+          class="bg-white px-2"
+          aria-roledescription={$_('page.verify.fitToScreen')}
+          on:click={() =>
+            (currentScale = fitToScreen(
+              {
+                svgSel,
+                zoom,
+                boundsElement,
+                width,
+                height,
+                minZoomScale: transforms.minZoomScale,
+              },
+              currentScale,
+            ))}>
+          <BodyBold>{$_('page.verify.fit')}</BodyBold>
         </button>
         <div class="h-[85%] w-px bg-gray-200" />
         <button
