@@ -212,7 +212,12 @@ export function zoomIn(
       translateY = selectedAsset?.y;
     }
 
-    currentScale = currentScale * 2;
+    if (currentScale < 0.125) {
+      currentScale = 0.125;
+    } else {
+      currentScale = currentScale * 2;
+    }
+
     sel.call(
       zoom.transform,
       zoomIdentity
@@ -274,12 +279,17 @@ export function fitToScreen(
   const sel = svgSel.transition().duration(prefersReducedMotion ? 0 : 250);
   const bbox = boundsElement.getBBox();
   const fitToSizeScale = Math.min(height / bbox.height, width / bbox.width);
-  const zoomOptions = [1, 0.5, 0.25, 0.125];
-  const fitToScreenZoom = Math.max(
-    ...zoomOptions.filter((num) => num <= fitToSizeScale),
-  );
 
-  currentScale = fitToScreenZoom;
+  if (fitToSizeScale < 0.125) {
+    currentScale = fitToSizeScale;
+  } else {
+    const zoomOptions = [1, 0.5, 0.25, 0.125];
+    const fitToScreenZoom = Math.max(
+      ...zoomOptions.filter((num) => num <= fitToSizeScale),
+    );
+
+    currentScale = fitToScreenZoom;
+  }
 
   sel.call(
     zoom.transform,

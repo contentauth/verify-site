@@ -171,7 +171,7 @@
         </button>
         <div class="h-[85%] w-px bg-gray-200" />
         <button
-          class="bg-white px-2"
+          class="bg-white px-2 pt-1"
           aria-roledescription={$_('page.verify.fitToScreen')}
           on:click={() =>
             (currentScale = fitToScreen(

@@ -41,8 +41,9 @@
   $: ariaLabel = $_('page.verify.treeNode.ariaLabel', {
     values: { title, hasContentCredentials, parentLabel },
   });
-  $: clipPathOffset = transformScale >= 0.25 ? 0 : 180;
+  $: clipPathOffset = transformScale >= 0.25 ? 0 : 200;
   $: removeL1 = transformScale == 0.125 ? true : false;
+  $: L1IconSize = transformScale >= 0.125 ? 2 : transformScale * 16;
   $: date = $assetStore.manifestData?.date;
   $: issuer = $assetStore.manifestData?.signatureInfo?.issuer;
   $: statusCode = $assetStore.validationResult?.statusCode;
@@ -56,7 +57,10 @@
   <div
     class="absolute flex"
     style="transform: scale({scale}); transform-origin: top left; margin-inline-start: {L1margin}rem; margin-top:{L1margin}rem;">
-    <L1Icon width="2rem" height="2rem" class="z-10 me-2 mt-1" />
+    <L1Icon
+      width="{L1IconSize}rem"
+      height="{L1IconSize}rem"
+      class="z-10 me-2 mt-1" />
     <div
       aria-label={ariaLabel}
       style="clip-path: inset(-10px {clipPathOffset}px -10px 0px);"
