@@ -117,6 +117,7 @@
   "sidebar.verify.compare.slider": "Glidebryter",
   "sidebar.verify.compare.view.ariaLabel": "{primaryTitle} og {secondaryTitle} sammenlignes",
   "sidebar.verify.compare": "Sammenlign",
+  "sidebar.verify.asset.date.on": "på",
   "sidebar.verify.credit.AI.description": "Ikke bruk innholdet mitt til å trene AI-modeller",
   "sidebar.verify.credit.AI": "KI-verktøy er brukt",
   "sidebar.verify.credit.description": "Produsenten har valgt å dele følgende informasjon:",

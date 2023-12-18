@@ -291,6 +291,33 @@ export default {
         ],
       },
     },
+    xss: {
+      image: { r: 18, g: 100, b: 18, width: 500, height: 300 },
+      manifest: {
+        title: 'xss.jpg',
+        claim_generator: 'test-image-service',
+        format: 'image/jpeg',
+        assertions: [
+          {
+            label: 'stds.schema-org.CreativeWork',
+            data: {
+              '@context': 'https://schema.org',
+              '@type': 'CreativeWork',
+              url: 'http://insecure.com',
+              author: [
+                {
+                  '@id': 'javascript:alert(1)',
+                  '@type': 'Person',
+                  identifier:
+                    'did:adobe:f50f50a1f6cc5ef5b5cb51a5c457fb4537b274351e40cf1d2bdf5d3f45b1d9d69',
+                  name: 'XSS',
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
     'kitchen-sink': {
       image: { r: 6, g: 214, b: 78, width: 500, height: 300 },
       manifest: {
@@ -348,6 +375,13 @@ export default {
                   identifier:
                     'did:adobe:f50f50a1f6cc5ef5b5cb51a5c457fb4537b274351e40cf1d2bdf5d3f45b1d9d69',
                   name: 'Foo Bar',
+                },
+                {
+                  '@id': 'https://www.someunknownprovider.com',
+                  '@type': 'Person',
+                  identifier:
+                    'did:adobe:f50f50a1f6cc5ef5b5cb51a5c457fb4537b274351e40cf1d2bdf5d3f45b1d9d69',
+                  name: 'Unknown Provider',
                 },
               ],
             },

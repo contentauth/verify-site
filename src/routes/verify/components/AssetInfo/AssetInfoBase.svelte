@@ -46,7 +46,7 @@
         <L1Icon
           width="1rem"
           height="1rem"
-          class="me-1.5 h-4 w-4 text-gray-900" />
+          class="me-1.5 h-4 w-4 shrink-0 text-gray-900" />
         <Truncate>
           <slot name="CRInfo" />
         </Truncate>

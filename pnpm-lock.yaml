@@ -38,8 +38,8 @@ dependencies:
     specifier: ^0.36.0
     version: 0.36.0
   c2pa:
-    specifier: ^0.17.5
-    version: 0.17.5
+    specifier: file:etc/packages/c2pa-0.17.5-trust-list-dee1aeb.tgz
+    version: file:etc/packages/c2pa-0.17.5-trust-list-dee1aeb.tgz
   c2pa-test-image-service:
     specifier: ^0.12.0
     version: 0.12.0
@@ -9266,20 +9266,6 @@ packages:
     transitivePeerDependencies:
       - '@swc/core'
       - '@swc/wasm'
-      - supports-color
-    dev: false
-
-  /c2pa@0.17.5:
-    resolution: {integrity: sha512-12FVjMdBp1WI1ogBMZ1utEQIz6hsQ/41MxVqmG7IhxY/EtcRyeoZaXZk8QUwpb9uxGfMYn89s0OoeOrZGGvDdQ==}
-    dependencies:
-      '@contentauth/detector': 0.3.5
-      '@contentauth/toolkit': 0.10.3
-      debug: 4.3.4
-      lodash: 4.17.21
-      make-error: 1.3.6
-      p-props: 5.0.0
-      traverse: 0.6.7
-    transitivePeerDependencies:
       - supports-color
     dev: false
 
@@ -18510,6 +18496,22 @@ packages:
     resolution: {integrity: sha512-Z5SO09b7jKlxZ3ka5DynMK6/ZVh+GW6MZkTxcOMt4csOy0zX3LrleJIdc4/muUkrram9NtQHfrDTrwmubQWblw==, tarball: file:etc/packages/adobe-locales-2.35.2.tgz}
     name: '@intl/adobe-locales'
     version: 2.35.2
+    dev: false
+
+  file:etc/packages/c2pa-0.17.5-trust-list-dee1aeb.tgz:
+    resolution: {integrity: sha512-1KolNvM6AD+715BgD9gbZnKUvex/aLiIcOAgWLSDshAEKQ3/QgRjvC6NDetcSt/bvVingDrMrz8gcfP8+9MAZQ==, tarball: file:etc/packages/c2pa-0.17.5-trust-list-dee1aeb.tgz}
+    name: c2pa
+    version: 0.17.5
+    dependencies:
+      '@contentauth/detector': 0.3.5
+      '@contentauth/toolkit': 0.10.3
+      debug: 4.3.4
+      lodash: 4.17.21
+      make-error: 1.3.6
+      p-props: 5.0.0
+      traverse: 0.6.7
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   file:etc/packages/ingest-4.3.0.tgz:

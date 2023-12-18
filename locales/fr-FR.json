@@ -117,6 +117,7 @@
   "sidebar.verify.compare.slider": "Curseur",
   "sidebar.verify.compare.view.ariaLabel": "Comparatif en cours entre {primaryTitle} et {secondaryTitle}",
   "sidebar.verify.compare": "Comparer",
+  "sidebar.verify.asset.date.on": "sur",
   "sidebar.verify.credit.AI.description": "Ne pas utiliser mon contenu pour entraîner des modèles d’IA",
   "sidebar.verify.credit.AI": "Outil d’IA utilisé",
   "sidebar.verify.credit.description": "Le producteur a choisi de partager les informations suivantes :",
