@@ -18,17 +18,15 @@
 </script>
 
 <div class="error">
-  <div class="huge">{$page.status}</div>
-  <div class="big">
+  <div class="text-[12rem] text-body-bold text-gray-900">{$page.status}</div>
+  <div class="text-[1.75rem] text-body text-gray-900">
     {$page.error.message}.
-    <BaseLink href="/">Go back</BaseLink>
+    <span class="cursor-pointer text-blue-900 underline"
+      ><BaseLink href="/">Go back</BaseLink></span>
   </div>
 </div>
 
 <style>
-  .huge {
-    font-size: 12rem;
-  }
   .error {
     position: absolute;
     left: 50%;

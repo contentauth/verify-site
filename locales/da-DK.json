@@ -117,6 +117,7 @@
   "sidebar.verify.compare.slider": "Skydeknap",
   "sidebar.verify.compare.view.ariaLabel": "{primaryTitle} og {secondaryTitle} sammenlignes",
   "sidebar.verify.compare": "Sammenlign",
+  "sidebar.verify.asset.date.on": "på",
   "sidebar.verify.credit.AI.description": "Brug ikke mit indhold til at træne AI-modeller",
   "sidebar.verify.credit.AI": "AI-værktøj anvendt",
   "sidebar.verify.credit.description": "Producenten har valgt at dele følgende oplysninger:",

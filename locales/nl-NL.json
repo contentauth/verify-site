@@ -117,6 +117,7 @@
   "sidebar.verify.compare.slider": "Schuifregelaar",
   "sidebar.verify.compare.view.ariaLabel": "{primaryTitle} en {secondaryTitle} worden vergeleken",
   "sidebar.verify.compare": "Vergelijken",
+  "sidebar.verify.asset.date.on": "aan",
   "sidebar.verify.credit.AI.description": "Gebruik mijn inhoud niet om AI-modellen te trainen",
   "sidebar.verify.credit.AI": "Gebruikte AI-tool",
   "sidebar.verify.credit.description": "De producent heeft ervoor gekozen de volgende informatie te delen:",

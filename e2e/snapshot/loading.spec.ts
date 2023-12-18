@@ -157,4 +157,16 @@ test.describe('Verify - loading states', () => {
       `result showing valid claim without thumbnail`,
     );
   });
+
+  test('loading an image from Firefly should not show an untrusted signing banner', async ({
+    page,
+  }) => {
+    const verify = new VerifyPage(page);
+    await verify.goto();
+    await verify.chooseFile('firefly-labradoodle.jpg');
+
+    await verify.takeSnapshot(
+      `result showing Firefly image without untrusted banner`,
+    );
+  });
 });

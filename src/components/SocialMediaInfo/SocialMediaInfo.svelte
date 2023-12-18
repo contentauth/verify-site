@@ -17,17 +17,21 @@
   import SmallDescription from '../typography/SmallDescription.svelte';
   import Truncate from '../typography/Truncate.svelte';
 
-  export let link: string;
+  export let link: string | null;
   export let username: string;
   export let appName: string;
 </script>
 
 <div class="flex flex-col">
-  <Link>
-    <Truncate
-      ><a class="break-all" href={link} title={username}>{username}</a
-      ></Truncate
-    ></Link>
+  <Truncate>
+    {#if link}
+      <Link>
+        <a class="break-all" href={link} title={username}>{username}</a>
+      </Link>
+    {:else}
+      <span class="break-all">{username}</span>
+    {/if}
+  </Truncate>
   <div class="pt-0.5">
     <SmallDescription>{appName}</SmallDescription>
   </div>

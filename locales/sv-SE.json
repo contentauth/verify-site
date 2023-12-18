@@ -117,6 +117,7 @@
   "sidebar.verify.compare.slider": "Skjutreglage",
   "sidebar.verify.compare.view.ariaLabel": "{primaryTitle} och {secondaryTitle} jämförs",
   "sidebar.verify.compare": "Jämför",
+  "sidebar.verify.asset.date.on": "på",
   "sidebar.verify.credit.AI.description": "Använd inte mitt innehåll för att träna AI-modeller",
   "sidebar.verify.credit.AI": "Nyttjat AI-verktyg",
   "sidebar.verify.credit.description": "Producenten valde att dela följande information:",

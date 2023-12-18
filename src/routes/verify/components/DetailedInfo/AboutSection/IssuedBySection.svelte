@@ -21,6 +21,7 @@
   import AboutSectionIconContentRow from './AboutSectionIconContentRow.svelte';
 
   let showTooltip = false;
+  export let isUntrusted: boolean;
   export let issuedBy: string;
 </script>
 
@@ -30,7 +31,11 @@
   <div slot="content">
     <div class="flex justify-between">
       <AboutSectionIconContentRow>
-        <ProviderIcon slot="icon" provider={issuedBy} />
+        <svelte:fragment slot="icon">
+          {#if !isUntrusted}
+            <ProviderIcon provider={issuedBy} />
+          {/if}
+        </svelte:fragment>
         <svelte:fragment slot="content">
           {issuedBy}
         </svelte:fragment>

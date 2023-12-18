@@ -117,6 +117,7 @@
   "sidebar.verify.compare.slider": "Csúszka",
   "sidebar.verify.compare.view.ariaLabel": "A(z) {primaryTitle} és a(z) {secondaryTitle} összehasonlítása folyamatban van",
   "sidebar.verify.compare": "Összehasonlítás",
+  "sidebar.verify.asset.date.on": "egy",
   "sidebar.verify.credit.AI.description": "Ne használja a tartalmaimat AI-modellek betanítására",
   "sidebar.verify.credit.AI": "Használt MI-eszköz",
   "sidebar.verify.credit.description": "Az előállító a következő információk megosztását választotta:",

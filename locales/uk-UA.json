@@ -117,6 +117,7 @@
   "sidebar.verify.compare.slider": "Повзунок",
   "sidebar.verify.compare.view.ariaLabel": "{primaryTitle} і {secondaryTitle} порівнюються",
   "sidebar.verify.compare": "Порівняти",
+  "sidebar.verify.asset.date.on": "на",
   "sidebar.verify.credit.AI.description": "Не використовуйте мій вміст для навчання моделей ШІ",
   "sidebar.verify.credit.AI": "Використано інструмент ШІ",
   "sidebar.verify.credit.description": "Виробник вирішив надати таку інформацію:",
