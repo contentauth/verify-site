@@ -21,5 +21,5 @@
 </script>
 
 <div class="h-full w-full">
-  <ThumbnailImage {thumbnail} {mimeType} fillMode="contain" />
+  <ThumbnailImage {thumbnail} {mimeType} />
 </div>

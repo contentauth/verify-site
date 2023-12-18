@@ -276,6 +276,7 @@ export function fitToScreen(
   { svgSel, zoom, boundsElement, width, height }: ZoomOutProps,
   currentScale: number,
 ) {
+  analytics.track('fitTreeZoom');
   const sel = svgSel.transition().duration(prefersReducedMotion ? 0 : 250);
   const bbox = boundsElement.getBBox();
   const fitToSizeScale = Math.min(height / bbox.height, width / bbox.width);
