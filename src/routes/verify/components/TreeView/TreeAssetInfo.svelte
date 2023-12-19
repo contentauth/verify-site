@@ -64,7 +64,7 @@
     <div
       aria-label={ariaLabel}
       style="clip-path: inset(-10px {clipPathOffset}px -10px 0px);"
-      class="-ms-11 flex items-center rounded-full py-3 pe-3 ps-11 transition-all duration-150"
+      class="-ms-11 flex items-center rounded-full py-3 pe-3 ps-11 transition-all duration-150 motion-reduce:transition-none"
       class:bg-white={!removeL1}
       class:shadow-md={!removeL1}
       class:rounded-none={removeL1}>

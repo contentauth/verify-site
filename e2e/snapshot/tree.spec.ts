@@ -62,22 +62,85 @@ test.describe('Verify - tree view', () => {
     });
   });
 
-  test('tree zoom works as expected', async ({ page }) => {
+  test.only('tree zoom works as expected', async ({ page }) => {
     const verify = new VerifyPage(page);
     await page.setViewportSize({ width: 1024, height: 1024 });
     const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
     await verify.goto(source);
 
+    await verify.takeSnapshot('result for tree zoom out at scale 1', {
+      widths: [1024],
+    });
     await page.getByTestId('tree-zoom-out').click();
 
-    await verify.takeSnapshot('result for tree zoom out', {
+    await verify.takeSnapshot('result for tree zoom out at scale 0.5', {
+      widths: [1024],
+    });
+
+    await page.getByTestId('tree-zoom-out').click();
+
+    await verify.takeSnapshot('result for tree zoom out at scale 0.25', {
+      widths: [1024],
+    });
+
+    await page.getByTestId('tree-zoom-out').click();
+
+    await verify.takeSnapshot('result for tree zoom out at scale 0.125', {
       widths: [1024],
     });
 
     await page.getByTestId('tree-zoom-in').click();
 
-    await verify.takeSnapshot('result for tree zoom in', {
+    await verify.takeSnapshot('result for tree zoom in at scale 0.25', {
       widths: [1024],
     });
+
+    await page.getByTestId('tree-zoom-in').click();
+
+    await verify.takeSnapshot('result for tree zoom in at scale 0.5', {
+      widths: [1024],
+    });
+
+    await page.getByTestId('tree-zoom-in').click();
+
+    await verify.takeSnapshot('result for tree zoom in at scale 1', {
+      widths: [1024],
+    });
+  });
+
+  test('fitting regular-sized tree to the window works as expected (scale>=0.125)', async ({
+    page,
+  }) => {
+    const verify = new VerifyPage(page);
+    await page.setViewportSize({ width: 1024, height: 1024 });
+    const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
+    await verify.goto(source);
+
+    await page.getByTestId('tree-fit').click();
+
+    await verify.takeSnapshot(
+      'result for fitting regular-sized tree to the window (scale>=0.125)',
+      {
+        widths: [1024],
+      },
+    );
+  });
+
+  test('fitting large tree to the window works as expected (scale<0.125)', async ({
+    page,
+  }) => {
+    const verify = new VerifyPage(page);
+    await page.setViewportSize({ width: 1024, height: 1024 });
+    const source = VerifyPage.getFixtureUrl('obi.jpg', 'file');
+    await verify.goto(source);
+
+    await page.getByTestId('tree-fit').click();
+
+    await verify.takeSnapshot(
+      'result for fitting large tree to the window (scale<0.125)',
+      {
+        widths: [1024],
+      },
+    );
   });
 });

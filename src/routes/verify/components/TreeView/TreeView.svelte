@@ -32,6 +32,7 @@
     createTree,
     defaultConfig,
     fitToScreen,
+    minScale,
     remToPx,
     zoomIn,
     zoomOut,
@@ -96,6 +97,46 @@
     // Set the proper scaleExtent whenever the width/height changes
     zoom.scaleExtent([transforms.minScale, 1]);
   }
+  $: maxZoom = currentScale >= 1;
+  $: minZoom = currentScale <= minScale;
+  $: handleZoomIn = () =>
+    (currentScale = zoomIn(
+      {
+        svgSel,
+        zoom,
+        boundsElement,
+        width,
+        height,
+        minZoomScale: transforms.minZoomScale,
+      },
+      currentScale,
+      descendants,
+    ));
+  $: handleZoomOut = () =>
+    (currentScale = fitToScreen(
+      {
+        svgSel,
+        zoom,
+        boundsElement,
+        width,
+        height,
+        minZoomScale: transforms.minZoomScale,
+      },
+      currentScale,
+    ));
+  $: handleFitToScreen = () =>
+    (currentScale = zoomOut(
+      {
+        svgSel,
+        zoom,
+        boundsElement,
+        width,
+        height,
+        minZoomScale: transforms.minZoomScale,
+      },
+      currentScale,
+      descendants,
+    ));
 </script>
 
 <figure
@@ -149,22 +190,10 @@
       <div class="flex h-8 items-center rounded-full bg-white shadow-md">
         <button
           class="h-full pe-2 ps-2.5 transition-opacity"
-          class:opacity-40={currentScale >= 1}
-          class:cursor-not-allowed={currentScale >= 1}
-          disabled={currentScale >= 1}
-          on:click={() =>
-            (currentScale = zoomIn(
-              {
-                svgSel,
-                zoom,
-                boundsElement,
-                width,
-                height,
-                minZoomScale: transforms.minZoomScale,
-              },
-              currentScale,
-              descendants,
-            ))}
+          class:opacity-40={maxZoom}
+          class:cursor-not-allowed={maxZoom}
+          disabled={maxZoom}
+          on:click={handleZoomIn}
           aria-roledescription={$_('page.verify.zoomIn')}
           data-testid="tree-zoom-in">
           <ZoomIn width="1rem" height="1rem" class="text-gray-800" />
@@ -173,41 +202,19 @@
         <button
           class="bg-white px-2 pt-1"
           aria-roledescription={$_('page.verify.fitToScreen')}
-          on:click={() =>
-            (currentScale = fitToScreen(
-              {
-                svgSel,
-                zoom,
-                boundsElement,
-                width,
-                height,
-                minZoomScale: transforms.minZoomScale,
-              },
-              currentScale,
-            ))}>
+          data-testid="tree-fit"
+          on:click={handleZoomOut}>
           <BodyBold>{$_('page.verify.fit')}</BodyBold>
         </button>
         <div class="h-[85%] w-px bg-gray-200" />
         <button
           class="h-full pe-2.5 ps-2 transition-opacity"
-          class:opacity-40={currentScale <= 0.125}
-          class:cursor-not-allowed={currentScale <= 0.125}
-          disabled={currentScale <= 0.125}
+          class:opacity-40={minZoom}
+          class:cursor-not-allowed={minZoom}
+          disabled={minZoom}
           aria-roledescription={$_('page.verify.zoomOut')}
           data-testid="tree-zoom-out"
-          on:click={() =>
-            (currentScale = zoomOut(
-              {
-                svgSel,
-                zoom,
-                boundsElement,
-                width,
-                height,
-                minZoomScale: transforms.minZoomScale,
-              },
-              currentScale,
-              descendants,
-            ))}>
+          on:click={handleFitToScreen}>
           <ZoomOut width="1rem" height="1rem" class="text-gray-800" />
         </button>
       </div>

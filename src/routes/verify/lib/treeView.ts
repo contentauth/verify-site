@@ -27,6 +27,7 @@ const { hierarchyView } = verifyStore;
 
 let translateX = 0;
 let translateY = 0;
+export const minScale = 0.125;
 
 export type SVGSelection = Selection<
   SVGElement,
@@ -142,7 +143,6 @@ export function calculateTransforms({
   const tx = boundsTransform?.x ?? 0;
   const ty = boundsTransform?.y ?? 0;
   const scale = boundsTransform?.k ?? 0;
-  const minScale = 0.125;
 
   return {
     tx,
@@ -212,8 +212,8 @@ export function zoomIn(
       translateY = selectedAsset?.y;
     }
 
-    if (currentScale < 0.125) {
-      currentScale = 0.125;
+    if (currentScale < minScale) {
+      currentScale = minScale;
     } else {
       currentScale = currentScale * 2;
     }
@@ -281,7 +281,7 @@ export function fitToScreen(
   const bbox = boundsElement.getBBox();
   const fitToSizeScale = Math.min(height / bbox.height, width / bbox.width);
 
-  if (fitToSizeScale < 0.125) {
+  if (fitToSizeScale < minScale) {
     currentScale = fitToSizeScale;
   } else {
     const zoomOptions = [1, 0.5, 0.25, 0.125];
