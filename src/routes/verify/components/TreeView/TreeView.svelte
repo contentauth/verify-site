@@ -69,6 +69,47 @@
       boundsTransform = evt.transform;
     })
     .clickDistance(clickDistance);
+  function handleZoomIn() {
+    currentScale = zoomIn(
+      {
+        svgSel,
+        zoom,
+        boundsElement,
+        width,
+        height,
+        minZoomScale: transforms.minZoomScale,
+      },
+      currentScale,
+      descendants,
+    );
+  }
+  function handleZoomOut() {
+    currentScale = fitToScreen(
+      {
+        svgSel,
+        zoom,
+        boundsElement,
+        width,
+        height,
+        minZoomScale: transforms.minZoomScale,
+      },
+      currentScale,
+    );
+  }
+  function handleFitToScreen() {
+    currentScale = zoomOut(
+      {
+        svgSel,
+        zoom,
+        boundsElement,
+        width,
+        height,
+        minZoomScale: transforms.minZoomScale,
+      },
+      currentScale,
+      descendants,
+    );
+  }
 
   onMount(() => {
     svgSel = d3Select<SVGElement, ReadableAssetStore>(svgElement);
@@ -99,44 +140,6 @@
   }
   $: maxZoom = currentScale >= 1;
   $: minZoom = currentScale <= minScale;
-  $: handleZoomIn = () =>
-    (currentScale = zoomIn(
-      {
-        svgSel,
-        zoom,
-        boundsElement,
-        width,
-        height,
-        minZoomScale: transforms.minZoomScale,
-      },
-      currentScale,
-      descendants,
-    ));
-  $: handleZoomOut = () =>
-    (currentScale = fitToScreen(
-      {
-        svgSel,
-        zoom,
-        boundsElement,
-        width,
-        height,
-        minZoomScale: transforms.minZoomScale,
-      },
-      currentScale,
-    ));
-  $: handleFitToScreen = () =>
-    (currentScale = zoomOut(
-      {
-        svgSel,
-        zoom,
-        boundsElement,
-        width,
-        height,
-        minZoomScale: transforms.minZoomScale,
-      },
-      currentScale,
-      descendants,
-    ));
 </script>
 
 <figure
