@@ -20,6 +20,7 @@ test.describe('Verify - tree view', () => {
     await page.setViewportSize({ width: 2000, height: 1024 });
     const source = VerifyPage.getFixtureUrl('missingThumbnails');
     await verify.goto(source);
+    await page.getByTestId('tree-fit').click();
     await page.getByTestId('tree-node-0.0').click({ force: true });
     await page
       .locator('div[role="img"]', { hasText: 'No thumbnail available' })
@@ -62,15 +63,12 @@ test.describe('Verify - tree view', () => {
     });
   });
 
-  test.only('tree zoom works as expected', async ({ page }) => {
+  test('tree zoom works as expected', async ({ page }) => {
     const verify = new VerifyPage(page);
     await page.setViewportSize({ width: 1024, height: 1024 });
     const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
     await verify.goto(source);
 
-    await verify.takeSnapshot('result for tree zoom out at scale 1', {
-      widths: [1024],
-    });
     await page.getByTestId('tree-zoom-out').click();
 
     await verify.takeSnapshot('result for tree zoom out at scale 0.5', {
@@ -89,9 +87,6 @@ test.describe('Verify - tree view', () => {
       widths: [1024],
     });
 
-    await verify.takeSnapshot('result for tree zoom in at scale 0.125', {
-      widths: [1024],
-    });
     await page.getByTestId('tree-zoom-in').click();
 
     await verify.takeSnapshot('result for tree zoom in at scale 0.25', {
@@ -141,6 +136,15 @@ test.describe('Verify - tree view', () => {
 
     await verify.takeSnapshot(
       'result for fitting large tree to the window (scale<0.125)',
+      {
+        widths: [1024],
+      },
+    );
+
+    await page.getByTestId('tree-zoom-in').click();
+
+    await verify.takeSnapshot(
+      'result zooming in after fitting a large tree (scale=0.125)',
       {
         widths: [1024],
       },

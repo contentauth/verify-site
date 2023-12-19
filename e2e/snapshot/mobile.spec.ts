@@ -16,11 +16,14 @@ import { VerifyPage } from '../page';
 
 test.describe('Verify - mobile view', () => {
   test('mobile navigation works as expected', async ({ page }) => {
-    await page.setViewportSize({ width: 375, height: 1024 });
+    await page.setViewportSize({ width: 1024, height: 1024 });
     const verify = new VerifyPage(page);
     const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
     await verify.goto(source);
     await verify.treeViewVisible();
+    await page.getByTestId('tree-fit').click();
+    await page.setViewportSize({ width: 375, height: 1024 });
+
     await verify.takeSnapshot(`mobile - left column`, { widths: [375] });
 
     await page.getByRole('button', { name: 'CAICAI.jpg' }).click();

@@ -189,7 +189,7 @@
     <div class="space-between flex">
       <div class="flex h-8 items-center rounded-full bg-white shadow-md">
         <button
-          class="h-full pe-2 ps-2.5 transition-opacity"
+          class="h-full pe-2 ps-2.5 transition-opacity motion-reduce:transition-none"
           class:opacity-40={maxZoom}
           class:cursor-not-allowed={maxZoom}
           disabled={maxZoom}
@@ -208,7 +208,7 @@
         </button>
         <div class="h-[85%] w-px bg-gray-200" />
         <button
-          class="h-full pe-2.5 ps-2 transition-opacity"
+          class="h-full pe-2.5 ps-2 transition-opacity motion-reduce:transition-none"
           class:opacity-40={minZoom}
           class:cursor-not-allowed={minZoom}
           disabled={minZoom}
