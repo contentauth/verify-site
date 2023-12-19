@@ -89,6 +89,9 @@ test.describe('Verify - tree view', () => {
       widths: [1024],
     });
 
+    await verify.takeSnapshot('result for tree zoom in at scale 0.125', {
+      widths: [1024],
+    });
     await page.getByTestId('tree-zoom-in').click();
 
     await verify.takeSnapshot('result for tree zoom in at scale 0.25', {
