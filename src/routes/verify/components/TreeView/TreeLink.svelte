@@ -77,7 +77,7 @@
 
 <path
   d={pathData}
-  class="fill-none stroke-current text-gray-400 transition-all"
+  class="fill-none stroke-current text-gray-400 transition-all motion-reduce:transition-none"
   {style}
   class:text-gray-600={isAncestor}
   stroke-dasharray={isDashed ? dashSize.toString() : `0`} />

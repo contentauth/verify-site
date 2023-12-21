@@ -20,6 +20,7 @@
   import Body from '$src/components/typography/Body.svelte';
   import BodyBold from '$src/components/typography/BodyBold.svelte';
   import type { AssetData } from '$src/lib/asset';
+  import { prefersReducedMotion } from '$src/lib/matchMedia';
   import { select as d3Select } from 'd3-selection';
   import type { ZoomTransform } from 'd3-zoom';
   import { zoom as d3Zoom, zoomIdentity } from 'd3-zoom';
@@ -113,6 +114,7 @@
 
   onMount(() => {
     svgSel = d3Select<SVGElement, ReadableAssetStore>(svgElement);
+    svgSel.transition().duration(prefersReducedMotion ? 0 : 250);
     const bbox = boundsElement.getBBox();
     //checking if the ratio between the width/height and the window is larger than 0.5
     const treeFits = 0.5 < Math.min(height / bbox.height, width / bbox.width);
@@ -248,7 +250,7 @@
       <button
         on:click={() => verifyStore.setCompareView()}
         disabled={!canCompare}
-        class="transition-opacity"
+        class="transition-opacity motion-reduce:transition-none"
         class:opacity-40={!canCompare}
         class:cursor-not-allowed={!canCompare}
         ><div class="mx-3 my-2 flex items-center">
