@@ -118,13 +118,15 @@
     const treeFits =
       0.5 < Math.min(height / bbox.height, width / bbox.width) ? true : false;
 
+    currentScale = 0.5;
+
     //trees that can fit in a scale of 0.5 get centered
     if (treeFits) {
       svgSel.call(
         zoom.transform,
         zoomIdentity
           .translate(width / 2, height / 2)
-          .scale(0.5)
+          .scale(currentScale)
           .translate(
             -(bbox.x * 2 + bbox.width) / 2,
             -(bbox.y * 2 + bbox.height) / 2,
@@ -133,10 +135,9 @@
     } else {
       svgSel
         .call(zoom)
-        // Initially center on the root
         .call(
           zoom.transform,
-          zoomIdentity.translate(width / 2, height * 0.3).scale(0.5),
+          zoomIdentity.translate(width / 2, height * 0.3).scale(currentScale),
         );
     }
 
