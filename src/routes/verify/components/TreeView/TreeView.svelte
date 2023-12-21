@@ -113,10 +113,32 @@
 
   onMount(() => {
     svgSel = d3Select<SVGElement, ReadableAssetStore>(svgElement);
-    svgSel
-      .call(zoom)
-      // Initially center on the root
-      .call(zoom.transform, zoomIdentity.translate(width / 2, height * 0.3));
+    const bbox = boundsElement.getBBox();
+    //checking if the ratio between the width/height and the window is larger than 0.5
+    const treeFits =
+      0.5 < Math.min(height / bbox.height, width / bbox.width) ? true : false;
+
+    //trees that can fit in a scale of 0.5 get centered
+    if (treeFits) {
+      svgSel.call(
+        zoom.transform,
+        zoomIdentity
+          .translate(width / 2, height / 2)
+          .scale(0.5)
+          .translate(
+            -(bbox.x * 2 + bbox.width) / 2,
+            -(bbox.y * 2 + bbox.height) / 2,
+          ),
+      );
+    } else {
+      svgSel
+        .call(zoom)
+        // Initially center on the root
+        .call(
+          zoom.transform,
+          zoomIdentity.translate(width / 2, height * 0.3).scale(0.5),
+        );
+    }
 
     return () => {
       svgSel.on('.zoom', null);

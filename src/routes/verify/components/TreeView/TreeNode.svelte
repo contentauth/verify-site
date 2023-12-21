@@ -31,7 +31,8 @@
 
   $: tx = x - width / 2;
   $: ty = y - height / 2;
-  $: borderWidth = transformScale > 0.5 ? 0.3 : 0.3 + 0.5 / transformScale / 10;
+  $: borderWidth =
+    transformScale < 0.125 ? 0.7 : 0.3 + 0.5 / transformScale / 10;
   $: style = `width: ${width}px; height: ${height}px; transform: translate3d(${tx}px, ${ty}px, 0); border-width: ${borderWidth}rem`;
 
   function handleKeyPress(onKeyPress: ReadableAssetData['select']) {

@@ -97,7 +97,7 @@ export function createTree({
   height,
   config,
 }: CreateTreeProps) {
-  const vPad = 425;
+  const vPad = 250;
   const hPad = 175;
   const { nodeWidth, nodeHeight } = config;
   const hierarchy = d3Hierarchy(assetStoreMap[ROOT_ID], (readableAsset) => {
@@ -288,7 +288,6 @@ export function fitToScreen(
     const fitToScreenZoom = Math.max(
       ...zoomOptions.filter((num) => num <= fitToSizeScale),
     );
-
     currentScale = fitToScreenZoom;
   }
 

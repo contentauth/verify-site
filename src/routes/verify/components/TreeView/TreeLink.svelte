@@ -69,7 +69,8 @@
   $: isDashed = $sourceAsset.validationResult?.hasOtgp;
   $: path = curve(d3Path(), source.x, source.y, target.x, target.y);
   $: pathData = path.toString();
-  $: strokeWidth = transformScale > 0.5 ? 0.3 : 0.3 + 0.5 / transformScale / 10;
+  $: strokeWidth =
+    transformScale < 0.125 ? 0.7 : 0.3 + 0.5 / transformScale / 10;
   $: style = `stroke-width: ${strokeWidth}rem`;
 </script>
 

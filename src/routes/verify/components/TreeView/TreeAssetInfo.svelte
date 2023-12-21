@@ -41,7 +41,7 @@
   $: ariaLabel = $_('page.verify.treeNode.ariaLabel', {
     values: { title, hasContentCredentials, parentLabel },
   });
-  $: clipPathOffset = transformScale >= 0.25 ? 0 : 200;
+  $: clipPathOffset = transformScale >= 0.25 ? 0 : 250;
   $: removeL1 = transformScale == 0.125 ? true : false;
   $: L1IconSize = transformScale >= 0.125 ? 2 : transformScale * 16;
   $: date = $assetStore.manifestData?.date;
@@ -49,8 +49,8 @@
   $: statusCode = $assetStore.validationResult?.statusCode;
   $: hasCredentials =
     !!$assetStore.manifestData?.signatureInfo?.cert_serial_number;
-  $: scale = transformScale >= 0.5 ? 1 : 0.5 / transformScale;
-  $: L1margin = transformScale >= 0.25 ? 1 : transformScale / 0.25;
+  $: scale = 0.5 / transformScale;
+  $: L1margin = transformScale >= 0.25 ? 0.5 : transformScale / 0.25;
 </script>
 
 {#if statusCode === 'valid' && hasCredentials}
