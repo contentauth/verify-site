@@ -115,8 +115,7 @@
     svgSel = d3Select<SVGElement, ReadableAssetStore>(svgElement);
     const bbox = boundsElement.getBBox();
     //checking if the ratio between the width/height and the window is larger than 0.5
-    const treeFits =
-      0.5 < Math.min(height / bbox.height, width / bbox.width) ? true : false;
+    const treeFits = 0.5 < Math.min(height / bbox.height, width / bbox.width);
 
     currentScale = 0.5;
 
