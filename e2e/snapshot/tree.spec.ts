@@ -68,6 +68,11 @@ test.describe('Verify - tree view', () => {
     await page.setViewportSize({ width: 1024, height: 1024 });
     const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
     await verify.goto(source);
+    await page.getByTestId('tree-zoom-in').click();
+
+    await verify.takeSnapshot('result for tree zoom in at scale 1', {
+      widths: [1024],
+    });
 
     await page.getByTestId('tree-zoom-out').click();
 
@@ -96,12 +101,6 @@ test.describe('Verify - tree view', () => {
     await page.getByTestId('tree-zoom-in').click();
 
     await verify.takeSnapshot('result for tree zoom in at scale 0.5', {
-      widths: [1024],
-    });
-
-    await page.getByTestId('tree-zoom-in').click();
-
-    await verify.takeSnapshot('result for tree zoom in at scale 1', {
       widths: [1024],
     });
   });
