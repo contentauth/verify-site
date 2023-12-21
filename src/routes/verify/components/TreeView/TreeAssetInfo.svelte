@@ -43,7 +43,7 @@
   });
   $: clipPathOffset = transformScale >= 0.25 ? 0 : 250;
   $: removeL1 = transformScale == 0.125 ? true : false;
-  $: L1IconSize = transformScale >= 0.1 ? 2 : 1;
+  $: L1IconSize = transformScale >= 0.1 ? 2 : 1.5;
   $: date = $assetStore.manifestData?.date;
   $: issuer = $assetStore.manifestData?.signatureInfo?.issuer;
   $: statusCode = $assetStore.validationResult?.statusCode;
