@@ -14,6 +14,7 @@
 -->
 <script lang="ts">
   import L1Icon from '$assets/svg/color/cr-icon-fill.svg?component';
+  import Truncate from '$src/components/typography/Truncate.svelte';
   import type { HierarchyPointNode } from 'd3-hierarchy';
   import { _ } from 'svelte-i18n';
   import { get } from 'svelte/store';
@@ -70,7 +71,7 @@
       class:rounded-none={removeL1}>
       {#if !removeL1}
         <div class="rounded-full bg-white text-[1.7em]">
-          {#if date}<AssetInfoDate {date} />{:else}
+          {#if date}<Truncate><AssetInfoDate {date} /></Truncate>{:else}
             {issuer}{/if}
         </div>
       {/if}

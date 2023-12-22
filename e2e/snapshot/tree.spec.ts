@@ -88,6 +88,9 @@ test.describe('Verify - tree view', () => {
 
     await page.getByTestId('tree-zoom-out').click();
 
+    //TODO : improve wait for scale 0.125 to appear
+    await page.waitForTimeout(1000);
+
     await verify.takeSnapshot('result for tree zoom out at scale 0.125', {
       widths: [1024],
     });
