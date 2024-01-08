@@ -58,6 +58,8 @@
   "page.verify.treeNode.ariaLabel": "{title} {hasContentCredentials} {parentLabel}",
   "page.verify.zoomIn": "Click to zoom in on the tree",
   "page.verify.zoomOut": "Click to zoom out on the tree",
+  "page.verify.fit": "Fit",
+  "page.verify.fitToScreen": "Click to fit the tree to the screen",
   "reviewRatings.unknownActions": "Some edits or activity may not have been recorded.",
   "sidebar.apply.advanced.attach": "Attach to files (JPG & PNG)",
   "sidebar.apply.advanced.both": "Attach to files an publish to Content Credentials cloud",
