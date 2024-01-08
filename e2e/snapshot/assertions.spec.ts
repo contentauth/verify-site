@@ -148,7 +148,7 @@ test.describe('Verify - assertion display', () => {
       widths: [1280],
     });
   });
-  test.only('gen ai images with undefined software agents should not show an AI tool used section', async ({
+  test('gen ai images with undefined software agents should not show an AI tool used section', async ({
     page,
   }) => {
     const verify = new VerifyPage(page);
