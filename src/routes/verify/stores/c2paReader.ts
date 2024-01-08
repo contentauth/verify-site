@@ -88,8 +88,12 @@ export function createC2paReader(): C2paReaderStore {
               mimeTypeCorrections[
                 normalizedSourceType as keyof typeof mimeTypeCorrections
               ];
+          } else if (ext.endsWith('.arw')) {
+            correctedType = 'image/tiff';
           } else if (ext.endsWith('.dng')) {
             correctedType = 'image/x-adobe-dng';
+          } else if (ext.endsWith('.nef')) {
+            correctedType = 'image/tiff';
           } else if (ext.endsWith('.heic')) {
             correctedType = 'image/heic';
           } else if (ext.endsWith('.heif')) {
