@@ -123,7 +123,7 @@
 
     //trees that can fit in a scale of 0.5 get centered
     if (treeFits) {
-      svgSel.call(
+      svgSel.call(zoom).call(
         zoom.transform,
         zoomIdentity
           .translate(width / 2, height / 2)
