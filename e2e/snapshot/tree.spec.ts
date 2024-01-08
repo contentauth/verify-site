@@ -63,6 +63,28 @@ test.describe('Verify - tree view', () => {
     });
   });
 
+  test.only('panning small trees (widht/height smaller than the screen) works as expected', async ({
+    page,
+  }) => {
+    const verify = new VerifyPage(page);
+    const source = VerifyPage.getFixtureUrl('A.jpg', 'file');
+    await verify.goto(source);
+
+    const rootNode = page.getByTestId('tree-node-0');
+
+    await rootNode.dragTo(rootNode, {
+      force: true,
+      targetPosition: {
+        x: 300,
+        y: 300,
+      },
+    });
+
+    await verify.takeSnapshot('result for small tree pan', {
+      widths: [1280],
+    });
+  });
+
   test('tree zoom works as expected', async ({ page }) => {
     const verify = new VerifyPage(page);
     await page.setViewportSize({ width: 1024, height: 1024 });
