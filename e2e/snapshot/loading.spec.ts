@@ -28,6 +28,7 @@ test.describe('Verify - loading states', () => {
     const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
     await verify.goto(source);
     await verify.waitForActions();
+    await verify.treeViewVisible();
     await verify.takeTallSnapshot(`result for CAICAI.jpg via source`);
   });
 

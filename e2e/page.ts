@@ -111,6 +111,9 @@ export class VerifyPage {
     const file = path.resolve(dirname, `../fixtures/${fixture}`);
     await fileChooser.setFiles(file);
 
+    //TODO: Fix for tree path not loading fast enough , needs improvement
+    this.page.waitForTimeout(2000);
+
     if (waitForTree) {
       await this.treeViewVisible();
     }

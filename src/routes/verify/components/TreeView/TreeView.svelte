@@ -18,7 +18,9 @@
   import ZoomIn from '$assets/svg/monochrome/zoom-in.svg?component';
   import ZoomOut from '$assets/svg/monochrome/zoom-out.svg?component';
   import Body from '$src/components/typography/Body.svelte';
+  import BodyBold from '$src/components/typography/BodyBold.svelte';
   import type { AssetData } from '$src/lib/asset';
+  import { prefersReducedMotion } from '$src/lib/matchMedia';
   import { select as d3Select } from 'd3-selection';
   import type { ZoomTransform } from 'd3-zoom';
   import { zoom as d3Zoom, zoomIdentity } from 'd3-zoom';
@@ -30,6 +32,8 @@
     createLinks,
     createTree,
     defaultConfig,
+    fitToScreen,
+    minScale,
     remToPx,
     zoomIn,
     zoomOut,
@@ -46,8 +50,8 @@
   export let assetStoreMap: ReadableAssetMap;
   export let selectedAsset: Readable<AssetData>;
 
-  const nodeWidth = remToPx(10.25);
-  const nodeHeight = remToPx(10.25);
+  const nodeWidth = remToPx(32);
+  const nodeHeight = remToPx(32);
   const clickDistance = 10;
   const config: TreeViewConfig = {
     ...defaultConfig,
@@ -57,6 +61,7 @@
   let svgElement: SVGElement;
   let boundsElement: SVGGraphicsElement;
   let svgSel: SVGSelection;
+  let currentScale = 1;
   let width = 1;
   let height = 1;
   let boundsTransform: ZoomTransform;
@@ -65,13 +70,77 @@
       boundsTransform = evt.transform;
     })
     .clickDistance(clickDistance);
+  function handleZoomIn() {
+    currentScale = zoomIn(
+      {
+        svgSel,
+        zoom,
+        boundsElement,
+        width,
+        height,
+        minZoomScale: transforms.minZoomScale,
+      },
+      currentScale,
+      descendants,
+    );
+  }
+  function handleZoomOut() {
+    currentScale = fitToScreen(
+      {
+        svgSel,
+        zoom,
+        boundsElement,
+        width,
+        height,
+        minZoomScale: transforms.minZoomScale,
+      },
+      currentScale,
+    );
+  }
+  function handleFitToScreen() {
+    currentScale = zoomOut(
+      {
+        svgSel,
+        zoom,
+        boundsElement,
+        width,
+        height,
+        minZoomScale: transforms.minZoomScale,
+      },
+      currentScale,
+      descendants,
+    );
+  }
 
   onMount(() => {
     svgSel = d3Select<SVGElement, ReadableAssetStore>(svgElement);
-    svgSel
-      .call(zoom)
-      // Initially center on the root
-      .call(zoom.transform, zoomIdentity.translate(width / 2, height * 0.3));
+    svgSel.transition().duration(prefersReducedMotion ? 0 : 250);
+    const bbox = boundsElement.getBBox();
+    //checking if the ratio between the width/height and the window is larger than 0.5
+    const treeFits = 0.5 < Math.min(height / bbox.height, width / bbox.width);
+
+    currentScale = 0.5;
+
+    //trees that can fit in a scale of 0.5 get centered
+    if (treeFits) {
+      svgSel.call(
+        zoom.transform,
+        zoomIdentity
+          .translate(width / 2, height / 2)
+          .scale(currentScale)
+          .translate(
+            -(bbox.x * 2 + bbox.width) / 2,
+            -(bbox.y * 2 + bbox.height) / 2,
+          ),
+      );
+    } else {
+      svgSel
+        .call(zoom)
+        .call(
+          zoom.transform,
+          zoomIdentity.translate(width / 2, height * 0.3).scale(currentScale),
+        );
+    }
 
     return () => {
       svgSel.on('.zoom', null);
@@ -93,6 +162,8 @@
     // Set the proper scaleExtent whenever the width/height changes
     zoom.scaleExtent([transforms.minScale, 1]);
   }
+  $: maxZoom = currentScale >= 1;
+  $: minZoom = currentScale <= minScale;
 </script>
 
 <figure
@@ -102,7 +173,11 @@
   <svg bind:this={svgElement} viewBox={`0 0 ${width} ${height}`}>
     <g bind:this={boundsElement} transform={transforms.gTransform ?? ''}>
       {#each links as { link, idx, isAncestor } (idx)}
-        <TreeLink {link} {isAncestor} {nodeHeight} />
+        <TreeLink
+          {link}
+          {isAncestor}
+          {nodeHeight}
+          transformScale={transforms.scale} />
       {/each}
       {#each descendants as { data, x, y }, key (key)}
         <SvgTreeNode
@@ -130,49 +205,52 @@
           {y}
           width={nodeWidth}
           height={nodeHeight}
-          {parent} />
+          {parent}
+          transformScale={transforms.scale} />
       {/each}
     </div>
   </div>
 
   <div
     class="absolute bottom-5 right-5 z-20 hidden flex-col items-end justify-end space-y-5 lg:flex">
-    <div class="flex h-8 items-center rounded-full bg-white shadow-md">
-      <button
-        class="h-full pe-2 ps-2.5 transition-opacity"
-        class:opacity-40={!transforms.canZoomIn}
-        class:cursor-not-allowed={!transforms.canZoomIn}
-        disabled={!transforms.canZoomIn}
-        on:click={() => zoomIn({ svgSel, zoom })}
-        aria-roledescription={$_('page.verify.zoomIn')}
-        data-testid="tree-zoom-in">
-        <ZoomIn width="1rem" height="1rem" class="text-gray-800" />
-      </button>
-      <div class="h-[85%] w-px bg-gray-200" />
-      <button
-        class="h-full pe-2.5 ps-2 transition-opacity"
-        class:opacity-40={!transforms.canZoomOut}
-        class:cursor-not-allowed={!transforms.canZoomOut}
-        disabled={!transforms.canZoomOut}
-        aria-roledescription={$_('page.verify.zoomOut')}
-        data-testid="tree-zoom-out"
-        on:click={() =>
-          zoomOut({
-            svgSel,
-            zoom,
-            boundsElement,
-            width,
-            height,
-            minZoomScale: transforms.minZoomScale,
-          })}>
-        <ZoomOut width="1rem" height="1rem" class="text-gray-800" />
-      </button>
+    <div class="space-between flex">
+      <div class="flex h-8 items-center rounded-full bg-white shadow-md">
+        <button
+          class="h-full pe-2 ps-2.5 transition-opacity motion-reduce:transition-none"
+          class:opacity-40={maxZoom}
+          class:cursor-not-allowed={maxZoom}
+          disabled={maxZoom}
+          on:click={handleZoomIn}
+          aria-roledescription={$_('page.verify.zoomIn')}
+          data-testid="tree-zoom-in">
+          <ZoomIn width="1rem" height="1rem" class="text-gray-800" />
+        </button>
+        <div class="h-[85%] w-px bg-gray-200" />
+        <button
+          class="bg-white px-2 pt-1"
+          aria-roledescription={$_('page.verify.fitToScreen')}
+          data-testid="tree-fit"
+          on:click={handleZoomOut}>
+          <BodyBold>{$_('page.verify.fit')}</BodyBold>
+        </button>
+        <div class="h-[85%] w-px bg-gray-200" />
+        <button
+          class="h-full pe-2.5 ps-2 transition-opacity motion-reduce:transition-none"
+          class:opacity-40={minZoom}
+          class:cursor-not-allowed={minZoom}
+          disabled={minZoom}
+          aria-roledescription={$_('page.verify.zoomOut')}
+          data-testid="tree-zoom-out"
+          on:click={handleFitToScreen}>
+          <ZoomOut width="1rem" height="1rem" class="text-gray-800" />
+        </button>
+      </div>
     </div>
     <div class="flex h-8 items-center rounded-full bg-white shadow-md">
       <button
         on:click={() => verifyStore.setCompareView()}
         disabled={!canCompare}
-        class="transition-opacity"
+        class="transition-opacity motion-reduce:transition-none"
         class:opacity-40={!canCompare}
         class:cursor-not-allowed={!canCompare}
         ><div class="mx-3 my-2 flex items-center">
