@@ -42,8 +42,8 @@ dependencies:
     specifier: ^0.36.0
     version: 0.36.0
   c2pa:
-    specifier: file:etc/packages/c2pa-0.17.5-trust-list-dee1aeb.tgz
-    version: file:etc/packages/c2pa-0.17.5-trust-list-dee1aeb.tgz
+    specifier: file:etc/packages/c2pa-0.17.5-trust-list-290c44f.tgz
+    version: file:etc/packages/c2pa-0.17.5-trust-list-290c44f.tgz
   c2pa-test-image-service:
     specifier: ^0.12.0
     version: 0.12.0
@@ -18502,8 +18502,8 @@ packages:
     version: 2.35.2
     dev: false
 
-  file:etc/packages/c2pa-0.17.5-trust-list-dee1aeb.tgz:
-    resolution: {integrity: sha512-1KolNvM6AD+715BgD9gbZnKUvex/aLiIcOAgWLSDshAEKQ3/QgRjvC6NDetcSt/bvVingDrMrz8gcfP8+9MAZQ==, tarball: file:etc/packages/c2pa-0.17.5-trust-list-dee1aeb.tgz}
+  file:etc/packages/c2pa-0.17.5-trust-list-290c44f.tgz:
+    resolution: {integrity: sha512-k5B86qJ0uLy5Bs4lTUfycnrHJTFugHyGjxS3nPiNrrR4xIr3il2YrxD4bKqT3+Gc7dHJrE+UElTijycTToxvSQ==, tarball: file:etc/packages/c2pa-0.17.5-trust-list-290c44f.tgz}
     name: c2pa
     version: 0.17.5
     dependencies:
