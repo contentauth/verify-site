@@ -148,4 +148,20 @@ test.describe('Verify - assertion display', () => {
       widths: [1280],
     });
   });
+  test('gen ai images with undefined software agents should not show an AI tool used section', async ({
+    page,
+  }) => {
+    const verify = new VerifyPage(page);
+    const source = VerifyPage.getFixtureUrl(
+      'undefined-software-agent.jpg',
+      'file',
+    );
+    await verify.goto(source);
+    await verify.takeTallSnapshot(
+      `result for gen ai image with undefined software agent`,
+      {
+        widths: [1280],
+      },
+    );
+  });
 });

@@ -25,13 +25,16 @@ export interface GenerativeInfo {
 export function selectGenerativeSoftwareAgents(
   generativeInfo: SdkGenerativeInfo[],
 ) {
-  return [
+  const softwareAgents = [
     ...new Set(
       generativeInfo.map((assertion) => {
-        return assertion.softwareAgent;
+        return assertion?.softwareAgent;
       }),
     ),
   ];
+  //if there are undefined software agents remove them from the array
+
+  return softwareAgents.filter((element) => typeof element !== 'undefined');
 }
 
 export function selectGenerativeType(generativeInfo: SdkGenerativeInfo[]) {
