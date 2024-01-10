@@ -154,9 +154,7 @@ test.describe('Verify - tree view', () => {
   });
 });
 
-test.only('tree zoom with the mouse wheel works as expected', async ({
-  page,
-}) => {
+test('tree zoom with the mouse wheel works as expected', async ({ page }) => {
   const verify = new VerifyPage(page);
   await page.setViewportSize({ width: 1024, height: 1024 });
   const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');

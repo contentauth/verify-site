@@ -65,7 +65,6 @@
   let width = 1;
   let height = 1;
   let boundsTransform: ZoomTransform;
-
   let zoom = d3Zoom<SVGElement, ReadableAssetStore>()
     .on('zoom', (evt) => {
       boundsTransform = evt.transform;
@@ -75,7 +74,6 @@
         currentScale = evt.transform.k;
       }
     })
-
     .clickDistance(clickDistance);
   function handleZoomIn() {
     currentScale = zoomIn(
