@@ -148,6 +148,16 @@ test.describe('Verify - loading states', () => {
     await verify.takeSnapshot(`result for CIE-sig-CA.jpg`);
   });
 
+  test('loading an image with multiple different signature types should work', async ({
+    page,
+  }) => {
+    const verify = new VerifyPage(page);
+    await verify.goto();
+    await verify.chooseFile('different-sig-types.jpg');
+
+    await verify.takeSnapshot(`result for different-sig-types.jpg`);
+  });
+
   test('source thumbnail should show if image does not have a thumbnail and hashes are valid', async ({
     page,
   }) => {
