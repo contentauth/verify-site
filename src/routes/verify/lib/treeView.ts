@@ -258,6 +258,7 @@ export function zoomOut(
       translateY = selectedAsset?.y;
     }
 
+    console.log('currentScale', currentScale);
     currentScale = currentScale / 2;
 
     sel.call(

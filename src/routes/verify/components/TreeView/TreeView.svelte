@@ -65,10 +65,17 @@
   let width = 1;
   let height = 1;
   let boundsTransform: ZoomTransform;
+
   let zoom = d3Zoom<SVGElement, ReadableAssetStore>()
     .on('zoom', (evt) => {
       boundsTransform = evt.transform;
+
+      //update the current scale if the zoom is changed with the wheel
+      if (evt.sourceEvent.type === 'wheel') {
+        currentScale = evt.transform.k;
+      }
     })
+
     .clickDistance(clickDistance);
   function handleZoomIn() {
     currentScale = zoomIn(
