@@ -98,11 +98,17 @@ test.describe('Verify - tree view', () => {
 
     await page.getByTestId('tree-zoom-out').click();
 
+    //TODO : improve wait for scale 0.5 to appear
+    await page.waitForTimeout(1000);
+
     await verify.takeSnapshot('result for tree zoom out at scale 0.5', {
       widths: [1024],
     });
 
     await page.getByTestId('tree-zoom-out').click();
+
+    //TODO : improve wait for scale 0.25 to appear
+    await page.waitForTimeout(1000);
 
     await verify.takeSnapshot('result for tree zoom out at scale 0.25', {
       widths: [1024],
@@ -119,11 +125,17 @@ test.describe('Verify - tree view', () => {
 
     await page.getByTestId('tree-zoom-in').click();
 
+    //TODO : improve wait for scale 0.25 to appear
+    await page.waitForTimeout(1000);
+
     await verify.takeSnapshot('result for tree zoom in at scale 0.25', {
       widths: [1024],
     });
 
     await page.getByTestId('tree-zoom-in').click();
+
+    //TODO : improve wait for scale 0.5 to appear
+    await page.waitForTimeout(1000);
 
     await verify.takeSnapshot('result for tree zoom in at scale 0.5', {
       widths: [1024],
