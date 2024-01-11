@@ -157,6 +157,7 @@ test.describe('Verify - assertion display', () => {
       'file',
     );
     await verify.goto(source);
+    await verify.waitForActions();
     await verify.takeTallSnapshot(
       `result for gen ai image with undefined software agent`,
       {

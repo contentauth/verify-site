@@ -123,7 +123,8 @@
 
     //trees that can fit in a scale of 0.5 get centered
     if (treeFits) {
-      svgSel.call(
+      // we call zoom at first to initiate d3 zoom which handles panning and zooming , the next call handles the translation done on load
+      svgSel.call(zoom).call(
         zoom.transform,
         zoomIdentity
           .translate(width / 2, height / 2)
