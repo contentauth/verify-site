@@ -270,12 +270,14 @@ export async function resultToAssetMap({
       return null;
     }
 
+    const claimGeneratorInfo = manifest?.claimGeneratorInfo[0];
+
     return {
       date: manifest.signatureInfo?.time
         ? new Date(manifest.signatureInfo.time)
         : null,
-      claimGenerator: manifest.claimGeneratorInfo
-        ? `${manifest.claimGeneratorInfo[0].name} ${manifest.claimGeneratorInfo[0].version}`
+      claimGenerator: claimGeneratorInfo?.name
+        ? `${claimGeneratorInfo.name} ${claimGeneratorInfo?.version}`
         : selectFormattedGenerator(manifest),
       signatureInfo: manifest.signatureInfo,
       producer: selectProducer(manifest)?.name ?? null,
