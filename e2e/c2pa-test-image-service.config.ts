@@ -219,5 +219,19 @@ export default {
         ],
       },
     },
+    'claim-generator-info': {
+      image: { r: 0, g: 0, b: 255, width: 600, height: 600 },
+      manifest: {
+        title: 'Claim Generator Image.jpg',
+        claim_generator: 'Claim Generator V1',
+        claim_generator_info: [
+          {
+            name: 'Claim Generator',
+            version: 'v2',
+          },
+        ],
+        format: 'image/jpeg',
+      },
+    },
   },
 } satisfies C2paTestImageServiceConfig;

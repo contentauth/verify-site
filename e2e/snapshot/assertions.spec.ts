@@ -52,4 +52,16 @@ test.describe('Verify - assertion display', () => {
       `result for image without inference metadata`,
     );
   });
+
+  test('image with claim_generator v2 should display correctly', async ({
+    page,
+  }) => {
+    const verify = new VerifyPage(page);
+    await page.setViewportSize({ width: 1024, height: 1024 });
+    const source = VerifyPage.getFixtureUrl('claim-generator-info');
+    await verify.goto(source);
+    await verify.takeSnapshot('result for image with claim generator v2', {
+      widths: [1024],
+    });
+  });
 });
