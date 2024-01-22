@@ -70,7 +70,9 @@
       boundsTransform = evt.transform;
 
       //update the current scale if the zoom is changed with the wheel
-      if (evt.sourceEvent.type === 'wheel') {
+
+      if (evt?.sourceEvent?.type === 'wheel') {
+        console.log('currentScale', currentScale);
         currentScale = evt.transform.k;
       }
     })
