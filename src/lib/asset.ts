@@ -270,7 +270,22 @@ export async function resultToAssetMap({
       return null;
     }
 
-    const claimGeneratorInfo = manifest?.claimGeneratorInfo[0];
+    function formattedGeneratorInfo(
+      claim_generator: Manifest['claimGeneratorInfo'][0],
+    ) {
+      const version = claim_generator?.version;
+
+      const name = claim_generator?.name;
+
+      claim_generator.name = name?.replace('_', ' ');
+      claim_generator.version = version?.substring(0, version.indexOf(' '));
+
+      return claim_generator;
+    }
+
+    const claimGeneratorInfo = manifest?.claimGeneratorInfo[0]
+      ? formattedGeneratorInfo(manifest?.claimGeneratorInfo[0])
+      : null;
 
     return {
       date: manifest.signatureInfo?.time
