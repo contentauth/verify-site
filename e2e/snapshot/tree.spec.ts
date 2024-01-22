@@ -187,3 +187,30 @@ test.describe('Verify - tree view', () => {
     );
   });
 });
+
+test('tree zoom with the mouse wheel works as expected', async ({ page }) => {
+  const verify = new VerifyPage(page);
+  await page.setViewportSize({ width: 1024, height: 1024 });
+  const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
+  await verify.goto(source);
+
+  await page.mouse.move(500, 500);
+
+  await page.mouse.wheel(0, -300);
+
+  await verify.takeSnapshot(
+    'result for zooming into the tree with the mouse wheel',
+    {
+      widths: [1024],
+    },
+  );
+
+  await page.mouse.wheel(0, 800);
+
+  await verify.takeSnapshot(
+    'result for zooming out of the tree with the mouse wheel',
+    {
+      widths: [1024],
+    },
+  );
+});
