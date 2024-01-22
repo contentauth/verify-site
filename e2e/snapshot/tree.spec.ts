@@ -63,6 +63,28 @@ test.describe('Verify - tree view', () => {
     });
   });
 
+  test('panning small trees (width/height smaller than the screen) works as expected', async ({
+    page,
+  }) => {
+    const verify = new VerifyPage(page);
+    const source = VerifyPage.getFixtureUrl('A.jpg', 'file');
+    await verify.goto(source);
+
+    const rootNode = page.getByTestId('tree-node-0');
+
+    await rootNode.dragTo(rootNode, {
+      force: true,
+      targetPosition: {
+        x: 300,
+        y: 300,
+      },
+    });
+
+    await verify.takeSnapshot('result for small tree pan', {
+      widths: [1280],
+    });
+  });
+
   test('tree zoom works as expected', async ({ page }) => {
     const verify = new VerifyPage(page);
     await page.setViewportSize({ width: 1024, height: 1024 });
@@ -76,11 +98,17 @@ test.describe('Verify - tree view', () => {
 
     await page.getByTestId('tree-zoom-out').click();
 
+    //TODO : improve wait for scale 0.5 to appear
+    await page.waitForTimeout(1000);
+
     await verify.takeSnapshot('result for tree zoom out at scale 0.5', {
       widths: [1024],
     });
 
     await page.getByTestId('tree-zoom-out').click();
+
+    //TODO : improve wait for scale 0.25 to appear
+    await page.waitForTimeout(1000);
 
     await verify.takeSnapshot('result for tree zoom out at scale 0.25', {
       widths: [1024],
@@ -97,11 +125,17 @@ test.describe('Verify - tree view', () => {
 
     await page.getByTestId('tree-zoom-in').click();
 
+    //TODO : improve wait for scale 0.25 to appear
+    await page.waitForTimeout(1000);
+
     await verify.takeSnapshot('result for tree zoom in at scale 0.25', {
       widths: [1024],
     });
 
     await page.getByTestId('tree-zoom-in').click();
+
+    //TODO : improve wait for scale 0.5 to appear
+    await page.waitForTimeout(1000);
 
     await verify.takeSnapshot('result for tree zoom in at scale 0.5', {
       widths: [1024],
