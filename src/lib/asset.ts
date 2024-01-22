@@ -274,9 +274,7 @@ export async function resultToAssetMap({
       claim_generator: Manifest['claimGeneratorInfo'][0],
     ) {
       const version = claim_generator?.version;
-
       const name = claim_generator?.name;
-
       claim_generator.name = name?.replace('_', ' ');
       claim_generator.version = version?.substring(0, version.indexOf(' '));
 
