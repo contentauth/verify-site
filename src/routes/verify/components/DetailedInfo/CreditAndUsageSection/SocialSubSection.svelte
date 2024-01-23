@@ -17,6 +17,7 @@
   import ProviderIcon from '$src/components/ProviderIcon/ProviderIcon.svelte';
   import SocialMediaInfo from '$src/components/SocialMediaInfo/SocialMediaInfo.svelte';
   import type { ManifestData } from '$src/lib/asset';
+  import { isSecureUrl } from '$src/lib/url';
   import { _ } from 'svelte-i18n';
   import SubSection from '../../SubSection/SubSection.svelte';
   import AboutSectionIconContentRow from '../AboutSection/AboutSectionIconContentRow.svelte';
@@ -28,17 +29,16 @@
   <svelte:fragment slot="title">
     {$_('sidebar.verify.credit.social')}</svelte:fragment>
   <div class="flex flex-col gap-2.5" slot="content">
-    {#each socialAccounts as account (account['@id'])}
+    {#each socialAccounts as { name, '@id': url } (url)}
       <AboutSectionIconContentRow>
         <div slot="icon">
-          <ProviderIcon provider={account['@id'] ?? ''} />
+          <ProviderIcon provider={url ?? ''} />
         </div>
         <SocialMediaInfo
           slot="content"
-          link={account['@id'] ?? ''}
-          username={account['name']}
-          appName={providerInfoFromSocialId(account['@id'] ?? '')?.name ??
-            ''} />
+          link={url && isSecureUrl(url) ? url : null}
+          username={name}
+          appName={providerInfoFromSocialId(url ?? '')?.name ?? ''} />
       </AboutSectionIconContentRow>
     {/each}
   </div>

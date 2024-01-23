@@ -20,6 +20,7 @@
   import IssuedOnSection from './IssuedOnSection.svelte';
 
   export let manifestData: ManifestData;
+  export let isUntrusted: boolean;
 </script>
 
 <CollapsibleSection>
@@ -27,7 +28,9 @@
     {$_('sidebar.verify.about')}</svelte:fragment>
   <svelte:fragment slot="content">
     {#if manifestData.signatureInfo?.issuer}
-      <IssuedBySection issuedBy={manifestData.signatureInfo?.issuer} />
+      <IssuedBySection
+        issuedBy={manifestData.signatureInfo?.issuer}
+        {isUntrusted} />
     {/if}
     {#if manifestData.date}
       <IssuedOnSection date={manifestData.date} />

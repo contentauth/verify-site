@@ -14,6 +14,7 @@
 
 <script lang="ts">
   import Spinner from '$src/components/Spinner/Spinner.svelte';
+  import { prefersReducedMotion } from '$src/lib/matchMedia';
   import { _ } from 'svelte-i18n';
   import { fade } from 'svelte/transition';
 
@@ -24,7 +25,7 @@
   <div
     data-testid="loading-overlay"
     class="text-black fixed inset-0 z-50 flex select-none bg-gray-40/90 p-10"
-    transition:fade={{ duration: 100 }}>
+    transition:fade={{ duration: prefersReducedMotion ? 0 : 100 }}>
     <div
       class="align-center flex w-full flex-col items-center justify-center space-y-5">
       <Spinner

@@ -19,13 +19,18 @@
   import AboutSectionIconContentRow from '../AboutSection/AboutSectionIconContentRow.svelte';
 
   export let generator: string;
+  export let isUntrusted: boolean;
 </script>
 
 <SubSection>
   <svelte:fragment slot="title">
     {$_('sidebar.verify.process.app')}</svelte:fragment>
   <AboutSectionIconContentRow slot="content">
-    <ProviderIcon slot="icon" provider={generator} />
+    <svelte:fragment slot="icon">
+      {#if !isUntrusted}
+        <ProviderIcon provider={generator} />
+      {/if}
+    </svelte:fragment>
     <div slot="content" class="break-all">{generator}</div>
   </AboutSectionIconContentRow>
 </SubSection>

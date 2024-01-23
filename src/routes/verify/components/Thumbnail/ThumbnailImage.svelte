@@ -25,7 +25,6 @@
   import { _ } from 'svelte-i18n';
 
   export let thumbnail: ThumbnailInfo | null;
-  export let fillMode: 'contain' | 'cover' = 'contain';
   export let mimeType: string;
   export let size = '4rem';
   export let showMissingText = false;
@@ -55,9 +54,7 @@
   <img
     src={thumbnail.url}
     on:error={handleImageError}
-    class="h-full w-full"
-    class:object-contain={fillMode === 'contain'}
-    class:object-cover={fillMode === 'cover'}
+    class="h-full w-full object-contain"
     {alt} />
 {:else}
   <div

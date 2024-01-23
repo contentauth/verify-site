@@ -28,6 +28,7 @@ test.describe('Verify - loading states', () => {
     const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
     await verify.goto(source);
     await verify.waitForActions();
+    await verify.treeViewVisible();
     await verify.takeTallSnapshot(`result for CAICAI.jpg via source`);
   });
 
@@ -147,6 +148,16 @@ test.describe('Verify - loading states', () => {
     await verify.takeSnapshot(`result for CIE-sig-CA.jpg`);
   });
 
+  test('loading an image with multiple different signature types should work', async ({
+    page,
+  }) => {
+    const verify = new VerifyPage(page);
+    await verify.goto();
+    await verify.chooseFile('different-sig-types.jpg');
+
+    await verify.takeSnapshot(`result for different-sig-types.jpg`);
+  });
+
   test('source thumbnail should show if image does not have a thumbnail and hashes are valid', async ({
     page,
   }) => {
@@ -155,6 +166,18 @@ test.describe('Verify - loading states', () => {
     await verify.goto(source);
     await verify.takeTallSnapshot(
       `result showing valid claim without thumbnail`,
+    );
+  });
+
+  test('loading an image from Firefly should not show an untrusted signing banner', async ({
+    page,
+  }) => {
+    const verify = new VerifyPage(page);
+    await verify.goto();
+    await verify.chooseFile('firefly-labradoodle.jpg');
+
+    await verify.takeSnapshot(
+      `result showing Firefly image without untrusted banner`,
     );
   });
 });

@@ -111,6 +111,9 @@ export class VerifyPage {
     const file = path.resolve(dirname, `../fixtures/${fixture}`);
     await fileChooser.setFiles(file);
 
+    //TODO: Fix for tree path not loading fast enough , needs improvement
+    this.page.waitForTimeout(2000);
+
     if (waitForTree) {
       await this.treeViewVisible();
     }
@@ -145,7 +148,6 @@ export class VerifyPage {
     await manifestDataLoc.waitFor();
     expect(await manifestDataLoc.count()).toBe(1);
     const hasManifest = await manifestDataLoc.getAttribute('data-has-manifest');
-    console.log('hasManifest', hasManifest);
     expect(hasManifest).toMatch(/^(true|false)$/);
 
     if (hasManifest === 'true') {

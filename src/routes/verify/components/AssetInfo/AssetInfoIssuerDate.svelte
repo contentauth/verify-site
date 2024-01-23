@@ -13,21 +13,19 @@
   from Adobe.
 -->
 <script lang="ts">
-  import Body from '$src/components/typography/Body.svelte';
-  import type { AssetData } from '$src/lib/asset';
+  import Description from '$src/components/typography/Description.svelte';
+  import type { ManifestData } from '$src/lib/asset';
+  import { _ } from 'svelte-i18n';
   import AssetInfoDate from './AssetInfoDate.svelte';
-  import AssetInfoThumbnailBase from './AssetInfoThumbnailBase.svelte';
 
-  export let assetData: AssetData;
-  export let highlighted = false;
-  $: date = assetData.manifestData?.date;
-  $: issuer = assetData.manifestData?.signatureInfo?.issuer;
+  export let manifestData: ManifestData | null;
+  $: date = manifestData?.date;
+  $: issuer = manifestData?.signatureInfo?.issuer;
 </script>
 
-<AssetInfoThumbnailBase {assetData} {highlighted}>
-  <Body slot="name"><slot name="name" /></Body>
-
-  <Body slot="CRInfo">
-    {#if date}
-      <AssetInfoDate {date} />{:else}{issuer}{/if}</Body>
-</AssetInfoThumbnailBase>
+<Description>
+  {$_('sidebar.verify.about.issuedby')}
+  {issuer}
+  {#if date}
+    {$_('sidebar.verify.asset.date.on')} <AssetInfoDate {date} />{/if}
+</Description>

@@ -13,21 +13,9 @@
   from Adobe.
 -->
 <script lang="ts">
-  import type { AssetData } from '$src/lib/asset';
-  import SmallThumbnail from '../Thumbnail/SmallThumbnail.svelte';
-  import AssetInfoBase from './AssetInfoBase.svelte';
+  import FormattedDateTime from '$src/components/FormattedDateTime/FormattedDateTime.svelte';
 
-  export let assetData: AssetData;
-  export let highlighted = false;
-  export let hideThumbnail = false;
+  export let date: Date;
 </script>
 
-<AssetInfoBase {assetData} {hideThumbnail}>
-  <SmallThumbnail
-    thumbnail={assetData.thumbnail}
-    mimeType={assetData.mimeType}
-    {highlighted}
-    slot="thumbnail" />
-  <slot slot="name" name="name" />
-  <slot slot="CRInfo" name="CRInfo" />
-</AssetInfoBase>
+<span data-testid="signedOn"><FormattedDateTime {date} noTime /></span>

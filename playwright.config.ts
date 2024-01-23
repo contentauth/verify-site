@@ -28,6 +28,7 @@ const baseURL = `${base ?? `http://localhost`}:${port}/`;
 const config: PlaywrightTestConfig = {
   testDir: 'e2e',
   retries: process.env.CI ? 1 : 0,
+  forbidOnly: !!process.env.CI,
   use: {
     baseURL,
     headless: true,

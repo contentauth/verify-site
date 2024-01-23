@@ -22,6 +22,7 @@
   import { openModal } from 'svelte-modals';
   import type { Readable } from 'svelte/store';
   import { verifyStore } from '../../stores';
+  import AssetInfoIssuerDate from '../AssetInfo/AssetInfoIssuerDate.svelte';
   import BigAssetInfo from '../AssetInfo/BigAssetInfo.svelte';
   import ErrorBanner from '../ErrorBanner/ErrorBanner.svelte';
   import ThumbnailSection from '../Thumbnail/ThumbnailSection.svelte';
@@ -45,6 +46,7 @@
   $: isValid = statusCode === 'valid';
   $: isIncomplete = statusCode === 'incomplete';
   $: isInvalid = statusCode === 'invalid';
+  $: isUntrusted = $assetData.validationResult?.hasUntrustedSigner ?? false;
   $: manifestData = isValid ? $assetData.manifestData : null;
   $: title = $assetData.title ?? $_('asset.defaultTitle');
 
@@ -102,7 +104,9 @@
   <div class="bg-gray-50 flex h-20 shrink-0 items-center justify-between px-6">
     {#if $assetData}
       <BigAssetInfo assetData={$assetData} hideThumbnail={hideHeaderThumbnail}>
-        <span slot="name" {title}>{title}</span></BigAssetInfo>
+        <span slot="name" {title}>{title}</span>
+        <AssetInfoIssuerDate {manifestData} slot="CRInfo" />
+      </BigAssetInfo>
     {/if}
     <button on:click={handleCloseClick} class="ms-2 shrink-0 sm:hidden">
       <img
@@ -110,16 +114,20 @@
         class="h-[1.15rem] w-[1.15rem]"
         alt={$_('sidebar.verify.hideInfo')} /></button>
   </div>
-  {#if isIncomplete}
-    <ErrorBanner
-      ><Body><span class="text-white">{$_('error.incomplete')}</span></Body
-      ></ErrorBanner>
-  {:else if isInvalid}
-    <ErrorBanner type="warning"
-      ><Body><span class="text-white">{$_('error.invalid')} </span></Body
-      ></ErrorBanner>
-  {/if}
 </div>
+{#if isInvalid}
+  <ErrorBanner type="error"
+    ><Body><span class="text-white">{$_('error.invalid')}</span></Body
+    ></ErrorBanner>
+{:else if isIncomplete}
+  <ErrorBanner type="info"
+    ><Body><span class="text-white">{$_('error.incomplete')}</span></Body
+    ></ErrorBanner>
+{:else if isUntrusted}
+  <ErrorBanner type="warning"
+    ><Body><span class="text-white">{$_('error.untrusted')}</span></Body
+    ></ErrorBanner>
+{/if}
 <div bind:this={thumbnailElement}>
   <ThumbnailSection
     thumbnail={$assetData.thumbnail}
@@ -131,8 +139,8 @@
   {#if manifestData}
     <ContentSummarySection {...assetDataToContentSummaryProps($assetData)} />
     <CreditAndUsage {manifestData} />
-    <ProcessSection {manifestData} {ingredients} />
+    <ProcessSection {manifestData} {ingredients} {isUntrusted} />
     <CameraCaptureSection {manifestData} />
-    <AboutSection {manifestData} />
+    <AboutSection {manifestData} {isUntrusted} />
   {/if}
 </div>
