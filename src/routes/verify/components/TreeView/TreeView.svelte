@@ -217,7 +217,6 @@
       {/each}
     </div>
   </div>
-
   <div
     class="absolute bottom-5 right-5 z-20 hidden flex-col items-end justify-end space-y-5 lg:flex">
     <div class="space-between flex">

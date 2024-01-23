@@ -99,7 +99,8 @@
       class="pointer-events-none absolute bottom-0 left-[--leftWidth] top-0 z-10 w-1 -translate-x-0.5 touch-none border-l border-r border-gray-300 bg-white"
       bind:this={slider}>
       <div
-        class="pointer-events-auto absolute top-1/2 flex h-8 w-8 -translate-x-3.5 translate-y-[-15px] select-none items-center justify-center rounded-full border border-gray-300 bg-white">
+        class="pointer-events-auto absolute top-1/2 flex h-8 w-8 -translate-x-3.5 translate-y-[-15px] select-none items-center justify-center rounded-full border border-gray-300 bg-white"
+        data-testId="slider-handle">
         <div class="relative flex">
           <ChevronLeft
             width="16px"
