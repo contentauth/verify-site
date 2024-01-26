@@ -13,7 +13,13 @@
 
 import pMemoize from 'p-memoize';
 
-export const MEDIA_CATEGORIES = ['audio', 'image', 'video', 'unknown'] as const;
+export const MEDIA_CATEGORIES = [
+  'audio',
+  'image',
+  'video',
+  'document',
+  'unknown',
+] as const;
 
 export type MediaCategory = (typeof MEDIA_CATEGORIES)[number];
 
@@ -116,6 +122,18 @@ export const SUPPORTED_FORMATS: Record<string, FormatDefinition> = {
     name: 'MP4',
     category: 'video',
     browserViewable: async () => true,
+    searchable: false,
+  },
+  'video/x-msvideo': {
+    name: 'AVI',
+    category: 'video',
+    browserViewable: async () => false,
+    searchable: false,
+  },
+  'application/pdf': {
+    name: 'PDF',
+    category: 'document',
+    browserViewable: async () => false,
     searchable: false,
   },
 };

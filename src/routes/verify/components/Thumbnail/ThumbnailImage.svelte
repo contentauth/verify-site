@@ -36,6 +36,7 @@
     audio: AudioFallback,
     image: ImageFallback,
     video: VideoFallback,
+    document: ImageFallback,
     unknown: ImageFallback,
   };
 
