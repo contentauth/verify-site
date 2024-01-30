@@ -22,7 +22,6 @@
   export let highlighted = false;
   $: date = assetData.manifestData?.date;
   $: issuer = assetData.manifestData?.signatureInfo?.issuer;
-  $: console.log('assetData', assetData);
 </script>
 
 <AssetInfoThumbnailBase {assetData} {highlighted}>

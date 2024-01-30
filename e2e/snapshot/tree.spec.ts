@@ -230,21 +230,6 @@ test('Incomplete content credentials should display an incomplete CR icon on the
   );
 });
 
-test('Invalid content credentials should display an incomplete CR icon on the tree node', async ({
-  page,
-}) => {
-  const verify = new VerifyPage(page);
-  await page.setViewportSize({ width: 1024, height: 1024 });
-  const source = VerifyPage.getFixtureUrl('XCA.jpg', 'file');
-  await verify.goto(source);
-  await verify.takeSnapshot(
-    'result for tree view with incomplete content credentials',
-    {
-      widths: [1024],
-    },
-  );
-});
-
 test('Invalid content credentials should display an invalid CR icon on the tree node', async ({
   page,
 }) => {
