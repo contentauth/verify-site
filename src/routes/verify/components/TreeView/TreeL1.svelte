@@ -31,7 +31,7 @@
   $: parentData = parent?.data ? get(parent?.data) : null;
   $: parentTitle = parentData?.title;
   $: parentLabel =
-    parent == null
+    parent === null
       ? $_('sidebar.verify.compare.root')
       : $_('sidebar.verify.compare.child', {
           values: { parentTitle },
@@ -40,7 +40,7 @@
     values: { title, hasContentCredentials, parentLabel },
   });
   $: clipPathOffset = transformScale >= 0.25 ? 0 : 250;
-  $: removeL1 = transformScale == 0.125 ? true : false;
+  $: removeL1 = transformScale === 0.125 ? true : false;
   $: scale = 0.5 / transformScale;
   $: L1margin = transformScale >= 0.25 ? 0.5 : transformScale / 0.25;
 </script>
