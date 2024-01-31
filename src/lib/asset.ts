@@ -288,7 +288,7 @@ export async function resultToAssetMap({
         ? new Date(manifest.signatureInfo.time)
         : null,
       claimGenerator: claimGeneratorInfo?.name
-        ? `${claimGeneratorInfo.name} ${claimGeneratorInfo?.version}`
+        ? `${claimGeneratorInfo.name} ${claimGeneratorInfo?.version ?? ''}`
         : selectFormattedGenerator(manifest),
       signatureInfo: manifest.signatureInfo,
       producer: selectProducer(manifest)?.name ?? null,
