@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@ccx-public/ingest':
     specifier: file:etc/packages/ingest-4.3.0.tgz
@@ -38,8 +42,8 @@ dependencies:
     specifier: ^0.36.0
     version: 0.36.0
   c2pa:
-    specifier: file:etc/packages/c2pa-0.17.7-trust-list-ff65f35.tgz
-    version: file:etc/packages/c2pa-0.17.7-trust-list-ff65f35.tgz
+    specifier: file:etc/packages/c2pa-0.17.7-trust-list-20240208.2.tgz
+    version: file:etc/packages/c2pa-0.17.7-trust-list-20240208.2.tgz
   c2pa-test-image-service:
     specifier: ^0.12.0
     version: 0.12.0
@@ -341,7 +345,7 @@ devDependencies:
     version: 5.20.0
   ts-jest:
     specifier: ^29.1.1
-    version: 29.1.1(@babel/core@7.22.10)(esbuild@0.18.20)(jest@29.7.0)(typescript@5.2.2)
+    version: 29.1.1(@babel/core@7.22.10)(esbuild@0.17.19)(jest@29.7.0)(typescript@5.2.2)
   tslib:
     specifier: ^2.6.2
     version: 2.6.2
@@ -17427,7 +17431,7 @@ packages:
   /ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
 
-  /ts-jest@29.1.1(@babel/core@7.22.10)(esbuild@0.18.20)(jest@29.7.0)(typescript@5.2.2):
+  /ts-jest@29.1.1(@babel/core@7.22.10)(esbuild@0.17.19)(jest@29.7.0)(typescript@5.2.2):
     resolution: {integrity: sha512-D6xjnnbP17cC85nliwGiL+tpoKN0StpgE0TeOjXQTU6MVCfsB4v7aW05CgQ/1OywGb0x/oy9hHFnN+sczTiRaA==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     hasBin: true
@@ -17450,7 +17454,7 @@ packages:
     dependencies:
       '@babel/core': 7.22.10
       bs-logger: 0.2.6
-      esbuild: 0.18.20
+      esbuild: 0.17.19
       fast-json-stable-stringify: 2.1.0
       jest: 29.7.0(@types/node@20.6.0)
       jest-util: 29.7.0
@@ -18498,8 +18502,8 @@ packages:
     version: 2.35.2
     dev: false
 
-  file:etc/packages/c2pa-0.17.7-trust-list-ff65f35.tgz:
-    resolution: {integrity: sha512-HcHsiZ9Cnh5ySZjEGldJEBaga0r+bAqSO9pCvfqNfybriq63WlWEaaEDDR/4UZ41rXTlgguhV9hVmCRtZ6/Sbg==, tarball: file:etc/packages/c2pa-0.17.7-trust-list-ff65f35.tgz}
+  file:etc/packages/c2pa-0.17.7-trust-list-20240208.2.tgz:
+    resolution: {integrity: sha512-t0rNdApZLgg5Ocbu46jncL1lUTJ30EoYiyZK0A8QKTn1AlaxP6MKm9wVwEkiPqyL581300dVW7w9qbG1RNqy2Q==, tarball: file:etc/packages/c2pa-0.17.7-trust-list-20240208.2.tgz}
     name: c2pa
     version: 0.17.7
     dependencies:
@@ -18520,7 +18524,3 @@ packages:
     version: 4.3.0
     engines: {node: '>=8.0.0'}
     dev: false
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false

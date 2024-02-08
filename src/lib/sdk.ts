@@ -11,6 +11,7 @@
 // is strictly forbidden unless prior written permission is obtained
 // from Adobe.
 
+import allowedList from '$assets/certs/allowed.pem?raw';
 import { createC2pa } from 'c2pa';
 import wasmSrc from 'c2pa/dist/assets/wasm/toolkit_bg.wasm?url';
 import workerSrc from 'c2pa/dist/c2pa.worker.min.js?url';
@@ -20,6 +21,7 @@ async function createSdk() {
   return createC2pa({
     wasmSrc,
     workerSrc,
+    allowedList,
     downloaderOptions: {
       inspectSize: 0,
     },
