@@ -17,12 +17,14 @@ import fs from 'node:fs/promises';
 const PEM_INPUT_PATH = 'assets/certs/allowed.pem';
 const HASH_OUTPUT_PATH = 'static/no-cache/allowed.txt';
 
+// Based off of [RFC-7468](https://datatracker.ietf.org/doc/html/rfc7468)
+// This adds a bit of leeway if people add more than 5 dashes on the sides of `BEGIN/END CERTIFICATE`
 const PEM_REGEX =
   /(?:-{5,}BEGIN CERTIFICATE-{5,}\n)([A-Za-z0-9+/\n]*={0,3})\n(?:-{5,}END CERTIFICATE-{5,})/gm;
 
 async function run() {
   const pemBuffer = await fs.readFile(PEM_INPUT_PATH);
-  // Normalize UNIX/Windows line endings
+  // Normalize UNIX/Windows line endings so we don't have to deal with them downstream
   const pemData = pemBuffer.toString().replaceAll('\r\n', '\n');
   const certs = Array.from(pemData.matchAll(PEM_REGEX))?.map(([, b64Cert]) => {
     const hash = createHash('sha256');
