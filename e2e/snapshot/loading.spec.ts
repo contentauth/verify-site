@@ -180,4 +180,16 @@ test.describe('Verify - loading states', () => {
       `result showing Firefly image without untrusted banner`,
     );
   });
+
+  test('loading an image with an allowed end-entity cert not show an untrusted signing banner', async ({
+    page,
+  }) => {
+    const verify = new VerifyPage(page);
+    await verify.goto();
+    await verify.chooseFile('endentity-dog.jpg');
+
+    await verify.takeSnapshot(
+      `result showing image with allowed end-entity cert without untrusted banner`,
+    );
+  });
 });

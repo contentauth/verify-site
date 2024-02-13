@@ -31,7 +31,7 @@ async function createSdk() {
 export const getSdk = pMemoize(createSdk);
 
 async function createReadOpts(): Promise<C2paReadOptions> {
-  const allowedListRes = await fetch('/allowed.txt');
+  const allowedListRes = await fetch('/no-cache/allowed.txt');
   const allowedList = await allowedListRes.text();
 
   return {

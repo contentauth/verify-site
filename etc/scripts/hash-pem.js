@@ -15,7 +15,7 @@ import { createHash } from 'node:crypto';
 import fs from 'node:fs/promises';
 
 const PEM_INPUT_PATH = 'assets/certs/allowed.pem';
-const HASH_OUTPUT_PATH = 'static/allowed.txt';
+const HASH_OUTPUT_PATH = 'static/no-cache/allowed.txt';
 
 const PEM_REGEX =
   /(?:-{5,}BEGIN CERTIFICATE-{5,}\n)([A-Za-z0-9+/\n]*={0,3})\n(?:-{5,}END CERTIFICATE-{5,})/gm;
