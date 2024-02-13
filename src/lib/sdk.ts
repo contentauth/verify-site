@@ -11,17 +11,17 @@
 // is strictly forbidden unless prior written permission is obtained
 // from Adobe.
 
-import allowedList from '$assets/certs/allowed.pem?raw';
-import { createC2pa } from 'c2pa';
+import { createC2pa, type C2paReadOptions } from 'c2pa';
 import wasmSrc from 'c2pa/dist/assets/wasm/toolkit_bg.wasm?url';
 import workerSrc from 'c2pa/dist/c2pa.worker.min.js?url';
 import pMemoize from 'p-memoize';
+
+const ALLOWED_LIST_CACHE_SECS = 60;
 
 async function createSdk() {
   return createC2pa({
     wasmSrc,
     workerSrc,
-    allowedList,
     downloaderOptions: {
       inspectSize: 0,
     },
@@ -29,6 +29,19 @@ async function createSdk() {
 }
 
 export const getSdk = pMemoize(createSdk);
+
+async function createReadOpts(): Promise<C2paReadOptions> {
+  const allowedListRes = await fetch('/allowed.txt');
+  const allowedList = await allowedListRes.text();
+
+  return {
+    allowedList,
+  };
+}
+
+export const getReadOpts = pMemoize(createReadOpts, {
+  maxAge: 1000 * ALLOWED_LIST_CACHE_SECS,
+});
 
 async function createLegacySdk() {
   const wasmSrc =

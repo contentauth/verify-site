@@ -1,6 +1,6 @@
 <script lang="ts">
   import Pin from '$assets/svg/logos/homepage/pin.svg?component';
-  import { getSdk } from '$src/lib/sdk';
+  import { getReadOpts, getSdk } from '$src/lib/sdk';
   // import Pin from '$assets/svg/color/cr-icon-fill.svg';
   import Popup from './Popup.svelte'; // Import the DesktopPopup component
 
@@ -10,7 +10,7 @@
 
   async function getManifestStore() {
     const sdk = await getSdk();
-    const { manifestStore } = await sdk.read(imageUrl);
+    const { manifestStore } = await sdk.read(imageUrl, await getReadOpts());
 
     return manifestStore;
   }
@@ -28,7 +28,7 @@
   <img
     src={imageUrl}
     {alt}
-    class="h-full w-full rounded-xl lg:rounded-[20px] object-cover" />
+    class="h-full w-full rounded-xl object-cover lg:rounded-[20px]" />
   <div
     class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 ease-in-out group-hover:opacity-100">
     <!-- Logo in the top-right corner -->
