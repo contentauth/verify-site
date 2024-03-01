@@ -29,8 +29,11 @@ const HASH_OUTPUT_PATH = 'static/no-cache/allowed.txt';
 const PEM_REGEX =
   /(?:#\s((?:O|CN)=.*)\n)?(?:-{5,}BEGIN CERTIFICATE-{5,}\n)([A-Za-z0-9+/\n]*={0,3})\n(?:-{5,}END CERTIFICATE-{5,})/gm;
 
+const validIssuers = ['DigiCert Inc', 'GlobalSign nv-sa'];
+
 async function run() {
   console.log('Processing end-entity certificates...');
+  console.log('Valid issuers:', JSON.stringify(validIssuers));
   const now = new Date();
   const pemBuffer = await fs.readFile(PEM_INPUT_PATH);
   // Normalize UNIX/Windows line endings so we don't have to deal with them downstream
@@ -46,11 +49,12 @@ async function run() {
         process.exit(1);
       }
 
-      console.log('Processing', org);
+      console.log(`Processing ${org}`);
       const hash = createHash('sha256');
       const buf = Buffer.from(b64Cert, 'base64');
       const cert = new x509.X509Certificate(buf);
 
+      // Make sure the comment matches the subject
       if (cert.subject.indexOf(org) < 0) {
         console.error(
           `ERROR: ${org} end-entity cert starting with ${certStart} did not find identifier in certificate subject - found ${cert.subject} - stopping.`,
@@ -58,8 +62,16 @@ async function run() {
         process.exit(1);
       }
 
+      // Make sure we have a valid issuer
+      if (!validIssuers.some((vi) => cert.issuer.indexOf(`O=${vi}`) > -1)) {
+        console.error(
+          `ERROR: ${org} end-entity cert starting with ${certStart} does not have an allowed issuer - found ${cert.issuer} - stopping.`,
+        );
+        process.exit(1);
+      }
+
+      // Log GitHub Actions notice if this certificate is outside of the validity period
       if (now < cert.notBefore || now > cert.notAfter) {
-        // Log GitHub Actions notice
         console.log(
           `::notice::${org} end-entity cert starting with ${certStart} is expired (expired ${cert.notAfter})`,
         );
@@ -69,6 +81,7 @@ async function run() {
         x509.BasicConstraintsExtension,
       );
 
+      // Check that this is an end-entity cert
       if (basicConstraints?.ca) {
         console.error(
           `ERROR: ${org} end-entity cert starting with ${certStart} can not have a basic constraint of CA:TRUE - stopping.`,
