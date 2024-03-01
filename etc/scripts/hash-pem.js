@@ -11,8 +11,15 @@
 // is strictly forbidden unless prior written permission is obtained
 // from Adobe.
 
+import { Crypto } from '@peculiar/webcrypto';
+import * as x509 from '@peculiar/x509';
 import { createHash } from 'node:crypto';
 import fs from 'node:fs/promises';
+
+const crypto = new Crypto();
+x509.cryptoProvider.set(crypto);
+
+console.log('\x1Bc');
 
 const PEM_INPUT_PATH = 'assets/certs/allowed.pem';
 const HASH_OUTPUT_PATH = 'static/no-cache/allowed.txt';
@@ -20,21 +27,68 @@ const HASH_OUTPUT_PATH = 'static/no-cache/allowed.txt';
 // Based off of [RFC-7468](https://datatracker.ietf.org/doc/html/rfc7468)
 // This adds a bit of leeway if people add more than 5 dashes on the sides of `BEGIN/END CERTIFICATE`
 const PEM_REGEX =
-  /(?:-{5,}BEGIN CERTIFICATE-{5,}\n)([A-Za-z0-9+/\n]*={0,3})\n(?:-{5,}END CERTIFICATE-{5,})/gm;
+  /(?:#\s((?:O|CN)=.*)\n)?(?:-{5,}BEGIN CERTIFICATE-{5,}\n)([A-Za-z0-9+/\n]*={0,3})\n(?:-{5,}END CERTIFICATE-{5,})/gm;
 
 async function run() {
+  console.log('Processing end-entity certificates...');
+  const now = new Date();
   const pemBuffer = await fs.readFile(PEM_INPUT_PATH);
   // Normalize UNIX/Windows line endings so we don't have to deal with them downstream
   const pemData = pemBuffer.toString().replaceAll('\r\n', '\n');
-  const certs = Array.from(pemData.matchAll(PEM_REGEX))?.map(([, b64Cert]) => {
-    const hash = createHash('sha256');
-    const buf = Buffer.from(b64Cert, 'base64');
-    hash.update(buf);
+  const certs = Array.from(pemData.matchAll(PEM_REGEX))?.map(
+    ([, org, b64Cert]) => {
+      const certStart = b64Cert.substring(0, 12);
 
-    return hash.digest('base64');
-  });
+      if (!org) {
+        console.error(
+          `ERROR: End-entity cert starting with ${certStart} added without starting org/common name comment (starting with O= or CN=) - stopping.`,
+        );
+        process.exit(1);
+      }
 
-  return fs.writeFile(HASH_OUTPUT_PATH, certs.join('\n'));
+      console.log('Processing', org);
+      const hash = createHash('sha256');
+      const buf = Buffer.from(b64Cert, 'base64');
+      const cert = new x509.X509Certificate(buf);
+
+      if (cert.subject.indexOf(org) < 0) {
+        console.error(
+          `ERROR: ${org} end-entity cert starting with ${certStart} did not find identifier in certificate subject - found ${cert.subject} - stopping.`,
+        );
+        process.exit(1);
+      }
+
+      if (now < cert.notBefore || now > cert.notAfter) {
+        // Log GitHub Actions notice
+        console.log(
+          `::notice::${org} end-entity cert starting with ${certStart} is expired (expired ${cert.notAfter})`,
+        );
+      }
+
+      const basicConstraints = cert.getExtension(
+        x509.BasicConstraintsExtension,
+      );
+
+      if (basicConstraints?.ca) {
+        console.error(
+          `ERROR: ${org} end-entity cert starting with ${certStart} can not have a basic constraint of CA:TRUE - stopping.`,
+        );
+        process.exit(1);
+      }
+
+      hash.update(buf);
+
+      const digest = hash.digest('base64');
+
+      console.log(`Succesfully processed end-entity cert for ${org}`);
+
+      return digest;
+    },
+  );
+
+  await fs.writeFile(HASH_OUTPUT_PATH, certs.join('\n'));
+
+  console.log(`Finished processing ${certs.length} end-entity certificates`);
 }
 
 run();
