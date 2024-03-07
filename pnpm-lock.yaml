@@ -42,8 +42,8 @@ dependencies:
     specifier: ^0.36.0
     version: 0.36.0
   c2pa:
-    specifier: file:etc/packages/c2pa-0.17.7-trust-list-20240228.1.tgz
-    version: file:etc/packages/c2pa-0.17.7-trust-list-20240228.1.tgz
+    specifier: file:etc/packages/c2pa-0.17.8-trust-list-20240307.1.tgz
+    version: file:etc/packages/c2pa-0.17.8-trust-list-20240307.1.tgz
   c2pa-test-image-service:
     specifier: ^0.12.0
     version: 0.12.0
@@ -18686,10 +18686,10 @@ packages:
     version: 2.35.2
     dev: false
 
-  file:etc/packages/c2pa-0.17.7-trust-list-20240228.1.tgz:
-    resolution: {integrity: sha512-FQ/n/EOfc0VEndzR/K176+auXrksMwIHVJ+OUFAUTKxkPjVAop1XAxLcpiJohjQjcOGxcXh/81Wz/vqVBzy+5Q==, tarball: file:etc/packages/c2pa-0.17.7-trust-list-20240228.1.tgz}
+  file:etc/packages/c2pa-0.17.8-trust-list-20240307.1.tgz:
+    resolution: {integrity: sha512-MuP6zwfx0aGxGRkyPSBNvbZ77cGUd17n8b3RZUyE1iaF1Fi92tPIJnN8WXI+rBjmTSZw5eLxV6bA8S+T8OhEsA==, tarball: file:etc/packages/c2pa-0.17.8-trust-list-20240307.1.tgz}
     name: c2pa
-    version: 0.17.7
+    version: 0.17.8
     dependencies:
       '@contentauth/detector': 0.3.5
       '@contentauth/toolkit': 0.10.5
