@@ -148,6 +148,7 @@ test.describe('Verify - assertion display', () => {
       widths: [1280],
     });
   });
+
   test('gen ai images with undefined software agents should not show an AI tool used section', async ({
     page,
   }) => {
@@ -187,6 +188,20 @@ test.describe('Verify - assertion display', () => {
     await verify.goto(source);
     await verify.takeSnapshot(
       'result for image with claim generator v2 no version',
+      {
+        widths: [1024],
+      },
+    );
+  });
+
+  test('image with embedded icon in claim_generator_info should be displayed correctly', async ({
+    page,
+  }) => {
+    const verify = new VerifyPage(page);
+    const source = VerifyPage.getFixtureUrl('embedded-generator-icon.jpg');
+    await verify.goto(source);
+    await verify.takeSnapshot(
+      `result for image with embedded icon in claim_generator_info`,
       {
         widths: [1024],
       },
