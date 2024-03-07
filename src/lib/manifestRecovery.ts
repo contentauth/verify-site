@@ -24,7 +24,7 @@ import {
   SearchUploadError,
 } from './error';
 import { resizeImage } from './resizeImage';
-import { getReadOpts, getSdk } from './sdk';
+import { getSdk, getToolkitSettings } from './sdk';
 
 const apiKey = 'cai-verify-site';
 const baseParams = { api_key: apiKey };
@@ -87,7 +87,9 @@ export async function recoverManifests(
           type: MANIFEST_STORE_MIME_TYPE,
         });
 
-        const result = await sdk.read(blob, await getReadOpts());
+        const result = await sdk.read(blob, {
+          settings: await getToolkitSettings(),
+        });
 
         const assetMapResult = await resultToAssetMap(result);
 

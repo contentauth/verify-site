@@ -1,6 +1,6 @@
 <script lang="ts">
   import Pin from '$assets/svg/logos/homepage/pin.svg?component';
-  import { getReadOpts, getSdk } from '$src/lib/sdk';
+  import { getSdk, getToolkitSettings } from '$src/lib/sdk';
   // import Pin from '$assets/svg/color/cr-icon-fill.svg';
   import Popup from './Popup.svelte'; // Import the DesktopPopup component
 
@@ -10,7 +10,9 @@
 
   async function getManifestStore() {
     const sdk = await getSdk();
-    const { manifestStore } = await sdk.read(imageUrl, await getReadOpts());
+    const { manifestStore } = await sdk.read(imageUrl, {
+      settings: await getToolkitSettings(),
+    });
 
     return manifestStore;
   }

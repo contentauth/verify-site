@@ -11,7 +11,9 @@
 // is strictly forbidden unless prior written permission is obtained
 // from Adobe.
 
-import { createC2pa, type C2paReadOptions } from 'c2pa';
+import trustConfig from '$assets/trust/store.cfg?raw';
+import trustAnchors from '$assets/trust/trust_anchors.pem?raw';
+import { createC2pa, type ToolkitSettings } from 'c2pa';
 import wasmSrc from 'c2pa/dist/assets/wasm/toolkit_bg.wasm?url';
 import workerSrc from 'c2pa/dist/c2pa.worker.min.js?url';
 import pMemoize from 'p-memoize';
@@ -30,16 +32,23 @@ async function createSdk() {
 
 export const getSdk = pMemoize(createSdk);
 
-async function createReadOpts(): Promise<C2paReadOptions> {
+async function createToolkitSettings(): Promise<ToolkitSettings> {
   const allowedListRes = await fetch('/no-cache/allowed.txt');
   const allowedList = await allowedListRes.text();
 
   return {
-    allowedList,
+    trust: {
+      trustConfig,
+      trustAnchors,
+      allowedList,
+    },
+    verify: {
+      verifyTrust: true,
+    },
   };
 }
 
-export const getReadOpts = pMemoize(createReadOpts, {
+export const getToolkitSettings = pMemoize(createToolkitSettings, {
   maxAge: 1000 * ALLOWED_LIST_CACHE_SECS,
 });
 

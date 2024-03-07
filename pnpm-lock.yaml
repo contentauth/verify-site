@@ -351,7 +351,7 @@ devDependencies:
     version: 5.20.0
   ts-jest:
     specifier: ^29.1.1
-    version: 29.1.1(@babel/core@7.22.10)(esbuild@0.17.19)(jest@29.7.0)(typescript@5.2.2)
+    version: 29.1.1(@babel/core@7.22.10)(esbuild@0.18.20)(jest@29.7.0)(typescript@5.2.2)
   tslib:
     specifier: ^2.6.2
     version: 2.6.2
@@ -17598,7 +17598,7 @@ packages:
   /ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
 
-  /ts-jest@29.1.1(@babel/core@7.22.10)(esbuild@0.17.19)(jest@29.7.0)(typescript@5.2.2):
+  /ts-jest@29.1.1(@babel/core@7.22.10)(esbuild@0.18.20)(jest@29.7.0)(typescript@5.2.2):
     resolution: {integrity: sha512-D6xjnnbP17cC85nliwGiL+tpoKN0StpgE0TeOjXQTU6MVCfsB4v7aW05CgQ/1OywGb0x/oy9hHFnN+sczTiRaA==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     hasBin: true
@@ -17621,7 +17621,7 @@ packages:
     dependencies:
       '@babel/core': 7.22.10
       bs-logger: 0.2.6
-      esbuild: 0.17.19
+      esbuild: 0.18.20
       fast-json-stable-stringify: 2.1.0
       jest: 29.7.0(@types/node@20.6.0)
       jest-util: 29.7.0

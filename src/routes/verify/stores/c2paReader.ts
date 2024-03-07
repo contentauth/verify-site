@@ -12,7 +12,7 @@
 // from Adobe.
 
 import { resultToAssetMap, type AssetDataMap } from '$lib/asset';
-import { getLegacySdk, getReadOpts, getSdk } from '$lib/sdk';
+import { getLegacySdk, getSdk, getToolkitSettings } from '$lib/sdk';
 import type { Loadable } from '$lib/types';
 import {
   somethingWentWrong,
@@ -113,7 +113,9 @@ export function createC2paReader(): C2paReaderStore {
         }
 
         const timingStart = performance.now();
-        const result = await sdk.read(source, await getReadOpts());
+        const result = await sdk.read(source, {
+          settings: await getToolkitSettings(),
+        });
         const timingEnd = performance.now();
 
         const { assetMap, dispose: assetMapDisposer } =

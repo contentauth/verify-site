@@ -20,6 +20,7 @@ import {
   type Ingredient,
   type Manifest,
   type ManifestStore,
+  type Thumbnail,
   type TranslatedDictionaryCategory,
 } from 'c2pa';
 import debug from 'debug';
@@ -67,8 +68,13 @@ interface EditsAndActivityInferenceResponse {
   hasInference: boolean;
 }
 
+export interface ClaimGeneratorDisplayInfo {
+  label: string;
+  icon: Thumbnail | null;
+}
+
 export type ManifestData = {
-  claimGenerator: string;
+  claimGenerator: ClaimGeneratorDisplayInfo;
   date: Date | null;
   editsAndActivityForLocale: (
     locale: string | null,
@@ -283,13 +289,18 @@ export async function resultToAssetMap({
       ? formattedGeneratorInfo(manifest?.claimGeneratorInfo[0])
       : null;
 
+    const claimGenerator: ClaimGeneratorDisplayInfo = {
+      label: claimGeneratorInfo?.name
+        ? `${claimGeneratorInfo.name} ${claimGeneratorInfo?.version ?? ''}`
+        : selectFormattedGenerator(manifest),
+      icon: claimGeneratorInfo?.icon ?? null,
+    };
+
     return {
       date: manifest.signatureInfo?.time
         ? new Date(manifest.signatureInfo.time)
         : null,
-      claimGenerator: claimGeneratorInfo?.name
-        ? `${claimGeneratorInfo.name} ${claimGeneratorInfo?.version ?? ''}`
-        : selectFormattedGenerator(manifest),
+      claimGenerator,
       signatureInfo: manifest.signatureInfo,
       producer: selectProducer(manifest)?.name ?? null,
       editsAndActivityForLocale: async (locale) => {

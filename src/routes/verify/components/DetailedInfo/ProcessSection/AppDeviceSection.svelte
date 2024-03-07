@@ -13,12 +13,14 @@
   from Adobe.
 -->
 <script lang="ts">
+  import EmbeddedIcon from '$src/components/EmbeddedIcon/EmbeddedIcon.svelte';
   import ProviderIcon from '$src/components/ProviderIcon/ProviderIcon.svelte';
+  import type { ClaimGeneratorDisplayInfo } from '$src/lib/asset';
   import { _ } from 'svelte-i18n';
   import SubSection from '../../../components/SubSection/SubSection.svelte';
   import AboutSectionIconContentRow from '../AboutSection/AboutSectionIconContentRow.svelte';
 
-  export let generator: string;
+  export let generator: ClaimGeneratorDisplayInfo;
   export let isUntrusted: boolean;
 </script>
 
@@ -28,9 +30,13 @@
   <AboutSectionIconContentRow slot="content">
     <svelte:fragment slot="icon">
       {#if !isUntrusted}
-        <ProviderIcon provider={generator} />
+        {#if generator.icon}
+          <EmbeddedIcon {generator} />
+        {:else}
+          <ProviderIcon provider={generator.label} />
+        {/if}
       {/if}
     </svelte:fragment>
-    <div slot="content" class="break-all">{generator}</div>
+    <div slot="content" class="break-all">{generator.label}</div>
   </AboutSectionIconContentRow>
 </SubSection>
