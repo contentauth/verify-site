@@ -198,7 +198,10 @@ test.describe('Verify - assertion display', () => {
     page,
   }) => {
     const verify = new VerifyPage(page);
-    const source = VerifyPage.getFixtureUrl('embedded-generator-icon.jpg');
+    const source = VerifyPage.getFixtureUrl(
+      'embedded-generator-icon.jpg',
+      'file',
+    );
     await verify.goto(source);
     await verify.takeSnapshot(
       `result for image with embedded icon in claim_generator_info`,
