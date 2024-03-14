@@ -55,8 +55,10 @@ export function hasErrorStatus(validationStatus: ValidationStatus[] = []) {
 }
 
 enum UntrustedSignerResult {
-  UntrustedSignerOnly,
-  UntrustedSignerWithOtherErrors,
+  UntrustedOnly,
+  UntrustedWithOtgp,
+  UntrustedWithOtherErrors,
+  TrustedWithOtgp,
   TrustedWithErrors,
   TrustedOnly,
 }
@@ -81,8 +83,15 @@ export function hasUntrustedSigner(
 
   // Return false if we have other errors, since that should be regarded as an error
   if (others.length) {
+    // If the other error is the OTGP error code, make sure we account for that
+    if (others.length === 1 && others[0] === OTGP_ERROR_CODE) {
+      return hasUntrusted
+        ? UntrustedSignerResult.UntrustedWithOtgp
+        : UntrustedSignerResult.TrustedWithOtgp;
+    }
+
     return hasUntrusted
-      ? UntrustedSignerResult.UntrustedSignerWithOtherErrors
+      ? UntrustedSignerResult.UntrustedWithOtherErrors
       : UntrustedSignerResult.TrustedWithErrors;
   }
 
@@ -90,7 +99,7 @@ export function hasUntrustedSigner(
   // Since we don't want to show an error message with this since this is a subset of
   // the signature mismatch error.
   if (hasUntrusted && filtered.length === 2) {
-    return UntrustedSignerResult.UntrustedSignerOnly;
+    return UntrustedSignerResult.UntrustedOnly;
   }
 
   // If we only get a signature mismatch, report that as an error
@@ -100,7 +109,7 @@ export function hasUntrustedSigner(
 
   return hasUntrusted
     ? // Untrusted without any other errors
-      UntrustedSignerResult.UntrustedSignerOnly
+      UntrustedSignerResult.UntrustedOnly
     : // Not untrusted and no errors
       UntrustedSignerResult.TrustedOnly;
 }
@@ -110,7 +119,7 @@ export function selectValidationResult(validationStatus: ValidationStatus[]) {
   const hasError =
     hasErrorStatus(validationStatus) &&
     [
-      UntrustedSignerResult.UntrustedSignerWithOtherErrors,
+      UntrustedSignerResult.UntrustedWithOtherErrors,
       UntrustedSignerResult.TrustedWithErrors,
     ].includes(untrustedResult);
   const hasOtgp = hasOtgpStatus(validationStatus);
@@ -128,8 +137,9 @@ export function selectValidationResult(validationStatus: ValidationStatus[]) {
     hasError,
     hasOtgp,
     hasUntrustedSigner: [
-      UntrustedSignerResult.UntrustedSignerOnly,
-      UntrustedSignerResult.UntrustedSignerWithOtherErrors,
+      UntrustedSignerResult.UntrustedOnly,
+      UntrustedSignerResult.UntrustedWithOtgp,
+      UntrustedSignerResult.UntrustedWithOtherErrors,
     ].includes(untrustedResult),
     statusCode,
   };

@@ -120,4 +120,32 @@ describe('lib/selectors/validationResult', () => {
       statusCode: 'valid',
     });
   });
+
+  it('should work for OTGP assets', () => {
+    expect(
+      selectValidationResult([
+        {
+          code: 'signingCredential.untrusted',
+          url: 'Cose_Sign1',
+          explanation: 'signing certificate untrusted',
+        },
+        {
+          code: 'claimSignature.mismatch',
+          url: 'self#jumbf=/c2pa/contentauth:urn:uuid:ccdb2880-05dc-4dd4-84d9-292a0e74b2b6/c2pa.signature',
+          explanation: 'claim signature is not valid',
+        },
+        {
+          code: 'assertion.dataHash.mismatch',
+          url: 'self#jumbf=/c2pa/contentauth:urn:uuid:ccdb2880-05dc-4dd4-84d9-292a0e74b2b6/c2pa.assertions/c2pa.hash.data',
+          explanation:
+            'asset hash error, name: jumbf manifest, error: hash verification( Hashes do not match )',
+        },
+      ]),
+    ).toEqual({
+      hasError: false,
+      hasOtgp: true,
+      hasUntrustedSigner: true,
+      statusCode: 'incomplete',
+    });
+  });
 });
