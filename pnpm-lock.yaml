@@ -45,8 +45,8 @@ dependencies:
     specifier: file:etc/packages/c2pa-0.17.9-trust-list-20240315.1.tgz
     version: file:etc/packages/c2pa-0.17.9-trust-list-20240315.1.tgz
   c2pa-test-image-service:
-    specifier: ^0.13.0
-    version: 0.13.0
+    specifier: ^0.12.0
+    version: 0.12.0
   circle-to-polygon:
     specifier: ^2.2.0
     version: 2.2.0
@@ -8405,10 +8405,10 @@ packages:
 
   /@types/lodash@4.14.198:
     resolution: {integrity: sha512-trNJ/vtMZYMLhfN45uLq4ShQSw0/S7xCTLLVM+WM1rmFpba/VS42jVUgaO3w/NOLiWR/09lnYk0yMaA/atdIsg==}
+    dev: true
 
   /@types/lodash@4.17.0:
     resolution: {integrity: sha512-t7dhREVv6dbNj0q17X12j7yDG4bD/DHYX7o5/DbDxobP0HnGPgpRz2Ej77aL7TZT3DSw13fqUTj8J4mMnqa7WA==}
-    dev: true
 
   /@types/mapbox-gl@2.7.13:
     resolution: {integrity: sha512-qNffhTdYkeFl8QG9Q1zPPJmcs8PvHgmLa1PcwP1rxvcfMsIgcFr/FnrCttG0ZnH7Kzdd7xfECSRNTWSr4jC3PQ==}
@@ -8464,7 +8464,7 @@ packages:
   /@types/node-fetch@2.6.11:
     resolution: {integrity: sha512-24xFj9R5+rfQJLRyM56qh+wnVSYhyXC2tkoBndtY0U+vubqNsYXGjufB2nn8Q6gt0LrARwL6UBtMCSVCwl4B1g==}
     dependencies:
-      '@types/node': 18.19.24
+      '@types/node': 20.11.28
       form-data: 4.0.0
     dev: true
 
@@ -9747,13 +9747,13 @@ packages:
       - encoding
     dev: false
 
-  /c2pa-test-image-service@0.13.0:
-    resolution: {integrity: sha512-hXaX6KLdbQ03VSaHPIdowt6nwn9tfwilEgADu1uEt1Tidsq6OkfDJhiQjXebmj9XUTXpz9emSOYAMSi1IYB5Sw==}
+  /c2pa-test-image-service@0.12.0:
+    resolution: {integrity: sha512-LIC3z9XP8WOIzg72DO00DLunDn9hsDHGaVVvGG5ViLm9rr+TGz0IQrFV9nRL2aZtbPsbVzBUWFwK8V18Kvl95w==}
     hasBin: true
     dependencies:
       '@types/cors': 2.8.17
       '@types/express': 4.17.21
-      '@types/lodash': 4.14.198
+      '@types/lodash': 4.17.0
       '@types/node': 20.11.28
       c2pa-node: 0.5.19
       cors: 2.8.5
