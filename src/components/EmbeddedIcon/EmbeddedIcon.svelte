@@ -13,19 +13,23 @@
 -->
 <script lang="ts">
   import type { ClaimGeneratorDisplayInfo } from '$src/lib/asset';
+  import { loadThumbnail } from '$src/lib/thumbnail';
   import type { DisposableBlobUrl } from 'c2pa';
   import { onMount } from 'svelte';
 
   export let generator: ClaimGeneratorDisplayInfo;
-  let iconUrl: string;
+  let iconUrl: string | undefined;
 
   onMount(() => {
     let dispose: DisposableBlobUrl['dispose'];
 
     if (generator.icon) {
-      const result = generator.icon.getUrl();
-      dispose = result.dispose;
-      iconUrl = result.url;
+      loadThumbnail(generator.icon.contentType, generator.icon.getUrl()).then(
+        (result) => {
+          dispose = result.dispose;
+          iconUrl = result.info?.url;
+        },
+      );
     }
 
     return () => {
