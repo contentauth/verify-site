@@ -35,5 +35,9 @@
 </script>
 
 {#if iconUrl}
-  <img src={iconUrl} class="h-4 w-4" alt={generator.label} />
+  <img
+    data-testid="embedded-generator-icon"
+    src={iconUrl}
+    class="h-4 w-4"
+    alt={generator.label} />
 {/if}

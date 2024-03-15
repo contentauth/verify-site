@@ -203,6 +203,13 @@ test.describe('Verify - assertion display', () => {
       'file',
     );
     await verify.goto(source);
+    await verify.page.waitForFunction(() => {
+      return (
+        document.querySelector<HTMLImageElement>(
+          'img[data-testid="embedded-generator-icon"]',
+        )?.complete === true
+      );
+    });
     await verify.takeSnapshot(
       `result for image with embedded icon in claim_generator_info`,
       {
