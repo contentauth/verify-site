@@ -35,7 +35,7 @@
     "@interactjs/types": "^1.10.19",
     "@peculiar/webcrypto": "^1.4.5",
     "@peculiar/x509": "^1.9.7",
-    "@percy/cli": "^1.27.4",
+    "@percy/cli": "^1.28.2",
     "@percy/core": "^1.27.2",
     "@percy/playwright": "^1.0.4",
     "@playwright/test": "^1.39.0",
