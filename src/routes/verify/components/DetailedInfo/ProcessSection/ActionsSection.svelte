@@ -54,11 +54,11 @@
           {#if category.id === 'c2pa.created' && hasInference}
             <span
               >{$_(
-                'sidebar.verify.process.actions.styleReference.title',
+                'sidebar.verify.process.actions.reference.unknown.title',
               )}</span>
             <span class="text-gray-600"
               >{$_(
-                'sidebar.verify.process.actions.styleReference.description',
+                'sidebar.verify.process.actions.reference.unknown.description',
               )}</span>
           {:else}
             <span>{category.label}</span>

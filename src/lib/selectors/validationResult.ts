@@ -26,6 +26,18 @@ export const UNTRUSTED_SIGNER_ERROR_CODE = 'signingCredential.untrusted';
 
 export const SIGNATURE_MISMATCH = 'claimSignature.mismatch';
 
+export const SUCCESS_CODES = [
+  'claimSignature.validated',
+  'signingCredential.trusted',
+  'signingCredential.notRevoked',
+  'timeStamp.trusted',
+  'assertion.hashedURI.match',
+  'assertion.dataHash.match',
+  'assertion.bmffHash.match',
+  'assertion.boxesHash.match',
+  'assertion.accessible',
+];
+
 /**
  * Determines if a validation status list contains an OTGP (`assertion.dataHash.mismatch`)
  * status, and therefore, should present with an orange badge.
@@ -115,14 +127,17 @@ export function hasUntrustedSigner(
 }
 
 export function selectValidationResult(validationStatus: ValidationStatus[]) {
-  const untrustedResult = hasUntrustedSigner(validationStatus);
+  const onlyErrors = validationStatus.filter(
+    (status) => !SUCCESS_CODES.includes(status.code),
+  );
+  const untrustedResult = hasUntrustedSigner(onlyErrors);
   const hasError =
-    hasErrorStatus(validationStatus) &&
+    hasErrorStatus(onlyErrors) &&
     [
       UntrustedSignerResult.UntrustedWithOtherErrors,
       UntrustedSignerResult.TrustedWithErrors,
     ].includes(untrustedResult);
-  const hasOtgp = hasOtgpStatus(validationStatus);
+  const hasOtgp = hasOtgpStatus(onlyErrors);
   let statusCode: ValidationStatusCode;
 
   if (hasError) {
