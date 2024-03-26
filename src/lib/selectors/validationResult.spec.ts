@@ -148,4 +148,56 @@ describe('lib/selectors/validationResult', () => {
       statusCode: 'incomplete',
     });
   });
+
+  it('should strip out success error codes', () => {
+    expect(
+      selectValidationResult([
+        {
+          code: 'assertion.hashedURI.match',
+          url: 'self#jumbf=/c2pa/adobe:urn:uuid:5d75c0b0-2afc-4a12-86ad-95078cbe9fc5/c2pa.assertions/c2pa.thumbnail.claim.jpeg',
+        },
+        {
+          code: 'assertion.hashedURI.match',
+          url: 'self#jumbf=/c2pa/adobe:urn:uuid:5d75c0b0-2afc-4a12-86ad-95078cbe9fc5/c2pa.assertions/c2pa.thumbnail.ingredient.jpeg',
+        },
+        {
+          code: 'assertion.hashedURI.match',
+          url: 'self#jumbf=/c2pa/adobe:urn:uuid:5d75c0b0-2afc-4a12-86ad-95078cbe9fc5/c2pa.assertions/c2pa.ingredient',
+        },
+        {
+          code: 'assertion.hashedURI.match',
+          url: 'self#jumbf=/c2pa/adobe:urn:uuid:5d75c0b0-2afc-4a12-86ad-95078cbe9fc5/c2pa.assertions/stds.schema-org.CreativeWork',
+        },
+        {
+          code: 'assertion.hashedURI.match',
+          url: 'self#jumbf=/c2pa/adobe:urn:uuid:5d75c0b0-2afc-4a12-86ad-95078cbe9fc5/c2pa.assertions/c2pa.actions',
+        },
+        {
+          code: 'assertion.hashedURI.match',
+          url: 'self#jumbf=/c2pa/adobe:urn:uuid:5d75c0b0-2afc-4a12-86ad-95078cbe9fc5/c2pa.assertions/c2pa.hash.data',
+        },
+        {
+          code: 'timeStamp.trusted',
+          url: 'self#jumbf=/c2pa/adobe:urn:uuid:5d75c0b0-2afc-4a12-86ad-95078cbe9fc5/c2pa.signature',
+        },
+        {
+          code: 'signingCredential.trusted',
+          url: 'self#jumbf=/c2pa/adobe:urn:uuid:5d75c0b0-2afc-4a12-86ad-95078cbe9fc5/c2pa.signature',
+        },
+        {
+          code: 'claimSignature.validated',
+          url: 'self#jumbf=/c2pa/adobe:urn:uuid:5d75c0b0-2afc-4a12-86ad-95078cbe9fc5/c2pa.signature',
+        },
+        {
+          code: 'assertion.dataHash.match',
+          url: 'self#jumbf=/c2pa/adobe:urn:uuid:5d75c0b0-2afc-4a12-86ad-95078cbe9fc5/c2pa.assertions/c2pa.hash.data',
+        },
+      ]),
+    ).toEqual({
+      hasError: false,
+      hasOtgp: false,
+      hasUntrustedSigner: false,
+      statusCode: 'valid',
+    });
+  });
 });
