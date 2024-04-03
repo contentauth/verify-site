@@ -13,7 +13,7 @@
   from Adobe.
 -->
 <script lang="ts" context="module">
-  import type { AssetData } from '$src/lib/asset';
+  import type { AssetData, ManifestData } from '$src/lib/asset';
 
   interface LocaleData {
     from: string;
@@ -55,8 +55,17 @@
   export function assetDataToProps(
     assetData: Partial<AssetData>,
   ): ContentSummarySectionProps {
-    const autoDubInfo = assetData.manifestData?.autoDubInfo;
+    return assetData.manifestData
+      ? getContentSummaryFromManifestData(assetData.manifestData)
+      : {
+          contentSummaryData: null,
+        };
+  }
 
+  export function getContentSummaryFromManifestData({
+    autoDubInfo,
+    generativeInfo,
+  }: Partial<ManifestData>): ContentSummarySectionProps {
     if (autoDubInfo) {
       const { hasLipsRoi, hasTranscriptRoi, translatedData } = autoDubInfo;
 
@@ -126,8 +135,6 @@
         },
       };
     }
-
-    const generativeInfo = assetData.manifestData?.generativeInfo;
 
     switch (generativeInfo?.type) {
       case 'compositeWithTrainedAlgorithmicMedia':
