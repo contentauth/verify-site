@@ -15,30 +15,137 @@
 <script lang="ts" context="module">
   import type { AssetData } from '$src/lib/asset';
 
-  export interface ContentSummarySectionProps {
-    contentSummaryKey:
+  interface LocaleData {
+    from: string;
+    to: string;
+  }
+
+  type ContentSummary = {
+    key:
       | 'contentSummary.compositeWithTrainedAlgorithmicMedia'
       | 'contentSummary.trainedAlgorithmicMedia'
-      | null;
+      | 'contentSummary.autoDub.dubbed'
+      | 'contentSummary.autoDub.dubbedLipsRoi'
+      | 'contentSummary.autoDub.dubbedLipsTranscriptRoi'
+      | 'contentSummary.autoDub.transcriptRoi';
+  };
+
+  type ContentSummaryTranslated = {
+    key:
+      | 'contentSummary.autoDub.dubbedTranslated'
+      | 'contentSummary.autoDub.dubbedTranslatedLipsRoi'
+      | 'contentSummary.autoDub.dubbedTranslatedLipsTranscriptRoi'
+      | 'contentSummary.autoDub.dubbedTranslatedTranscriptRoi';
+    locale: LocaleData;
+  };
+
+  type ContentSummaryData = ContentSummary | ContentSummaryTranslated;
+
+  export interface ContentSummarySectionProps {
+    contentSummaryData: ContentSummaryData | null;
   }
+
+  const getLocaleDataFromAutoDubInfo = (
+    data: TranslatedActionDataParams,
+  ): LocaleData => ({
+    from: data.sourceLanguage,
+    to: data.targetLanguage,
+  });
 
   export function assetDataToProps(
     assetData: Partial<AssetData>,
   ): ContentSummarySectionProps {
-    switch (assetData.manifestData?.generativeInfo?.type) {
+    const autoDubInfo = assetData.manifestData?.autoDubInfo;
+
+    if (autoDubInfo) {
+      const { hasLipsRoi, hasTranscriptRoi, translatedData } = autoDubInfo;
+
+      if (hasLipsRoi && hasTranscriptRoi && translatedData) {
+        return {
+          contentSummaryData: {
+            key: 'contentSummary.autoDub.dubbedTranslatedLipsTranscriptRoi',
+            locale: getLocaleDataFromAutoDubInfo(translatedData),
+          },
+        };
+      }
+
+      if (hasLipsRoi && hasTranscriptRoi) {
+        return {
+          contentSummaryData: {
+            key: 'contentSummary.autoDub.dubbedLipsTranscriptRoi',
+          },
+        };
+      }
+
+      if (hasLipsRoi && translatedData) {
+        return {
+          contentSummaryData: {
+            key: 'contentSummary.autoDub.dubbedTranslatedLipsRoi',
+            locale: getLocaleDataFromAutoDubInfo(translatedData),
+          },
+        };
+      }
+
+      if (hasTranscriptRoi && translatedData) {
+        return {
+          contentSummaryData: {
+            key: 'contentSummary.autoDub.dubbedTranslatedTranscriptRoi',
+            locale: getLocaleDataFromAutoDubInfo(translatedData),
+          },
+        };
+      }
+
+      if (hasLipsRoi) {
+        return {
+          contentSummaryData: {
+            key: 'contentSummary.autoDub.dubbedLipsRoi',
+          },
+        };
+      }
+
+      if (hasTranscriptRoi) {
+        return {
+          contentSummaryData: {
+            key: 'contentSummary.autoDub.transcriptRoi',
+          },
+        };
+      }
+
+      if (translatedData) {
+        return {
+          contentSummaryData: {
+            key: 'contentSummary.autoDub.dubbedTranslated',
+            locale: getLocaleDataFromAutoDubInfo(translatedData),
+          },
+        };
+      }
+
+      return {
+        contentSummaryData: {
+          key: 'contentSummary.autoDub.dubbed',
+        },
+      };
+    }
+
+    const generativeInfo = assetData.manifestData?.generativeInfo;
+
+    switch (generativeInfo?.type) {
       case 'compositeWithTrainedAlgorithmicMedia':
         return {
-          contentSummaryKey:
-            'contentSummary.compositeWithTrainedAlgorithmicMedia',
+          contentSummaryData: {
+            key: 'contentSummary.compositeWithTrainedAlgorithmicMedia',
+          },
         };
       case 'legacy':
       case 'trainedAlgorithmicMedia':
         return {
-          contentSummaryKey: 'contentSummary.trainedAlgorithmicMedia',
+          contentSummaryData: {
+            key: 'contentSummary.trainedAlgorithmicMedia',
+          },
         };
       default:
         return {
-          contentSummaryKey: null,
+          contentSummaryData: null,
         };
     }
   }
@@ -49,17 +156,52 @@
   import Section from '$src/components/SidebarSection/Section.svelte';
   import BodyBold from '$src/components/typography/BodyBold.svelte';
   import Description from '$src/components/typography/Description.svelte';
-  import { _ } from 'svelte-i18n';
+  import type { TranslatedActionDataParams } from '$src/lib/selectors/autoDubInfo';
+  import { has } from 'lodash';
+  import { _, locale } from 'svelte-i18n';
 
-  export let contentSummaryKey: ContentSummarySectionProps['contentSummaryKey'];
+  function hasLocaleData(
+    data: ContentSummaryData,
+  ): data is ContentSummaryTranslated {
+    return has(data, 'locale');
+  }
+
+  function formatLocaleData(data: LocaleData): LocaleData {
+    if (!$locale) {
+      return {
+        from: $_('contentSummary.autoDub.languageUnknown'),
+        to: $_('contentSummary.autoDub.languageUnknown'),
+      };
+    }
+
+    const displayNames = new Intl.DisplayNames([$locale], { type: 'language' });
+
+    return {
+      from:
+        displayNames.of(data.from) ??
+        $_('contentSummary.autoDub.unknownLanguage'),
+      to:
+        displayNames.of(data.to) ??
+        $_('contentSummary.autoDub.unknownLanguage'),
+    };
+  }
+
+  export let contentSummaryData:
+    | ContentSummarySectionProps['contentSummaryData']
+    | null;
 </script>
 
-{#if contentSummaryKey}
+{#if contentSummaryData}
   <Section>
     <BodyBold slot="title">{$_('sidebar.verify.summary')}</BodyBold>
     <div class="flex" slot="content">
       <img src={info} alt="" class="self-start pe-2" />
-      <Description>{$_(contentSummaryKey)}</Description>
+      <Description
+        >{hasLocaleData(contentSummaryData)
+          ? $_(contentSummaryData.key, {
+              values: { ...formatLocaleData(contentSummaryData.locale) },
+            })
+          : $_(contentSummaryData.key)}</Description>
     </div>
   </Section>
 {/if}

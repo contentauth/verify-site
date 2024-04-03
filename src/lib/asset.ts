@@ -47,6 +47,7 @@ import { selectWeb3 } from './selectors/web3Info';
 import { selectWebsite } from './selectors/website';
 import { loadThumbnail, type ThumbnailInfo } from './thumbnail';
 import type { Disposable } from './types';
+import { selectAutoDubInfo, type AutoDubInfo } from './selectors/autoDubInfo';
 
 const dbg = debug('lib:asset');
 
@@ -88,6 +89,7 @@ export type ManifestData = {
   socialAccounts: ReturnType<typeof selectSocialAccounts>;
   web3Accounts: [string, string[]][];
   website: string | null;
+  autoDubInfo: AutoDubInfo | null;
 };
 
 export type AssetDataMap = Record<string, AssetData>;
@@ -327,6 +329,7 @@ export async function resultToAssetMap({
       reviewRatings: selectReviewRatings(manifest),
       web3Accounts: selectWeb3(manifest),
       website: selectWebsite(manifest),
+      autoDubInfo: selectAutoDubInfo(manifest),
     };
   }
 
