@@ -58,6 +58,8 @@ jobs:
           cache: pnpm
 
       - name: Install dependencies
+        env:
+          SKIP_BINARY_DOWNLOAD: true # for c2pa-node
         run: pnpm install
 
       - name: Run code checks

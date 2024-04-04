@@ -44,6 +44,8 @@ jobs:
 
       - name: Install dependencies
         if: steps.check-cache.outputs.cache-hit != 'true'
+        env:
+          SKIP_BINARY_DOWNLOAD: true # for c2pa-node
         run: pnpm install
 
       - name: Run code checks
@@ -104,6 +106,8 @@ jobs:
           cache: pnpm
 
       - name: Install dependencies
+        env:
+          SKIP_BINARY_DOWNLOAD: true # for c2pa-node
         run: pnpm install
 
       - name: Restore build cache
