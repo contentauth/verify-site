@@ -13,64 +13,15 @@
 
 import type { Manifest } from 'c2pa';
 
-interface TemporalRegion {
-  type: 'temporal';
-  time: Record<string, unknown>;
-}
-
-interface IdentifiedRegion {
-  type: 'identified';
-  item: {
-    identifier: string;
-    value: 'lips' | 'transcript';
-  };
-}
-
-type Region = TemporalRegion | IdentifiedRegion;
-
-interface Change {
-  region: Region[];
-}
-
-interface DubbedActionData {
-  action: 'c2pa.dubbed';
-  digitalSourceType: string;
-  changes: Change[];
-}
-
-interface EditedActionData {
-  action: 'c2pa.edited';
-  digitalSourceType: string;
-  changes: Change[];
-}
-
 export interface TranslatedActionDataParams {
   sourceLanguage: string;
   targetLanguage: string;
 }
 
-interface TranslatedActionData {
-  action: 'c2pa.translated';
-  digitalSourceType: string;
-  parameters: TranslatedActionDataParams;
-}
-
-type Actions = DubbedActionData | EditedActionData | TranslatedActionData;
-
-interface V2ActionAssertion {
-  actions: Actions[];
-}
-
-declare module 'c2pa' {
-  interface ExtendedAssertions {
-    'c2pa.actions.v2': V2ActionAssertion;
-  }
-}
-
 export interface AutoDubInfo {
   hasLipsRoi: boolean;
   hasTranscriptRoi: boolean;
-  translatedData: TranslatedActionData['parameters'] | null;
+  translatedData: TranslatedActionDataParams | null;
 }
 
 export function selectAutoDubInfo(manifest: Manifest): AutoDubInfo | null {
@@ -80,24 +31,31 @@ export function selectAutoDubInfo(manifest: Manifest): AutoDubInfo | null {
     return null;
   }
 
-  const dubbedAction = actionAssertion.data.actions.find(isDubbedAction);
-  const translatedAction =
-    actionAssertion.data.actions.find(isTranslatedAction);
-  const editedAction = actionAssertion.data.actions.find(isEditedAction);
+  const dubbedAction = actionAssertion.data.actions.find(
+    ({ action }) => action === 'c2pa.dubbed',
+  );
+  const translatedAction = actionAssertion.data.actions.find(
+    ({ action }) => action === 'c2pa.translated',
+  );
+  const editedAction = actionAssertion.data.actions.find(
+    ({ action }) => action === 'c2pa.edited',
+  );
 
   if (dubbedAction) {
-    const dubbedRegionOfInterest = dubbedAction.changes.find(
+    const dubbedRegionOfInterest = dubbedAction.changes?.find(
       (change) => !!change?.region,
     )?.region;
-    const dubbedIdentified =
-      dubbedRegionOfInterest?.find(isIdentifiedRegion)?.item.value;
+    const dubbedIdentified = dubbedRegionOfInterest?.find(
+      (region: Record<string, unknown>) => region.type === 'identified',
+    )?.item.value;
     const hasLipsRoi = dubbedIdentified === 'lips';
 
-    const editedRegionOfInterest = editedAction?.changes.find(
+    const editedRegionOfInterest = editedAction?.changes?.find(
       (change) => !!change?.region,
     )?.region;
-    const editedIdentified =
-      editedRegionOfInterest?.find(isIdentifiedRegion)?.item.value;
+    const editedIdentified = editedRegionOfInterest?.find(
+      (region: Record<string, unknown>) => region.type === 'identified',
+    )?.item.value;
     const hasTranscriptRoi = editedIdentified === 'transcript';
 
     const translatedLanguageData = translatedAction?.parameters ?? null;
@@ -105,25 +63,9 @@ export function selectAutoDubInfo(manifest: Manifest): AutoDubInfo | null {
     return {
       hasLipsRoi,
       hasTranscriptRoi,
-      translatedData: translatedLanguageData,
+      translatedData: translatedLanguageData as TranslatedActionDataParams,
     };
   }
 
   return null;
-}
-
-function isDubbedAction(action: Actions): action is DubbedActionData {
-  return action.action === 'c2pa.dubbed';
-}
-
-function isEditedAction(action: Actions): action is EditedActionData {
-  return action.action === 'c2pa.edited';
-}
-
-function isTranslatedAction(action: Actions): action is TranslatedActionData {
-  return action.action === 'c2pa.translated';
-}
-
-function isIdentifiedRegion(region: Region): region is IdentifiedRegion {
-  return region.type === 'identified';
 }

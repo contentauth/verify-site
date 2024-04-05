@@ -45,8 +45,8 @@ dependencies:
     specifier: ^0.36.0
     version: 0.36.0
   c2pa:
-    specifier: 0.19.1
-    version: 0.19.1
+    specifier: 0.19.4
+    version: 0.19.4
   c2pa-test-image-service:
     specifier: 0.12.0
     version: 0.12.0
@@ -3461,8 +3461,8 @@ packages:
     resolution: {integrity: sha512-hxLtBbtFJM8ZUmuUCC+sJwg9ezaTPQGivK/YCFKyglJFIO0IHD5/Nb2hwKacdCASb2zxmOZjNENb7se5N4BElg==}
     dev: false
 
-  /@contentauth/toolkit@0.11.1:
-    resolution: {integrity: sha512-ExJ+cZeZcnOQlBKW41UGCctE7UhxdyvSEqhhi1/M0yOYhzxFwSrQUH7Yot3uSXxbA4MmvTklx4tilckY3qAAWQ==}
+  /@contentauth/toolkit@0.11.3:
+    resolution: {integrity: sha512-fqZS93tM0TT2b0WmYXPWcm04Tew6vtbeMTX+w4f/w5vZS9+yLr4ScimvJWjh5Vzh9yAXkunhd9MJg4t9EJbLBQ==}
     engines: {node: '>=14'}
     dev: false
 
@@ -9557,11 +9557,11 @@ packages:
       - supports-color
     dev: false
 
-  /c2pa@0.19.1:
-    resolution: {integrity: sha512-pXNX0VBIGrA9CQIbCrYPnoB0O2TmoSLk91COS99ET6VWELoeMH4pN46M7WFkAbAy+AJIx3YKbpbDsrtr1wYYzw==}
+  /c2pa@0.19.4:
+    resolution: {integrity: sha512-YpJ4GoZBKGsED30SAXxC5SmgYCGNXpwB7tzOzwnGfktO6rSK/xfm4dW1aFR7p/vVsyBX9oNbYfO4o3gM3tP1rA==}
     dependencies:
       '@contentauth/detector': 0.3.5
-      '@contentauth/toolkit': 0.11.1
+      '@contentauth/toolkit': 0.11.3
       debug: 4.3.4(supports-color@5.5.0)
       lodash: 4.17.21
       make-error: 1.3.6
