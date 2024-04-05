@@ -98,6 +98,8 @@ export function createC2paReader(): C2paReaderStore {
             correctedType = 'image/heic';
           } else if (ext.endsWith('.heif')) {
             correctedType = 'image/heif';
+          } else if (ext.endsWith('.mov')) {
+            correctedType = 'video/quicktime';
           } else {
             correctedType = normalizedSourceType;
           }

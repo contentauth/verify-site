@@ -124,6 +124,12 @@ export const SUPPORTED_FORMATS: Record<string, FormatDefinition> = {
     browserViewable: async () => true,
     searchable: false,
   },
+  'video/quicktime': {
+    name: 'MOV',
+    category: 'video',
+    browserViewable: async () => false,
+    searchable: false,
+  },
   'video/x-msvideo': {
     name: 'AVI',
     category: 'video',
