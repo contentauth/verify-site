@@ -156,7 +156,6 @@
   "sidebar.verify.process.ingredients": "Ingredients",
   "sidebar.verify.recovery.noMatches": "No matches found",
   "sidebar.verify.recovery.possibleMatches": "Possible matches",
-  "sidebar.verify.recovery.searchNotSupported": "Possible matches are only available for the following formats:",
   "sidebar.verify.search.hideTooltip": "Hide tooltip",
   "sidebar.verify.search.showTooltip": "Show tooltip.",
   "sidebar.verify.search.tooltip.close": "Close",

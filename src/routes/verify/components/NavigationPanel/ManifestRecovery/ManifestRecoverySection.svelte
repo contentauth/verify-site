@@ -16,7 +16,6 @@
   import CloseIcon from '$assets/svg/monochrome/close.svg?component';
   import Section from '$src/components/SidebarSection/Section.svelte';
   import Spinner from '$src/components/Spinner/Spinner.svelte';
-  import Body from '$src/components/typography/Body.svelte';
   import BodyBold from '$src/components/typography/BodyBold.svelte';
   import { sidebarLayoutPageState } from '$src/features/SidebarLayout';
   import { SUPPORTED_FORMATS } from '$src/lib/formats';
@@ -33,12 +32,6 @@
   $: isSearchSupported = mimeType
     ? SUPPORTED_FORMATS[mimeType]?.searchable
     : false;
-  $: delimiter = $_('wordListDelimiter');
-  $: searchableFormats = Object.keys(SUPPORTED_FORMATS)
-    .map((format) => SUPPORTED_FORMATS[format])
-    .filter((format) => format.searchable)
-    .map((format) => format.name)
-    .join(delimiter);
 
   async function handleRecovery() {
     verifyStore.recoverManifests();
@@ -84,14 +77,7 @@
       <Spinner size="s" />
     </div>
   </Section>
-{:else if !isSearchSupported}
-  <Section hasBorder={false}>
-    <Body slot="content">
-      {$_('sidebar.verify.recovery.searchNotSupported')}
-      {searchableFormats}
-    </Body>
-  </Section>
-{:else}
+{:else if isSearchSupported}
   <Section hasBorder={false}>
     <SearchForMatches on:click={handleRecovery} slot="content" />
   </Section>
