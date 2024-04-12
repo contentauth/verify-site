@@ -18,22 +18,22 @@ import {
 } from 'c2pa';
 
 export interface GenerativeInfo {
-  softwareAgents: string[];
+  softwareAgents: SdkGenerativeInfo['softwareAgent'][];
   type: SdkGenerativeInfo['type'];
 }
 
 export function selectGenerativeSoftwareAgents(
   generativeInfo: SdkGenerativeInfo[],
 ) {
-  const softwareAgents = [
+  const softwareAgents: GenerativeInfo['softwareAgents'] = [
     ...new Set(
       generativeInfo.map((assertion) => {
         return assertion?.softwareAgent;
       }),
     ),
   ];
-  //if there are undefined software agents remove them from the array
 
+  // if there are undefined software agents remove them from the array
   return softwareAgents.filter((element) => typeof element !== 'undefined');
 }
 

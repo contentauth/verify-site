@@ -152,7 +152,7 @@ describe('components/SidebarMenu', () => {
     it('returns the correct data with compositeWithTrainedAlgorithmicMedia generative info', () => {
       const data = getContentSummaryFromManifestData({
         generativeInfo: {
-          softwareAgents: ['test'],
+          softwareAgents: [{ name: 'test', version: '1.0' }],
           type: 'compositeWithTrainedAlgorithmicMedia',
         },
       });
@@ -167,7 +167,7 @@ describe('components/SidebarMenu', () => {
     it('returns the correct data with legacy generative info', () => {
       const data = getContentSummaryFromManifestData({
         generativeInfo: {
-          softwareAgents: ['test'],
+          softwareAgents: [{ name: 'test', version: '1.0' }],
           type: 'legacy',
         },
       });
@@ -182,7 +182,7 @@ describe('components/SidebarMenu', () => {
     it('returns the correct data with trainedAlgorithmicMedia generative info', () => {
       const data = getContentSummaryFromManifestData({
         generativeInfo: {
-          softwareAgents: ['test'],
+          softwareAgents: [{ name: 'test', version: '1.0' }],
           type: 'trainedAlgorithmicMedia',
         },
       });

@@ -15,11 +15,12 @@
 <script lang="ts">
   import AiModelIcon from '$assets/svg/monochrome/ai-model.svg?component';
   import ProviderIcon from '$src/components/ProviderIcon/ProviderIcon.svelte';
+  import type { GenerativeInfo } from '$src/lib/selectors/generativeInfo';
   import { _ } from 'svelte-i18n';
   import SubSection from '../../SubSection/SubSection.svelte';
   import AboutSectionIconContentRow from '../AboutSection/AboutSectionIconContentRow.svelte';
 
-  export let softwareAgents: string[];
+  export let softwareAgents: GenerativeInfo['softwareAgents'];
 </script>
 
 <SubSection>
@@ -30,10 +31,10 @@
       <AboutSectionIconContentRow>
         <ProviderIcon
           slot="icon"
-          provider={softwareAgent}
+          provider={softwareAgent?.name}
           fallbackIcon={AiModelIcon} />
         <svelte:fragment slot="content">
-          {softwareAgent}</svelte:fragment>
+          {softwareAgent?.name}</svelte:fragment>
       </AboutSectionIconContentRow>
     {/each}
   </svelte:fragment>
