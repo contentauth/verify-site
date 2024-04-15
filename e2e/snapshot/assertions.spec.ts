@@ -117,6 +117,17 @@ test.describe('Verify - assertion display', () => {
     });
   });
 
+  test('image with v2 actions should show gen AI content summaries if present', async ({
+    page,
+  }) => {
+    const verify = new VerifyPage(page);
+    const source = VerifyPage.getFixtureUrl('v2-actions-genai-content-summary');
+    await verify.goto(source);
+    await verify.takeTallSnapshot(`result v2 actions with gen AI`, {
+      widths: [1280],
+    });
+  });
+
   test('adobe stock image should be displayed correctly', async ({ page }) => {
     const verify = new VerifyPage(page);
     const source = VerifyPage.getFixtureUrl('adobe-stock');

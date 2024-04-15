@@ -183,14 +183,21 @@
 
     const displayNames = new Intl.DisplayNames([$locale], { type: 'language' });
 
-    return {
-      from:
-        displayNames.of(data.from) ??
-        $_('contentSummary.autoDub.unknownLanguage'),
-      to:
-        displayNames.of(data.to) ??
-        $_('contentSummary.autoDub.unknownLanguage'),
-    };
+    try {
+      return {
+        from:
+          displayNames.of(data.from) ??
+          $_('contentSummary.autoDub.languageUnknown'),
+        to:
+          displayNames.of(data.to) ??
+          $_('contentSummary.autoDub.languageUnknown'),
+      };
+    } catch (err: unknown) {
+      return {
+        from: $_('contentSummary.autoDub.languageUnknown'),
+        to: $_('contentSummary.autoDub.languageUnknown'),
+      };
+    }
   }
 
   export let contentSummaryData:

@@ -35,7 +35,7 @@
   let formattedGenerator = selectFormattedGenerator(activeManifest);
   let generativeInfo = selectGenerativeInfo(activeManifest);
   let generativeInfoType = generativeInfo?.type;
-  let aiToolUsed = generativeInfo?.softwareAgents[0];
+  let aiToolUsed = generativeInfo?.softwareAgents[0]?.name;
   let hasAdditionalHistory = !!activeManifest.ingredients.length;
 
   const verifyUrl = encodeURIComponent(`${window.origin}${imageUrl}`);

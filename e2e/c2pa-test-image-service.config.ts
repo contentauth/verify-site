@@ -486,5 +486,30 @@ export default {
         format: 'image/jpeg',
       },
     },
+    'v2-actions-genai-content-summary': {
+      image: { r: 0, g: 0, b: 255, width: 600, height: 600 },
+      manifest: {
+        claim_generator: 'Adobe_Firefly',
+        claim_generator_info: [{ name: 'Adobe Firefly' }],
+        title: 'Generated Image',
+        format: 'image/jpeg',
+        ingredients: [],
+        assertions: [
+          {
+            label: 'c2pa.actions.v2',
+            data: {
+              actions: [
+                {
+                  action: 'c2pa.edited',
+                  digitalSourceType:
+                    'http://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia',
+                  softwareAgent: { name: 'Adobe Firefly' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
   },
 } satisfies C2paTestImageServiceConfig;
