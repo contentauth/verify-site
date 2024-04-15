@@ -491,8 +491,8 @@ export default {
       manifest: {
         claim_generator: 'Adobe_Firefly',
         claim_generator_info: [{ name: 'Adobe Firefly' }],
-        title: 'Generated Video',
-        format: 'video/mp4',
+        title: 'Generated Image',
+        format: 'image/jpeg',
         ingredients: [],
         assertions: [
           {
