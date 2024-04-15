@@ -16,25 +16,27 @@ import {
   type Manifest,
   type GenerativeInfo as SdkGenerativeInfo,
 } from 'c2pa';
+import { filter, flow, uniqBy } from 'lodash/fp';
+
+type SoftwareAgent = SdkGenerativeInfo['softwareAgent'];
 
 export interface GenerativeInfo {
-  softwareAgents: SdkGenerativeInfo['softwareAgent'][];
+  softwareAgents: SoftwareAgent[];
   type: SdkGenerativeInfo['type'];
 }
 
 export function selectGenerativeSoftwareAgents(
   generativeInfo: SdkGenerativeInfo[],
-) {
-  const softwareAgents: GenerativeInfo['softwareAgents'] = [
-    ...new Set(
-      generativeInfo.map((assertion) => {
-        return assertion?.softwareAgent;
-      }),
-    ),
-  ];
+): SoftwareAgent[] {
+  const softwareAgents: SoftwareAgent[] = generativeInfo.map((assertion) => {
+    return assertion?.softwareAgent;
+  });
 
   // if there are undefined software agents remove them from the array
-  return softwareAgents.filter((element) => typeof element !== 'undefined');
+  return flow<[SoftwareAgent[]], SoftwareAgent[], SoftwareAgent[]>(
+    filter((x) => !!x?.name),
+    uniqBy((x) => x.name),
+  )(softwareAgents);
 }
 
 export function selectGenerativeType(generativeInfo: SdkGenerativeInfo[]) {
