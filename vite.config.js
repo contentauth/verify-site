@@ -40,6 +40,7 @@ const config = {
     },
   },
   define: {
+    __CURRENT_YEAR__: new Date().getFullYear(),
     __SUPPORTED_LOCALES__: JSON.stringify(getSupportedLocales()),
     __OVERRIDE_MANIFEST_RECOVERY_BASE_URL__: JSON.stringify(
       process.env.OVERRIDE_MANIFEST_RECOVERY_BASE_URL ?? '',

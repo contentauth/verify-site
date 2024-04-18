@@ -33,6 +33,7 @@ import {
 } from './formats';
 import { DEFAULT_LOCALE } from './i18n';
 import { MANIFEST_STORE_MIME_TYPE } from './manifestRecovery';
+import { selectAutoDubInfo, type AutoDubInfo } from './selectors/autoDubInfo';
 import { selectDoNotTrain } from './selectors/doNotTrain';
 import {
   selectGenerativeInfo,
@@ -47,7 +48,6 @@ import { selectWeb3 } from './selectors/web3Info';
 import { selectWebsite } from './selectors/website';
 import { loadThumbnail, type ThumbnailInfo } from './thumbnail';
 import type { Disposable } from './types';
-import { selectAutoDubInfo, type AutoDubInfo } from './selectors/autoDubInfo';
 
 const dbg = debug('lib:asset');
 

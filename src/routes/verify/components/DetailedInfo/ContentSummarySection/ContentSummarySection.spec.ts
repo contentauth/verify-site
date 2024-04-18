@@ -149,47 +149,190 @@ describe('components/SidebarMenu', () => {
       });
     });
 
-    it('returns the correct data with compositeWithTrainedAlgorithmicMedia generative info', () => {
-      const data = getContentSummaryFromManifestData({
+    it('returns the correct data with compositeWithTrainedAlgorithmicMedia generative info for images', () => {
+      const data = getContentSummaryFromManifestData(
+        {
+          generativeInfo: {
+            softwareAgents: [{ name: 'test', version: '1.0' }],
+            type: 'compositeWithTrainedAlgorithmicMedia',
+          },
+        },
+        'image/jpeg',
+      );
+
+      expect(data).toEqual({
+        contentSummaryData: {
+          key: 'contentSummary.compositeWithTrainedAlgorithmicMedia.image',
+        },
+      });
+    });
+
+    it('returns the correct data with compositeWithTrainedAlgorithmicMedia generative info for video', () => {
+      const data = getContentSummaryFromManifestData(
+        {
+          generativeInfo: {
+            softwareAgents: [{ name: 'test', version: '1.0' }],
+            type: 'compositeWithTrainedAlgorithmicMedia',
+          },
+        },
+        'video/mp4',
+      );
+
+      expect(data).toEqual({
+        contentSummaryData: {
+          key: 'contentSummary.compositeWithTrainedAlgorithmicMedia.video',
+        },
+      });
+    });
+
+    it('returns the correct data with compositeWithTrainedAlgorithmicMedia generative info for audio', () => {
+      const data = getContentSummaryFromManifestData(
+        {
+          generativeInfo: {
+            softwareAgents: [{ name: 'test', version: '1.0' }],
+            type: 'compositeWithTrainedAlgorithmicMedia',
+          },
+        },
+        'audio/wav',
+      );
+
+      expect(data).toEqual({
+        contentSummaryData: {
+          key: 'contentSummary.compositeWithTrainedAlgorithmicMedia.audio',
+        },
+      });
+    });
+
+    it('returns the correct data with compositeWithTrainedAlgorithmicMedia generative info for unknown data', () => {
+      const data1 = getContentSummaryFromManifestData({
         generativeInfo: {
           softwareAgents: [{ name: 'test', version: '1.0' }],
           type: 'compositeWithTrainedAlgorithmicMedia',
         },
       });
 
-      expect(data).toEqual({
+      expect(data1).toEqual({
         contentSummaryData: {
-          key: 'contentSummary.compositeWithTrainedAlgorithmicMedia',
+          key: 'contentSummary.compositeWithTrainedAlgorithmicMedia.other',
+        },
+      });
+
+      const data2 = getContentSummaryFromManifestData(
+        {
+          generativeInfo: {
+            softwareAgents: [{ name: 'test', version: '1.0' }],
+            type: 'compositeWithTrainedAlgorithmicMedia',
+          },
+        },
+        'application/octet-stream',
+      );
+
+      expect(data2).toEqual({
+        contentSummaryData: {
+          key: 'contentSummary.compositeWithTrainedAlgorithmicMedia.other',
         },
       });
     });
 
     it('returns the correct data with legacy generative info', () => {
-      const data = getContentSummaryFromManifestData({
-        generativeInfo: {
-          softwareAgents: [{ name: 'test', version: '1.0' }],
-          type: 'legacy',
+      const data = getContentSummaryFromManifestData(
+        {
+          generativeInfo: {
+            softwareAgents: [{ name: 'test', version: '1.0' }],
+            type: 'legacy',
+          },
         },
-      });
+        'image/jpeg',
+      );
 
       expect(data).toEqual({
         contentSummaryData: {
-          key: 'contentSummary.trainedAlgorithmicMedia',
+          key: 'contentSummary.trainedAlgorithmicMedia.image',
         },
       });
     });
 
-    it('returns the correct data with trainedAlgorithmicMedia generative info', () => {
-      const data = getContentSummaryFromManifestData({
+    it('returns the correct data with trainedAlgorithmicMedia generative info for images', () => {
+      const data = getContentSummaryFromManifestData(
+        {
+          generativeInfo: {
+            softwareAgents: [{ name: 'test', version: '1.0' }],
+            type: 'trainedAlgorithmicMedia',
+          },
+        },
+        'image/png',
+      );
+
+      expect(data).toEqual({
+        contentSummaryData: {
+          key: 'contentSummary.trainedAlgorithmicMedia.image',
+        },
+      });
+    });
+
+    it('returns the correct data with trainedAlgorithmicMedia generative info for video', () => {
+      const data = getContentSummaryFromManifestData(
+        {
+          generativeInfo: {
+            softwareAgents: [{ name: 'test', version: '1.0' }],
+            type: 'trainedAlgorithmicMedia',
+          },
+        },
+        'video/quicktime',
+      );
+
+      expect(data).toEqual({
+        contentSummaryData: {
+          key: 'contentSummary.trainedAlgorithmicMedia.video',
+        },
+      });
+    });
+
+    it('returns the correct data with trainedAlgorithmicMedia generative info for audio', () => {
+      const data = getContentSummaryFromManifestData(
+        {
+          generativeInfo: {
+            softwareAgents: [{ name: 'test', version: '1.0' }],
+            type: 'trainedAlgorithmicMedia',
+          },
+        },
+        'audio/mp4',
+      );
+
+      expect(data).toEqual({
+        contentSummaryData: {
+          key: 'contentSummary.trainedAlgorithmicMedia.audio',
+        },
+      });
+    });
+
+    it('returns the correct data with trainedAlgorithmicMedia generative info for unknown data', () => {
+      const data1 = getContentSummaryFromManifestData({
         generativeInfo: {
           softwareAgents: [{ name: 'test', version: '1.0' }],
           type: 'trainedAlgorithmicMedia',
         },
       });
 
-      expect(data).toEqual({
+      expect(data1).toEqual({
         contentSummaryData: {
-          key: 'contentSummary.trainedAlgorithmicMedia',
+          key: 'contentSummary.trainedAlgorithmicMedia.other',
+        },
+      });
+
+      const data2 = getContentSummaryFromManifestData(
+        {
+          generativeInfo: {
+            softwareAgents: [{ name: 'test', version: '1.0' }],
+            type: 'trainedAlgorithmicMedia',
+          },
+        },
+        'application/octet-stream',
+      );
+
+      expect(data2).toEqual({
+        contentSummaryData: {
+          key: 'contentSummary.trainedAlgorithmicMedia.other',
         },
       });
     });

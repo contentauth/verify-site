@@ -22,7 +22,10 @@
 
   type ContentSummary = {
     key:
-      | 'contentSummary.compositeWithTrainedAlgorithmicMedia'
+      | 'contentSummary.compositeWithTrainedAlgorithmicMedia.other'
+      | 'contentSummary.compositeWithTrainedAlgorithmicMedia.image'
+      | 'contentSummary.compositeWithTrainedAlgorithmicMedia.audio'
+      | 'contentSummary.compositeWithTrainedAlgorithmicMedia.video'
       | 'contentSummary.trainedAlgorithmicMedia'
       | 'contentSummary.autoDub.dubbed'
       | 'contentSummary.autoDub.dubbedLipsRoi'
@@ -52,20 +55,32 @@
     to: data.targetLanguage,
   });
 
+  const suffixMediaType = (
+    key: string,
+    mimeType: string | null,
+  ): ContentSummary['key'] => {
+    const matches = mimeType && /^(image|audio|video)/.exec(mimeType);
+    const mediaType = matches?.[1] ?? 'other';
+
+    return `${key}.${mediaType}` as ContentSummary['key'];
+  };
+
   export function assetDataToProps(
     assetData: Partial<AssetData>,
   ): ContentSummarySectionProps {
-    return assetData.manifestData
-      ? getContentSummaryFromManifestData(assetData.manifestData)
+    const { mimeType, manifestData } = assetData;
+
+    return manifestData
+      ? getContentSummaryFromManifestData(manifestData, mimeType)
       : {
           contentSummaryData: null,
         };
   }
 
-  export function getContentSummaryFromManifestData({
-    autoDubInfo,
-    generativeInfo,
-  }: Partial<ManifestData>): ContentSummarySectionProps {
+  export function getContentSummaryFromManifestData(
+    { autoDubInfo, generativeInfo }: Partial<ManifestData>,
+    mimeType: string | null = null,
+  ): ContentSummarySectionProps {
     if (autoDubInfo) {
       const { hasLipsRoi, hasTranscriptRoi, translatedData } = autoDubInfo;
 
@@ -140,14 +155,20 @@
       case 'compositeWithTrainedAlgorithmicMedia':
         return {
           contentSummaryData: {
-            key: 'contentSummary.compositeWithTrainedAlgorithmicMedia',
+            key: suffixMediaType(
+              'contentSummary.compositeWithTrainedAlgorithmicMedia',
+              mimeType,
+            ),
           },
         };
       case 'legacy':
       case 'trainedAlgorithmicMedia':
         return {
           contentSummaryData: {
-            key: 'contentSummary.trainedAlgorithmicMedia',
+            key: suffixMediaType(
+              'contentSummary.trainedAlgorithmicMedia',
+              mimeType,
+            ),
           },
         };
       default:
