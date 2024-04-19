@@ -12,7 +12,7 @@
 // from Adobe.
 
 import type { Handle } from '@sveltejs/kit';
-import { readFile } from 'fs/promises';
+import { readFile } from 'node:fs/promises';
 
 export const handle = (async ({ event, resolve }) => {
   const newrelicScript = await readFile('etc/newrelic.html', {
