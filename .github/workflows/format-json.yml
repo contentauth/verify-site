@@ -18,7 +18,7 @@ jobs:
       - name: Install pnpm
         run: |
           corepack enable
-          corepack prepare pnpm@latest --activate
+          corepack prepare pnpm@8.9.2 --activate
 
       - name: Install Node.js
         uses: actions/setup-node@v3

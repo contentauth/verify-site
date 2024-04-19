@@ -33,7 +33,7 @@ jobs:
         if: steps.check-cache.outputs.cache-hit != 'true'
         run: |
           corepack enable
-          corepack prepare pnpm@latest --activate
+          corepack prepare pnpm@8.9.2 --activate
 
       - name: Install Node.js
         if: steps.check-cache.outputs.cache-hit != 'true'
@@ -95,7 +95,7 @@ jobs:
       - name: Install pnpm
         run: |
           corepack enable
-          corepack prepare pnpm@latest --activate
+          corepack prepare pnpm@8.9.2 --activate
 
       - name: Install Node.js
         uses: actions/setup-node@v3
