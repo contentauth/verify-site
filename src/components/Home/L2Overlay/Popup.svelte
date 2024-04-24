@@ -79,9 +79,9 @@
         <div class="px-4">
           <div class="items-center py-[0.625rem] text-popup-text">
             {#if generativeInfoType === 'compositeWithTrainedAlgorithmicMedia'}
-              {$_('contentSummary.compositeWithTrainedAlgorithmicMedia')}
+              {$_('contentSummary.compositeWithTrainedAlgorithmicMedia.image')}
             {:else if generativeInfoType === 'trainedAlgorithmicMedia'}
-              {$_('contentSummary.trainedAlgorithmicMedia')}
+              {$_('contentSummary.trainedAlgorithmicMedia.image')}
             {/if}
           </div>
           <hr />
