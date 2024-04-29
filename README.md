@@ -101,26 +101,32 @@ export SITE_CONFIG='{"env": "stage", "features": ["new-homepage"], "config": {"m
 
 #### Root trust list
 
-The root trust list is updated via c2pa-js and should change infrequently.
+The root trust list is available at `static/trust/anchors.pem`. This list should change infrequently.
 
 #### End-entity trust list
 
-The end-entity trust list is contained in this repository in the `assets/certs/allowed.pem` file. This file is not public and is not deployed as part of the web distributable in its current form.
+The end-entity trust list is contained in this repository in the `static/trust/allowed.pem` file.
 
 When running `pnpm dev` or `pnpm build`, we call `pnpm hash-pem` which goes through the certs and creates a
-static file containing the hashes of the certs in `static/no-cache/allowed.txt`. This is available on the
-server as `/no-cache/allowed.txt`.
+static file containing the hashes of the certs in `static/trust/allowed.pem`. This is available on the
+server as `static/trust/allowed.sha256.txt`.
 
-To add a certificate, append PEM certificate(s) to `assets/certs/allowed.pem` along with a comment starting with
-a hash (`#`) mentioning who this certificate belongs to. Then you can re-run the build to re-generate
-`allowed.txt`, test locally, open up a PR with the change, make sure existing tests pass, and merge to deploy.
+To add a certificate, append PEM certificate(s) to `assets/certs/allowed.pem` along with a comment starting with a hash (`#`) mentioning who this certificate belongs to (please also prepend an `O=` to designate that this is the organization name), so it looks like:
+
+```
+# O=SAMPLE ORG NAME
+```
+
+**Note:** This must _exactly_ match the organization name specified in the certificate.
+
+Then you can re-run the build to re-generate
+`allowed.sha256.txt`, test locally, open up a PR with the change, make sure existing tests pass, and merge to deploy.
 
 ### Feature flagging
 
 #### Creating a new feature flag
 
-New feature flags need to be specified in the `validFeatures` array in `src/lib/config.ts`. You can check if a feature
-is enabled by doing the following:
+New feature flags need to be specified in the `validFeatures` array in `src/lib/config.ts`. You can check if a feature is enabled by doing the following:
 
 ```ts
 import { getConfig } from '$lib/config';
