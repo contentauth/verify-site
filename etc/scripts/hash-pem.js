@@ -19,10 +19,8 @@ import fs from 'node:fs/promises';
 const crypto = new Crypto();
 x509.cryptoProvider.set(crypto);
 
-console.log('\x1Bc');
-
-const PEM_INPUT_PATH = 'assets/certs/allowed.pem';
-const HASH_OUTPUT_PATH = 'static/no-cache/allowed.txt';
+const PEM_INPUT_PATH = 'static/trust/allowed.pem';
+const HASH_OUTPUT_PATH = 'static/trust/allowed.sha256.txt';
 
 // Based off of [RFC-7468](https://datatracker.ietf.org/doc/html/rfc7468)
 // This adds a bit of leeway if people add more than 5 dashes on the sides of `BEGIN/END CERTIFICATE`
@@ -95,7 +93,7 @@ async function run() {
 
       console.log(`Succesfully processed end-entity cert for ${org}`);
 
-      return digest;
+      return [`# ${org.replace(/^O=/, '')}`, digest].join('\n');
     },
   );
 

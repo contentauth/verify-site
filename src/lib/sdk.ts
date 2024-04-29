@@ -11,8 +11,6 @@
 // is strictly forbidden unless prior written permission is obtained
 // from Adobe.
 
-import trustConfig from '$assets/trust/store.cfg?raw';
-import trustAnchors from '$assets/trust/trust_anchors.pem?raw';
 import { createC2pa, type ToolkitSettings } from 'c2pa';
 import wasmSrc from 'c2pa/dist/assets/wasm/toolkit_bg.wasm?url';
 import workerSrc from 'c2pa/dist/c2pa.worker.min.js?url';
@@ -32,15 +30,22 @@ async function createSdk() {
 
 export const getSdk = pMemoize(createSdk);
 
+async function loadTrustResource(file: string): Promise<string> {
+  const res = await fetch(`/trust/${file}`);
+
+  return res.text();
+}
+
 async function createToolkitSettings(): Promise<ToolkitSettings> {
-  const allowedListRes = await fetch('/no-cache/allowed.txt');
-  const allowedList = await allowedListRes.text();
+  const [anchors, endEntity, config] = await Promise.all(
+    ['anchors.pem', 'allowed.sha256.txt', 'store.cfg'].map(loadTrustResource),
+  );
 
   return {
     trust: {
-      trustConfig,
-      trustAnchors,
-      allowedList,
+      trustConfig: config,
+      trustAnchors: anchors,
+      allowedList: endEntity,
     },
     verify: {
       verifyTrust: true,
