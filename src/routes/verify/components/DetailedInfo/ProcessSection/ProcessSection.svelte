@@ -40,6 +40,7 @@
         softwareAgents={manifestData.generativeInfo.softwareAgents} />
     {/if}
     {#await manifestData.editsAndActivityForLocale($locale ?? null) then result}
+      {console.log('result', result)}
       <div data-testid="actions.editsAndActivity">
         {#if result && result.editsAndActivity.length}
           <ActionsSection
