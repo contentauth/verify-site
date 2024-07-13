@@ -31,7 +31,13 @@ const HEADER = `## The C2PA intends to publish an official C2PA Public Trust Lis
 const PEM_REGEX =
   /(?:#\s((?:O|CN)=.*)\n)?(?:-{5,}BEGIN CERTIFICATE-{5,}\n)([A-Za-z0-9+/\n]*={0,3})\n(?:-{5,}END CERTIFICATE-{5,})/gm;
 
-const validIssuers = ['DigiCert Inc', 'Entrust\\, Inc.', 'GlobalSign nv-sa'];
+const validIssuers = [
+  'DigiCert\\, Inc.',
+  'DigiCert Inc',
+  'Entrust\\, Inc.',
+  'GlobalSign nv-sa',
+  'SSL Corp',
+];
 
 async function run() {
   console.log('Processing end-entity certificates...');
