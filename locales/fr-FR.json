@@ -107,7 +107,7 @@
   "sidebar.selectedFile": "Fichier sélectionné",
   "sidebar.verify.about.issuedby.tooltip.link": "Voir les informations de certificat",
   "sidebar.verify.about.issuedby.tooltip": "Organisation, appareil ou personne qui a enregistré les détails ci-dessus et émis ces informations de traçabilité du contenu.",
-  "sidebar.verify.about.issuedby": "Émises par",
+  "sidebar.verify.about.issuedby": "Édité par",
   "sidebar.verify.about.issuedon": "Émises le",
   "sidebar.verify.about": "À propos de ces informations de traçabilité du contenu",
   "sidebar.verify.advanced.show": "Afficher toutes les données",
