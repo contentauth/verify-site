@@ -42,8 +42,8 @@ dependencies:
     specifier: ^0.36.0
     version: 0.36.0
   c2pa:
-    specifier: ^0.22.2
-    version: 0.22.2
+    specifier: ^0.22.4
+    version: 0.22.4
   c2pa-test-image-service:
     specifier: 0.13.3
     version: 0.13.3
@@ -120,7 +120,7 @@ dependencies:
 devDependencies:
   '@axe-core/playwright':
     specifier: ^4.7.3
-    version: 4.7.3(playwright-core@1.45.1)
+    version: 4.7.3(playwright-core@1.45.3)
   '@fullhuman/postcss-purgecss':
     specifier: ^4.1.3
     version: 4.1.3(postcss@8.4.31)
@@ -141,7 +141,7 @@ devDependencies:
     version: 1.28.3(typescript@5.2.2)
   '@percy/playwright':
     specifier: ^1.0.5
-    version: 1.0.5(playwright-core@1.45.1)
+    version: 1.0.5(playwright-core@1.45.3)
   '@playwright/test':
     specifier: 1.39.0
     version: 1.39.0
@@ -398,13 +398,13 @@ packages:
       default-browser-id: 3.0.0
     dev: true
 
-  /@axe-core/playwright@4.7.3(playwright-core@1.45.1):
+  /@axe-core/playwright@4.7.3(playwright-core@1.45.3):
     resolution: {integrity: sha512-v2PRgAyGvop7bamrTpNJtc5b1R7giAPnMzZXrS/VDZBCY5+uwVYtCNgDvBsqp5P1QMZxUMoBN+CERJUTMjFN0A==}
     peerDependencies:
       playwright-core: '>= 1.0.0'
     dependencies:
       axe-core: 4.7.1
-      playwright-core: 1.45.1
+      playwright-core: 1.45.3
     dev: true
 
   /@babel/code-frame@7.22.10:
@@ -559,8 +559,8 @@ packages:
       jsesc: 2.5.2
     dev: true
 
-  /@babel/generator@7.24.9:
-    resolution: {integrity: sha512-G8v3jRg+z8IwY1jHFxvCNhOPYPterE4XljNgdGTYfSTtzzwjIswIzIaSPSLs3R7yFuqnqNeay5rjICfqVr+/6A==}
+  /@babel/generator@7.24.10:
+    resolution: {integrity: sha512-o9HBZL1G2129luEUlG1hB4N/nlYNWHnpwlND9eOMclRqqu1YDy2sSYVCFUZwl8I1Gxh+QSRrP2vD7EpUmFVXxg==}
     engines: {node: '>=6.9.0'}
     dependencies:
       '@babel/types': 7.24.9
@@ -3246,7 +3246,7 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       '@babel/code-frame': 7.24.7
-      '@babel/generator': 7.24.9
+      '@babel/generator': 7.24.10
       '@babel/helper-environment-visitor': 7.24.7
       '@babel/helper-function-name': 7.24.7
       '@babel/helper-hoist-variables': 7.24.7
@@ -3547,6 +3547,14 @@ packages:
 
   /@emotion/use-insertion-effect-with-fallbacks@1.0.1(react@18.2.0):
     resolution: {integrity: sha512-jT/qyKZ9rzLErtrjGgdkMBn2OP8wl0G3sQlBb3YPryvKHsjvINUhVaPFfP+fpBcOkmrVOVEEHQFJ7nbj2TH2gw==}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      react: 18.2.0
+    dev: true
+
+  /@emotion/use-insertion-effect-with-fallbacks@1.1.0(react@18.2.0):
+    resolution: {integrity: sha512-+wBOcIV5snwGgI2ya3u99D7/FJquOIniQT1IKyDsBmEgwvpxMNeS65Oib7OnE2d2aY+3BU4OiH+0Wchf8yk3Hw==}
     peerDependencies:
       react: '>=16.8.0'
     dependencies:
@@ -4232,10 +4240,10 @@ packages:
       '@floating-ui/utils': 0.1.1
     dev: false
 
-  /@floating-ui/core@1.6.4:
-    resolution: {integrity: sha512-a4IowK4QkXl4SCWTGUR0INAfEOX3wtsYw3rKK5InQEHMGObkR8Xk44qYQD9P4r6HHw0iIfK6GUKECmY8sTkqRA==}
+  /@floating-ui/core@1.6.5:
+    resolution: {integrity: sha512-8GrTWmoFhm5BsMZOTHeGD2/0FLKLQQHvO/ZmQga4tKempYRLz8aqJGqXVuQgisnMObq2YZ2SgkwctN1LOOxcqA==}
     dependencies:
-      '@floating-ui/utils': 0.2.4
+      '@floating-ui/utils': 0.2.5
     dev: true
 
   /@floating-ui/dom@1.5.1:
@@ -4245,11 +4253,11 @@ packages:
       '@floating-ui/utils': 0.1.1
     dev: false
 
-  /@floating-ui/dom@1.6.7:
-    resolution: {integrity: sha512-wmVfPG5o2xnKDU4jx/m4w5qva9FWHcnZ8BvzEe90D/RpwsJaTAVYPEPdQ8sbr/N8zZTAHlZUTQdqg8ZUbzHmng==}
+  /@floating-ui/dom@1.6.8:
+    resolution: {integrity: sha512-kx62rP19VZ767Q653wsP1XZCGIirkE09E0QUGNYTM/ttbbQHqcGPdSfWFxUyyNLc/W6aoJRBajOSXhP6GXjC0Q==}
     dependencies:
-      '@floating-ui/core': 1.6.4
-      '@floating-ui/utils': 0.2.4
+      '@floating-ui/core': 1.6.5
+      '@floating-ui/utils': 0.2.5
     dev: true
 
   /@floating-ui/react-dom@2.1.1(react-dom@18.2.0)(react@18.2.0):
@@ -4258,7 +4266,7 @@ packages:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
     dependencies:
-      '@floating-ui/dom': 1.6.7
+      '@floating-ui/dom': 1.6.8
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: true
@@ -4267,8 +4275,8 @@ packages:
     resolution: {integrity: sha512-m0G6wlnhm/AX0H12IOWtK8gASEMffnX08RtKkCgTdHb9JpHKGloI7icFfLg9ZmQeavcvR0PKmzxClyuFPSjKWw==}
     dev: false
 
-  /@floating-ui/utils@0.2.4:
-    resolution: {integrity: sha512-dWO2pw8hhi+WrXq1YJy2yCuWoL20PddgGaqTgVe4cOS9Q6qklXCiA1tJEqX6BEwRNSCP84/afac9hd4MS+zEUA==}
+  /@floating-ui/utils@0.2.5:
+    resolution: {integrity: sha512-sTcG+QZ6fdEUObICavU+aB3Mp8HY4n14wYHdxK4fXjPmv3PXZZeY5RaguJmGyeH/CJQhX3fqKUtS4qc1LoHwhQ==}
     dev: true
 
   /@formatjs/ecma402-abstract@1.11.4:
@@ -5724,13 +5732,13 @@ packages:
     engines: {node: '>=14'}
     dev: true
 
-  /@percy/playwright@1.0.5(playwright-core@1.45.1):
+  /@percy/playwright@1.0.5(playwright-core@1.45.3):
     resolution: {integrity: sha512-5WNNkua1CzWm0suyfAqRxPuXOEPd9Vs79759DpgPO0r/QACDcICCLCmAOM+urGlVj17uZqsdC2rMK7MphEXslw==}
     engines: {node: '>=14'}
     peerDependencies:
       playwright-core: '>=1'
     dependencies:
-      playwright-core: 1.45.1
+      playwright-core: 1.45.3
     dev: true
 
   /@percy/sdk-utils@1.28.3:
@@ -7089,7 +7097,7 @@ packages:
       '@storybook/preview-api': 7.6.20
       '@storybook/theming': 7.6.20(react-dom@18.2.0)(react@18.2.0)
       '@storybook/types': 7.6.20
-      '@types/lodash': 4.17.6
+      '@types/lodash': 4.17.7
       color-convert: 2.0.1
       dequal: 2.0.3
       lodash: 4.17.21
@@ -7465,7 +7473,7 @@ packages:
       '@storybook/node-logger': 7.6.20
       '@storybook/types': 7.6.20
       '@types/find-cache-dir': 3.2.1
-      '@types/node': 18.19.39
+      '@types/node': 18.19.41
       '@types/node-fetch': 2.6.11
       '@types/pretty-hrtime': 1.0.3
       chalk: 4.1.2
@@ -7629,7 +7637,7 @@ packages:
   /@storybook/csf-tools@7.6.20:
     resolution: {integrity: sha512-rwcwzCsAYh/m/WYcxBiEtLpIW5OH1ingxNdF/rK9mtGWhJxXRDV8acPkFrF8rtFWIVKoOCXu5USJYmc3f2gdYQ==}
     dependencies:
-      '@babel/generator': 7.24.9
+      '@babel/generator': 7.24.10
       '@babel/parser': 7.24.8
       '@babel/traverse': 7.24.8
       '@babel/types': 7.24.9
@@ -8135,7 +8143,7 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
-      '@emotion/use-insertion-effect-with-fallbacks': 1.0.1(react@18.2.0)
+      '@emotion/use-insertion-effect-with-fallbacks': 1.1.0(react@18.2.0)
       '@storybook/client-logger': 7.6.17
       '@storybook/global': 5.0.0
       memoizerific: 1.11.3
@@ -8149,7 +8157,7 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
-      '@emotion/use-insertion-effect-with-fallbacks': 1.0.1(react@18.2.0)
+      '@emotion/use-insertion-effect-with-fallbacks': 1.1.0(react@18.2.0)
       '@storybook/client-logger': 7.6.20
       '@storybook/global': 5.0.0
       memoizerific: 1.11.3
@@ -8694,8 +8702,8 @@ packages:
   /@types/lodash@4.14.198:
     resolution: {integrity: sha512-trNJ/vtMZYMLhfN45uLq4ShQSw0/S7xCTLLVM+WM1rmFpba/VS42jVUgaO3w/NOLiWR/09lnYk0yMaA/atdIsg==}
 
-  /@types/lodash@4.17.6:
-    resolution: {integrity: sha512-OpXEVoCKSS3lQqjx9GGGOapBeuW5eUboYHRlHP9urXPX25IKZ6AnP5ZRxtVf63iieUbsHxLn8NQ5Nlftc6yzAA==}
+  /@types/lodash@4.17.7:
+    resolution: {integrity: sha512-8wTvZawATi/lsmNu10/j2hk1KEP0IvjubqPE3cu1Xz7xfXXt5oCq3SNUz4fMIP4XGF9Ky+Ue2tBA3hcS7LSBlA==}
     dev: true
 
   /@types/mapbox-gl@2.7.13:
@@ -8749,7 +8757,7 @@ packages:
   /@types/node-fetch@2.6.11:
     resolution: {integrity: sha512-24xFj9R5+rfQJLRyM56qh+wnVSYhyXC2tkoBndtY0U+vubqNsYXGjufB2nn8Q6gt0LrARwL6UBtMCSVCwl4B1g==}
     dependencies:
-      '@types/node': 20.14.10
+      '@types/node': 20.14.11
       form-data: 4.0.0
     dev: true
 
@@ -8768,8 +8776,8 @@ packages:
     resolution: {integrity: sha512-k0N7BqGhJoJzdh6MuQg1V1ragJiXTh8VUBAZTWjJ9cUq23SG0F0xavOwZbhiP4J3y20xd6jxKx+xNUhkMAi76Q==}
     dev: true
 
-  /@types/node@18.19.39:
-    resolution: {integrity: sha512-nPwTRDKUctxw3di5b4TfT3I0sWDiWoPQCZjXhvdkINntwr8lcoVCKsTgnXeRubKIlfnV+eN/HYk6Jb40tbcEAQ==}
+  /@types/node@18.19.41:
+    resolution: {integrity: sha512-LX84pRJ+evD2e2nrgYCHObGWkiQJ1mL+meAgbvnwk/US6vmMY7S2ygBTGV2Jw91s9vUsLSXeDEkUHZIJGLrhsg==}
     dependencies:
       undici-types: 5.26.5
     dev: true
@@ -8779,8 +8787,8 @@ packages:
     dependencies:
       undici-types: 5.26.5
 
-  /@types/node@20.14.10:
-    resolution: {integrity: sha512-MdiXf+nDuMvY0gJKxyfZ7/6UFsETO7mGKF54MVD/ekJS6HdFtpZFBgrh6Pseu64XTb2MLyFPlbW6hj8HYRQNOQ==}
+  /@types/node@20.14.11:
+    resolution: {integrity: sha512-kprQpL8MMeszbz6ojB5/tU8PLN4kesnN8Gjzw349rDlNgsSzg90lAVj3llK99Dh7JON+t9AuscPPFW6mPbTnSA==}
     dependencies:
       undici-types: 5.26.5
     dev: true
@@ -10031,8 +10039,8 @@ packages:
       - supports-color
     dev: false
 
-  /c2pa@0.22.2:
-    resolution: {integrity: sha512-JnxbyRuhHO1cThBbRCYKI3kjUjZsh8H7TzjPc/8Uq+jNyGeJmUdbqAWcRLLA4EZp0tqTsks3TdtXzo0CAn93iA==}
+  /c2pa@0.22.4:
+    resolution: {integrity: sha512-L5VxMsOZ35Oo1F2TAQAAGW7ZPxrhy6KlyaqFt8P2f90aeSv6ac2ALcPKwmVkWGbBOqNLGa8dB2J0ZB9zuyzmSw==}
     dependencies:
       '@contentauth/detector': 0.3.5
       '@contentauth/toolkit': 0.11.6
@@ -11589,7 +11597,7 @@ packages:
     resolution: {integrity: sha512-g3OMbtlwY3QewlqAiMLI47KywjWZoEytKr8pf6iTC8uJq5bIAH52Z9pnQ8pVL6whrCto53JZDuUIsifGeLorTg==}
     engines: {node: '>= 0.4'}
     dependencies:
-      get-intrinsic: 1.2.4
+      get-intrinsic: 1.2.1
       has: 1.0.3
       has-tostringtag: 1.0.0
 
@@ -12859,7 +12867,7 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.7
-      get-intrinsic: 1.2.4
+      get-intrinsic: 1.2.1
 
   /get-symbol-description@1.0.2:
     resolution: {integrity: sha512-g0QYk1dZBxGwk+Ngc+ltRH2IBp2f7zBkBMBJZCDerh6EhlhSR6+9irMCuT/09zD6qkarHUSn529sK/yL4S27mg==}
@@ -13097,7 +13105,7 @@ packages:
       source-map: 0.6.1
       wordwrap: 1.0.0
     optionalDependencies:
-      uglify-js: 3.18.0
+      uglify-js: 3.19.0
     dev: true
 
   /hard-rejection@2.1.0:
@@ -13446,7 +13454,7 @@ packages:
     resolution: {integrity: sha512-Y+R5hJrzs52QCG2laLn4udYVnxsfny9CpOhNhUvk/SSSVyF6T27FzRbF0sroPidSu3X8oEAkOn2K804mjpt6UQ==}
     engines: {node: '>= 0.4'}
     dependencies:
-      get-intrinsic: 1.2.4
+      get-intrinsic: 1.2.1
       has: 1.0.3
       side-channel: 1.0.6
 
@@ -16118,8 +16126,8 @@ packages:
     hasBin: true
     dev: true
 
-  /playwright-core@1.45.1:
-    resolution: {integrity: sha512-LF4CUUtrUu2TCpDw4mcrAIuYrEjVDfT1cHbJMfwnE2+1b8PZcFzPNgvZCvq2JfQ4aTjRCCHw5EJ2tmr2NSzdPg==}
+  /playwright-core@1.45.3:
+    resolution: {integrity: sha512-+ym0jNbcjikaOwwSZycFbwkWgfruWvYlJfThKYAlImbxUgdWFO2oW70ojPm4OpE4t6TAo2FY/smM+hpVTtkhDA==}
     engines: {node: '>=18'}
     hasBin: true
     dev: true
@@ -17499,7 +17507,7 @@ packages:
     resolution: {integrity: sha512-JBUUzyOgEwXQY1NuPtvcj/qcBDbDmEvWufhlnXZIm75DEHp+afM1r1ujJpJsV/gSM4t59tpDyPi1sd6ZaPFfsA==}
     dependencies:
       call-bind: 1.0.7
-      get-intrinsic: 1.2.4
+      get-intrinsic: 1.2.1
       is-regex: 1.1.4
 
   /safe-regex-test@1.0.3:
@@ -18983,8 +18991,8 @@ packages:
     resolution: {integrity: sha512-uY/99gMLIOlJPwATcMVYfqDSxUR9//AUcgZMzwfSTJPDKzA1S8mX4VLqa+fiAtveraQUBCz4FFcwVZBGbwBXIw==}
     dev: true
 
-  /uglify-js@3.18.0:
-    resolution: {integrity: sha512-SyVVbcNBCk0dzr9XL/R/ySrmYf0s372K6/hFklzgcp2lBFyXtw4I7BOdDjlLhE1aVqaI/SHWXWmYdlZxuyF38A==}
+  /uglify-js@3.19.0:
+    resolution: {integrity: sha512-wNKHUY2hYYkf6oSFfhwwiHo4WCHzHmzcXsqXYTN9ja3iApYIFbb2U6ics9hBcYLHcYGQoAlwnZlTrf3oF+BL/Q==}
     engines: {node: '>=0.8.0'}
     hasBin: true
     requiresBuild: true
