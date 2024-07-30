@@ -26,6 +26,10 @@
       | 'contentSummary.compositeWithTrainedAlgorithmicMedia.image'
       | 'contentSummary.compositeWithTrainedAlgorithmicMedia.audio'
       | 'contentSummary.compositeWithTrainedAlgorithmicMedia.video'
+      | 'contentSummary.customModel.other'
+      | 'contentSummary.customModel.image'
+      | 'contentSummary.customModel.audio'
+      | 'contentSummary.customModel.video'
       | 'contentSummary.trainedAlgorithmicMedia'
       | 'contentSummary.autoDub.dubbed'
       | 'contentSummary.autoDub.dubbedLipsRoi'
@@ -151,31 +155,41 @@
       };
     }
 
-    switch (generativeInfo?.type) {
-      case 'compositeWithTrainedAlgorithmicMedia':
+    if (generativeInfo?.type) {
+      if (generativeInfo?.customModels.length > 0) {
         return {
           contentSummaryData: {
-            key: suffixMediaType(
-              'contentSummary.compositeWithTrainedAlgorithmicMedia',
-              mimeType,
-            ),
+            key: suffixMediaType('contentSummary.customModel', mimeType),
           },
         };
-      case 'legacy':
-      case 'trainedAlgorithmicMedia':
-        return {
-          contentSummaryData: {
-            key: suffixMediaType(
-              'contentSummary.trainedAlgorithmicMedia',
-              mimeType,
-            ),
-          },
-        };
-      default:
-        return {
-          contentSummaryData: null,
-        };
+      }
+
+      switch (generativeInfo?.type) {
+        case 'compositeWithTrainedAlgorithmicMedia':
+          return {
+            contentSummaryData: {
+              key: suffixMediaType(
+                'contentSummary.compositeWithTrainedAlgorithmicMedia',
+                mimeType,
+              ),
+            },
+          };
+        case 'legacy':
+        case 'trainedAlgorithmicMedia':
+          return {
+            contentSummaryData: {
+              key: suffixMediaType(
+                'contentSummary.trainedAlgorithmicMedia',
+                mimeType,
+              ),
+            },
+          };
+      }
     }
+
+    return {
+      contentSummaryData: null,
+    };
   }
 </script>
 

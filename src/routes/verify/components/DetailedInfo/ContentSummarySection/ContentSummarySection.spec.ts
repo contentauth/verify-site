@@ -155,6 +155,7 @@ describe('components/SidebarMenu', () => {
           generativeInfo: {
             softwareAgents: [{ name: 'test', version: '1.0' }],
             type: 'compositeWithTrainedAlgorithmicMedia',
+            customModels: [],
           },
         },
         'image/jpeg',
@@ -173,6 +174,7 @@ describe('components/SidebarMenu', () => {
           generativeInfo: {
             softwareAgents: [{ name: 'test', version: '1.0' }],
             type: 'compositeWithTrainedAlgorithmicMedia',
+            customModels: [],
           },
         },
         'video/mp4',
@@ -191,6 +193,7 @@ describe('components/SidebarMenu', () => {
           generativeInfo: {
             softwareAgents: [{ name: 'test', version: '1.0' }],
             type: 'compositeWithTrainedAlgorithmicMedia',
+            customModels: [],
           },
         },
         'audio/wav',
@@ -208,6 +211,7 @@ describe('components/SidebarMenu', () => {
         generativeInfo: {
           softwareAgents: [{ name: 'test', version: '1.0' }],
           type: 'compositeWithTrainedAlgorithmicMedia',
+          customModels: [],
         },
       });
 
@@ -222,6 +226,7 @@ describe('components/SidebarMenu', () => {
           generativeInfo: {
             softwareAgents: [{ name: 'test', version: '1.0' }],
             type: 'compositeWithTrainedAlgorithmicMedia',
+            customModels: [],
           },
         },
         'application/octet-stream',
@@ -240,6 +245,7 @@ describe('components/SidebarMenu', () => {
           generativeInfo: {
             softwareAgents: [{ name: 'test', version: '1.0' }],
             type: 'legacy',
+            customModels: [],
           },
         },
         'image/jpeg',
@@ -258,6 +264,7 @@ describe('components/SidebarMenu', () => {
           generativeInfo: {
             softwareAgents: [{ name: 'test', version: '1.0' }],
             type: 'trainedAlgorithmicMedia',
+            customModels: [],
           },
         },
         'image/png',
@@ -276,6 +283,7 @@ describe('components/SidebarMenu', () => {
           generativeInfo: {
             softwareAgents: [{ name: 'test', version: '1.0' }],
             type: 'trainedAlgorithmicMedia',
+            customModels: [],
           },
         },
         'video/quicktime',
@@ -294,6 +302,7 @@ describe('components/SidebarMenu', () => {
           generativeInfo: {
             softwareAgents: [{ name: 'test', version: '1.0' }],
             type: 'trainedAlgorithmicMedia',
+            customModels: [],
           },
         },
         'audio/mp4',
@@ -311,6 +320,7 @@ describe('components/SidebarMenu', () => {
         generativeInfo: {
           softwareAgents: [{ name: 'test', version: '1.0' }],
           type: 'trainedAlgorithmicMedia',
+          customModels: [],
         },
       });
 
@@ -325,6 +335,7 @@ describe('components/SidebarMenu', () => {
           generativeInfo: {
             softwareAgents: [{ name: 'test', version: '1.0' }],
             type: 'trainedAlgorithmicMedia',
+            customModels: [],
           },
         },
         'application/octet-stream',

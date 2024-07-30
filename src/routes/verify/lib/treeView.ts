@@ -104,7 +104,12 @@ export function createTree({
     const assetData = get(readableAsset);
     const childrenIds = assetData.children;
 
-    return childrenIds ? childrenIds.map((id) => assetStoreMap[id]) : [];
+    return childrenIds
+      ? childrenIds
+          .map((id) => assetStoreMap[id])
+          // Don't include models in the tree
+          .filter((child) => get(child).dataType !== 'model')
+      : [];
   });
   const d3tree = d3Tree<ReadableAssetStore>();
 

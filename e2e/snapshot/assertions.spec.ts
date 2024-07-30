@@ -228,4 +228,16 @@ test.describe('Verify - assertion display', () => {
       },
     );
   });
+
+  test('gen ai images with custom models should be displayed correctly', async ({
+    page,
+  }) => {
+    const verify = new VerifyPage(page);
+    const source = VerifyPage.getFixtureUrl('custom-model.jpg', 'file');
+    await verify.goto(source);
+    await verify.waitForActions();
+    await verify.takeTallSnapshot(`result for gen ai image with custom model`, {
+      widths: [1280],
+    });
+  });
 });

@@ -13,16 +13,25 @@
 
 import {
   selectGenerativeInfo as sdkSelectGenerativeInfo,
+  type DataType,
+  type Ingredient,
   type Manifest,
   type GenerativeInfo as SdkGenerativeInfo,
 } from 'c2pa';
 import { filter, flow, uniqBy } from 'lodash/fp';
+import startsWith from 'lodash/startsWith';
 
 type SoftwareAgent = SdkGenerativeInfo['softwareAgent'];
 
 export interface GenerativeInfo {
   softwareAgents: SoftwareAgent[];
   type: SdkGenerativeInfo['type'];
+  customModels: CustomModel[];
+}
+
+export interface CustomModel {
+  name: string;
+  dataTypes: DataType[];
 }
 
 export function selectGenerativeSoftwareAgents(
@@ -50,6 +59,26 @@ export function selectGenerativeType(generativeInfo: SdkGenerativeInfo[]) {
   return result?.type ?? null;
 }
 
+export function selectModelsFromIngredient(ingredient: Ingredient) {
+  return (
+    ingredient.dataTypes?.filter((dataType: { type: string }) =>
+      startsWith('c2pa.types.model', dataType.type),
+    ) ?? []
+  );
+}
+
+export function selectCustomModels(manifest: Manifest): CustomModel[] {
+  return manifest.ingredients.reduce<CustomModel[]>((acc, ingredient) => {
+    const dataTypes = selectModelsFromIngredient(ingredient);
+
+    if (dataTypes.length > 0) {
+      return [...acc, { name: ingredient.title, dataTypes } as CustomModel];
+    }
+
+    return acc;
+  }, []);
+}
+
 export function selectGenerativeInfo(manifest: Manifest) {
   const generativeInfo = sdkSelectGenerativeInfo(manifest);
 
@@ -60,5 +89,6 @@ export function selectGenerativeInfo(manifest: Manifest) {
   return {
     softwareAgents: selectGenerativeSoftwareAgents(generativeInfo),
     type: selectGenerativeType(generativeInfo),
+    customModels: selectCustomModels(manifest),
   } as GenerativeInfo;
 }

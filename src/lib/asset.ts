@@ -37,6 +37,7 @@ import { selectAutoDubInfo, type AutoDubInfo } from './selectors/autoDubInfo';
 import { selectDoNotTrain } from './selectors/doNotTrain';
 import {
   selectGenerativeInfo,
+  selectModelsFromIngredient,
   type GenerativeInfo,
 } from './selectors/generativeInfo';
 import { selectReviewRatings } from './selectors/reviewRatings';
@@ -61,6 +62,7 @@ export type AssetData = {
   thumbnail: ThumbnailInfo | null;
   mimeType: string;
   title: string | null;
+  dataType: 'model' | null;
   validationResult: ValidationStatusResult | null;
 };
 
@@ -108,6 +110,17 @@ export function getMediaCategoryFromMimeType(mimeType: string): MediaCategory {
     SUPPORTED_FORMATS[mimeType]?.category ??
     (MEDIA_CATEGORIES.includes(prefix) ? prefix : 'unknown')
   );
+}
+
+export function getIngredientDataType(
+  ingredient: Ingredient,
+): AssetData['dataType'] {
+  // Check if model
+  if (selectModelsFromIngredient(ingredient).length > 0) {
+    return 'model';
+  }
+
+  return null;
 }
 
 /**
@@ -162,6 +175,7 @@ export async function resultToAssetMap({
       mimeType: source.type,
       children,
       manifestData: null,
+      dataType: null,
       validationResult: rootValidationResult,
     };
 
@@ -222,6 +236,7 @@ export async function resultToAssetMap({
       mimeType: manifest.format,
       children: await processIngredients(manifest.ingredients, id),
       manifestData: await getManifestData(manifest),
+      dataType: null,
       validationResult,
     };
 
@@ -257,6 +272,7 @@ export async function resultToAssetMap({
         ? await processIngredients(ingredient.manifest?.ingredients ?? [], id)
         : [],
       manifestData: await getManifestData(ingredient.manifest),
+      dataType: getIngredientDataType(ingredient),
       validationResult,
     };
 
