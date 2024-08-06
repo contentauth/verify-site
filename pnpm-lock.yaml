@@ -42,8 +42,8 @@ dependencies:
     specifier: ^0.36.0
     version: 0.36.0
   c2pa:
-    specifier: file:etc/packages/c2pa-0.22.6.tgz
-    version: file:etc/packages/c2pa-0.22.6.tgz
+    specifier: file:etc/packages/c2pa-0.23.1.tgz
+    version: file:etc/packages/c2pa-0.23.1.tgz
   c2pa-test-image-service:
     specifier: 0.13.3
     version: 0.13.3
@@ -3520,8 +3520,8 @@ packages:
     resolution: {integrity: sha512-hxLtBbtFJM8ZUmuUCC+sJwg9ezaTPQGivK/YCFKyglJFIO0IHD5/Nb2hwKacdCASb2zxmOZjNENb7se5N4BElg==}
     dev: false
 
-  /@contentauth/toolkit@0.11.6:
-    resolution: {integrity: sha512-Mip9oWgm1/4jE5o+uwUfqfAPjqfPvo39VhIljY4weQzjRGwDThc2D9wnwl5IGfWI0F6q1ollvir3LblnSuieQA==}
+  /@contentauth/toolkit@0.11.7:
+    resolution: {integrity: sha512-sIyaHfh5yJOkeHqv2GRrtwicxfbbj0eQLQwsNfE8Pa+twoHsi6r+AIa7JTc8Z2ayRBfRh+sqQtUaFujyfPIW/g==}
     engines: {node: '>=14'}
     dev: false
 
@@ -19809,13 +19809,13 @@ packages:
     version: 2.35.2
     dev: false
 
-  file:etc/packages/c2pa-0.22.6.tgz:
-    resolution: {integrity: sha512-4LAKFbs3gOFlFcPB991JQjfrkcrKmXTlDuw+3aO3g7sFLS8gdhcRPRuwk16mbr6FxC5AIjKrVojp9bx85igmNQ==, tarball: file:etc/packages/c2pa-0.22.6.tgz}
+  file:etc/packages/c2pa-0.23.1.tgz:
+    resolution: {integrity: sha512-6UtGPof6Qz8yF6JJVfCXg50VGh+p65zbnTNh7TW5bgQYdI98MlIQI0Avnlrqo0qNgKVYH2yvDNKuYzfTvsxP9Q==, tarball: file:etc/packages/c2pa-0.23.1.tgz}
     name: c2pa
-    version: 0.22.6
+    version: 0.23.1
     dependencies:
       '@contentauth/detector': 0.3.5
-      '@contentauth/toolkit': 0.11.6
+      '@contentauth/toolkit': 0.11.7
       debug: 4.3.5(supports-color@5.5.0)
       lodash: 4.17.21
       make-error: 1.3.6
