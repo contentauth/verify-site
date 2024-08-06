@@ -4197,7 +4197,7 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dependencies:
       ajv: 6.12.6
-      debug: 4.3.4
+      debug: 4.3.5(supports-color@5.5.0)
       espree: 9.6.1
       globals: 13.21.0
       ignore: 5.2.4
@@ -4327,7 +4327,7 @@ packages:
     engines: {node: '>=10.10.0'}
     dependencies:
       '@humanwhocodes/object-schema': 1.2.1
-      debug: 4.3.4
+      debug: 4.3.5(supports-color@5.5.0)
       minimatch: 3.1.2
     transitivePeerDependencies:
       - supports-color
@@ -8271,7 +8271,7 @@ packages:
       vite: ^4.0.0
     dependencies:
       '@sveltejs/vite-plugin-svelte-inspector': 1.0.4(@sveltejs/vite-plugin-svelte@2.4.5)(svelte@4.2.1)(vite@4.4.9)
-      debug: 4.3.4
+      debug: 4.3.5(supports-color@5.5.0)
       deepmerge: 4.3.1
       kleur: 4.1.5
       magic-string: 0.30.3
@@ -9026,7 +9026,7 @@ packages:
     dependencies:
       '@typescript-eslint/typescript-estree': 5.62.0(typescript@5.2.2)
       '@typescript-eslint/utils': 5.62.0(eslint@8.50.0)(typescript@5.2.2)
-      debug: 4.3.4
+      debug: 4.3.5(supports-color@5.5.0)
       eslint: 8.50.0
       tsutils: 3.21.0(typescript@5.2.2)
       typescript: 5.2.2
@@ -9050,7 +9050,7 @@ packages:
     dependencies:
       '@typescript-eslint/types': 5.62.0
       '@typescript-eslint/visitor-keys': 5.62.0
-      debug: 4.3.4
+      debug: 4.3.5(supports-color@5.5.0)
       globby: 11.1.0
       is-glob: 4.0.3
       semver: 7.5.4
@@ -12365,7 +12365,7 @@ packages:
     engines: {node: '>= 10.17.0'}
     hasBin: true
     dependencies:
-      debug: 4.3.4
+      debug: 4.3.5(supports-color@5.5.0)
       get-stream: 5.2.0
       yauzl: 2.10.0
     optionalDependencies:
@@ -13197,7 +13197,7 @@ packages:
     dependencies:
       '@tootallnate/once': 2.0.0
       agent-base: 6.0.2
-      debug: 4.3.4
+      debug: 4.3.5(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -13259,7 +13259,7 @@ packages:
     engines: {node: '>= 6'}
     dependencies:
       agent-base: 6.0.2
-      debug: 4.3.4
+      debug: 4.3.5(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -19810,7 +19810,7 @@ packages:
     dev: false
 
   file:etc/packages/c2pa-0.23.1.tgz:
-    resolution: {integrity: sha512-6UtGPof6Qz8yF6JJVfCXg50VGh+p65zbnTNh7TW5bgQYdI98MlIQI0Avnlrqo0qNgKVYH2yvDNKuYzfTvsxP9Q==, tarball: file:etc/packages/c2pa-0.23.1.tgz}
+    resolution: {integrity: sha512-1EPcB/z5plglY2ykhF8PR5rdjSs3/e9qHm5XaQgoTzIZ1M3kfPs4WLRuG8NzLrYsfb0c9cRyaQJgm6YjaVsbTQ==, tarball: file:etc/packages/c2pa-0.23.1.tgz}
     name: c2pa
     version: 0.23.1
     dependencies:
