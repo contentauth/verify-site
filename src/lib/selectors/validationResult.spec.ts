@@ -31,9 +31,9 @@ describe('lib/selectors/validationResult', () => {
           explanation: 'signing certificate untrusted',
         },
         {
-          code: 'claimSignature.mismatch',
-          url: 'self#jumbf=/c2pa/urn:uuid:d608f469-4cd0-4aa4-81c5-afbe33c7f291/c2pa.signature',
-          explanation: 'claim signature is not valid',
+          code: 'general.error',
+          url: 'self#jumbf=/c2pa/36dbdae2-c118-4cb9-a9ab-34518f7d61c9/c2pa.signature',
+          explanation: 'claim signature is not valid: CoseCertUntrusted',
         },
       ]),
     ).toEqual({
@@ -51,9 +51,9 @@ describe('lib/selectors/validationResult', () => {
           explanation: 'signing certificate untrusted',
         },
         {
-          code: 'claimSignature.mismatch',
-          url: 'self#jumbf=/c2pa/urn:uuid:d608f469-4cd0-4aa4-81c5-afbe33c7f291/c2pa.signature',
-          explanation: 'claim signature is not valid',
+          code: 'general.error',
+          url: 'self#jumbf=/c2pa/36dbdae2-c118-4cb9-a9ab-34518f7d61c9/c2pa.signature',
+          explanation: 'claim signature is not valid: CoseCertUntrusted',
         },
         {
           code: 'assertion.hashedURI.mismatch',
@@ -72,9 +72,9 @@ describe('lib/selectors/validationResult', () => {
     expect(
       selectValidationResult([
         {
-          code: 'claimSignature.mismatch',
-          url: 'self#jumbf=/c2pa/urn:uuid:d608f469-4cd0-4aa4-81c5-afbe33c7f291/c2pa.signature',
-          explanation: 'claim signature is not valid',
+          code: 'general.error',
+          url: 'self#jumbf=/c2pa/36dbdae2-c118-4cb9-a9ab-34518f7d61c9/c2pa.signature',
+          explanation: 'claim signature is not valid: CoseCertUntrusted',
         },
         {
           code: 'assertion.hashedURI.mismatch',
@@ -93,9 +93,9 @@ describe('lib/selectors/validationResult', () => {
     expect(
       selectValidationResult([
         {
-          code: 'claimSignature.mismatch',
-          url: 'self#jumbf=/c2pa/urn:uuid:d608f469-4cd0-4aa4-81c5-afbe33c7f291/c2pa.signature',
-          explanation: 'claim signature is not valid',
+          code: 'general.error',
+          url: 'self#jumbf=/c2pa/36dbdae2-c118-4cb9-a9ab-34518f7d61c9/c2pa.signature',
+          explanation: 'claim signature is not valid: CoseCertUntrusted',
         },
       ]),
     ).toEqual({
@@ -130,9 +130,9 @@ describe('lib/selectors/validationResult', () => {
           explanation: 'signing certificate untrusted',
         },
         {
-          code: 'claimSignature.mismatch',
-          url: 'self#jumbf=/c2pa/contentauth:urn:uuid:ccdb2880-05dc-4dd4-84d9-292a0e74b2b6/c2pa.signature',
-          explanation: 'claim signature is not valid',
+          code: 'general.error',
+          url: 'self#jumbf=/c2pa/36dbdae2-c118-4cb9-a9ab-34518f7d61c9/c2pa.signature',
+          explanation: 'claim signature is not valid: CoseCertUntrusted',
         },
         {
           code: 'assertion.dataHash.mismatch',

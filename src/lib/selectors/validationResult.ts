@@ -20,11 +20,11 @@ export type ValidationStatusCode = 'valid' | 'invalid' | 'incomplete';
 
 export type ValidationStatusResult = ReturnType<typeof selectValidationResult>;
 
+export const GENERAL_ERROR_CODE = 'general.error';
+
 export const OTGP_ERROR_CODE = 'assertion.dataHash.mismatch';
 
 export const UNTRUSTED_SIGNER_ERROR_CODE = 'signingCredential.untrusted';
-
-export const SIGNATURE_MISMATCH = 'claimSignature.mismatch';
 
 export const SUCCESS_CODES = [
   'claimSignature.validated',
@@ -88,7 +88,7 @@ export function hasUntrustedSigner(
   // and possibly the signature mismatch code
   const codes = validationStatus.map((err) => err.code);
   const filtered = codes.filter((code) =>
-    [UNTRUSTED_SIGNER_ERROR_CODE, SIGNATURE_MISMATCH].includes(code),
+    [UNTRUSTED_SIGNER_ERROR_CODE, GENERAL_ERROR_CODE].includes(code),
   );
   const others = difference(codes, filtered);
   const hasUntrusted = filtered.includes(UNTRUSTED_SIGNER_ERROR_CODE);
