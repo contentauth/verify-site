@@ -23,6 +23,7 @@
 
   export let assetData: AssetData;
   export let hideThumbnail = false;
+  export let hideNoCrStatus = false;
 
   $: statusCode = assetData.validationResult?.statusCode;
   $: hasCredentials =
@@ -74,7 +75,7 @@
               >{$_('assetInfo.invalid')}</span
             ></Body
           ></Truncate>
-      {:else}
+      {:else if !hideNoCrStatus}
         <Truncate
           ><Body
             ><span class="text-gray-600">{$_('sidebar.verify.noCC')}</span

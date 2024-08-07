@@ -12,6 +12,13 @@
   is strictly forbidden unless prior written permission is obtained
   from Adobe.
 -->
+<script lang="ts" context="module">
+  export type Fallback = ComponentType<
+    // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+    SvelteComponentTyped<SVGAttributes<SVGSVGElement>, any, any>
+  > | null;
+</script>
+
 <script lang="ts">
   import AudioFallback from '$assets/svg/monochrome/missing-thumb-audio.svg?component';
   import ImageFallback from '$assets/svg/monochrome/missing-thumb-image.svg?component';
@@ -20,14 +27,16 @@
   import type { MediaCategory } from '$lib/formats';
   import type { ThumbnailInfo } from '$lib/thumbnail';
   import Body from '$src/components/typography/Body.svelte';
-  import type { ComponentType } from 'svelte';
+  import type { ComponentType, SvelteComponentTyped } from 'svelte';
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
+  import type { SVGAttributes } from 'svelte/elements';
 
   export let thumbnail: ThumbnailInfo | null;
   export let mimeType: string;
   export let size = '4rem';
   export let showMissingText = false;
+  export let fallback: Fallback = null;
 
   const dispatch = createEventDispatcher();
   let thumbnailError = false;
@@ -42,7 +51,7 @@
 
   $: category = getMediaCategoryFromMimeType(mimeType);
   $: alt = thumbnail ? '' : $_('page.verify.emptyThumbnail');
-  $: fallback = fallbackMap[category];
+  $: fallbackComponent = fallback || fallbackMap[category];
 
   function handleImageError() {
     thumbnailError = true;
@@ -62,7 +71,7 @@
     role="img"
     class="flex h-full w-full select-none flex-col items-center justify-center bg-gray-40">
     <svelte:component
-      this={fallback}
+      this={fallbackComponent}
       width={size}
       height={size}
       class="text-gray-900" />
