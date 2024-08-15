@@ -159,3 +159,57 @@ export function selectValidationResult(validationStatus: ValidationStatus[]) {
     statusCode,
   };
 }
+
+const jumbfUriRegExp = /^self#jumbf=\/c2pa\/([^/]+)\/?(.*)$/i;
+
+export function extractManifestLabelFromJumbfUri(uri: string) {
+  return jumbfUriRegExp.exec(uri)?.[1] ?? null;
+}
+
+export interface ValidationStatusWithCauses extends ValidationStatus {
+  causes: ValidationStatus[];
+}
+
+export type ManifestLabelValidationStatusMap = Record<
+  string,
+  ValidationStatusWithCauses
+>;
+
+interface ValidationStatusReducer {
+  reduced: ManifestLabelValidationStatusMap;
+  currentKey: string | null;
+}
+
+export function validationStatusByManifestLabel(
+  validationStatus: ValidationStatus[],
+): ManifestLabelValidationStatusMap {
+  const { reduced } = [...validationStatus]
+    .reverse()
+    .reduce<ValidationStatusReducer>(
+      (acc, curr) => {
+        const label = extractManifestLabelFromJumbfUri(curr.url ?? '');
+
+        if (label) {
+          const currentKey = label;
+
+          return {
+            reduced: {
+              ...acc.reduced,
+              [currentKey]: {
+                ...curr,
+                causes: [],
+              },
+            },
+            currentKey,
+          };
+        } else if (acc.currentKey) {
+          acc.reduced[acc.currentKey].causes.push(curr);
+        }
+
+        return acc;
+      },
+      { reduced: {}, currentKey: null },
+    );
+
+  return reduced;
+}
