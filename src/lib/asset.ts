@@ -44,6 +44,7 @@ import { selectReviewRatings } from './selectors/reviewRatings';
 import {
   selectValidationResult,
   validationStatusByManifestLabel,
+  type ManifestLabelValidationStatusMap,
   type ValidationStatusResult,
 } from './selectors/validationResult';
 import { selectWeb3 } from './selectors/web3Info';
@@ -84,6 +85,7 @@ export type ManifestData = {
     locale: string | null,
   ) => Promise<EditsAndActivityInferenceResponse | null>;
   exif: ReturnType<typeof selectExif>;
+  label: string | null;
   generativeInfo: GenerativeInfo | null;
   producer: string | null;
   reviewRatings: ReturnType<typeof selectReviewRatings>;
@@ -213,18 +215,25 @@ export async function resultToAssetMap({
     await manifestStoreToAssetData(
       manifestStore,
       selectValidationResult([]),
+      runtimeValidationStatuses,
       id,
     );
   } else if (manifestStore && rootValidationResult) {
     // This conditional should always resolve to `true`, it's more to help TypeScript out
-    await manifestStoreToAssetData(manifestStore, rootValidationResult, id);
+    await manifestStoreToAssetData(
+      manifestStore,
+      rootValidationResult,
+      runtimeValidationStatuses,
+      id,
+    );
   }
 
   // Convert a manifest to an asset usable by the verify UI and add it to the map
   // Any processing here should be specific to keys on the root manifest
   async function manifestStoreToAssetData(
     manifestStore: ManifestStore,
-    validationResult: ValidationStatusResult,
+    rootValidationResult: ValidationStatusResult,
+    runtimeValidationStatuses: ManifestLabelValidationStatusMap,
     id: string,
   ): Promise<AssetData> {
     const { activeManifest: manifest } = manifestStore;
@@ -239,7 +248,7 @@ export async function resultToAssetMap({
     // we can use the source thumbnail if it is viewable by the browser
     if (
       !thumbnail.info &&
-      validationResult.statusCode === 'valid' &&
+      rootValidationResult.statusCode === 'valid' &&
       (await isBrowserViewable(source.type))
     ) {
       thumbnail = await loadThumbnail(source.type, source.thumbnail?.getUrl());
@@ -250,10 +259,14 @@ export async function resultToAssetMap({
       title: manifest.title,
       thumbnail: thumbnail.info,
       mimeType: manifest.format,
-      children: await processIngredients(manifest.ingredients, id),
+      children: await processIngredients(
+        manifest.ingredients,
+        runtimeValidationStatuses,
+        id,
+      ),
       manifestData: await getManifestData(manifest),
       dataType: null,
-      validationResult,
+      validationResult: rootValidationResult,
     };
 
     if (thumbnail?.dispose) {
@@ -269,15 +282,25 @@ export async function resultToAssetMap({
   // Any processing here should be specific to keys on an ingredient
   async function ingredientToAssetData(
     ingredient: Ingredient,
+    runtimeValidationStatuses: ManifestLabelValidationStatusMap,
     id: string,
   ): Promise<AssetData> {
+    const ingredientManifestLabel = ingredient.manifest?.label;
     const thumbnail = await loadThumbnail(
       ingredient.thumbnail?.contentType,
       ingredient.thumbnail?.getUrl(),
     );
-    const validationResult = selectValidationResult(
-      ingredient.validationStatus,
-    );
+
+    // Check validation result in the validationStatus supplied in the manifest
+    let validationResult = selectValidationResult(ingredient.validationStatus);
+
+    if (!validationResult.hasError && ingredientManifestLabel) {
+      // If validationResult doesn't have an error, also check the runtime validation
+      validationResult = selectValidationResult(
+        runtimeValidationStatuses[ingredientManifestLabel] ?? [],
+      );
+    }
+
     const showChildren = validationResult.statusCode !== 'invalid';
     const asset = {
       id,
@@ -285,7 +308,11 @@ export async function resultToAssetMap({
       thumbnail: thumbnail.info,
       mimeType: ingredient.format,
       children: showChildren
-        ? await processIngredients(ingredient.manifest?.ingredients ?? [], id)
+        ? await processIngredients(
+            ingredient.manifest?.ingredients ?? [],
+            runtimeValidationStatuses,
+            id,
+          )
         : [],
       manifestData: await getManifestData(ingredient.manifest),
       dataType: getIngredientDataType(ingredient),
@@ -357,6 +384,7 @@ export async function resultToAssetMap({
       socialAccounts: selectSocialAccounts(manifest),
       generativeInfo: selectGenerativeInfo(manifest),
       exif: selectExif(manifest),
+      label: manifest.label,
       doNotTrain: selectDoNotTrain(manifest),
       reviewRatings: selectReviewRatings(manifest),
       web3Accounts: selectWeb3(manifest),
@@ -367,12 +395,17 @@ export async function resultToAssetMap({
 
   async function processIngredients(
     ingredients: Ingredient[],
+    runtimeValidationStatuses: ManifestLabelValidationStatusMap,
     id: string,
   ): Promise<string[]> {
     const ingredientIds = ingredients.map(async (ingredient, idx) => {
       const ingredientId = `${id}.${idx}`;
 
-      await ingredientToAssetData(ingredient, ingredientId);
+      await ingredientToAssetData(
+        ingredient,
+        runtimeValidationStatuses,
+        ingredientId,
+      );
 
       return ingredientId;
     });

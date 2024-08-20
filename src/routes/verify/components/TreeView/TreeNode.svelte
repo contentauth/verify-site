@@ -48,6 +48,7 @@
   role="treeitem"
   aria-selected={$assetStore.state === 'selected' ? 'true' : 'false'}
   data-testid={`tree-node-${$assetStore.id}`}
+  data-manifest-label={`${$assetStore.manifestData?.label ?? ''}`}
   class="absolute left-0 top-0 flex flex-col overflow-hidden rounded-3xl border-gray-400 bg-gray-40 transition-all focus:shadow motion-reduce:transition-none"
   on:keypress={handleKeyPress($assetStore.select)}
   class:border-gray-400={$assetStore.state === 'none'}
