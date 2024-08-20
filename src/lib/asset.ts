@@ -43,6 +43,7 @@ import {
 import { selectReviewRatings } from './selectors/reviewRatings';
 import {
   selectValidationResult,
+  validationStatusByManifestLabel,
   type ValidationStatusResult,
 } from './selectors/validationResult';
 import { selectWeb3 } from './selectors/web3Info';
@@ -137,9 +138,24 @@ export async function resultToAssetMap({
 }: C2paReadResult): Promise<DisposableAssetDataMap> {
   const assetMap: AssetDataMap = {};
   const disposers: (() => void)[] = [];
-  const rootValidationResult = manifestStore?.validationStatus
-    ? selectValidationResult(manifestStore?.validationStatus)
-    : null;
+  const activeManifestLabel = manifestStore?.activeManifest?.label ?? '';
+  const allLabels = Object.keys(manifestStore?.manifests ?? {});
+  const runtimeValidationStatuses = manifestStore?.validationStatus
+    ? validationStatusByManifestLabel(
+        manifestStore?.validationStatus,
+        allLabels,
+        activeManifestLabel,
+      )
+    : {};
+
+  dbg(
+    'Runtime validation statuses by manifest label',
+    runtimeValidationStatuses,
+  );
+
+  const rootValidationStatuses =
+    runtimeValidationStatuses[activeManifestLabel] ?? [];
+  const rootValidationResult = selectValidationResult(rootValidationStatuses);
   const { hasError, hasOtgp } = rootValidationResult ?? {};
   const isManifest = source.blob?.type === MANIFEST_STORE_MIME_TYPE;
   let id = ROOT_ID;

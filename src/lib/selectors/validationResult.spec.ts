@@ -209,53 +209,144 @@ describe('lib/selectors/validationResult', () => {
   describe('validationStatusByManifestLabel()', () => {
     it('should nest multiple statuses properly', () => {
       expect(
-        validationStatusByManifestLabel([
-          {
-            code: 'signingCredential.untrusted',
-            url: 'Cose_Sign1',
-            explanation: 'signing certificate untrusted',
-          },
-          {
-            code: 'general.error',
-            url: 'self#jumbf=/c2pa/contentauth:urn:uuid:53ce0d13-8a60-42f0-8216-6e86b16a4508/c2pa.signature',
-            explanation: 'claim signature is not valid: CoseCertUntrusted',
-          },
-          {
-            code: 'signingCredential.untrusted',
-            url: 'Cose_Sign1',
-            explanation: 'signing certificate untrusted',
-          },
+        validationStatusByManifestLabel(
+          [
+            {
+              code: 'signingCredential.untrusted',
+              url: 'Cose_Sign1',
+              explanation: 'signing certificate untrusted',
+            },
+            {
+              code: 'general.error',
+              url: 'self#jumbf=/c2pa/contentauth:urn:uuid:53ce0d13-8a60-42f0-8216-6e86b16a4508/c2pa.signature',
+              explanation: 'claim signature is not valid: CoseCertUntrusted',
+            },
+            {
+              code: 'signingCredential.untrusted',
+              url: 'Cose_Sign1',
+              explanation: 'signing certificate untrusted',
+            },
+            {
+              code: 'general.error',
+              url: 'self#jumbf=/c2pa/contentauth:urn:uuid:5b639b8e-edc1-4e41-9c8e-c87fb1e36921/c2pa.signature',
+              explanation: 'claim signature is not valid: CoseCertUntrusted',
+            },
+          ],
+          [
+            'contentauth:urn:uuid:53ce0d13-8a60-42f0-8216-6e86b16a4508',
+            'contentauth:urn:uuid:5b639b8e-edc1-4e41-9c8e-c87fb1e36921',
+          ],
+          'contentauth:urn:uuid:5b639b8e-edc1-4e41-9c8e-c87fb1e36921',
+        ),
+      ).toEqual({
+        'contentauth:urn:uuid:5b639b8e-edc1-4e41-9c8e-c87fb1e36921': [
           {
             code: 'general.error',
             url: 'self#jumbf=/c2pa/contentauth:urn:uuid:5b639b8e-edc1-4e41-9c8e-c87fb1e36921/c2pa.signature',
             explanation: 'claim signature is not valid: CoseCertUntrusted',
           },
-        ]),
+          {
+            code: 'signingCredential.untrusted',
+            url: 'Cose_Sign1',
+            explanation: 'signing certificate untrusted',
+          },
+        ],
+        'contentauth:urn:uuid:53ce0d13-8a60-42f0-8216-6e86b16a4508': [
+          {
+            code: 'general.error',
+            url: 'self#jumbf=/c2pa/contentauth:urn:uuid:53ce0d13-8a60-42f0-8216-6e86b16a4508/c2pa.signature',
+            explanation: 'claim signature is not valid: CoseCertUntrusted',
+          },
+
+          {
+            code: 'signingCredential.untrusted',
+            url: 'Cose_Sign1',
+            explanation: 'signing certificate untrusted',
+          },
+        ],
+      });
+    });
+
+    it.only('should handle missing claims properly', () => {
+      expect(
+        validationStatusByManifestLabel(
+          [
+            {
+              code: 'signingCredential.untrusted',
+              url: 'Cose_Sign1',
+              explanation: 'signing certificate untrusted',
+            },
+            {
+              code: 'claimSignature.mismatch',
+              url: 'self#jumbf=/c2pa/contentauth:urn:uuid:fa71bc14-971d-4d9d-b500-039f7e321bf8/c2pa.signature',
+              explanation: 'claim signature is not valid',
+            },
+            {
+              code: 'signingCredential.untrusted',
+              url: 'Cose_Sign1',
+              explanation: 'signing certificate untrusted',
+            },
+            {
+              code: 'claimSignature.mismatch',
+              url: 'self#jumbf=/c2pa/contentauth:urn:uuid:256d6573-b69b-44e7-8568-4167007552ce/c2pa.signature',
+              explanation: 'claim signature is not valid',
+            },
+            {
+              code: 'assertion.hashedURI.mismatch',
+              url: 'self#jumbf=c2pa.assertions/c2pa.ingredient__1',
+              explanation:
+                'hash does not match assertion data: self#jumbf=c2pa.assertions/c2pa.ingredient__1',
+            },
+            // Note the `contentbeef` here which doesn't match
+            {
+              code: 'claim.missing',
+              url: 'self#jumbf=/c2pa/contentbeef:urn:uuid:b2940b06-aff4-4070-b7e4-926096dbda81',
+              explanation: 'ingredient not found',
+            },
+          ],
+          [
+            'contentauth:urn:uuid:fa71bc14-971d-4d9d-b500-039f7e321bf8',
+            'contentauth:urn:uuid:256d6573-b69b-44e7-8568-4167007552ce',
+            'contentauth:urn:uuid:b2940b06-aff4-4070-b7e4-926096dbda81',
+          ],
+          'contentauth:urn:uuid:256d6573-b69b-44e7-8568-4167007552ce',
+        ),
       ).toEqual({
-        'contentauth:urn:uuid:5b639b8e-edc1-4e41-9c8e-c87fb1e36921': {
-          code: 'general.error',
-          url: 'self#jumbf=/c2pa/contentauth:urn:uuid:5b639b8e-edc1-4e41-9c8e-c87fb1e36921/c2pa.signature',
-          explanation: 'claim signature is not valid: CoseCertUntrusted',
-          causes: [
-            {
-              code: 'signingCredential.untrusted',
-              url: 'Cose_Sign1',
-              explanation: 'signing certificate untrusted',
-            },
-          ],
-        },
-        'contentauth:urn:uuid:53ce0d13-8a60-42f0-8216-6e86b16a4508': {
-          code: 'general.error',
-          url: 'self#jumbf=/c2pa/contentauth:urn:uuid:53ce0d13-8a60-42f0-8216-6e86b16a4508/c2pa.signature',
-          explanation: 'claim signature is not valid: CoseCertUntrusted',
-          causes: [
-            {
-              code: 'signingCredential.untrusted',
-              url: 'Cose_Sign1',
-              explanation: 'signing certificate untrusted',
-            },
-          ],
-        },
+        'contentauth:urn:uuid:256d6573-b69b-44e7-8568-4167007552ce': [
+          {
+            code: 'claim.missing',
+            url: 'self#jumbf=/c2pa/contentbeef:urn:uuid:b2940b06-aff4-4070-b7e4-926096dbda81',
+            explanation: 'ingredient not found',
+          },
+          {
+            code: 'assertion.hashedURI.mismatch',
+            url: 'self#jumbf=c2pa.assertions/c2pa.ingredient__1',
+            explanation:
+              'hash does not match assertion data: self#jumbf=c2pa.assertions/c2pa.ingredient__1',
+          },
+          {
+            code: 'claimSignature.mismatch',
+            url: 'self#jumbf=/c2pa/contentauth:urn:uuid:256d6573-b69b-44e7-8568-4167007552ce/c2pa.signature',
+            explanation: 'claim signature is not valid',
+          },
+          {
+            code: 'signingCredential.untrusted',
+            url: 'Cose_Sign1',
+            explanation: 'signing certificate untrusted',
+          },
+        ],
+        'contentauth:urn:uuid:fa71bc14-971d-4d9d-b500-039f7e321bf8': [
+          {
+            code: 'claimSignature.mismatch',
+            url: 'self#jumbf=/c2pa/contentauth:urn:uuid:fa71bc14-971d-4d9d-b500-039f7e321bf8/c2pa.signature',
+            explanation: 'claim signature is not valid',
+          },
+          {
+            code: 'signingCredential.untrusted',
+            url: 'Cose_Sign1',
+            explanation: 'signing certificate untrusted',
+          },
+        ],
       });
     });
   });
