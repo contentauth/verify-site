@@ -226,7 +226,7 @@ export function validationStatusByManifestLabel(
         } else {
           // If we don't have anything to go off of and no previous label, add to active manifest errors
           acc.reduced[activeManifestLabel] = [
-            ...acc.reduced[activeManifestLabel],
+            ...(acc.reduced[activeManifestLabel] ?? []),
             curr,
           ];
         }
