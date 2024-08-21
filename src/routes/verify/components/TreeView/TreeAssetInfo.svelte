@@ -16,6 +16,7 @@
   import L1Icon from '$assets/svg/color/cr-icon-fill.svg?component';
   import L1Incomplete from '$assets/svg/color/cr-icon-incomplete-fill.svg?component';
   import L1Invalid from '$assets/svg/color/cr-icon-invalid-fill.svg?component';
+  import L1Untrusted from '$assets/svg/color/cr-icon-untrusted-fill.svg?component';
   import type { HierarchyPointNode } from 'd3-hierarchy';
   import { _ } from 'svelte-i18n';
   import type { ReadableAssetStore } from '../../stores/asset';
@@ -29,25 +30,13 @@
   $: L1IconSize = transformScale >= 0.1 ? 2 : 1.3;
   $: date = $assetStore.manifestData?.date;
   $: issuer = $assetStore.manifestData?.signatureInfo?.issuer;
-  $: statusCode = $assetStore.validationResult?.statusCode;
+  $: validationResult = $assetStore.validationResult;
+  $: statusCode = validationResult?.statusCode;
   $: hasCredentials =
     !!$assetStore.manifestData?.signatureInfo?.cert_serial_number;
 </script>
 
-{#if statusCode === 'valid' && hasCredentials}
-  <TreeL1 {assetStore} {parent} {transformScale}>
-    <L1Icon
-      width="{L1IconSize}rem"
-      height="{L1IconSize}rem"
-      class="z-10 me-2 mt-1"
-      slot="icon" />
-    <svelte:fragment slot="string">
-      {#if date}<AssetInfoDate {date} />
-      {:else}
-        {issuer}{/if}
-    </svelte:fragment>
-  </TreeL1>
-{:else if statusCode === 'incomplete'}
+{#if statusCode === 'incomplete'}
   <TreeL1 {assetStore} {parent} {transformScale}>
     <L1Incomplete
       width="{L1IconSize}rem"
@@ -67,6 +56,32 @@
       slot="icon" />
     <svelte:fragment slot="string">
       {$_('assetInfo.invalid')}
+    </svelte:fragment>
+  </TreeL1>
+{:else if statusCode === 'valid' && validationResult?.hasUntrustedSigner}
+  <TreeL1 {assetStore} {parent} {transformScale}>
+    <L1Untrusted
+      width="{L1IconSize}rem"
+      height="{L1IconSize}rem"
+      class="z-10 me-2 mt-1"
+      slot="icon" />
+    <svelte:fragment slot="string">
+      {#if date}<AssetInfoDate {date} />
+      {:else}
+        {issuer}{/if}
+    </svelte:fragment>
+  </TreeL1>
+{:else if statusCode === 'valid' && hasCredentials}
+  <TreeL1 {assetStore} {parent} {transformScale}>
+    <L1Icon
+      width="{L1IconSize}rem"
+      height="{L1IconSize}rem"
+      class="z-10 me-2 mt-1"
+      slot="icon" />
+    <svelte:fragment slot="string">
+      {#if date}<AssetInfoDate {date} />
+      {:else}
+        {issuer}{/if}
     </svelte:fragment>
   </TreeL1>
 {/if}

@@ -192,4 +192,31 @@ test.describe('Verify - loading states', () => {
       `result showing image with allowed end-entity cert without untrusted banner`,
     );
   });
+
+  test('loading an image with a nested untrusted ingredient should show a warning L1', async ({
+    page,
+  }) => {
+    const verify = new VerifyPage(page);
+    const source = VerifyPage.getFixtureUrl('LR_PS_expc_CAI.jpg', 'file');
+    await verify.goto(source);
+
+    await verify.takeSnapshot(
+      `result showing image with unselected nested untrusted ingredient`,
+    );
+  });
+
+  test('clicking a nested untrusted ingredient should show the unknown source warning', async ({
+    page,
+  }) => {
+    const verify = new VerifyPage(page);
+    const source = VerifyPage.getFixtureUrl('LR_PS_expc_CAI.jpg', 'file');
+    await verify.goto(source);
+    await page.getByTestId('tree-node-0.0.0').click({ force: true });
+    await verify.takeSnapshot(
+      'result showing image with selected nested untrusted ingredient',
+      {
+        widths: [1280],
+      },
+    );
+  });
 });
