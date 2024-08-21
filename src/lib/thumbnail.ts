@@ -12,6 +12,8 @@
 // from Adobe.
 
 import type { DisposableBlobUrl } from 'c2pa';
+import DOMPurify from 'dompurify';
+import { startsWith } from 'lodash';
 import { isBrowserViewable } from './formats';
 import type { Disposable } from './types';
 
@@ -62,18 +64,37 @@ export async function loadThumbnail(
   thumbnail: DisposableBlobUrl | undefined,
 ): Promise<ThumbnailResult> {
   const isViewable = mimeType && (await isBrowserViewable(mimeType));
+  let processedThumbnail: typeof thumbnail = thumbnail;
 
-  if (!mimeType || !thumbnail?.url || !isViewable) {
+  if (!mimeType || !processedThumbnail?.url || !isViewable) {
     return {
       info: null,
       dispose: () => {
-        thumbnail?.dispose?.();
+        processedThumbnail?.dispose?.();
+      },
+    };
+  }
+
+  // Make sure we strip out any XSS attacks from SVGs
+  if (thumbnail?.url && startsWith(mimeType, 'image/svg')) {
+    const request = await fetch(thumbnail.url);
+    const source = await request.text();
+    const sanitized = new Blob([DOMPurify.sanitize(source)], {
+      type: mimeType,
+    });
+    const sanitizedUrl = URL.createObjectURL(sanitized);
+
+    processedThumbnail = {
+      url: sanitizedUrl,
+      dispose: () => {
+        URL.revokeObjectURL(sanitizedUrl);
+        thumbnail.dispose();
       },
     };
   }
 
   if (thumbnailDataType === 'datauri') {
-    const request = await fetch(thumbnail.url);
+    const request = await fetch(processedThumbnail.url);
     const blob = await request.blob();
 
     return {
@@ -81,15 +102,15 @@ export async function loadThumbnail(
         mimeType,
         url: await getBlobAsDataUri(blob),
       },
-      dispose: thumbnail.dispose,
+      dispose: processedThumbnail.dispose,
     };
   }
 
   return {
     info: {
       mimeType,
-      url: thumbnail.url,
+      url: processedThumbnail.url,
     },
-    dispose: thumbnail.dispose,
+    dispose: processedThumbnail.dispose,
   };
 }
