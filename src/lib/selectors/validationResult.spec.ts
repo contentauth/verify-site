@@ -267,7 +267,7 @@ describe('lib/selectors/validationResult', () => {
       });
     });
 
-    it.only('should handle missing claims properly', () => {
+    it('should handle missing claims properly', () => {
       expect(
         validationStatusByManifestLabel(
           [
