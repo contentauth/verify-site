@@ -44,7 +44,7 @@ describe('lib/selectors/validationResult', () => {
         hasError: false,
         hasOtgp: false,
         hasUntrustedSigner: true,
-        statusCode: 'valid',
+        statusCode: 'unrecognized',
       });
 
       expect(
@@ -149,7 +149,7 @@ describe('lib/selectors/validationResult', () => {
         hasError: false,
         hasOtgp: true,
         hasUntrustedSigner: true,
-        statusCode: 'incomplete',
+        statusCode: 'invalid',
       });
     });
 
