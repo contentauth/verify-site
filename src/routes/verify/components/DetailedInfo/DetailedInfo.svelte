@@ -43,10 +43,9 @@
   let hideHeaderThumbnail = true;
 
   $: statusCode = $assetData.validationResult?.statusCode;
-  $: isValid = statusCode === 'valid';
   $: isInvalid = statusCode === 'invalid';
   $: isUntrusted = statusCode === 'unrecognized';
-  $: manifestData = isValid ? $assetData.manifestData : null;
+  $: manifestData = isInvalid ? null : $assetData.manifestData;
   $: title = $assetData.title ?? $_('asset.defaultTitle');
 
   const dispatch = createEventDispatcher();
