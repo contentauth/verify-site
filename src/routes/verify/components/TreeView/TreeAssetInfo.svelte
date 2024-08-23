@@ -14,9 +14,8 @@
 -->
 <script lang="ts">
   import L1Icon from '$assets/svg/color/cr-icon-fill.svg?component';
-  import L1Incomplete from '$assets/svg/color/cr-icon-incomplete-fill.svg?component';
-  import L1Invalid from '$assets/svg/color/cr-icon-invalid-fill.svg?component';
-  import L1Untrusted from '$assets/svg/color/cr-icon-untrusted-fill.svg?component';
+  import L1Invalid from '$assets/svg/color/validation-invalid.svg?component';
+  import L1Unrecognized from '$assets/svg/color/validation-unrecognized.svg?component';
   import type { HierarchyPointNode } from 'd3-hierarchy';
   import { _ } from 'svelte-i18n';
   import type { ReadableAssetStore } from '../../stores/asset';
@@ -36,18 +35,7 @@
     !!$assetStore.manifestData?.signatureInfo?.cert_serial_number;
 </script>
 
-{#if statusCode === 'incomplete'}
-  <TreeL1 {assetStore} {parent} {transformScale}>
-    <L1Incomplete
-      width="{L1IconSize}rem"
-      height="{L1IconSize}rem"
-      class="z-10 me-2 mt-1"
-      slot="icon" />
-    <svelte:fragment slot="string">
-      {$_('assetInfo.incomplete')}
-    </svelte:fragment>
-  </TreeL1>
-{:else if statusCode == 'invalid'}
+{#if statusCode == 'invalid'}
   <TreeL1 {assetStore} {parent} {transformScale}>
     <L1Invalid
       width="{L1IconSize}rem"
@@ -58,17 +46,15 @@
       {$_('assetInfo.invalid')}
     </svelte:fragment>
   </TreeL1>
-{:else if statusCode === 'valid' && validationResult?.hasUntrustedSigner}
+{:else if statusCode === 'unrecognized'}
   <TreeL1 {assetStore} {parent} {transformScale}>
-    <L1Untrusted
+    <L1Unrecognized
       width="{L1IconSize}rem"
       height="{L1IconSize}rem"
       class="z-10 me-2 mt-1"
       slot="icon" />
     <svelte:fragment slot="string">
-      {#if date}<AssetInfoDate {date} />
-      {:else}
-        {issuer}{/if}
+      {$_('assetInfo.unrecognized')}
     </svelte:fragment>
   </TreeL1>
 {:else if statusCode === 'valid' && hasCredentials}

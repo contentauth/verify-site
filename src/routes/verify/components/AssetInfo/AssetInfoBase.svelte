@@ -13,8 +13,6 @@
   from Adobe.
 -->
 <script lang="ts">
-  import L1Incomplete from '$assets/svg/color/cr-icon-incomplete.svg?component';
-  import L1Invalid from '$assets/svg/color/cr-icon-invalid.svg?component';
   import L1Icon from '$assets/svg/monochrome/cr-icon.svg?component';
   import Body from '$src/components/typography/Body.svelte';
   import Truncate from '$src/components/typography/Truncate.svelte';
@@ -25,7 +23,8 @@
   export let hideThumbnail = false;
   export let hideNoCrStatus = false;
 
-  $: statusCode = assetData.validationResult?.statusCode;
+  $: validationResult = assetData.validationResult;
+  $: statusCode = validationResult?.statusCode;
   $: hasCredentials =
     !!assetData.manifestData?.signatureInfo?.cert_serial_number;
 </script>
@@ -43,7 +42,21 @@
   <div class="min-w-0">
     <div class="flex pb-0.5"><Truncate><slot name="name" /></Truncate></div>
     <div class="flex items-center text-gray-900">
-      {#if statusCode === 'valid' && hasCredentials}
+      {#if statusCode === 'invalid'}
+        <Truncate
+          ><Body
+            ><span class="text-gray-900" title={$_('assetInfo.invalid')}
+              >{$_('assetInfo.invalid')}</span
+            ></Body
+          ></Truncate>
+      {:else if statusCode === 'unrecognized'}
+        <Truncate
+          ><Body
+            ><span class="text-gray-900" title={$_('assetInfo.invalid')}
+              >{$_('assetInfo.unrecognized')}</span
+            ></Body
+          ></Truncate>
+      {:else if statusCode === 'valid' && hasCredentials}
         <L1Icon
           width="1rem"
           height="1rem"
@@ -51,30 +64,6 @@
         <Truncate>
           <slot name="CRInfo" />
         </Truncate>
-      {:else if statusCode === 'incomplete'}
-        <L1Incomplete
-          width="1.25rem"
-          height="1rem"
-          class="me-1.5 h-4 w-4 text-gray-900" />
-        <div class="min-w-0 truncate">
-          <Truncate
-            ><Body
-              ><span class="text-gray-900" title={$_('assetInfo.incomplete')}
-                >{$_('assetInfo.incomplete')}</span
-              ></Body
-            ></Truncate>
-        </div>
-      {:else if statusCode === 'invalid'}
-        <L1Invalid
-          width="1.25rem"
-          height="1rem"
-          class="me-1.5 h-4 w-4 text-gray-900" />
-        <Truncate
-          ><Body
-            ><span class="text-gray-900" title={$_('assetInfo.invalid')}
-              >{$_('assetInfo.invalid')}</span
-            ></Body
-          ></Truncate>
       {:else if !hideNoCrStatus}
         <Truncate
           ><Body

@@ -16,7 +16,7 @@ import { difference } from 'lodash';
 
 export type ValidationStatus = ManifestStore['validationStatus'][0];
 
-export type ValidationStatusCode = 'valid' | 'invalid' | 'incomplete';
+export type ValidationStatusCode = 'valid' | 'invalid' | 'unrecognized';
 
 export type ValidationStatusResult = ReturnType<typeof selectValidationResult>;
 
@@ -138,12 +138,17 @@ export function selectValidationResult(validationStatus: ValidationStatus[]) {
       UntrustedSignerResult.TrustedWithErrors,
     ].includes(untrustedResult);
   const hasOtgp = hasOtgpStatus(onlyErrors);
+  const hasUntrusted = [
+    UntrustedSignerResult.UntrustedOnly,
+    UntrustedSignerResult.UntrustedWithOtgp,
+    UntrustedSignerResult.UntrustedWithOtherErrors,
+  ].includes(untrustedResult);
   let statusCode: ValidationStatusCode;
 
-  if (hasError) {
+  if (hasError || hasOtgp) {
     statusCode = 'invalid';
-  } else if (hasOtgp) {
-    statusCode = 'incomplete';
+  } else if (hasUntrusted) {
+    statusCode = 'unrecognized';
   } else {
     statusCode = 'valid';
   }
@@ -151,11 +156,7 @@ export function selectValidationResult(validationStatus: ValidationStatus[]) {
   return {
     hasError,
     hasOtgp,
-    hasUntrustedSigner: [
-      UntrustedSignerResult.UntrustedOnly,
-      UntrustedSignerResult.UntrustedWithOtgp,
-      UntrustedSignerResult.UntrustedWithOtherErrors,
-    ].includes(untrustedResult),
+    hasUntrustedSigner: hasUntrusted,
     statusCode,
   };
 }

@@ -24,8 +24,8 @@
 <div
   class="mx-5 mb-5 rounded p-2.5 text-white"
   class:bg-gray-600={type === 'info'}
-  class:bg-gray-700={type === 'warning'}
-  class:bg-red-900={type === 'error'}>
+  class:bg-orange-700={type === 'warning'}
+  class:bg-red-1000={type === 'error'}>
   <IconContentRow>
     <svelte:fragment slot="icon">
       {#if type === 'info'}
