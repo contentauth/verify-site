@@ -121,7 +121,7 @@ describe('lib/selectors/validationResult', () => {
         hasError: false,
         hasOtgp: false,
         hasUntrustedSigner: true,
-        statusCode: 'valid',
+        statusCode: 'unrecognized',
       });
     });
 
