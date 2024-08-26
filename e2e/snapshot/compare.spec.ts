@@ -36,7 +36,7 @@ test('Clicking on an ingredient should compare that with the currently selected 
   await page.getByText('Compare').click();
   await page.getByText('Compare view').waitFor();
   await page
-    .getByRole('button', { name: 'CAI.jpg Aug 29, 2023', exact: true })
+    .getByRole('button', { name: 'CAI.jpg Unrecognized', exact: true })
     .click();
   await page.getByLabel('CAICAI.jpg and CAI.jpg are being compared').waitFor();
   await verify.takeSnapshot(

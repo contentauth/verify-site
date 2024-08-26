@@ -211,6 +211,12 @@ test.describe('Verify - loading states', () => {
     const verify = new VerifyPage(page);
     const source = VerifyPage.getFixtureUrl('LR_PS_expc_CAI.jpg', 'file');
     await verify.goto(source);
+
+    await page.getByTestId('tree-zoom-out').click();
+
+    //TODO : improve wait for scale 0.5 to appear
+    await page.waitForTimeout(1000);
+
     await page.getByTestId('tree-node-0.0.0').click({ force: true });
     await verify.takeSnapshot(
       'result showing image with selected nested untrusted ingredient',
