@@ -216,6 +216,7 @@ test.describe('Verify - loading states', () => {
       'result showing image with selected nested untrusted ingredient',
       {
         widths: [1280],
+        minHeight: 1200,
       },
     );
   });
