@@ -37,6 +37,7 @@ const validIssuers = [
   'Entrust\\, Inc.',
   'GlobalSign nv-sa',
   'SSL Corp',
+  'Truepic',
 ];
 
 async function run() {
