@@ -248,7 +248,7 @@ export async function resultToAssetMap({
     // we can use the source thumbnail if it is viewable by the browser
     if (
       !thumbnail.info &&
-      rootValidationResult.statusCode === 'valid' &&
+      ['valid', 'unrecognized'].includes(rootValidationResult.statusCode) &&
       (await isBrowserViewable(source.type))
     ) {
       thumbnail = await loadThumbnail(source.type, source.thumbnail?.getUrl());
