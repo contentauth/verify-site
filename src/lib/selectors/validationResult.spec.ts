@@ -123,6 +123,22 @@ describe('lib/selectors/validationResult', () => {
         hasUntrustedSigner: true,
         statusCode: 'unrecognized',
       });
+
+      expect(
+        selectValidationResult([
+          {
+            code: 'assertion.dataHash.mismatch',
+            url: 'self#jumbf=/c2pa/adobe:urn:uuid:5f8ed117-1005-448f-a0c2-4935d4a58a92/c2pa.assertions/c2pa.hash.data',
+            explanation:
+              'asset hash error, name: jumbf manifest, error: hash verification( Hashes do not match )',
+          },
+        ]),
+      ).toEqual({
+        hasError: true,
+        hasOtgp: true,
+        hasUntrustedSigner: false,
+        statusCode: 'invalid',
+      });
     });
 
     it('should work for OTGP assets', () => {
@@ -146,7 +162,7 @@ describe('lib/selectors/validationResult', () => {
           },
         ]),
       ).toEqual({
-        hasError: false,
+        hasError: true,
         hasOtgp: true,
         hasUntrustedSigner: true,
         statusCode: 'invalid',

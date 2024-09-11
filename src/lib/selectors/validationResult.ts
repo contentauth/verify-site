@@ -131,13 +131,15 @@ export function selectValidationResult(validationStatus: ValidationStatus[]) {
     (status) => !SUCCESS_CODES.includes(status.code),
   );
   const untrustedResult = hasUntrustedSigner(onlyErrors);
-  const hasError =
-    hasErrorStatus(onlyErrors) &&
-    [
-      UntrustedSignerResult.UntrustedWithOtherErrors,
-      UntrustedSignerResult.TrustedWithErrors,
-    ].includes(untrustedResult);
   const hasOtgp = hasOtgpStatus(onlyErrors);
+  const hasError =
+    // OTGP now counts as an error in the UI since we got rid of "incomplete"
+    hasOtgp ||
+    (hasErrorStatus(onlyErrors) &&
+      [
+        UntrustedSignerResult.UntrustedWithOtherErrors,
+        UntrustedSignerResult.TrustedWithErrors,
+      ].includes(untrustedResult));
   const hasUntrusted = [
     UntrustedSignerResult.UntrustedOnly,
     UntrustedSignerResult.UntrustedWithOtgp,
