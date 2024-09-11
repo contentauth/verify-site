@@ -226,4 +226,19 @@ test.describe('Verify - loading states', () => {
       },
     );
   });
+
+  test('a nested dataHash.mismatch validation error should show up as invalid', async ({
+    page,
+  }) => {
+    const verify = new VerifyPage(page);
+    const source = VerifyPage.getFixtureUrl(
+      'acr-nested-validation-result.jpg',
+      'file',
+    );
+    await verify.goto(source);
+
+    await verify.takeSnapshot(
+      `result showing image with nested dataHash.mismatch validation error`,
+    );
+  });
 });
