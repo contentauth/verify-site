@@ -106,6 +106,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Download git LFS files
+        run: git lfs pull
+
       - name: Restore build cache
         id: restore-build-cache
         uses: actions/cache/restore@v3
