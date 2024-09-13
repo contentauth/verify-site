@@ -38,6 +38,7 @@ const validIssuers = [
   'GlobalSign nv-sa',
   'SSL Corp',
   'Truepic',
+  'Asseco Data Systems S.A.',
 ];
 
 async function run() {
