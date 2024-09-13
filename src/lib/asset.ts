@@ -160,7 +160,7 @@ export async function resultToAssetMap({
   const rootValidationResult = selectValidationResult(rootValidationStatuses);
   const { hasError, hasOtgp } = rootValidationResult ?? {};
   const isManifest = source.blob?.type === MANIFEST_STORE_MIME_TYPE;
-  let id = ROOT_ID;
+  const id = ROOT_ID;
 
   dbg('resultToAssetMap input:', {
     manifestStore,
@@ -179,7 +179,6 @@ export async function resultToAssetMap({
       source.type,
       source.thumbnail.getUrl(),
     );
-    const children = hasOtgp ? ['0.0'] : [];
 
     if (thumbnail?.dispose) {
       disposers.push(thumbnail.dispose);
@@ -191,7 +190,7 @@ export async function resultToAssetMap({
       title: source.metadata.filename ?? null,
       thumbnail: thumbnail.info,
       mimeType: source.type,
-      children,
+      children: [],
       manifestData: null,
       dataType: null,
       validationResult: rootValidationResult,
@@ -204,9 +203,6 @@ export async function resultToAssetMap({
         dispose,
       };
     }
-
-    // If we are not returning early, increment the ID
-    id = children[0];
   }
 
   // Start processing the provenance tree
