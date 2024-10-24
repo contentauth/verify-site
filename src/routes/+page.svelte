@@ -12,15 +12,15 @@
   from Adobe.
 -->
 <script lang="ts">
-  import Footer from '../components/Footer/Footer.svelte';
-  import Header from '../components/Home/header/Header.svelte';
   import Hero from '$src/components/Home/hero/NewHero.svelte';
   import Home1 from '$src/components/Home/homepage/Home1.svelte';
   import HowItWorks from '$src/components/Home/homepage/HowItWorks.svelte';
   import Movement from '$src/components/Home/homepage/Movement.svelte';
   import Orgs from '$src/components/Home/homepage/Orgs.svelte';
-  import Trust from '$src/components/Home/homepage/Trust.svelte';
   import Powered from '$src/components/Home/homepage/Powered.svelte';
+  import Trust from '$src/components/Home/homepage/Trust.svelte';
+  import Footer from '../components/Footer/Footer.svelte';
+  import Header from '../components/Home/header/Header.svelte';
 </script>
 
 <div class="overflow-x-hidden">
