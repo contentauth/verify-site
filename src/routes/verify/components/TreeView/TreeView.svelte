@@ -178,6 +178,7 @@
   bind:clientWidth={width}
   bind:clientHeight={height}>
   <svg bind:this={svgElement} viewBox={`0 0 ${width} ${height}`}>
+    hello
     <g bind:this={boundsElement} transform={transforms.gTransform ?? ''}>
       {#each links as { link, idx, isAncestor } (idx)}
         <TreeLink
