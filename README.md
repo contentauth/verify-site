@@ -104,6 +104,8 @@ export SITE_CONFIG='{"env": "stage", "features": ["new-homepage"], "config": {"m
 
 The root trust list is available at `static/trust/anchors.pem`. This list should change infrequently.
 
+This file is also where you add certificates with "Intermediate" type.
+
 #### End-entity trust list
 
 The end-entity trust list is contained in this repository in the `static/trust/allowed.pem` file.
