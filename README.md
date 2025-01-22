@@ -100,6 +100,10 @@ export SITE_CONFIG='{"env": "stage", "features": ["new-homepage"], "config": {"m
 
 ### Trust list
 
+For a full explanation of the process, see [this wiki page.][0]
+
+[0]: https://wiki.corp.adobe.com/display/CAI/Adding+certificates+to+the+Trust+List
+
 #### Root trust list
 
 The root trust list is available at `static/trust/anchors.pem`. This list should change infrequently.
