@@ -19809,7 +19809,7 @@ packages:
     dev: false
 
   file:etc/packages/c2pa-0.25.0.tgz:
-    resolution: {integrity: sha512-3xvst31d+NJGokkYID9IgCKfYCy5XbU5uvYZfTAV/ftlHlhR6CcwrxnrsIo0kLY+Qqommum9bhk9PPGBKEDSJw==, tarball: file:etc/packages/c2pa-0.25.0.tgz}
+    resolution: {integrity: sha512-ZF+IrwIZHIEV/mqk9VbU30owQjmwMvrWzVyjgIYIRAwRu7xeTFSHHEO+mw7cqYhEvgIDjawSuqFYLvWF2njVtg==, tarball: file:etc/packages/c2pa-0.25.0.tgz}
     name: c2pa
     version: 0.25.0
     dependencies:
