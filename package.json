@@ -39,7 +39,7 @@
     "@percy/cli": "^1.28.3",
     "@percy/core": "^1.28.3",
     "@percy/playwright": "^1.0.5",
-    "@playwright/test": "1.39.0",
+    "@playwright/test": "1.49.1",
     "@rollup/pluginutils": "^4.2.1",
     "@storybook/addon-a11y": "7.0.13",
     "@storybook/addon-essentials": "7.0.12",
