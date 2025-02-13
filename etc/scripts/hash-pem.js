@@ -40,6 +40,7 @@ const validIssuers = [
   'Truepic',
   'Asseco Data Systems S.A.',
   'Sectigo Limited',
+  'Entrust',
 ];
 
 async function run() {
