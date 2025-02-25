@@ -240,4 +240,17 @@ test.describe('Verify - assertion display', () => {
       widths: [1280],
     });
   });
+
+  test('CAWG identity data should be displayed correctly', async ({ page }) => {
+    const verify = new VerifyPage(page);
+    const source = VerifyPage.getFixtureUrl(
+      'adobe_connected_identities.jpg',
+      'file',
+    );
+    await verify.goto(source);
+    await verify.waitForActions();
+    await verify.takeTallSnapshot(`result for gen CAWG identity`, {
+      widths: [1280],
+    });
+  });
 });

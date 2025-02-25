@@ -353,6 +353,19 @@ export async function resultToAssetMap({
       icon: claimGeneratorInfo?.icon ?? null,
     };
 
+    function mapVerifiedIdentitiesToAuthors(manifest: Manifest) {
+      if (manifest.verifiedIdentities.length > 0) {
+        return manifest.verifiedIdentities.map((verifiedIdentity) => ({
+          '@id': verifiedIdentity.uri,
+          '@type': 'Organization',
+          identifier: verifiedIdentity.provider.id,
+          name: verifiedIdentity.username,
+        }));
+      }
+
+      return null;
+    }
+
     return {
       date: manifest.signatureInfo?.time
         ? new Date(manifest.signatureInfo.time)
@@ -377,7 +390,9 @@ export async function resultToAssetMap({
 
         return null;
       },
-      socialAccounts: selectSocialAccounts(manifest),
+      socialAccounts:
+        mapVerifiedIdentitiesToAuthors(manifest) ??
+        selectSocialAccounts(manifest),
       generativeInfo: selectGenerativeInfo(manifest),
       exif: selectExif(manifest),
       label: manifest.label,
