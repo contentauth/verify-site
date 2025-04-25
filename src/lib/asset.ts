@@ -12,6 +12,7 @@
 // from Adobe.
 
 import {
+  selectDoNotTrain,
   selectEditsAndActivity,
   selectFormattedGenerator,
   selectProducer,
@@ -34,7 +35,6 @@ import {
 import { DEFAULT_LOCALE } from './i18n';
 import { MANIFEST_STORE_MIME_TYPE } from './manifestRecovery';
 import { selectAutoDubInfo, type AutoDubInfo } from './selectors/autoDubInfo';
-import { selectDoNotTrain } from './selectors/doNotTrain';
 import {
   selectGenerativeInfo,
   selectModelsFromIngredient,
@@ -155,9 +155,15 @@ export async function resultToAssetMap({
     runtimeValidationStatuses,
   );
 
+  const activeManifestValidationResults =
+    manifestStore?.validationResults.activeManifest;
+
   const rootValidationStatuses =
     runtimeValidationStatuses[activeManifestLabel] ?? [];
-  const rootValidationResult = selectValidationResult(rootValidationStatuses);
+  const rootValidationResult = selectValidationResult(
+    rootValidationStatuses,
+    activeManifestValidationResults,
+  );
   const { hasError, hasOtgp } = rootValidationResult ?? {};
   const isManifest = source.blob?.type === MANIFEST_STORE_MIME_TYPE;
   const id = ROOT_ID;
@@ -349,18 +355,22 @@ export async function resultToAssetMap({
     const claimGenerator: ClaimGeneratorDisplayInfo = {
       label: claimGeneratorInfo?.name
         ? `${claimGeneratorInfo.name} ${claimGeneratorInfo?.version ?? ''}`
-        : selectFormattedGenerator(manifest),
+        : (selectFormattedGenerator(manifest) ?? 'Unknown Generator'),
       icon: claimGeneratorInfo?.icon ?? null,
     };
 
     function mapVerifiedIdentitiesToAuthors(manifest: Manifest) {
       if (manifest.verifiedIdentities.length > 0) {
-        return manifest.verifiedIdentities.map((verifiedIdentity) => ({
-          '@id': verifiedIdentity.uri,
-          '@type': 'Organization',
-          identifier: verifiedIdentity.provider.id,
-          name: verifiedIdentity.username,
-        }));
+        return manifest.verifiedIdentities
+          .filter(
+            (verifiedIdentity) => verifiedIdentity.type === 'cawg.social_media',
+          )
+          .map((verifiedIdentity) => ({
+            '@id': verifiedIdentity.uri,
+            '@type': 'Organization',
+            identifier: verifiedIdentity.provider.id,
+            name: verifiedIdentity.username,
+          }));
       }
 
       return null;

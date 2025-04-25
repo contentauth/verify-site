@@ -15,7 +15,8 @@ import type { ManifestStore } from 'c2pa';
 import { difference } from 'lodash';
 
 export type ValidationStatus = ManifestStore['validationStatus'][0];
-
+export type ValidationResults =
+  ManifestStore['validationResults']['activeManifest'];
 export type ValidationStatusCode = 'valid' | 'invalid' | 'unrecognized';
 
 export type ValidationStatusResult = ReturnType<typeof selectValidationResult>;
@@ -126,7 +127,14 @@ export function hasUntrustedSigner(
       UntrustedSignerResult.TrustedOnly;
 }
 
-export function selectValidationResult(validationStatus: ValidationStatus[]) {
+export function selectValidationResult(
+  validationStatus: ValidationStatus[],
+  validationResults?: ValidationResults,
+) {
+  const hasTimeStampCode = validationResults?.informational?.some((result) =>
+    result.code.startsWith('timeStamp'),
+  );
+
   const onlyErrors = validationStatus.filter(
     (status) => !SUCCESS_CODES.includes(status.code),
   );
@@ -135,6 +143,7 @@ export function selectValidationResult(validationStatus: ValidationStatus[]) {
   const hasError =
     // OTGP now counts as an error in the UI since we got rid of "incomplete"
     hasOtgp ||
+    hasTimeStampCode ||
     (hasErrorStatus(onlyErrors) &&
       [
         UntrustedSignerResult.UntrustedWithOtherErrors,

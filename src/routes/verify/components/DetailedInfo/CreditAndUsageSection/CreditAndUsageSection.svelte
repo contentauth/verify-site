@@ -27,7 +27,7 @@
   $: shouldShowSection =
     manifestData.producer ||
     manifestData.socialAccounts?.length ||
-    manifestData.doNotTrain.trainingAllowed === false ||
+    manifestData.doNotTrain ||
     manifestData.web3Accounts.length ||
     manifestData.website;
 </script>
@@ -44,7 +44,7 @@
       {#if manifestData.socialAccounts?.length}
         <SocialSubSection socialAccounts={manifestData.socialAccounts} />
       {/if}
-      {#if !manifestData.doNotTrain.trainingAllowed}
+      {#if manifestData.doNotTrain}
         <ModelUsageSection />
       {/if}
       {#if manifestData.web3Accounts.length}

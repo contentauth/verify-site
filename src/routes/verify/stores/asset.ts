@@ -54,5 +54,5 @@ const getAssetState = (id: string, selectedId: string): AssetState =>
   id === selectedId
     ? 'selected'
     : startsWith(`${selectedId}.`, `${id}.`)
-    ? 'path'
-    : 'none';
+      ? 'path'
+      : 'none';

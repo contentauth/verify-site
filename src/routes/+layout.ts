@@ -19,7 +19,9 @@ import type { LayoutLoad } from './$types';
 export const ssr = false;
 
 export const load: LayoutLoad = async () => {
-  initI18n();
-  locale.set(window.navigator.language);
-  await waitLocale();
+  if (typeof window !== 'undefined') {
+    initI18n();
+    locale.set(window.navigator.language);
+    await waitLocale();
+  }
 };
