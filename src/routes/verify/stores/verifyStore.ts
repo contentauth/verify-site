@@ -15,14 +15,7 @@ import { ROOT_ID, type AssetData, type AssetDataMap } from '$lib/asset';
 import { analytics } from '$src/lib/analytics';
 import type { Loadable } from '$src/lib/types';
 import type { C2paSourceType } from 'c2pa';
-import debug from 'debug';
-import {
-  derived,
-  get,
-  writable,
-  type Readable,
-  type Writable,
-} from 'svelte/store';
+import { get, writable, type Readable, type Writable } from 'svelte/store';
 import { createC2paReader } from './c2paReader';
 import {
   compareViewMode,
@@ -30,44 +23,33 @@ import {
   type CompareStore,
 } from './compareView';
 import { createHierarchyView, type HierarchyViewStore } from './hierarchyView';
-import {
-  createManifestRecoverer,
-  type ManifestRecovererStore,
-} from './manifestRecoverer';
-
-const dbg = debug('stores:verifyStore');
 
 export type ViewState = 'hierarchy' | 'compare';
 
 export type SelectedSource =
   | { type: 'local' }
-  | { type: 'external'; url: string }
-  | { type: 'recovery'; id: number };
+  | { type: 'external'; url: string };
 
 export type MostRecentlyLoaded = {
   assetData?: AssetData;
   source?: SelectedSource;
   select?: () => void;
-  isSelected: boolean;
 };
 
 export type SelectedAssetMapState = Loadable<{
   data: AssetDataMap;
 }>;
 
-interface VerifyStore {
-  clearManifestResults: ManifestRecovererStore['clear'];
+export interface VerifyStore {
+  viewState: Writable<ViewState>;
+  hierarchyView: HierarchyViewStore;
   compareView: CompareStore;
-  hierarchyView: Pick<HierarchyViewStore, 'subscribe'>;
-  // Gets the most recently loaded asset (i.e. was dragged in or passed via source)
   mostRecentlyLoaded: Readable<MostRecentlyLoaded>;
   readC2paSource: (source: C2paSourceType) => void;
-  recoveredManifestResults: Pick<ManifestRecovererStore, 'subscribe'>;
-  recoverManifests: () => void;
-  setCompareActiveId: (id: string | null) => void;
+  clearManifestResults: () => void;
   setCompareView: () => void;
   setHierarchyView: () => void;
-  viewState: Readable<ViewState>;
+  setCompareActiveId: (id: string | null) => void;
   clear: () => void;
 }
 
@@ -76,164 +58,88 @@ interface VerifyStore {
  */
 export function createVerifyStore(): VerifyStore {
   const viewState = writable<ViewState>('hierarchy');
-  const selectedSource = writable<SelectedSource>({ type: 'local' });
   const selectedAssetId = writable<string>(ROOT_ID);
-  const c2paReader = createC2paReader();
-
-  const manifestRecoverer = createManifestRecoverer(
-    selectedSource,
-    selectedAssetId,
-  );
-
-  const selectedAssetMap: Readable<SelectedAssetMapState> = derived(
-    [selectedSource, c2paReader, manifestRecoverer],
-    ([$selectedSource, $c2paReader, $manifestRecoverer]) => {
-      if (['local', 'external'].includes($selectedSource.type)) {
-        if ($c2paReader.state === 'success') {
-          return {
-            state: 'success' as const,
-            data: $c2paReader.assetMap,
-          };
-        }
-
-        return { state: $c2paReader.state };
-      } else if ($selectedSource.type === 'recovery') {
-        if ($manifestRecoverer.state === 'success') {
-          const { assetMap } = get(
-            $manifestRecoverer.manifests[$selectedSource.id],
-          );
-
-          return {
-            state: 'success' as const,
-            data: assetMap,
-          };
-        }
-      }
-
-      return { state: 'none' as const };
-    },
-  );
-
+  const selectedAssetMap = writable<SelectedAssetMapState>({ state: 'none' });
   const hierarchyView = createHierarchyView(selectedAssetMap, selectedAssetId);
-
   const compareSelectedAssetIds = writable<(string | null)[]>([null, null]);
   const compareActiveAssetId = writable<string | null>(null);
-
   const compareView = createCompareView(
     selectedAssetMap,
     compareSelectedAssetIds,
     compareActiveAssetId,
   );
+  const mostRecentlyLoaded = writable<MostRecentlyLoaded>({});
+  const c2paReader = createC2paReader();
 
-  const mostRecentlyLoaded = derived<
-    [HierarchyViewStore, Writable<SelectedSource>],
-    MostRecentlyLoaded
-  >(
-    [hierarchyView, selectedSource],
-    ([$hierarchyView, $selectedSource], set, update) => {
-      if (
-        $hierarchyView.state === 'success' &&
-        $selectedSource.type !== 'recovery'
-      ) {
-        set({
-          assetData: $hierarchyView.rootAsset,
-          source: $selectedSource,
-          isSelected: true,
-        });
-      } else {
-        update((existing) => {
-          return {
-            ...existing,
-            isSelected: false,
-            select() {
-              if (existing.source) {
-                selectedSource.set(existing.source);
-              }
-            },
-          };
+  function clearManifestResults() {
+    selectedAssetMap.set({ state: 'none' });
+    compareSelectedAssetIds.set([null, null]);
+    compareActiveAssetId.set(null);
+    mostRecentlyLoaded.set({});
+  }
+
+  function setCompareView() {
+    analytics.track('setCompareView', {
+      compareMode: get(compareViewMode),
+    });
+    viewState.set('compare');
+    const id = get(selectedAssetId);
+    compareActiveAssetId.set(id);
+    compareSelectedAssetIds.set([id, null]);
+  }
+
+  function setHierarchyView() {
+    analytics.track('setHierarchyView');
+    viewState.set('hierarchy');
+    selectedAssetId.set(get(compareActiveAssetId) ?? ROOT_ID);
+  }
+
+  function setCompareActiveId(id: string | null) {
+    compareActiveAssetId.set(id);
+  }
+
+  function clear() {
+    clearManifestResults();
+    c2paReader.clear();
+    selectedAssetId.set(ROOT_ID);
+  }
+
+  async function readC2paSource(source: C2paSourceType) {
+    clearManifestResults();
+
+    try {
+      await c2paReader.read(source);
+      const sourceState = get(c2paReader);
+
+      if (sourceState.state === 'success') {
+        selectedAssetMap.set({ state: 'success', data: sourceState.assetMap });
+        mostRecentlyLoaded.set({
+          assetData: sourceState.assetMap[ROOT_ID],
+          source:
+            typeof source === 'string'
+              ? { type: 'external', url: source }
+              : { type: 'local' },
+          select() {
+            selectedAssetId.set(ROOT_ID);
+          },
         });
       }
-    },
-  );
-
-  function resetCompare() {
-    viewState.set('hierarchy');
-    compareActiveAssetId.set(null);
-    compareSelectedAssetIds.set([null, null]);
+    } catch (error) {
+      console.error('Error reading C2PA source:', error);
+    }
   }
 
   return {
     viewState,
     hierarchyView,
     compareView,
-    recoveredManifestResults: manifestRecoverer,
     mostRecentlyLoaded,
-    readC2paSource: (source: C2paSourceType) => {
-      resetCompare();
-      selectedAssetId.set(ROOT_ID);
-      const existingSource = get(selectedSource);
-      const incomingSource: SelectedSource =
-        typeof source === 'string'
-          ? {
-              type: 'external',
-              url: source,
-            }
-          : { type: 'local' };
-
-      if (
-        existingSource.type === 'external' &&
-        incomingSource.type === 'external' &&
-        existingSource.url === incomingSource.url
-      ) {
-        // Don't load a URL if it is already loaded
-        return;
-      }
-
-      dbg('Reading C2PA source', source);
-      c2paReader.read(source);
-      manifestRecoverer.clear();
-      dbg('Setting selected source', incomingSource);
-      selectedSource.set(incomingSource);
-    },
-    clearManifestResults: () => {
-      const mrlSource = get(mostRecentlyLoaded)?.source;
-      manifestRecoverer.clear();
-
-      if (mrlSource) {
-        selectedSource.set(mrlSource);
-      }
-    },
-    recoverManifests: () => {
-      const reader = get(c2paReader);
-
-      if (reader.state === 'success') {
-        manifestRecoverer.recover(reader.data);
-      }
-    },
-    setCompareView: () => {
-      analytics.track('setCompareView', {
-        compareMode: get(compareViewMode),
-      });
-      viewState.set('compare');
-      const id = get(selectedAssetId);
-      compareActiveAssetId.set(id);
-      compareSelectedAssetIds.set([id, null]);
-    },
-    setHierarchyView: () => {
-      analytics.track('setHierarchyView');
-      viewState.set('hierarchy');
-      selectedAssetId.set(get(compareActiveAssetId) ?? ROOT_ID);
-    },
-    setCompareActiveId: (id: string | null) => {
-      compareActiveAssetId.set(id);
-    },
-    clear: () => {
-      manifestRecoverer.clear();
-      c2paReader.clear();
-      selectedAssetId.set(ROOT_ID);
-      selectedSource.set({ type: 'local' });
-      resetCompare();
-    },
+    readC2paSource,
+    clearManifestResults,
+    setCompareView,
+    setHierarchyView,
+    setCompareActiveId,
+    clear,
   };
 }
 

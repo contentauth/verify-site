@@ -50,10 +50,3 @@ export class S3UploadError extends Error {
     this.response = res;
   }
 }
-
-export class ManifestRecoveryError extends Error {
-  constructor() {
-    super('Could not recover manifests');
-    this.name = this.constructor.name;
-  }
-}

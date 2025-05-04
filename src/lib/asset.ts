@@ -33,7 +33,6 @@ import {
   type MediaCategory,
 } from './formats';
 import { DEFAULT_LOCALE } from './i18n';
-import { MANIFEST_STORE_MIME_TYPE } from './manifestRecovery';
 import { selectAutoDubInfo, type AutoDubInfo } from './selectors/autoDubInfo';
 import {
   selectGenerativeInfo,
@@ -51,6 +50,8 @@ import { selectWeb3 } from './selectors/web3Info';
 import { selectWebsite } from './selectors/website';
 import { loadThumbnail, type ThumbnailInfo } from './thumbnail';
 import type { Disposable } from './types';
+
+const MANIFEST_STORE_MIME_TYPE = 'application/x-c2pa-manifest-store';
 
 const dbg = debug('lib:asset');
 

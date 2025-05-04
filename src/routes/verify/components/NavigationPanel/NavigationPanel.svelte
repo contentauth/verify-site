@@ -17,12 +17,8 @@
   import Link from '$src/components/typography/Link.svelte';
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
-  import { verifyStore } from '../../stores';
-  import ManifestRecoverySection from './ManifestRecovery/ManifestRecoverySection.svelte';
 
   export let isScrolled = false;
-
-  const { hierarchyView } = verifyStore;
 
   const dispatch = createEventDispatcher();
 </script>
@@ -40,6 +36,3 @@
       ></button>
   </Body>
 </div>
-{#if $hierarchyView.state === 'success'}
-  <ManifestRecoverySection />
-{/if}

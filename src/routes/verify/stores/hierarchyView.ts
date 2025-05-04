@@ -34,10 +34,8 @@ export type HierarchyViewStore = Readable<HierarchyViewState>;
 /**
  * Creates a store representing the state of the asset hierarchy.
  *
- * @param selectedSource Source for the asset hierarchy - either "local" (file provided by user) or "recovery" (returned from manifest recovery service)
+ * @param selectedAssetMap Store representing the map of selected assets
  * @param selectedAssetId Store representing the ID of the currently selected asset
- * @param c2paReader Store encapsulating the C2PA SDK logic
- * @param manifestRecoverer Store encapsulating the manifest recovery logic
  */
 export function createHierarchyView(
   selectedAssetMap: Readable<SelectedAssetMapState>,
