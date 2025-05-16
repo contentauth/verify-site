@@ -41,6 +41,7 @@ const validIssuers = [
   'Asseco Data Systems S.A.',
   'Sectigo Limited',
   'Entrust',
+  'Fastly\\, Inc.',
 ];
 
 async function run() {
