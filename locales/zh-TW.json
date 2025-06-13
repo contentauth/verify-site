@@ -44,7 +44,7 @@
   "error.invalid": "此檔案可能已遭篡改。無法驗證或檢視其 Content Credentials。",
   "error.untrusted": "無法辨識 Content Credential 的核發者。此檔案可能並非來自其聲稱的來源。",
   "footer.contactUs": "聯絡我們",
-  "footer.copyright": "Copyright © {year} Adobe. All rights reserved.",
+  "footer.copyright": "Copyright © {year} C2PA. All rights reserved.",
   "footer.privacy": "隱私權",
   "footer.rights": "請勿販售或分享我的個人資訊",
   "footer.termsOfUse": "使用條款",

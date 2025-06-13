@@ -44,7 +44,7 @@
   "error.invalid": "Ce fichier a peut-être été falsifié. Ses Content Credentials ne peuvent pas être vérifiées ou visualisées.",
   "error.untrusted": "L’émetteur des Content Credentials n’a pas pu être reconnu. Ce fichier ne provient peut-être pas de l’endroit où il prétend provenir.",
   "footer.contactUs": "Nous contacter",
-  "footer.copyright": "Copyright © {year} Adobe. All rights reserved.",
+  "footer.copyright": "Copyright © {year} C2PA. All rights reserved.",
   "footer.privacy": "Confidentialité",
   "footer.rights": "Ne pas vendre ni partager mes données personnelles",
   "footer.termsOfUse": "Conditions d’utilisation",

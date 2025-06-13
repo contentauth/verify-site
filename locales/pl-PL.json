@@ -44,7 +44,7 @@
   "error.invalid": "Ten plik mógł zostać zmodyfikowany. Nie można zweryfikować ani wyświetlić jego certyfikatów Content Credentials.",
   "error.untrusted": "Nie można rozpoznać wystawcy certyfikatu Content Credential. Ten plik może mieć inne źródło niż podano.",
   "footer.contactUs": "Kontakt",
-  "footer.copyright": "Copyright © {year} Adobe. All rights reserved.",
+  "footer.copyright": "Copyright © {year} C2PA. All rights reserved.",
   "footer.privacy": "Prywatność",
   "footer.rights": "Nie zgadzam się na sprzedaż lub udostępnianie moich danych osobowych",
   "footer.termsOfUse": "Warunki użytkowania",

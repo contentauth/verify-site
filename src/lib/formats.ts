@@ -1,15 +1,4 @@
-// ADOBE CONFIDENTIAL
-// Copyright 2023 Adobe
-// All Rights Reserved.
-//
-// NOTICE: All information contained herein is, and remains
-// the property of Adobe and its suppliers, if any. The intellectual
-// and technical concepts contained herein are proprietary to Adobe
-// and its suppliers and are protected by all applicable intellectual
-// property laws, including trade secret and copyright laws.
-// Dissemination of this information or reproduction of this material
-// is strictly forbidden unless prior written permission is obtained
-// from Adobe.
+// Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors
 
 import pMemoize from 'p-memoize';
 
@@ -27,7 +16,6 @@ export interface FormatDefinition {
   name: string;
   category: MediaCategory;
   browserViewable: () => Promise<boolean>;
-  searchable: boolean;
 }
 
 const fileSamples = {
@@ -44,103 +32,86 @@ export const SUPPORTED_FORMATS: Record<string, FormatDefinition> = {
     name: 'JPEG',
     category: 'image',
     browserViewable: async () => true,
-    searchable: true,
   },
   'image/png': {
     name: 'PNG',
     category: 'image',
     browserViewable: async () => true,
-    searchable: true,
   },
   'image/svg+xml': {
     name: 'SVG',
     category: 'image',
     browserViewable: async () => true,
-    searchable: false,
   },
   'image/x-adobe-dng': {
     name: 'DNG',
     category: 'image',
     browserViewable: async () => false,
-    searchable: false,
   },
   'image/tiff': {
     name: 'TIFF',
     category: 'image',
     browserViewable: async () => false,
-    searchable: false,
   },
   'image/webp': {
     name: 'WebP',
     category: 'image',
     browserViewable: async () => true,
-    searchable: false,
   },
   'image/avif': {
     name: 'AVIF',
     category: 'image',
     browserViewable: async () => memoizedTestImageSupport('image/avif'),
-    searchable: false,
   },
   'image/heic': {
     name: 'HEIC',
     category: 'image',
     browserViewable: async () => memoizedTestImageSupport('image/heic'),
-    searchable: false,
   },
   'image/heif': {
     name: 'HEIF',
     category: 'image',
     browserViewable: async () => memoizedTestImageSupport('image/heif'),
-    searchable: false,
   },
   'audio/mp4': {
     name: 'M4A',
     category: 'audio',
     browserViewable: async () => false,
-    searchable: false,
   },
   'audio/mpeg': {
     name: 'MP3',
     category: 'audio',
     browserViewable: async () => false,
-    searchable: false,
   },
   'audio/wav': {
     name: 'WAV',
     category: 'audio',
     browserViewable: async () => false,
-    searchable: false,
   },
   'application/mp4': {
     name: 'MP4',
     category: 'video',
     browserViewable: async () => true,
-    searchable: false,
   },
   'video/mp4': {
     name: 'MP4',
     category: 'video',
     browserViewable: async () => true,
-    searchable: false,
   },
   'video/quicktime': {
     name: 'MOV',
     category: 'video',
     browserViewable: async () => false,
-    searchable: false,
   },
   'video/x-msvideo': {
     name: 'AVI',
     category: 'video',
     browserViewable: async () => false,
-    searchable: false,
   },
   'application/pdf': {
     name: 'PDF',
     category: 'document',
     browserViewable: async () => false,
-    searchable: false,
   },
 };
 

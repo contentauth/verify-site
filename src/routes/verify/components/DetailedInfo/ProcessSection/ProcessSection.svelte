@@ -1,29 +1,17 @@
 <!--
-  ADOBE CONFIDENTIAL
-  Copyright 2023 Adobe
-  All Rights Reserved.
-
-  NOTICE: All information contained herein is, and remains
-  the property of Adobe and its suppliers, if any. The intellectual
-  and technical concepts contained herein are proprietary to Adobe
-  and its suppliers and are protected by all applicable intellectual
-  property laws, including trade secret and copyright laws.
-  Dissemination of this information or reproduction of this material
-  is strictly forbidden unless prior written permission is obtained
-  from Adobe.
+  Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors
 -->
 <script lang="ts">
   import CollapsibleSection from '$src/components/SidebarSection/CollapsibleSection.svelte';
   import type { AssetData, ManifestData } from '$src/lib/asset';
   import { _, locale } from 'svelte-i18n';
-  import AiSubSection from '../CreditAndUsageSection/AISubSection.svelte';
+  import AiSubSection from './AISubSection.svelte';
   import ActionsSection from './ActionsSection.svelte';
   import AppDeviceSection from './AppDeviceSection.svelte';
   import IngredientsSection from './IngredientsSection.svelte';
 
   export let manifestData: ManifestData;
   export let ingredients: AssetData[];
-  export let isUntrusted: boolean;
 </script>
 
 <CollapsibleSection>
@@ -33,7 +21,7 @@
     {$_('sidebar.verify.process.description')}</svelte:fragment>
   <svelte:fragment slot="content">
     {#if manifestData.claimGenerator}
-      <AppDeviceSection generator={manifestData.claimGenerator} {isUntrusted} />
+      <AppDeviceSection generator={manifestData.claimGenerator} />
     {/if}
     {#if manifestData.generativeInfo?.softwareAgents?.length}
       <AiSubSection

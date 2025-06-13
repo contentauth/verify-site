@@ -1,15 +1,4 @@
-// ADOBE CONFIDENTIAL
-// Copyright 2023 Adobe
-// All Rights Reserved.
-//
-// NOTICE: All information contained herein is, and remains
-// the property of Adobe and its suppliers, if any. The intellectual
-// and technical concepts contained herein are proprietary to Adobe
-// and its suppliers and are protected by all applicable intellectual
-// property laws, including trade secret and copyright laws.
-// Dissemination of this information or reproduction of this material
-// is strictly forbidden unless prior written permission is obtained
-// from Adobe.
+// Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors
 
 import {
   selectDoNotTrain,
@@ -33,7 +22,6 @@ import {
   type MediaCategory,
 } from './formats';
 import { DEFAULT_LOCALE } from './i18n';
-import { MANIFEST_STORE_MIME_TYPE } from './manifestRecovery';
 import { selectAutoDubInfo, type AutoDubInfo } from './selectors/autoDubInfo';
 import {
   selectGenerativeInfo,
@@ -52,6 +40,7 @@ import { selectWebsite } from './selectors/website';
 import { loadThumbnail, type ThumbnailInfo } from './thumbnail';
 import type { Disposable } from './types';
 
+const MANIFEST_STORE_MIME_TYPE = 'application/x-c2pa-manifest-store';
 const dbg = debug('lib:asset');
 
 /**
@@ -260,7 +249,7 @@ export async function resultToAssetMap({
       id,
       title: manifest.title,
       thumbnail: thumbnail.info,
-      mimeType: manifest.format,
+      mimeType: manifest.format || source.type,
       children: await processIngredients(
         manifest.ingredients,
         runtimeValidationStatuses,

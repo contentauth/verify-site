@@ -44,7 +44,7 @@
   "error.invalid": "Előfordulhat, hogy ezt a fájlt manipulálták. A Content Credentials nem ellenőrizhető vagy megtekinthető.",
   "error.untrusted": "A Content Credential adatainak kibocsátója nem ismerhető fel. Előfordulhat, hogy ez a fájl nem onnan származik, ahonnan azt állítja.",
   "footer.contactUs": "Kapcsolatfelvétel",
-  "footer.copyright": "Copyright © {year} Adobe. All rights reserved.",
+  "footer.copyright": "Copyright © {year} C2PA. All rights reserved.",
   "footer.privacy": "Adatvédelem",
   "footer.rights": "Ne értékesítse vagy ossza meg személyes adataimat",
   "footer.termsOfUse": "Használati feltételek",

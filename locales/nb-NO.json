@@ -44,7 +44,7 @@
   "error.invalid": "Denne filen kan ha blitt tuklet med. Content Credentials kan ikke verifiseres eller vises.",
   "error.untrusted": "Content Credential-utstederen kunne ikke gjenkjennes. Denne filen kan være et forsøk på svindel.",
   "footer.contactUs": "Kontakt oss",
-  "footer.copyright": "Copyright © {year} Adobe. All rights reserved.",
+  "footer.copyright": "Copyright © {year} C2PA. All rights reserved.",
   "footer.privacy": "Personvern",
   "footer.rights": "Ikke selg eller del personopplysningene mine",
   "footer.termsOfUse": "Vilkår for bruk",

@@ -28,8 +28,8 @@
     name: account['@id']?.includes('behance')
       ? 'Behance'
       : account['@id']?.includes('instagram')
-      ? 'Instagram'
-      : null,
+        ? 'Instagram'
+        : null,
     url: account['@id'],
   }));
   let formattedGenerator = selectFormattedGenerator(activeManifest);

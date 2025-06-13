@@ -44,7 +44,7 @@
   "error.invalid": "[Bm] _üThis file may have been tampered with. Its Content Credentials can’t be verified or viewed.",
   "error.untrusted": "[Cx] _üThe Content Credential issuer couldn’t be recognized. This file may not come from where it claims to.",
   "footer.contactUs": "[B] _üContact us",
-  "footer.copyright": "[C] _üCopyright © {year} Adobe. All rights reserved.",
+  "footer.copyright": "[C] _üCopyright © {year} C2PA. All rights reserved.",
   "footer.privacy": "[D] _üPrivacy",
   "footer.rights": "[E] _üDo not sell or share my personal information",
   "footer.termsOfUse": "[F] _üTerms of use",

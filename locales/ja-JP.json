@@ -44,7 +44,7 @@
   "error.invalid": "このファイルは改ざんされている可能性があります。Content Credential を確認または表示できません。",
   "error.untrusted": "Content Credential の発行元を認識できませんでした。このファイルは、主張されている発行元からのものではない可能性があります。",
   "footer.contactUs": "問い合わせ",
-  "footer.copyright": "Copyright © {year} Adobe. All rights reserved.",
+  "footer.copyright": "Copyright © {year} C2PA. All rights reserved.",
   "footer.privacy": "プライバシー",
   "footer.rights": "個人情報の販売または共有を禁じます",
   "footer.termsOfUse": "利用条件",

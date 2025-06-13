@@ -44,7 +44,7 @@
   "error.invalid": "Er is mogelijk geknoeid met dit bestand. De Content Credentials kunnen niet worden geverifieerd of bekeken.",
   "error.untrusted": "De uitgever van de Content Credentials kan niet worden herkend. Dit bestand is mogelijk niet afkomstig van de vermelde bron.",
   "footer.contactUs": "Contact met ons opnemen",
-  "footer.copyright": "Copyright © {year} Adobe. All rights reserved.",
+  "footer.copyright": "Copyright © {year} C2PA. All rights reserved.",
   "footer.privacy": "Privacy",
   "footer.rights": "Mijn persoonlijke gegevens niet verkopen of delen",
   "footer.termsOfUse": "Gebruiksvoorwaarden",

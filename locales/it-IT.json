@@ -44,7 +44,7 @@
   "error.invalid": "Questo file potrebbe essere stato manomesso. Le sue Content Credentials non possono essere verificate o visualizzate.",
   "error.untrusted": "Impossibile riconoscere l'emittente Content Credential. Questo file potrebbe non provenire da dove afferma di provenire.",
   "footer.contactUs": "Contattaci",
-  "footer.copyright": "Copyright © {year} Adobe. All rights reserved.",
+  "footer.copyright": "Copyright © {year} C2PA. All rights reserved.",
   "footer.privacy": "Privacy",
   "footer.rights": "Non vendere o condividere le mie informazioni personali",
   "footer.termsOfUse": "Condizioni d'uso",

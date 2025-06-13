@@ -44,7 +44,7 @@
   "error.invalid": "Den här filen kan ha manipulerats. Dess Content Credentials kan inte verifieras eller visas.",
   "error.untrusted": "Content Credential-utfärdaren kunde inte identifieras. Den här filen kanske inte kommer därifrån den påstås komma.",
   "footer.contactUs": "Kontakta oss",
-  "footer.copyright": "Copyright © {year} Adobe. All rights reserved.",
+  "footer.copyright": "Copyright © {year} C2PA. All rights reserved.",
   "footer.privacy": "Integritet",
   "footer.rights": "Sälj eller dela inte mina personuppgifter",
   "footer.termsOfUse": "Användningsvillkor",

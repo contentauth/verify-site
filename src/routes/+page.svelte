@@ -1,26 +1,16 @@
 <!--
-  ADOBE CONFIDENTIAL
-  Copyright 2020 Adobe
-  All Rights Reserved.
-  NOTICE: All information contained herein is, and remains
-  the property of Adobe and its suppliers, if any. The intellectual
-  and technical concepts contained herein are proprietary to Adobe
-  and its suppliers and are protected by all applicable intellectual
-  property laws, including trade secret and copyright laws.
-  Dissemination of this information or reproduction of this material
-  is strictly forbidden unless prior written permission is obtained
-  from Adobe.
+ Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors
 -->
 <script lang="ts">
-  import Footer from '../components/Footer/Footer.svelte';
-  import Header from '../components/Home/header/Header.svelte';
   import Hero from '$src/components/Home/hero/NewHero.svelte';
   import Home1 from '$src/components/Home/homepage/Home1.svelte';
   import HowItWorks from '$src/components/Home/homepage/HowItWorks.svelte';
   import Movement from '$src/components/Home/homepage/Movement.svelte';
   import Orgs from '$src/components/Home/homepage/Orgs.svelte';
-  import Trust from '$src/components/Home/homepage/Trust.svelte';
   import Powered from '$src/components/Home/homepage/Powered.svelte';
+  import Trust from '$src/components/Home/homepage/Trust.svelte';
+  import Footer from '../components/Footer/Footer.svelte';
+  import Header from '../components/Home/header/Header.svelte';
 </script>
 
 <div class="overflow-x-hidden">

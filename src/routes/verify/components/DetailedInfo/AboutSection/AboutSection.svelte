@@ -1,16 +1,5 @@
 <!--
-  ADOBE CONFIDENTIAL
-  Copyright 2023 Adobe
-  All Rights Reserved.
-
-  NOTICE: All information contained herein is, and remains
-  the property of Adobe and its suppliers, if any. The intellectual
-  and technical concepts contained herein are proprietary to Adobe
-  and its suppliers and are protected by all applicable intellectual
-  property laws, including trade secret and copyright laws.
-  Dissemination of this information or reproduction of this material
-  is strictly forbidden unless prior written permission is obtained
-  from Adobe.
+  Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors
 -->
 <script lang="ts">
   import CollapsibleSection from '$src/components/SidebarSection/CollapsibleSection.svelte';
@@ -20,7 +9,6 @@
   import IssuedOnSection from './IssuedOnSection.svelte';
 
   export let manifestData: ManifestData;
-  export let isUntrusted: boolean;
 </script>
 
 <CollapsibleSection>
@@ -28,9 +16,7 @@
     {$_('sidebar.verify.about')}</svelte:fragment>
   <svelte:fragment slot="content">
     {#if manifestData.signatureInfo?.issuer}
-      <IssuedBySection
-        issuedBy={manifestData.signatureInfo?.issuer}
-        {isUntrusted} />
+      <IssuedBySection issuedBy={manifestData.signatureInfo?.issuer} />
     {/if}
     {#if manifestData.date}
       <IssuedOnSection date={manifestData.date} />

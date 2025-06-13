@@ -44,7 +44,7 @@
   "error.invalid": "Tätä tiedostoa on ehkä peukaloitu. Sen Content Credentialseja ei voi vahvistaa tai näyttää.",
   "error.untrusted": "Content Credentialin myöntäjää ei pystytty tunnistamaan. Tämä tiedosto ei ehkä ole peräisin sieltä, mistä sen väitetään olevan.",
   "footer.contactUs": "Ota yhteyttä",
-  "footer.copyright": "Copyright © {year} Adobe. All rights reserved.",
+  "footer.copyright": "Copyright © {year} C2PA. All rights reserved.",
   "footer.privacy": "Tietosuoja",
   "footer.rights": "Älä myy tai jaa henkilötietojani",
   "footer.termsOfUse": "Käyttöehdot",

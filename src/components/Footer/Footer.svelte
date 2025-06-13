@@ -1,16 +1,5 @@
 <!--
-  ADOBE CONFIDENTIAL
-  Copyright 2020 Adobe
-  All Rights Reserved.
-
-  NOTICE: All information contained herein is, and remains
-  the property of Adobe and its suppliers, if any. The intellectual
-  and technical concepts contained herein are proprietary to Adobe
-  and its suppliers and are protected by all applicable intellectual
-  property laws, including trade secret and copyright laws.
-  Dissemination of this information or reproduction of this material
-  is strictly forbidden unless prior written permission is obtained
-  from Adobe.
+  Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors
 -->
 
 <script>
@@ -20,7 +9,7 @@
 </script>
 
 <div
-  class="flex h-[238px] w-screen flex-col items-center border-t border-solid border-brand-gray px-6 py-5 md:h-[140px] md:py-8 lg:mt-12 lg:h-[86px] lg:py-6 lg:py-6 xl:mt-[7.5rem]">
+  class="flex h-[238px] w-screen flex-col items-center border-t border-solid border-brand-gray px-6 py-5 md:h-[140px] md:py-8 lg:mt-12 lg:h-[86px] lg:py-6 xl:mt-[7.5rem]">
   <div
     class="flex h-full w-full flex-col justify-between text-gray-900/60 lg:flex-row lg:items-center">
     <div class="flex flex-col items-start gap-6 text-footer-text md:flex-row">

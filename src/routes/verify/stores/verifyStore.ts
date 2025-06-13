@@ -1,15 +1,4 @@
-// ADOBE CONFIDENTIAL
-// Copyright 2023 Adobe
-// All Rights Reserved.
-//
-// NOTICE: All information contained herein is, and remains
-// the property of Adobe and its suppliers, if any. The intellectual
-// and technical concepts contained herein are proprietary to Adobe
-// and its suppliers and are protected by all applicable intellectual
-// property laws, including trade secret and copyright laws.
-// Dissemination of this information or reproduction of this material
-// is strictly forbidden unless prior written permission is obtained
-// from Adobe.
+// Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors
 
 import { ROOT_ID, type AssetData, type AssetDataMap } from '$lib/asset';
 import { analytics } from '$src/lib/analytics';
@@ -30,10 +19,6 @@ import {
   type CompareStore,
 } from './compareView';
 import { createHierarchyView, type HierarchyViewStore } from './hierarchyView';
-import {
-  createManifestRecoverer,
-  type ManifestRecovererStore,
-} from './manifestRecoverer';
 
 const dbg = debug('stores:verifyStore');
 
@@ -56,14 +41,11 @@ export type SelectedAssetMapState = Loadable<{
 }>;
 
 interface VerifyStore {
-  clearManifestResults: ManifestRecovererStore['clear'];
   compareView: CompareStore;
   hierarchyView: Pick<HierarchyViewStore, 'subscribe'>;
   // Gets the most recently loaded asset (i.e. was dragged in or passed via source)
   mostRecentlyLoaded: Readable<MostRecentlyLoaded>;
   readC2paSource: (source: C2paSourceType) => void;
-  recoveredManifestResults: Pick<ManifestRecovererStore, 'subscribe'>;
-  recoverManifests: () => void;
   setCompareActiveId: (id: string | null) => void;
   setCompareView: () => void;
   setHierarchyView: () => void;
@@ -80,14 +62,9 @@ export function createVerifyStore(): VerifyStore {
   const selectedAssetId = writable<string>(ROOT_ID);
   const c2paReader = createC2paReader();
 
-  const manifestRecoverer = createManifestRecoverer(
-    selectedSource,
-    selectedAssetId,
-  );
-
   const selectedAssetMap: Readable<SelectedAssetMapState> = derived(
-    [selectedSource, c2paReader, manifestRecoverer],
-    ([$selectedSource, $c2paReader, $manifestRecoverer]) => {
+    [selectedSource, c2paReader],
+    ([$selectedSource, $c2paReader]) => {
       if (['local', 'external'].includes($selectedSource.type)) {
         if ($c2paReader.state === 'success') {
           return {
@@ -97,17 +74,6 @@ export function createVerifyStore(): VerifyStore {
         }
 
         return { state: $c2paReader.state };
-      } else if ($selectedSource.type === 'recovery') {
-        if ($manifestRecoverer.state === 'success') {
-          const { assetMap } = get(
-            $manifestRecoverer.manifests[$selectedSource.id],
-          );
-
-          return {
-            state: 'success' as const,
-            data: assetMap,
-          };
-        }
       }
 
       return { state: 'none' as const };
@@ -166,7 +132,6 @@ export function createVerifyStore(): VerifyStore {
     viewState,
     hierarchyView,
     compareView,
-    recoveredManifestResults: manifestRecoverer,
     mostRecentlyLoaded,
     readC2paSource: (source: C2paSourceType) => {
       resetCompare();
@@ -191,24 +156,8 @@ export function createVerifyStore(): VerifyStore {
 
       dbg('Reading C2PA source', source);
       c2paReader.read(source);
-      manifestRecoverer.clear();
       dbg('Setting selected source', incomingSource);
       selectedSource.set(incomingSource);
-    },
-    clearManifestResults: () => {
-      const mrlSource = get(mostRecentlyLoaded)?.source;
-      manifestRecoverer.clear();
-
-      if (mrlSource) {
-        selectedSource.set(mrlSource);
-      }
-    },
-    recoverManifests: () => {
-      const reader = get(c2paReader);
-
-      if (reader.state === 'success') {
-        manifestRecoverer.recover(reader.data);
-      }
     },
     setCompareView: () => {
       analytics.track('setCompareView', {
@@ -228,7 +177,6 @@ export function createVerifyStore(): VerifyStore {
       compareActiveAssetId.set(id);
     },
     clear: () => {
-      manifestRecoverer.clear();
       c2paReader.clear();
       selectedAssetId.set(ROOT_ID);
       selectedSource.set({ type: 'local' });

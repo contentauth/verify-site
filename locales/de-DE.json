@@ -44,7 +44,7 @@
   "error.invalid": "Diese Datei wurde möglicherweise manipuliert. Ihre Content Credentials können nicht überprüft und nicht angezeigt werden.",
   "error.untrusted": "Der Aussteller des Content Credential konnte nicht erkannt werden. Diese Datei stammt möglicherweise nicht von der vorgeblichen Quelle.",
   "footer.contactUs": "Kontaktieren Sie uns",
-  "footer.copyright": "Copyright © {year} Adobe. All rights reserved.",
+  "footer.copyright": "Copyright © {year} C2PA. All rights reserved.",
   "footer.privacy": "Datenschutz",
   "footer.rights": "Meine personenbezogenen Informationen dürfen nicht weitergegeben oder verkauft werden",
   "footer.termsOfUse": "Nutzungsbedingungen",

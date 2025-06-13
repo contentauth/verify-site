@@ -44,7 +44,7 @@
   "error.invalid": "Denne fil kan være blevet manipuleret. Dens Content Credential kan ikke verificeres eller ses.",
   "error.untrusted": "Udstederen af Content Credential kunne ikke genkendes. Denne fil kommer muligvis ikke fra, hvor den hævder at komme fra.",
   "footer.contactUs": "Kontakt os",
-  "footer.copyright": "Copyright © {year} Adobe. All rights reserved.",
+  "footer.copyright": "Copyright © {year} C2PA. All rights reserved.",
   "footer.privacy": "Privatliv",
   "footer.rights": "Mine personlige oplysninger må ikke sælges eller deles",
   "footer.termsOfUse": "Vilkår for brug",

@@ -1,16 +1,5 @@
 <!--
-  ADOBE CONFIDENTIAL
-  Copyright 2023 Adobe
-  All Rights Reserved.
-
-  NOTICE: All information contained herein is, and remains
-  the property of Adobe and its suppliers, if any. The intellectual
-  and technical concepts contained herein are proprietary to Adobe
-  and its suppliers and are protected by all applicable intellectual
-  property laws, including trade secret and copyright laws.
-  Dissemination of this information or reproduction of this material
-  is strictly forbidden unless prior written permission is obtained
-  from Adobe.
+Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors
 -->
 
 <script lang="ts">
@@ -23,7 +12,7 @@
 </script>
 
 <div
-  class="min-h-12 pointer-events-auto inline-flex items-center rounded bg-red-900 py-2 ps-2.5 text-white">
+  class="pointer-events-auto inline-flex min-h-12 items-center rounded bg-red-900 py-2 ps-2.5 text-white">
   <Alert class="h-4 w-4 shrink-0" />
   <span
     class="flex h-full items-center border-r border-white/30 px-2.5 align-middle text-body"

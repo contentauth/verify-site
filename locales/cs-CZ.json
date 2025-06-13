@@ -44,7 +44,7 @@
   "error.invalid": "Tento soubor mohl neoprávněně upraven. Údaje Content Credential nelze ověřit ani zobrazit.",
   "error.untrusted": "Vydavatele údajů Content Credential nelze rozpoznat. Tento soubor nemusí pocházet z místa, které je u něj uvedeno.",
   "footer.contactUs": "Kontaktujte nás",
-  "footer.copyright": "Copyright © {year} Adobe. All rights reserved.",
+  "footer.copyright": "Copyright © {year} C2PA. All rights reserved.",
   "footer.privacy": "Ochrana osobních údajů",
   "footer.rights": "Neprodávejte ani nesdílejte moje osobní údaje",
   "footer.termsOfUse": "Podmínky použití",

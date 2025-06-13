@@ -2,7 +2,6 @@
   import Checkbox from '$src/routes/apply/components/Checkbox/Checkbox.svelte';
   import CheckboxGroup from '$src/routes/apply/components/Checkbox/CheckboxGroup.svelte';
   import AboutSection from '$src/routes/verify/components/DetailedInfo/AboutSection/AboutSection.svelte';
-  import CreditAndUsageSection from '$src/routes/verify/components/DetailedInfo/CreditAndUsageSection/CreditAndUsageSection.svelte';
   import ProcessSection from '$src/routes/verify/components/DetailedInfo/ProcessSection/ProcessSection.svelte';
   import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
   import { _ } from 'svelte-i18n';
@@ -39,10 +38,6 @@
       </CheckboxGroup>
     </div>
   </CollapsibleSection>
-</Story>
-
-<Story name="Verify Credit and usage">
-  <CreditAndUsageSection />
 </Story>
 
 <Story name="Verify Process">

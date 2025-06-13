@@ -44,7 +44,7 @@
   "error.invalid": "Можливо, цей файл підроблено. Його Content Credentials не вдається підтвердити чи переглянути.",
   "error.untrusted": "Не вдалося розпізнати постачальника Content Credentials. Цей файл може походити не з того джерела, про яке заявлено.",
   "footer.contactUs": "Зв’язатися з нами",
-  "footer.copyright": "Copyright © {year} Adobe. All rights reserved.",
+  "footer.copyright": "Copyright © {year} C2PA. All rights reserved.",
   "footer.privacy": "Конфіденційність",
   "footer.rights": "Не продавайте та не передавайте мою особисту інформацію",
   "footer.termsOfUse": "Умови використання",

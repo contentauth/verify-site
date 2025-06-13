@@ -44,7 +44,7 @@
   "error.invalid": "Bu dosya değiştirilmiş olabilir. Content Credentials doğrulanamadı veya görüntülenemedi.",
   "error.untrusted": "Content Credential'ı veren kuruluş belirlenemedi. Bu dosya, iddia edilen kuruluş tarafından hazırlanmamış olabilir.",
   "footer.contactUs": "Bize ulaşın",
-  "footer.copyright": "Copyright © {year} Adobe. All rights reserved.",
+  "footer.copyright": "Copyright © {year} C2PA. All rights reserved.",
   "footer.privacy": "Gizlilik",
   "footer.rights": "Kişisel bilgilerimi satmayın veya paylaşmayın",
   "footer.termsOfUse": "Kullanım koşulları",

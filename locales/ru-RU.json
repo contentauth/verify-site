@@ -44,7 +44,7 @@
   "error.invalid": "Этот файл мог быть подделан. Его данные Content Credentials не могут быть проверены и просмотрены.",
   "error.untrusted": "Не удалось распознать издателя Content Credential. Возможно, этот файл не из того источника, который в нем заявлен.",
   "footer.contactUs": "Связаться с нами",
-  "footer.copyright": "Copyright © {year} Adobe. All rights reserved.",
+  "footer.copyright": "Copyright © {year} C2PA. All rights reserved.",
   "footer.privacy": "Конфиденциальность",
   "footer.rights": "Запрет на продажу и передачу личной информации",
   "footer.termsOfUse": "Условия использования",

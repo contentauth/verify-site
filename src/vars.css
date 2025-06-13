@@ -1,40 +1,36 @@
-/* ADOBE CONFIDENTIAL
-Copyright 2023 Adobe
-All Rights Reserved.
-
-NOTICE: All information contained herein is, and remains
-the property of Adobe and its suppliers, if any. The intellectual
-and technical concepts contained herein are proprietary to Adobe
-and its suppliers and are protected by all applicable intellectual
-property laws, including trade secret and copyright laws.
-Dissemination of this information or reproduction of this material
-is strictly forbidden unless prior written permission is obtained
-from Adobe. */
+/* Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors*/
 
 :root {
   --family-base: 'Store Norske Ja', Arial, Helvetica, sans-serif;
   --family-serif: adobe-clean-serif, 'Source Serif Pro', Georgia, serif;
   --family-home: 'Store Norske Ja', Arial, Helvetica, sans-serif;
-  --font-family-ar: myriad-arabic, adobe-clean, 'Source Sans Pro', -apple-system,
+  --font-family-ar:
+    myriad-arabic, adobe-clean, 'Source Sans Pro', -apple-system,
     BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, 'Trebuchet MS',
     'Lucida Grande', sans-serif;
-  --font-family-condensed: adobe-clean-han-traditional, source-han-traditional,
-    'MingLiu', 'Heiti TC Light', adobe-clean, 'Source Sans Pro', -apple-system,
+  --font-family-condensed:
+    adobe-clean-han-traditional, source-han-traditional, 'MingLiu',
+    'Heiti TC Light', adobe-clean, 'Source Sans Pro', -apple-system,
     BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, 'Trebuchet MS',
     'Lucida Grande', sans-serif;
-  --font-family-he: myriad-hebrew, adobe-clean, 'Source Sans Pro', -apple-system,
+  --font-family-he:
+    myriad-hebrew, adobe-clean, 'Source Sans Pro', -apple-system,
     BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, 'Trebuchet MS',
     'Lucida Grande', sans-serif;
-  --font-family-ja: adobe-clean-han-japanese, source-han-japanese, 'Yu Gothic',
+  --font-family-ja:
+    adobe-clean-han-japanese, source-han-japanese, 'Yu Gothic',
     '\30E1 \30A4 \30EA \30AA', '\30D2 \30E9 \30AE \30CE \89D2 \30B4  Pro W3',
     'Hiragino Kaku Gothic Pro W3', 'Osaka',
     '\FF2D \FF33 \FF30 \30B4 \30B7 \30C3 \30AF', 'MS PGothic', 'sans-serif';
-  --font-family-ko: adobe-clean-han-korean, source-han-korean, 'Malgun Gothic',
-    'Apple Gothic', 'sans-serif';
-  --font-family-zh: adobe-clean-han-traditional, source-han-traditional,
-    'MingLiu', 'Heiti TC Light', 'sans-serif';
-  --font-family-zhhans: adobe-clean-han-simplified-c, source-han-simplified-c,
-    'SimSun', 'Heiti SC Light', 'sans-serif';
+  --font-family-ko:
+    adobe-clean-han-korean, source-han-korean, 'Malgun Gothic', 'Apple Gothic',
+    'sans-serif';
+  --font-family-zh:
+    adobe-clean-han-traditional, source-han-traditional, 'MingLiu',
+    'Heiti TC Light', 'sans-serif';
+  --font-family-zhhans:
+    adobe-clean-han-simplified-c, source-han-simplified-c, 'SimSun',
+    'Heiti SC Light', 'sans-serif';
 }
 
 .theme-light {

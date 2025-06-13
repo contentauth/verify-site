@@ -44,7 +44,7 @@
   "error.invalid": "Esse arquivo pode ter sido adulterado. Não é possível verificar nem visualizar as Content Credentials.",
   "error.untrusted": "Não foi possível reconhecer o emissor da Content Credential. A origem desse arquivo pode não ser a indicada.",
   "footer.contactUs": "Falar conosco",
-  "footer.copyright": "Copyright © {year} Adobe. All rights reserved.",
+  "footer.copyright": "Copyright © {year} C2PA. All rights reserved.",
   "footer.privacy": "Privacidade",
   "footer.rights": "Não vender nem compartilhar minhas informações pessoais",
   "footer.termsOfUse": "Termos de uso",

@@ -44,7 +44,7 @@
   "error.invalid": "이 파일은 변조되었을 수 있습니다. Content Credentials를 확인하거나 조회할 수 없습니다.",
   "error.untrusted": "Content Credential 발급자를 인식할 수 없습니다. 이 파일은 요청한 곳으로부터 온 것이 아닐 수 있습니다.",
   "footer.contactUs": "문의",
-  "footer.copyright": "Copyright © {year} Adobe. All rights reserved.",
+  "footer.copyright": "Copyright © {year} C2PA. All rights reserved.",
   "footer.privacy": "개인정보",
   "footer.rights": "내 개인 정보를 판매하거나 공유하지 말 것",
   "footer.termsOfUse": "이용 약관",

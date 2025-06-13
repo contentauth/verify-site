@@ -44,7 +44,7 @@
   "error.invalid": "This file may have been tampered with. Its Content Credentials can’t be verified or viewed.",
   "error.untrusted": "The Content Credential issuer couldn’t be recognized. This file may not come from where it claims to.",
   "footer.contactUs": "Contact us",
-  "footer.copyright": "Copyright © {year} Adobe. All rights reserved.",
+  "footer.copyright": "Copyright © {year} C2PA. All rights reserved.",
   "footer.privacy": "Privacy",
   "footer.rights": "Do not sell or share my personal information",
   "footer.termsOfUse": "Terms of use",
