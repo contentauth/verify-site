@@ -2,9 +2,7 @@
 Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors
 -->
 <script lang="ts">
-  import { afterNavigate } from '$app/navigation';
-  import { analytics } from '$lib/analytics';
-  import { SITE_VERSION, getConfig, getLocalFeatures } from '$lib/config';
+  import { SITE_VERSION, getLocalFeatures } from '$lib/config';
   import { ToastContainer } from '$src/features/Toast';
   import { lang } from '@intl/adobe-locales';
   import debug from 'debug';
@@ -13,26 +11,11 @@ Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors
   import SidebarMenu from '../features/SidebarMenu/SidebarMenu.svelte';
   import ModalContainer from './verify/components/modals/ModalContainer/ModalContainer.svelte';
 
-  import { get } from 'svelte/store';
   import '../app.css';
   import '../globalWebComponents';
 
   $: localFeatures = getLocalFeatures();
   let showLocalFeatureWarning = true;
-
-  afterNavigate((evt) => {
-    if (evt.type !== 'goto') {
-      analytics.track('pageLoad', {
-        from: evt.from?.route.id ?? '',
-        to: evt.to?.route.id ?? '',
-        navigationType: evt.type,
-        features: getConfig().features.join(','),
-        locale: get(locale) ?? 'unknown',
-      });
-    }
-
-    return true;
-  });
 
   onMount(() => {
     // @TODO: can't import server side - look into this

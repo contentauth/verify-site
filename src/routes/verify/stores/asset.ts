@@ -1,7 +1,6 @@
 // Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors
 
 import type { AssetData } from '$lib/asset';
-import { analytics } from '$src/lib/analytics';
 import { startsWith } from 'lodash';
 import { derived, type Readable, type Writable } from 'svelte/store';
 
@@ -34,7 +33,6 @@ export function createAsset(
     state: getAssetState(asset.id, $selectedId),
     select: () => {
       selectedId.set(asset.id);
-      analytics.track('selectAsset', { id: asset.id });
     },
   }));
 }

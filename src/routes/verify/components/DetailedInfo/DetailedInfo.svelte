@@ -4,7 +4,6 @@
 <script lang="ts">
   import close from '$assets/svg/monochrome/close.svg';
   import Body from '$src/components/typography/Body.svelte';
-  import { analytics } from '$src/lib/analytics';
   import type { AssetData } from '$src/lib/asset';
   import { createEventDispatcher, onMount } from 'svelte';
   import { _ } from 'svelte-i18n';
@@ -78,7 +77,6 @@
         src: $assetData.thumbnail.url,
         label: title,
       });
-      analytics.track('launchLightboxModal');
     }
   }
 </script>

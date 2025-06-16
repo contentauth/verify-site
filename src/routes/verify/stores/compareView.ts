@@ -1,7 +1,6 @@
 // Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors
 
 import type { Loadable } from '$lib/types';
-import { analytics } from '$src/lib/analytics';
 import type { AssetData } from '$src/lib/asset';
 import { derived, writable, type Readable, type Writable } from 'svelte/store';
 import {
@@ -82,9 +81,6 @@ function createCompareViewMode() {
   return {
     subscribe: compareMode.subscribe,
     set: (mode: CompareMode) => {
-      analytics.track('setCompareViewMode', {
-        compareMode: mode,
-      });
       compareMode.set(mode);
       localStorage.setItem(STORAGE_MODE_KEY, mode);
     },

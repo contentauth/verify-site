@@ -1,7 +1,6 @@
 // Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors
 
 import { ROOT_ID, type AssetData, type AssetDataMap } from '$lib/asset';
-import { analytics } from '$src/lib/analytics';
 import type { Loadable } from '$src/lib/types';
 import type { C2paSourceType } from 'c2pa';
 import debug from 'debug';
@@ -13,11 +12,7 @@ import {
   type Writable,
 } from 'svelte/store';
 import { createC2paReader } from './c2paReader';
-import {
-  compareViewMode,
-  createCompareView,
-  type CompareStore,
-} from './compareView';
+import { createCompareView, type CompareStore } from './compareView';
 import { createHierarchyView, type HierarchyViewStore } from './hierarchyView';
 
 const dbg = debug('stores:verifyStore');
@@ -160,16 +155,12 @@ export function createVerifyStore(): VerifyStore {
       selectedSource.set(incomingSource);
     },
     setCompareView: () => {
-      analytics.track('setCompareView', {
-        compareMode: get(compareViewMode),
-      });
       viewState.set('compare');
       const id = get(selectedAssetId);
       compareActiveAssetId.set(id);
       compareSelectedAssetIds.set([id, null]);
     },
     setHierarchyView: () => {
-      analytics.track('setHierarchyView');
       viewState.set('hierarchy');
       selectedAssetId.set(get(compareActiveAssetId) ?? ROOT_ID);
     },

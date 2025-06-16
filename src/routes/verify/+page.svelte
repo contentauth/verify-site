@@ -5,7 +5,6 @@ Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors
 <script lang="ts">
   import { afterNavigate } from '$app/navigation';
   import { SidebarLayout } from '$src/features/SidebarLayout';
-  import { analytics } from '$src/lib/analytics';
   import { onMount, type SvelteComponent } from 'svelte';
   import { _ } from 'svelte-i18n';
   import CompareDetailedInfo from './components/Compare/CompareInfo/CompareInfo.svelte';
@@ -58,10 +57,9 @@ Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors
     }
   });
 
-  function handleLaunchFilePicker(context: string) {
+  function handleLaunchFilePicker() {
     return () => {
       filePicker?.launch();
-      analytics.track('launchFilePicker', { context });
     };
   }
 
@@ -92,11 +90,10 @@ Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors
     <svelte:fragment slot="sidebar">
       {#if $viewState === 'hierarchy'}
         {#if hasEmptyState}
-          <EmptyState
-            on:launchFilePicker={handleLaunchFilePicker('emptyState')} />
+          <EmptyState on:launchFilePicker={handleLaunchFilePicker()} />
         {:else}
           <NavigationPanel
-            on:launchFilePicker={handleLaunchFilePicker('leftPanel')}
+            on:launchFilePicker={handleLaunchFilePicker()}
             isScrolled={isSidebarScrolled} />
         {/if}
       {:else if $viewState === 'compare' && $compareView.state === 'success'}

@@ -11,7 +11,7 @@
         muted
         playsinline
         src={Video}
-        class="w-full h-full max-h-full max-w-full rounded-xl lg:rounded-[20px] xl:h-full object-cover"
+        class="h-full max-h-full w-full max-w-full rounded-xl object-cover lg:rounded-[20px] xl:h-full"
         alt="Animation of a mouse cursor hovering over and clicking
         the Content Credentials pin icon" />
     </div>
@@ -19,7 +19,7 @@
   <div
     class="pt-6 md:col-start-7 md:col-end-13 md:pt-0 lg:col-start-8 lg:col-end-12">
     <div class="max-w-[676px]">
-      <h3 class="2xl:text-key-title-xl pb-6 text-left text-key-title">
+      <h3 class="pb-6 text-left text-key-title 2xl:text-key-title-xl">
         Introducing the Content Credentials pin
       </h3>
       <p

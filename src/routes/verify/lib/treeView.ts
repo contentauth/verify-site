@@ -1,6 +1,5 @@
 // Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors
 
-import { analytics } from '$src/lib/analytics';
 import { ROOT_ID, type AssetData } from '$src/lib/asset';
 import { prefersReducedMotion } from '$src/lib/matchMedia';
 import type { HierarchyPointNode } from 'd3-hierarchy';
@@ -191,7 +190,6 @@ export function zoomIn(
   currentScale: number,
   descendants: HierarchyPointNode<ReadableAssetStore>[],
 ) {
-  analytics.track('treeViewZoom', { dir: 'in' });
   const sel = svgSel.transition().duration(prefersReducedMotion ? 0 : 250);
   const hierarchy = get(hierarchyView);
 
@@ -236,7 +234,6 @@ export function zoomOut(
   currentScale: number,
   descendants: HierarchyPointNode<ReadableAssetStore>[],
 ) {
-  analytics.track('treeViewZoom', { dir: 'out' });
   const sel = svgSel.transition().duration(prefersReducedMotion ? 0 : 250);
 
   const hierarchy = get(hierarchyView);
@@ -270,7 +267,6 @@ export function fitToScreen(
   { svgSel, zoom, boundsElement, width, height }: ZoomOutProps,
   currentScale: number,
 ) {
-  analytics.track('fitTreeZoom');
   const sel = svgSel.transition().duration(prefersReducedMotion ? 0 : 250);
   const bbox = boundsElement.getBBox();
   const fitToSizeScale = Math.min(height / bbox.height, width / bbox.width);

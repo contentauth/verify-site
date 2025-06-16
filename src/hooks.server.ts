@@ -4,10 +4,6 @@ import type { Handle } from '@sveltejs/kit';
 import { readFile } from 'node:fs/promises';
 
 export const handle = (async ({ event, resolve }) => {
-  const newrelicScript = await readFile('etc/newrelic.html', {
-    encoding: 'utf-8',
-  });
-
   const siteConfig =
     process.env.SITE_CONFIG ||
     (await readFile('etc/site-config.json', { encoding: 'utf-8' }));
@@ -19,9 +15,7 @@ export const handle = (async ({ event, resolve }) => {
 
   const response = await resolve(event, {
     transformPageChunk: ({ html }) =>
-      html
-        .replace('%newrelic%', newrelicScript)
-        .replace('%siteConfig%', siteConfigScript),
+      html.replace('%siteConfig%', siteConfigScript),
   });
 
   return response;

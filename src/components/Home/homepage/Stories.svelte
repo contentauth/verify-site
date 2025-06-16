@@ -26,9 +26,9 @@
 </script>
 
 <div
-  class="h-[1400px] w-screen items-center justify-center pb-[100px] max-w-[90rem]">
+  class="h-[1400px] w-screen max-w-[90rem] items-center justify-center pb-[100px]">
   <div class="flex h-full w-full flex-col items-center justify-center">
-    <div class="text-home-secondary-title mb-20 mt-40">Stories</div>
+    <div class="mb-20 mt-40 text-home-secondary-title">Stories</div>
     <div class="flex flex-row gap-5">
       {#each data as item}
         <div class="">

@@ -8,7 +8,6 @@ import {
   toast,
   unsupportedFileType,
 } from '$src/features/Toast';
-import { analytics } from '$src/lib/analytics';
 import type { Source as C2paSource, C2paSourceType } from 'c2pa';
 import { openModal } from 'svelte-modals';
 import { writable, type Readable } from 'svelte/store';
@@ -96,30 +95,16 @@ export function createC2paReader(): C2paReaderStore {
           if (correctedType) {
             const buffer = await source.arrayBuffer();
             source = new File([buffer], source.name, { type: correctedType });
-            analytics.track('correctedType', {
-              originalType: sourceType,
-              correctedType,
-            });
           }
         }
 
-        const timingStart = performance.now();
         const result = await sdk.read(source, {
           settings: await getToolkitSettings(),
         });
-        const timingEnd = performance.now();
 
         const { assetMap, dispose: assetMapDisposer } =
           await resultToAssetMap(result);
         dispose = assetMapDisposer;
-
-        analytics.track('readAsset', {
-          result: 'success',
-          origin: typeof source === 'string' ? 'external' : 'local',
-          sourceMimeType: source instanceof Blob ? source.type : 'unknown',
-          fileSize: source instanceof Blob ? source.size : -1,
-          elapsedMs: Math.round(timingEnd - timingStart),
-        });
 
         set({
           state: 'success',
@@ -128,25 +113,13 @@ export function createC2paReader(): C2paReaderStore {
         });
       } catch (e: unknown) {
         if ((e as Record<string, unknown>)?.name === 'InvalidMimeTypeError') {
-          analytics.track('readAsset', {
-            result: 'error',
-            reason: 'invalidMimeType',
-            sourceMimeType: source instanceof Blob ? source.type : 'unknown',
-          });
-
           toast.trigger(unsupportedFileType());
         } else if (
           (e as Record<string, unknown>)?.name === 'C2pa(PrereleaseError)' &&
           (await hasLegacyCredentials(source))
         ) {
-          analytics.track('readAsset', {
-            result: 'prereleaseDetected',
-          });
           openModal(LegacyCredentialModal);
         } else {
-          analytics.trackError(e as Error, {
-            context: 'readAsset',
-          });
           toast.trigger(somethingWentWrong());
         }
 

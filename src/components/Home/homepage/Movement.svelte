@@ -1,5 +1,5 @@
 <div
-  class="flex flex-col items-center justify-center pb-10 pt-20 xl:w-[802px] 2xl:w-[910px] sm:px-[1.5rem] lg:max-w-[56rem] lg:w-2/3">
+  class="flex flex-col items-center justify-center pb-10 pt-20 sm:px-[1.5rem] lg:w-2/3 lg:max-w-[56rem] xl:w-[802px] 2xl:w-[910px]">
   <h2
     class="text-center text-home-secondary-title sm:text-home-title-md xl:text-hero-title 2xl:text-home-title-2xl">
     Content Credentials are rolling out across the internet

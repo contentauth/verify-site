@@ -4,24 +4,24 @@
 
 <div class="flex w-screen max-w-[90rem] items-center justify-center">
   <div
-    class="2xl:col-span-12 flex h-full w-full flex-col items-center justify-between gap-[1.25rem] self-stretch p-[20px] pt-[40px] sm:p-[2rem] sm:pt-[40px] md:flex-row lg:gap-[1.5rem]">
+    class="flex h-full w-full flex-col items-center justify-between gap-[1.25rem] self-stretch p-[20px] pt-[40px] sm:p-[2rem] sm:pt-[40px] md:flex-row lg:gap-[1.5rem] 2xl:col-span-12">
     <div
-      class="2xl:col-start-1 2xl:col-end-6 flex h-full w-full items-center justify-center md:w-1/2">
+      class="flex h-full w-full items-center justify-center md:w-1/2 2xl:col-start-1 2xl:col-end-6">
       <div
         class="flex max-w-[41rem] flex-col items-start justify-center self-stretch p-0 xl:max-w-[41rem]">
         <h1
-          class="2xl:text-hero-title-desktop pb-[2rem] text-center text-hero-title tracking-[-0.105rem] lg:text-hero-title-lg xl:text-center font-base">
+          class="pb-[2rem] text-center font-base text-hero-title tracking-[-0.105rem] lg:text-hero-title-lg xl:text-center 2xl:text-hero-title-desktop">
           Wait, where did this image come from?
         </h1>
         <p
-          class="2xl:text-hero-sub-desktop lg:text-hero-sub-tablet text-center text-hero-sub text-gray-900/60">
+          class="text-center text-hero-sub text-gray-900/60 lg:text-hero-sub-tablet 2xl:text-hero-sub-desktop">
           Deepfakes. Voice cloning. Synthetic media. It’s hard to tell what’s
           accurate and authentic these days.
         </p>
       </div>
     </div>
     <div
-      class="flex h-full w-full flex-col items-start justify-center md:items-center md:w-1/2 lg:items-start">
+      class="flex h-full w-full flex-col items-start justify-center md:w-1/2 md:items-center lg:items-start">
       <div class="flex flex-col items-start">
         <div class="group relative">
           <div

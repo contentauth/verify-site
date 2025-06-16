@@ -2,11 +2,11 @@
 </script>
 
 <div
-  class="max-w-[90rem] w-full px-[20px] py-[4rem] sm:px-[2rem] md:py-[6rem] xl:py-[10rem]">
+  class="w-full max-w-[90rem] px-[20px] py-[4rem] sm:px-[2rem] md:py-[6rem] xl:py-[10rem]">
   <div
     class="flex h-full w-full flex-col items-center justify-center gap-[5rem]">
     <h2
-      class="2xl:text-home-title-2xl text-center text-home-secondary-title sm:text-home-title-md lg:text-home-title-lg xl:text-hero-title">
+      class="text-center text-home-secondary-title sm:text-home-title-md lg:text-home-title-lg xl:text-hero-title 2xl:text-home-title-2xl">
       What makes Content Credentials trustworthy
     </h2>
     <!-- Desktop 1281px+ -->
@@ -39,7 +39,7 @@
             Clear tampering detection
           </h3>
           <div
-            class="h-[365px] rounded-b-xl bg-[#f5f5f5] px-[32px] py-6 text-trust-desc lg:rounded-b-[20px] xl:text-trust-desc-xl 2xl:text-trust-desc-2xl">
+            class="text-trust-desc xl:text-trust-desc-xl 2xl:text-trust-desc-2xl h-[365px] rounded-b-xl bg-[#f5f5f5] px-[32px] py-6 lg:rounded-b-[20px]">
             <p class="2xl:text-key-sub-text-xl">
               Content Credentials use technology that makes it clear if content
               has been altered since its Content Credentials were created.
@@ -55,7 +55,7 @@
             Accountability
           </h3>
           <div
-            class="h-[365px] rounded-b-xl bg-[#f5f5f5] px-[32px] py-6 text-trust-desc lg:rounded-b-[20px] xl:text-trust-desc-xl 2xl:text-trust-desc-2xl">
+            class="text-trust-desc xl:text-trust-desc-xl 2xl:text-trust-desc-2xl h-[365px] rounded-b-xl bg-[#f5f5f5] px-[32px] py-6 lg:rounded-b-[20px]">
             <p class="2xl:text-key-sub-text-xl">
               Devices, software, and organizations that issue Content
               Credentials identify themselves in the Content Credentials they
@@ -80,7 +80,7 @@
                 Truly open standards
               </h3>
               <div
-                class="h-[248px] rounded-b-xl bg-[#f5f5f5] px-[32px] py-6 text-trust-desc lg:rounded-b-[20px] xl:text-trust-desc-xl 2xl:text-trust-desc-2xl">
+                class="text-trust-desc xl:text-trust-desc-xl 2xl:text-trust-desc-2xl h-[248px] rounded-b-xl bg-[#f5f5f5] px-[32px] py-6 lg:rounded-b-[20px]">
                 <p class="text-key-sub-text lg:text-key-sub-text-lg">
                   Content Credentials are based on an open technical
                   specification developed and maintained by the <a
