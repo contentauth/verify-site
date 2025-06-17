@@ -3,7 +3,9 @@
 -->
 
 <script lang="ts">
-  import ContentRow from '../IconContentRow/IconContentRow.svelte';
+  import Alert from '$assets/svg/monochrome/alert.svg?component';
+  import Info from '$assets/svg/monochrome/info.svg?component';
+  import IconContentRow from '../IconContentRow/IconContentRow.svelte';
 
   export let type: 'info' | 'warning' | 'error' = 'info';
 </script>
@@ -13,9 +15,16 @@
   class:bg-gray-600={type === 'info'}
   class:bg-orange-700={type === 'warning'}
   class:bg-red-1000={type === 'error'}>
-  <ContentRow>
+  <IconContentRow>
+    <svelte:fragment slot="icon">
+      {#if type === 'info'}
+        <Info class="h-4 w-4" />
+      {:else}
+        <Alert class="h-4 w-4" />
+      {/if}
+    </svelte:fragment>
     <div class="grow" slot="content">
       <slot />
     </div>
-  </ContentRow>
+  </IconContentRow>
 </div>
