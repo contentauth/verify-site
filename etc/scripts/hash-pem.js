@@ -31,6 +31,7 @@ const validIssuers = [
   'Sectigo Limited',
   'Entrust',
   'Fastly\\, Inc.',
+  'IdenTrust',
 ];
 
 async function run() {
