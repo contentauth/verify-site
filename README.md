@@ -190,3 +190,5 @@ SNAPSHOT_DEBUG_MODE=1 pnpm run test:e2e
 
 This will render all snapshots locally using Chrome with all of the widths declared in the Percy config and write the
 rendered snapshots to the `snapshot-debug` directory.
+
+Hello from other Eric!
