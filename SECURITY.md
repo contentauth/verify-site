@@ -6,7 +6,6 @@ This C2PA open-source library is maintained in partnership with Adobe. At this t
 
 Please do not create a public GitHub issue for any suspected security vulnerabilities. Instead, please file an issue through [Adobe's HackerOne page](https://hackerone.com/adobe?type=team). If for some reason this is not possible, reach out to cai-security@adobe.com.
 
-
 ## Vulnerability SLAs
 
 Once we receive an actionable vulnerability (meaning there is an available patch, or a code fix is required), we will acknowledge the vulnerability within 24 hours. Our target SLAs for resolution are:
@@ -15,7 +14,6 @@ Once we receive an actionable vulnerability (meaning there is an available patch
 2. 2 weeks for vulnerabilities with a CVSS score of 7.0-8.9
 
 Any vulnerability with a score below 6.9 will be resolved when possible.
-
 
 ## C2PA Vulnerabilities
 

@@ -68,8 +68,7 @@ We use the following process when adding or updating functionality to the site:
 4. When you feel like the PR is ready enough to run visual tests (these are expensive so we don't do this automatically on every commit), add the `snapshot requested` tag to the PR and the snapshot tests will start to run. Once they are done GitHub will automatically remove the tag for you.
 5. If any visual snapshot tests need attention, log in to [Percy](https://percy.io/85a19a76/contentcredentials.org) to review or correct unexpected visual changes (please comment on the PR if you need access to Percy).
 6. Once automated tests are resolved, please signal that the PR is ready for review by removing the `wip` tag (if added) and requesting review from a CAI team member.
-7. If the feature needs any product, design, or QE review, please send the preview link to the appropriate team members (the password to the site is available in the deploy preview PR comment).
-8. Once tests pass and the PR has been approved by a [code owner](https://github.com/orgs/contentauth/teams/c2pa-js-committers/members), you can merge for auto-deployment to our [staging site](https://cc-dev.netlify.app/). [Squash and merge](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/merging-a-pull-request#merging-a-pull-request) is generally recommended for small-to-medium PRs with a single author. PRs encompassing larger features should get [rebased](https://docs.github.com/en/get-started/using-git/about-git-rebase) into logical and descriptive commits.
+7. Once tests pass and the PR has been approved by a [code owner](https://github.com/orgs/contentauth/teams/c2pa-js-committers/members), you can merge. [Squash and merge](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/merging-a-pull-request#merging-a-pull-request) is generally recommended for small-to-medium PRs with a single author. PRs encompassing larger features should get [rebased](https://docs.github.com/en/get-started/using-git/about-git-rebase) into logical and descriptive commits.
 
 #### Definition of complete
 
@@ -97,12 +96,6 @@ For instance, to configure the output for deployment to stage, you would build w
 ```shell
 export SITE_CONFIG='{"env": "stage", "features": ["new-homepage"], "config": {"my-key":"my-val"}}';
 ```
-
-### Trust list
-
-For a full explanation of the process, see [this wiki page.][0]
-
-[0]: https://wiki.corp.adobe.com/display/CAI/Adding+certificates+to+the+Trust+List
 
 #### Root trust list
 
