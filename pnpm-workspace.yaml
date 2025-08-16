@@ -1,0 +1,3 @@
+onlyBuiltDependencies:
+  - c2pa-node
+  - sharp

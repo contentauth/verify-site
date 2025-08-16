@@ -1,9 +1,9 @@
 <!-- Popup.svelte -->
 <script lang="ts">
   import X from '$assets/svg/home/x.svg';
+  import { selectAppOrDeviceUsed } from '$src/lib/selectors/appOrDeviceUsed';
   import { selectGenerativeInfo } from '$src/lib/selectors/generativeInfo';
   import {
-    selectFormattedGenerator,
     selectProducer,
     selectSocialAccounts,
     type ManifestStore,
@@ -32,7 +32,7 @@
         : null,
     url: account['@id'],
   }));
-  let formattedGenerator = selectFormattedGenerator(activeManifest);
+  let formattedGenerator = selectAppOrDeviceUsed(activeManifest);
   let generativeInfo = selectGenerativeInfo(activeManifest);
   let generativeInfoType = generativeInfo?.type;
   let aiToolUsed = generativeInfo?.softwareAgents[0]?.name;
