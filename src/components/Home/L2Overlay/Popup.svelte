@@ -1,13 +1,9 @@
 <!-- Popup.svelte -->
 <script lang="ts">
   import X from '$assets/svg/home/x.svg';
+  import { selectAppOrDeviceUsed } from '$src/lib/selectors/appOrDeviceUsed';
   import { selectGenerativeInfo } from '$src/lib/selectors/generativeInfo';
-  import {
-    selectFormattedGenerator,
-    selectProducer,
-    selectSocialAccounts,
-    type ManifestStore,
-  } from 'c2pa';
+  import { type ManifestStore } from 'c2pa';
   import { createEventDispatcher } from 'svelte';
   import { _, date as formatDate } from 'svelte-i18n';
   import { slide } from 'svelte/transition';
@@ -23,19 +19,12 @@
   let issueDate = activeManifest.signatureInfo?.time
     ? new Date(activeManifest.signatureInfo.time)
     : null;
-  let producer = selectProducer(activeManifest)?.name;
-  let socialMedia = selectSocialAccounts(activeManifest)?.map((account) => ({
-    name: account['@id']?.includes('behance')
-      ? 'Behance'
-      : account['@id']?.includes('instagram')
-        ? 'Instagram'
-        : null,
-    url: account['@id'],
-  }));
-  let formattedGenerator = selectFormattedGenerator(activeManifest);
+  let formattedGenerator = selectAppOrDeviceUsed(activeManifest);
   let generativeInfo = selectGenerativeInfo(activeManifest);
   let generativeInfoType = generativeInfo?.type;
-  let aiToolUsed = generativeInfo?.softwareAgents[0]?.name;
+  let aiToolUsed = generativeInfo?.softwareAgents.length
+    ? generativeInfo?.softwareAgents[0]?.name
+    : null;
   let hasAdditionalHistory = !!activeManifest.ingredients.length;
 
   const verifyUrl = encodeURIComponent(`${window.origin}${imageUrl}`);
@@ -85,34 +74,6 @@
             {/if}
           </div>
           <hr />
-          {#if producer}
-            <div class="py-[0.625rem]">
-              <span class="pb-1 text-popup-text font-bold">
-                {$_('l2popup.producedBy')}
-              </span>
-              <span class="text-popup-text">{producer}</span>
-            </div>
-            <hr />
-          {/if}
-          {#if socialMedia}
-            <div class="py-[0.625rem]">
-              <span class="pb-1 text-popup-text font-bold">
-                {$_('l2popup.socialMedia')}
-              </span>
-              <span class="text-popup-text">
-                {#each socialMedia as account, i}
-                  <a
-                    class=" cursor-pointer text-blue-900 underline"
-                    href={account.url}>{account.name}</a
-                  >{#if i < socialMedia.length - 1}{$_(
-                      'wordListDelimiter',
-                    )}{' '}
-                  {/if}
-                {/each}
-              </span>
-            </div>
-            <hr />
-          {/if}
           <div class="justify-center py-[0.625rem]">
             <span class="py-1 text-popup-text font-bold">
               {$_('l2popup.deviceUsed')}
@@ -120,14 +81,16 @@
             <span class="whitespace-nowrap pb-1 text-popup-text"
               >{formattedGenerator}</span>
           </div>
-          <hr />
-          <div class="justify-center py-[0.625rem]">
-            <span class="py-1 text-popup-text font-bold">
-              {$_('l2popup.aiToolUsed')}
-            </span>
-            <span class="whitespace-nowrap pb-1 text-popup-text"
-              >{aiToolUsed}</span>
-          </div>
+          {#if aiToolUsed}
+            <hr />
+            <div class="justify-center py-[0.625rem]">
+              <span class="py-1 text-popup-text font-bold">
+                {$_('l2popup.aiToolUsed')}
+              </span>
+              <span class="whitespace-nowrap pb-1 text-popup-text"
+                >{aiToolUsed}</span>
+            </div>
+          {/if}
           {#if hasAdditionalHistory}
             <hr />
             <div class="py-[0.625rem]">
@@ -191,34 +154,6 @@
               {/if}
             </div>
             <hr />
-            {#if producer}
-              <div class="py-[0.625rem]">
-                <span class="pb-1 text-popup-text font-bold">
-                  {$_('l2popup.producedBy')}
-                </span>
-                <span class="text-popup-text">{producer}</span>
-              </div>
-              <hr />
-            {/if}
-            {#if socialMedia}
-              <div class="py-[0.625rem]">
-                <span class="pb-1 text-popup-text font-bold">
-                  {$_('l2popup.socialMedia')}
-                </span>
-                <span class="text-popup-text">
-                  {#each socialMedia as account, i}
-                    <a
-                      class=" cursor-pointer text-blue-900 underline"
-                      href={account.url}>{account.name}</a
-                    >{#if i < socialMedia.length - 1}{$_(
-                        'wordListDelimiter',
-                      )}{' '}
-                    {/if}
-                  {/each}
-                </span>
-              </div>
-              <hr />
-            {/if}
             <div class="justify-center py-[0.625rem]">
               <span class="py-1 text-popup-text font-bold">
                 {$_('l2popup.deviceUsed')}
@@ -227,13 +162,15 @@
                 >{formattedGenerator}</span>
             </div>
             <hr />
-            <div class="justify-center py-[0.625rem]">
-              <span class="py-1 text-popup-text font-bold">
-                {$_('l2popup.aiToolUsed')}
-              </span>
-              <span class="whitespace-nowrap pb-1 text-popup-text"
-                >{aiToolUsed}</span>
-            </div>
+            {#if aiToolUsed}
+              <div class="justify-center py-[0.625rem]">
+                <span class="py-1 text-popup-text font-bold">
+                  {$_('l2popup.aiToolUsed')}
+                </span>
+                <span class="whitespace-nowrap pb-1 text-popup-text"
+                  >{aiToolUsed}</span>
+              </div>
+            {/if}
             {#if hasAdditionalHistory}
               <hr />
               <div class="py-[0.625rem]">

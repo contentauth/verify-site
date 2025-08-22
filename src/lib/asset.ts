@@ -282,8 +282,14 @@ export async function resultToAssetMap({
       ingredient.thumbnail?.getUrl(),
     );
 
+    const activeManifestValidationResults =
+      ingredient.validationResults?.activeManifest;
+
     // Check validation result in the validationStatus supplied in the manifest
-    let validationResult = selectValidationResult(ingredient.validationStatus);
+    let validationResult = selectValidationResult(
+      ingredient.validationStatus,
+      activeManifestValidationResults,
+    );
 
     if (!validationResult.hasError && ingredientManifestLabel) {
       // If validationResult doesn't have an error, also check the runtime validation
