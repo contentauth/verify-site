@@ -51,7 +51,7 @@
     "@storybook/sveltekit": "7.4.0",
     "@storybook/testing-library": "^0.2.1",
     "@sveltejs/adapter-static": "^2.0.3",
-    "@sveltejs/kit": "^1.25.0",
+    "@sveltejs/kit": "^2.20.6",
     "@tailwindcss/forms": "^0.5.6",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/svelte": "4.0.3",
