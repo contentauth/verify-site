@@ -32,7 +32,10 @@
         : null,
     url: account['@id'],
   }));
-  let formattedGenerator = selectFormattedGenerator(activeManifest);
+  let formattedGenerator = selectFormattedGenerator(activeManifest)?.replace(
+    '_',
+    ' ',
+  );
   let generativeInfo = selectGenerativeInfo(activeManifest);
   let generativeInfoType = generativeInfo?.type;
   let aiToolUsed = generativeInfo?.softwareAgents[0]?.name;
