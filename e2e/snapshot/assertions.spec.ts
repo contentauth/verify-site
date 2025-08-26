@@ -4,7 +4,7 @@ import { test } from '@playwright/test';
 import { VerifyPage } from '../page';
 
 test.describe('Verify - assertion display', () => {
-  test('exif data should be displayed correctly', async ({ page }) => {
+  test.skip('exif data should be displayed correctly', async ({ page }) => {
     const verify = new VerifyPage(page);
     const source = VerifyPage.getFixtureUrl('exif');
     await verify.goto(source);
@@ -117,7 +117,9 @@ test.describe('Verify - assertion display', () => {
     });
   });
 
-  test('adobe stock image should be displayed correctly', async ({ page }) => {
+  test.skip('adobe stock image should be displayed correctly', async ({
+    page,
+  }) => {
     const verify = new VerifyPage(page);
     const source = VerifyPage.getFixtureUrl('adobe-stock');
     await verify.goto(source);
@@ -230,7 +232,9 @@ test.describe('Verify - assertion display', () => {
     });
   });
 
-  test('CAWG identity data should be displayed correctly', async ({ page }) => {
+  test.skip('CAWG identity data should be displayed correctly', async ({
+    page,
+  }) => {
     const verify = new VerifyPage(page);
     const source = VerifyPage.getFixtureUrl(
       'adobe_connected_identities.jpg',

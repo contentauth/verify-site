@@ -1,3 +1,10 @@
 onlyBuiltDependencies:
+  - '@percy/core'
+  - '@sveltejs/kit'
   - c2pa-node
+  - es5-ext
+  - esbuild
+  - msw
   - sharp
+  - svelte-preprocess
+  - unrs-resolver
