@@ -3,6 +3,7 @@
 import {
   selectDoNotTrain,
   selectEditsAndActivity,
+  selectFormattedGenerator,
   selectProducer,
   selectSocialAccounts,
   type C2paReadResult,
@@ -21,7 +22,6 @@ import {
   type MediaCategory,
 } from './formats';
 import { DEFAULT_LOCALE } from './i18n';
-import { selectAppOrDeviceUsed } from './selectors/appOrDeviceUsed';
 import { selectAutoDubInfo, type AutoDubInfo } from './selectors/autoDubInfo';
 import {
   selectGenerativeInfo,
@@ -341,14 +341,10 @@ export async function resultToAssetMap({
       ? formattedGeneratorInfo(manifest?.claimGeneratorInfo[0])
       : null;
 
-    const claimGeneratorLabel =
-      selectAppOrDeviceUsed(manifest) ??
-      (claimGeneratorInfo?.name
-        ? `${claimGeneratorInfo.name} ${claimGeneratorInfo?.version ?? ''}`
-        : (selectAppOrDeviceUsed(manifest) ?? 'Unknown Generator'));
-
     const claimGenerator: ClaimGeneratorDisplayInfo = {
-      label: claimGeneratorLabel,
+      label: claimGeneratorInfo?.name
+        ? `${claimGeneratorInfo.name} ${claimGeneratorInfo?.version ?? ''}`
+        : (selectFormattedGenerator(manifest) ?? 'Unknown Generator'),
       icon: claimGeneratorInfo?.icon ?? null,
     };
 

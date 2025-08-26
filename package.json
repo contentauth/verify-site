@@ -7,7 +7,7 @@
     "email": "dkozma@adobe.com"
   },
   "license": "UNLICENSED",
-  "packageManager": "pnpm@10.14.0",
+  "packageManager": "pnpm@8.9.2",
   "scripts": {
     "dev": "run-s hash-pem dev:vite",
     "dev:vite": "vite dev",
@@ -129,8 +129,8 @@
     "@spectrum-web-components/progress-circle": "^0.36.0",
     "@spectrum-web-components/radio": "^0.36.0",
     "@spectrum-web-components/theme": "^0.36.0",
-    "c2pa": "^0.30.10",
-    "c2pa-test-image-service": "0.13.5",
+    "c2pa": "^0.30.8",
+    "c2pa-test-image-service": "0.13.3",
     "circle-to-polygon": "^2.2.0",
     "d3-hierarchy": "^3.1.2",
     "d3-path": "^3.1.0",

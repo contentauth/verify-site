@@ -10,7 +10,7 @@ test.describe('Verify - loading states', () => {
     await verify.takeSnapshot(`zero state`);
   });
 
-  test.skip('specifying an image via source should work (CAICAI.jpg)', async ({
+  test('specifying an image via source should work (CAICAI.jpg)', async ({
     page,
   }) => {
     const verify = new VerifyPage(page);

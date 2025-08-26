@@ -26,20 +26,6 @@ async function loadTrustResource(file: string): Promise<string> {
 }
 
 async function createToolkitSettings(): Promise<ToolkitSettings> {
-  const mergedAnchors = (
-    await Promise.all(
-      [
-        'https://raw.githubusercontent.com/c2pa-org/conformance-public/refs/heads/main/trust-list/C2PA-TRUST-LIST.pem',
-        'https://raw.githubusercontent.com/c2pa-org/conformance-public/refs/heads/main/trust-list/C2PA-TSA-TRUST-LIST.pem',
-      ].map(async (url) => {
-        const res = await fetch(url);
-        const text = await res.text();
-
-        return text;
-      }),
-    )
-  ).join('');
-
   const [anchors, endEntity, config] = await Promise.all(
     ['anchors.pem', 'allowed.sha256.txt', 'store.cfg'].map(loadTrustResource),
   );
@@ -47,8 +33,7 @@ async function createToolkitSettings(): Promise<ToolkitSettings> {
   return {
     trust: {
       trustConfig: config,
-      trustAnchors: mergedAnchors,
-      userAnchors: anchors,
+      trustAnchors: anchors,
       allowedList: endEntity,
     },
     verify: {
