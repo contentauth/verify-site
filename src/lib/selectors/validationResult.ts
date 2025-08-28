@@ -124,8 +124,12 @@ export function selectValidationResult(
     result.code.startsWith('timeStamp'),
   );
 
+  // Untrusted should not show as "invalid" on the UI
   const hasValidationResultError = validationResults
-    ? validationResults.failure.length > 0
+    ? validationResults.failure.filter(
+        (validationResult) =>
+          validationResult.code !== UNTRUSTED_SIGNER_ERROR_CODE,
+      ).length > 0
     : false;
 
   const onlyErrors = validationStatus.filter(

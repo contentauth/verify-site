@@ -4,7 +4,7 @@ import { test } from '@playwright/test';
 import { VerifyPage } from '../page';
 
 test.describe('Verify - mobile view', () => {
-  test.skip('mobile navigation works as expected', async ({ page }) => {
+  test('mobile navigation works as expected', async ({ page }) => {
     await page.setViewportSize({ width: 1024, height: 1024 });
     const verify = new VerifyPage(page);
     const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');

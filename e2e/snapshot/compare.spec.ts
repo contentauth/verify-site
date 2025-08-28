@@ -3,7 +3,7 @@
 import { expect, test } from '@playwright/test';
 import { VerifyPage } from '../page';
 
-test.skip('Clicking on the compare button should take you to compare mode', async ({
+test('Clicking on the compare button should take you to compare mode', async ({
   page,
 }) => {
   const verify = new VerifyPage(page);
@@ -16,7 +16,7 @@ test.skip('Clicking on the compare button should take you to compare mode', asyn
   });
 });
 
-test.skip('Clicking on an ingredient should compare that with the currently selected asset in side by side mode', async ({
+test('Clicking on an ingredient should compare that with the currently selected asset in side by side mode', async ({
   page,
 }) => {
   const verify = new VerifyPage(page);
@@ -36,7 +36,7 @@ test.skip('Clicking on an ingredient should compare that with the currently sele
   );
 });
 
-test.skip('Switching to slider mode should work', async ({ page }) => {
+test('Switching to slider mode should work', async ({ page }) => {
   const verify = new VerifyPage(page);
   const source = VerifyPage.getFixtureUrl('CAICAI.jpg', 'file');
   await verify.goto(source);
@@ -50,7 +50,7 @@ test.skip('Switching to slider mode should work', async ({ page }) => {
   });
 });
 
-test.skip('Dragging the slider handle should move the slider position', async ({
+test('Dragging the slider handle should move the slider position', async ({
   page,
 }) => {
   const verify = new VerifyPage(page);
@@ -71,7 +71,7 @@ test.skip('Dragging the slider handle should move the slider position', async ({
   });
 });
 
-test.skip('Clicking the back button in the Compare view header should exit out of compare view mode', async ({
+test('Clicking the back button in the Compare view header should exit out of compare view mode', async ({
   page,
 }) => {
   const verify = new VerifyPage(page);
