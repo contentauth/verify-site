@@ -394,7 +394,23 @@ export async function resultToAssetMap({
           const hasInference =
             !!actionsAssertion?.data?.metadata?.['com.adobe.inference'];
 
-          return { editsAndActivity, hasInference };
+          const editsAndActivityWithUnknowns = editsAndActivity?.map(
+            (value) => {
+              if (value.label === undefined) {
+                return {
+                  ...value,
+                  label: 'Unknown',
+                };
+              }
+
+              return value;
+            },
+          );
+
+          return {
+            editsAndActivity: editsAndActivityWithUnknowns,
+            hasInference,
+          };
         }
 
         return null;

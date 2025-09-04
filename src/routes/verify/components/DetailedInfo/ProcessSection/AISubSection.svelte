@@ -17,7 +17,7 @@
     {#each softwareAgents as softwareAgent}
       <AboutSectionIconContentRow>
         <svelte:fragment slot="content">
-          {softwareAgent?.name}</svelte:fragment>
+          {softwareAgent}</svelte:fragment>
       </AboutSectionIconContentRow>
     {/each}
   </svelte:fragment>

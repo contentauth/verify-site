@@ -23,7 +23,7 @@
   let generativeInfo = selectGenerativeInfo(activeManifest);
   let generativeInfoType = generativeInfo?.type;
   let aiToolUsed = generativeInfo?.softwareAgents.length
-    ? generativeInfo?.softwareAgents[0]?.name
+    ? generativeInfo?.softwareAgents[0]
     : null;
   let hasAdditionalHistory = !!activeManifest.ingredients.length;
 
