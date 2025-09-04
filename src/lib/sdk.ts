@@ -47,7 +47,8 @@ async function createToolkitSettings(): Promise<ToolkitSettings> {
   return {
     trust: {
       trustConfig: config,
-      trustAnchors: anchors + '\n' + mergedAnchors,
+      trustAnchors: mergedAnchors,
+      userAnchors: anchors,
       allowedList: endEntity,
     },
     verify: {

@@ -45,8 +45,8 @@ importers:
         specifier: ^0.36.0
         version: 0.36.0
       c2pa:
-        specifier: file:etc/packages/c2pa-0.30.11.tgz
-        version: file:etc/packages/c2pa-0.30.11.tgz
+        specifier: 0.30.11
+        version: 0.30.11
       c2pa-test-image-service:
         specifier: 0.13.5
         version: 0.13.5
@@ -3837,9 +3837,8 @@ packages:
     resolution: {integrity: sha512-3pwvkgTD+nk/AX220NonHADEVZ28PEkjempdAm2VbIxo/kI2Q4IVNZaTLRiIRbLIG+4ncrAdGRyAYG3Cpf+MYA==}
     hasBin: true
 
-  c2pa@file:etc/packages/c2pa-0.30.11.tgz:
-    resolution: {integrity: sha512-KcrmIKHyU/z5E2zsho79yqQ2UxgL2SgoJumMdirFoZCZU7nNeBSGAFrv068V7q454UnClYL3qrPRCeDgi3OVfw==, tarball: file:etc/packages/c2pa-0.30.11.tgz}
-    version: 0.30.11
+  c2pa@0.30.11:
+    resolution: {integrity: sha512-yFuSJsr+verqG8cyHrbmYI/ZakRypTxX792XXHmvkyqfoIlqD/i81R8D0qaiwFKHztJ4szCeqUF9klw+g8nmeA==}
 
   cac@6.7.14:
     resolution: {integrity: sha512-b6Ilus+c3RrdDk+JhLKUAQfzzgLEPy6wcXqS7f/xe1EETvsDP6GORG7SFuOs6cID5YkqchW/LXZbX5bc8j7ZcQ==}
@@ -14070,7 +14069,7 @@ snapshots:
       - encoding
       - supports-color
 
-  c2pa@file:etc/packages/c2pa-0.30.11.tgz:
+  c2pa@0.30.11:
     dependencies:
       '@contentauth/detector': 0.3.6
       '@contentauth/toolkit': 0.13.10
