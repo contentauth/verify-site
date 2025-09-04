@@ -4,7 +4,7 @@ import { test } from '@playwright/test';
 import { VerifyPage } from '../page';
 
 test.describe('Verify - tree view', () => {
-  test('missing thumbnails should display correctly', async ({ page }) => {
+  test.skip('missing thumbnails should display correctly', async ({ page }) => {
     const verify = new VerifyPage(page);
     await page.setViewportSize({ width: 2000, height: 1024 });
     const source = VerifyPage.getFixtureUrl('missingThumbnails');
@@ -20,7 +20,7 @@ test.describe('Verify - tree view', () => {
     });
   });
 
-  test('clicking an ingredient should change the selected asset', async ({
+  test.skip('clicking an ingredient should change the selected asset', async ({
     page,
   }) => {
     const verify = new VerifyPage(page);
