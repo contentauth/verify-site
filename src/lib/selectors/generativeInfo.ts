@@ -32,8 +32,8 @@ export function selectGenerativeSoftwareAgents(
 
   // if there are undefined software agents remove them from the array
   return flow<[SoftwareAgent[]], SoftwareAgent[], SoftwareAgent[]>(
-    filter((x) => !!x),
-    uniqBy((x) => x),
+    filter((x) => !!x?.name || x),
+    uniqBy((x) => x?.name || x),
   )(softwareAgents);
 }
 

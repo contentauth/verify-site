@@ -394,21 +394,13 @@ export async function resultToAssetMap({
           const hasInference =
             !!actionsAssertion?.data?.metadata?.['com.adobe.inference'];
 
-          const editsAndActivityWithUnknowns = editsAndActivity?.map(
-            (value) => {
-              if (value.label === undefined) {
-                return {
-                  ...value,
-                  label: 'Unknown',
-                };
-              }
-
-              return value;
-            },
+          // Remove anything with an "undefined" label. It should not occur, but this prevents us from displaying "undefined" to the user.
+          const filteredEditsAndActivity = editsAndActivity.filter(
+            (value) => !!value.label,
           );
 
           return {
-            editsAndActivity: editsAndActivityWithUnknowns,
+            editsAndActivity: filteredEditsAndActivity,
             hasInference,
           };
         }
