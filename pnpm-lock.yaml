@@ -45,8 +45,8 @@ importers:
         specifier: ^0.36.0
         version: 0.36.0
       c2pa:
-        specifier: 0.30.13
-        version: 0.30.13
+        specifier: 0.30.14
+        version: 0.30.14
       c2pa-test-image-service:
         specifier: 0.13.5
         version: 0.13.5
@@ -1258,8 +1258,8 @@ packages:
   '@contentauth/detector@0.3.6':
     resolution: {integrity: sha512-ZN/fiydW3kXwLfPfIvG19Kz++ldASR+cFD79R24K9if4DHwj4W/Bj6kRNAXUCs2z3mo9HUEbbw9HUTlXoCm2fQ==}
 
-  '@contentauth/toolkit@0.13.12':
-    resolution: {integrity: sha512-Le6eiFIwYKWb6Wr6JVPsWCvDACwQrqiW3j4Uw3LGTpb9k1pNEkcJYLarVSk+JAt//DDOswWHV81w8RJhCAJ41w==}
+  '@contentauth/toolkit@0.13.13':
+    resolution: {integrity: sha512-WLAlpuW/tyhIFdX9FlhspwTw/doGzX8M0RRnReINM+Wvqkz+dyfemODKEekKhRIqhytan/bIv+G8hRbj063wGA==}
     engines: {node: '>=14'}
 
   '@cspotcode/source-map-support@0.8.1':
@@ -3837,8 +3837,8 @@ packages:
     resolution: {integrity: sha512-3pwvkgTD+nk/AX220NonHADEVZ28PEkjempdAm2VbIxo/kI2Q4IVNZaTLRiIRbLIG+4ncrAdGRyAYG3Cpf+MYA==}
     hasBin: true
 
-  c2pa@0.30.13:
-    resolution: {integrity: sha512-AeU6UGv3eYqFCVeATsPs+7eYLwUSXeYb+WDqnduTlOVGZMYoK9eRoOqubvLq+9hmQXA75ABbm6uXg4UB2/gvow==}
+  c2pa@0.30.14:
+    resolution: {integrity: sha512-yBAN1Nj4NTWFiOkk+0xxwOOa7VGV3kJTIWH4FFx4bMW4PY8yzqcmmsFl14nSsnNuqEBP6SYu11A/fhyNY4IWyQ==}
 
   cac@6.7.14:
     resolution: {integrity: sha512-b6Ilus+c3RrdDk+JhLKUAQfzzgLEPy6wcXqS7f/xe1EETvsDP6GORG7SFuOs6cID5YkqchW/LXZbX5bc8j7ZcQ==}
@@ -10548,7 +10548,7 @@ snapshots:
 
   '@contentauth/detector@0.3.6': {}
 
-  '@contentauth/toolkit@0.13.12': {}
+  '@contentauth/toolkit@0.13.13': {}
 
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
@@ -14069,10 +14069,10 @@ snapshots:
       - encoding
       - supports-color
 
-  c2pa@0.30.13:
+  c2pa@0.30.14:
     dependencies:
       '@contentauth/detector': 0.3.6
-      '@contentauth/toolkit': 0.13.12
+      '@contentauth/toolkit': 0.13.13
       debug: 4.3.4
       lodash: 4.17.21
       make-error: 1.3.6
