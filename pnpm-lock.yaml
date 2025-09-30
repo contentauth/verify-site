@@ -45,8 +45,8 @@ importers:
         specifier: ^0.36.0
         version: 0.36.0
       c2pa:
-        specifier: 0.30.14
-        version: 0.30.14
+        specifier: 0.30.15
+        version: 0.30.15
       c2pa-test-image-service:
         specifier: 0.13.5
         version: 0.13.5
@@ -1255,11 +1255,11 @@ packages:
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
     engines: {node: '>=0.1.90'}
 
-  '@contentauth/detector@0.3.6':
-    resolution: {integrity: sha512-ZN/fiydW3kXwLfPfIvG19Kz++ldASR+cFD79R24K9if4DHwj4W/Bj6kRNAXUCs2z3mo9HUEbbw9HUTlXoCm2fQ==}
+  '@contentauth/detector@0.3.7':
+    resolution: {integrity: sha512-TivQNu2D9ji9Qf6x92J15PzQQbAi+vEwj4RVsI272rQdPnn8vDb3lZIwmDOK4MqNlGMu9pv8jpMy/aPQgqshFw==}
 
-  '@contentauth/toolkit@0.13.13':
-    resolution: {integrity: sha512-WLAlpuW/tyhIFdX9FlhspwTw/doGzX8M0RRnReINM+Wvqkz+dyfemODKEekKhRIqhytan/bIv+G8hRbj063wGA==}
+  '@contentauth/toolkit@0.13.14':
+    resolution: {integrity: sha512-THQ6xN+hP6Cq5Euh7kSrSrh7cOWMds+GeCI9K1HtINv8T9SvQLOGcEoBGIsd413R6q6qHsz6cm5tiNgZo34ybQ==}
     engines: {node: '>=14'}
 
   '@cspotcode/source-map-support@0.8.1':
@@ -3837,8 +3837,8 @@ packages:
     resolution: {integrity: sha512-3pwvkgTD+nk/AX220NonHADEVZ28PEkjempdAm2VbIxo/kI2Q4IVNZaTLRiIRbLIG+4ncrAdGRyAYG3Cpf+MYA==}
     hasBin: true
 
-  c2pa@0.30.14:
-    resolution: {integrity: sha512-yBAN1Nj4NTWFiOkk+0xxwOOa7VGV3kJTIWH4FFx4bMW4PY8yzqcmmsFl14nSsnNuqEBP6SYu11A/fhyNY4IWyQ==}
+  c2pa@0.30.15:
+    resolution: {integrity: sha512-8fAl24qtvzXGEB3jmrW9dNJ/HXIDyj8Ninsyp2455ogPVHaQq5IzUL5ibwL3gf8CkzEV/VPLR/chneQeeDc/bQ==}
 
   cac@6.7.14:
     resolution: {integrity: sha512-b6Ilus+c3RrdDk+JhLKUAQfzzgLEPy6wcXqS7f/xe1EETvsDP6GORG7SFuOs6cID5YkqchW/LXZbX5bc8j7ZcQ==}
@@ -10546,9 +10546,9 @@ snapshots:
   '@colors/colors@1.5.0':
     optional: true
 
-  '@contentauth/detector@0.3.6': {}
+  '@contentauth/detector@0.3.7': {}
 
-  '@contentauth/toolkit@0.13.13': {}
+  '@contentauth/toolkit@0.13.14': {}
 
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
@@ -14069,10 +14069,10 @@ snapshots:
       - encoding
       - supports-color
 
-  c2pa@0.30.14:
+  c2pa@0.30.15:
     dependencies:
-      '@contentauth/detector': 0.3.6
-      '@contentauth/toolkit': 0.13.13
+      '@contentauth/detector': 0.3.7
+      '@contentauth/toolkit': 0.13.14
       debug: 4.3.4
       lodash: 4.17.21
       make-error: 1.3.6

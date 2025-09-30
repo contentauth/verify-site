@@ -129,7 +129,7 @@
     "@spectrum-web-components/progress-circle": "^0.36.0",
     "@spectrum-web-components/radio": "^0.36.0",
     "@spectrum-web-components/theme": "^0.36.0",
-    "c2pa": "0.30.14",
+    "c2pa": "0.30.15",
     "c2pa-test-image-service": "0.13.5",
     "circle-to-polygon": "^2.2.0",
     "d3-hierarchy": "^3.1.2",
