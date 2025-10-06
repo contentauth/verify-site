@@ -12,14 +12,14 @@ declare module 'c2pa' {
   }
   interface ExtendedAssertions {
     'c2pa.asset-ref': {
-      resources: Resource[];
+      references: Resource[];
     };
   }
 }
 
 export function selectWebsite(manifest: Manifest): string | null {
   const site =
-    manifest.assertions.get('c2pa.asset-ref')[0]?.data.resources[0]?.reference
+    manifest.assertions.get('c2pa.asset-ref')[0]?.data.references[0]?.reference
       .uri ??
     manifest.assertions.get('stds.schema-org.CreativeWork')[0]?.data.url;
 
