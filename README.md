@@ -1,6 +1,6 @@
-# contentcredentials.org
+# verify.contentauthenticity.org
 
-This project generates the code for the contentcredentials.org site.
+This project generates the code for the verify.contentauthenticity.org site.
 
 ## Getting Started
 
@@ -44,7 +44,7 @@ localStorage.debug = 'toolkit,store';
 localStorage.debug = false;
 ```
 
-This will enable debug logging in the browser console for both the contentcredentials.org site as well as our [JavaScript SDK](https://github.com/contentauth/c2pa-js).
+This will enable debug logging in the browser console for both the verify.contentauthenticity.org site as well as our [JavaScript SDK](https://github.com/contentauth/c2pa-js).
 
 ## Development
 
