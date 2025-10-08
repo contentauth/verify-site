@@ -75,11 +75,11 @@ export class VerifyPage {
 
     if (source) {
       params.set('source', source);
-      await this.page.goto(`/verify?${params.toString()}`);
+      await this.page.goto(`?${params.toString()}`);
       await this.treeViewVisible();
     } else {
       await this.page.goto(
-        `/verify${params.keys.length > 0 ? `?${params.toString()}` : ``}`,
+        `${params.keys.length > 0 ? `?${params.toString()}` : ``}`,
       );
       await this.page
         .locator('h1', { hasText: 'Inspect content to dig deeper' })
