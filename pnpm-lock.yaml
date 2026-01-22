@@ -87,8 +87,8 @@ importers:
         specifier: ^1.10.19
         version: 1.10.27
       lodash:
-        specifier: ^4.17.21
-        version: 4.17.21
+        specifier: ^4.17.23
+        version: 4.17.23
       nanoid:
         specifier: ^3.3.6
         version: 3.3.11
@@ -3043,8 +3043,14 @@ packages:
   '@types/express-serve-static-core@4.19.6':
     resolution: {integrity: sha512-N4LZ2xG7DatVqhCZzOGb1Yi5lMbXSZcmdLDe9EzSndPV2HpWYWzRbaerl2n27irrm94EPpprqa8KpskPT085+A==}
 
+  '@types/express-serve-static-core@4.19.8':
+    resolution: {integrity: sha512-02S5fmqeoKzVZCHPZid4b8JH2eM5HzQLZWN2FohQEy/0eXTq8VXZfSN6Pcr3F6N9R/vNrj7cpgbhjie6m/1tCA==}
+
   '@types/express@4.17.23':
     resolution: {integrity: sha512-Crp6WY9aTYP3qPi2wGDo9iUe/rceX01UMhnF1jmwDcKCFM6cx7YhGP/Mpr3y9AASpfHixIG0E6azCcL5OcDHsQ==}
+
+  '@types/express@4.17.25':
+    resolution: {integrity: sha512-dVd04UKsfpINUnK0yBoYHDF3xu7xVH4BuDotC/xGuycx4CgbP48X/KF/586bcObxT0HENHXEU8Nqtu6NR+eKhw==}
 
   '@types/find-cache-dir@3.2.1':
     resolution: {integrity: sha512-frsJrz2t/CeGifcu/6uRo4b+SzAwT4NYCVPu1GN8IB9XTzrpPkGuV0tmh9mN+/L0PklAlsC3u5Fxt0ju00LXIw==}
@@ -3136,6 +3142,9 @@ packages:
   '@types/node@20.19.10':
     resolution: {integrity: sha512-iAFpG6DokED3roLSP0K+ybeDdIX6Bc0Vd3mLW5uDqThPWtNos3E+EqOM11mPQHKzfWHqEBuLjIlsBQQ8CsISmQ==}
 
+  '@types/node@20.19.30':
+    resolution: {integrity: sha512-WJtwWJu7UdlvzEAUm484QNg5eAoq5QR08KDNx7g45Usrs2NtOPiX8ugDqmKdXkyL03rBqU5dYNYVQetEpBHq2g==}
+
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
 
@@ -3180,6 +3189,15 @@ packages:
 
   '@types/send@0.17.5':
     resolution: {integrity: sha512-z6F2D3cOStZvuk2SaP6YrwkNO65iTZcwA2ZkSABegdkAh/lf+Aa/YQndZVfmEXT5vgAp6zv06VQ3ejSVjAny4w==}
+
+  '@types/send@0.17.6':
+    resolution: {integrity: sha512-Uqt8rPBE8SY0RK8JB1EzVOIZ32uqy8HwdxCnoCOsYrvnswqmFZ/k+9Ikidlk/ImhsdvBsloHbAlewb2IEBV/Og==}
+
+  '@types/send@1.2.1':
+    resolution: {integrity: sha512-arsCikDvlU99zl1g69TcAB3mzZPpxgw0UQnaHeC1Nwb015xp8bknZv5rIfri9xTOcMuaVgvabfIRA7PSZVuZIQ==}
+
+  '@types/serve-static@1.15.10':
+    resolution: {integrity: sha512-tRs1dB+g8Itk72rlSI2ZrW6vZg0YrLI81iQSTkMmOqnqCaNr/8Ek4VwWcN5vZgCYWbg/JJSGBlUaYGAOP73qBw==}
 
   '@types/serve-static@1.15.8':
     resolution: {integrity: sha512-roei0UY3LhpOJvjbIP6ZZFngyLKl5dskOtDhxY5THRSpO+ZI+nzJ+m5yUMzGrp89YRa7lvknKkMYjqQFGwA7Sg==}
@@ -3839,6 +3857,7 @@ packages:
 
   c2pa@0.30.15:
     resolution: {integrity: sha512-8fAl24qtvzXGEB3jmrW9dNJ/HXIDyj8Ninsyp2455ogPVHaQq5IzUL5ibwL3gf8CkzEV/VPLR/chneQeeDc/bQ==}
+    deprecated: This package is no longer being actively developed. Please use @contentauth/c2pa-web instead.
 
   cac@6.7.14:
     resolution: {integrity: sha512-b6Ilus+c3RrdDk+JhLKUAQfzzgLEPy6wcXqS7f/xe1EETvsDP6GORG7SFuOs6cID5YkqchW/LXZbX5bc8j7ZcQ==}
@@ -6209,8 +6228,8 @@ packages:
   lodash.uniq@4.5.0:
     resolution: {integrity: sha512-xfBaXQd9ryd9dlSDvnvI0lvxfLJlYAZzXomUYzLKtUeOQvOP5piqAWuGtrhWeqaXK9hhoM/iyJc5AV+XfsX3HQ==}
 
-  lodash@4.17.21:
-    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+  lodash@4.17.23:
+    resolution: {integrity: sha512-LgVTMpQtIopCi79SJeDiP0TfWi5CNEc/L/aRdTh3yIvmZXTnheWpKjSZhnvMl8iXbC1tFg9gdHHDMLoV7CnG+w==}
 
   log-symbols@4.1.0:
     resolution: {integrity: sha512-8XPvpAA8uyhfteu8pIvQxpJZ7SYYdpUivZpGy6sFsBuKRY/7rQGavedeB8aK+Zkyq6upMFVL/9AW6vOYzfRyLg==}
@@ -7401,6 +7420,10 @@ packages:
     resolution: {integrity: sha512-YWWTjgABSKcvs/nWBi9PycY/JiPJqOD4JA6o9Sej2AtvSGarXxKC3OQSk4pAarbdQlKAh5D4FCQkJNkW+GAn3w==}
     engines: {node: '>=0.6'}
 
+  qs@6.14.1:
+    resolution: {integrity: sha512-4EK3+xJl8Ts67nLYNwqw/dsFVnCf+qR7RgXSK9jEEm9unao3njwMDdmsdvoKBKHzxd7tCYz5e5M+SnMjdtXGQQ==}
+    engines: {node: '>=0.6'}
+
   quansync@0.2.10:
     resolution: {integrity: sha512-t41VRkMYbkHyCYmOvx/6URnN80H7k4X0lLdBMGsz+maAwrJQYB1djpV6vHrQIBE0WBSGqhtEHrK9U3DWWH8v7A==}
 
@@ -8195,6 +8218,7 @@ packages:
   tar@6.2.1:
     resolution: {integrity: sha512-DZ4yORTwrbTj/7MZYq2w+/ZFdI6OZ/f9SFHR+71gIVUZhOQPHzVCLpvRnPgyaMpfWxxk/4ONva3GQSyNIKRv6A==}
     engines: {node: '>=10'}
+    deprecated: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exhorbitant rates) by contacting i@izs.me
 
   telejson@7.2.0:
     resolution: {integrity: sha512-1QTEcJkJEhc8OnStBx/ILRu5J2p0GjvWsBx56bmZRqnrkdBMUe+nX92jxV+p3dB4CP6PZCdJMQJwCggkNBMzkQ==}
@@ -8757,6 +8781,7 @@ packages:
   whatwg-encoding@2.0.0:
     resolution: {integrity: sha512-p41ogyeMUrw3jWclHWTQg1k05DSVXPLcVxRTYsXUk+ZooOCZLcoYgPZ/HL/D/N+uQPOtcp1me1WhBEaX02mhWg==}
     engines: {node: '>=12'}
+    deprecated: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 
   whatwg-mimetype@3.0.0:
     resolution: {integrity: sha512-nt+N2dzIutVRxARx1nghPKGv1xHikU7HKdfafKkLNLindmPU/ch3U31NOCGGA/dmPcmb1VlofO0vnKAcsm0o/Q==}
@@ -11980,7 +12005,7 @@ snapshots:
       '@storybook/theming': 7.0.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/types': 7.0.13
       axe-core: 4.10.3
-      lodash: 4.17.21
+      lodash: 4.17.23
       react-resize-detector: 7.1.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     optionalDependencies:
       react: 18.3.1
@@ -11997,7 +12022,7 @@ snapshots:
       '@storybook/theming': 7.0.12(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/types': 7.0.12
       dequal: 2.0.3
-      lodash: 4.17.21
+      lodash: 4.17.23
       polished: 4.3.1
       prop-types: 15.8.1
       react-inspector: 6.0.2(react@18.3.1)
@@ -12035,7 +12060,7 @@ snapshots:
       '@storybook/preview-api': 7.0.12
       '@storybook/theming': 7.0.12(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/types': 7.0.12
-      lodash: 4.17.21
+      lodash: 4.17.23
       ts-dedent: 2.2.0
     optionalDependencies:
       react: 18.3.1
@@ -12240,7 +12265,7 @@ snapshots:
       '@types/lodash': 4.17.20
       color-convert: 2.0.1
       dequal: 2.0.3
-      lodash: 4.17.21
+      lodash: 4.17.23
       markdown-to-jsx: 7.7.13(react@18.3.1)
       memoizerific: 1.11.3
       polished: 4.3.1
@@ -12338,7 +12363,7 @@ snapshots:
       '@storybook/client-logger': 7.6.17
       '@storybook/core-events': 7.6.17
       '@storybook/global': 5.0.0
-      qs: 6.14.0
+      qs: 6.14.1
       telejson: 7.2.0
       tiny-invariant: 1.3.3
 
@@ -12416,7 +12441,7 @@ snapshots:
       cross-spawn: 7.0.6
       globby: 11.1.0
       jscodeshift: 0.14.0(@babel/preset-env@7.21.5(@babel/core@7.21.8))
-      lodash: 4.17.21
+      lodash: 4.17.23
       prettier: 2.8.8
       recast: 0.23.11
     transitivePeerDependencies:
@@ -12548,7 +12573,7 @@ snapshots:
       fs-extra: 11.3.1
       globby: 11.1.0
       ip: 2.0.1
-      lodash: 4.17.21
+      lodash: 4.17.23
       node-fetch: 2.7.0
       open: 8.4.2
       pretty-hrtime: 1.0.3
@@ -12611,7 +12636,7 @@ snapshots:
 
   '@storybook/csf@0.0.1':
     dependencies:
-      lodash: 4.17.21
+      lodash: 4.17.23
 
   '@storybook/csf@0.1.13':
     dependencies:
@@ -12627,7 +12652,7 @@ snapshots:
       '@storybook/types': 7.0.12
       '@types/doctrine': 0.0.3
       doctrine: 3.0.0
-      lodash: 4.17.21
+      lodash: 4.17.23
     transitivePeerDependencies:
       - supports-color
 
@@ -12638,7 +12663,7 @@ snapshots:
       '@storybook/types': 7.4.0
       '@types/doctrine': 0.0.3
       doctrine: 3.0.0
-      lodash: 4.17.21
+      lodash: 4.17.23
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -12664,7 +12689,7 @@ snapshots:
       '@storybook/theming': 7.0.12(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/types': 7.0.12
       dequal: 2.0.3
-      lodash: 4.17.21
+      lodash: 4.17.23
       memoizerific: 1.11.3
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -12684,7 +12709,7 @@ snapshots:
       '@storybook/theming': 7.0.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/types': 7.0.13
       dequal: 2.0.3
-      lodash: 4.17.21
+      lodash: 4.17.23
       memoizerific: 1.11.3
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -12704,7 +12729,7 @@ snapshots:
       '@storybook/theming': 7.6.17(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/types': 7.6.17
       dequal: 2.0.3
-      lodash: 4.17.21
+      lodash: 4.17.23
       memoizerific: 1.11.3
       store2: 2.14.4
       telejson: 7.2.0
@@ -12739,7 +12764,7 @@ snapshots:
       '@storybook/types': 7.0.12
       '@types/qs': 6.14.0
       dequal: 2.0.3
-      lodash: 4.17.21
+      lodash: 4.17.23
       memoizerific: 1.11.3
       qs: 6.14.0
       synchronous-promise: 2.0.17
@@ -12757,7 +12782,7 @@ snapshots:
       '@storybook/types': 7.0.13
       '@types/qs': 6.14.0
       dequal: 2.0.3
-      lodash: 4.17.21
+      lodash: 4.17.23
       memoizerific: 1.11.3
       qs: 6.14.0
       synchronous-promise: 2.0.17
@@ -12774,7 +12799,7 @@ snapshots:
       '@storybook/types': 7.4.0
       '@types/qs': 6.14.0
       dequal: 2.0.3
-      lodash: 4.17.21
+      lodash: 4.17.23
       memoizerific: 1.11.3
       qs: 6.14.0
       synchronous-promise: 2.0.17
@@ -12791,9 +12816,9 @@ snapshots:
       '@storybook/types': 7.6.17
       '@types/qs': 6.14.0
       dequal: 2.0.3
-      lodash: 4.17.21
+      lodash: 4.17.23
       memoizerific: 1.11.3
-      qs: 6.14.0
+      qs: 6.14.1
       synchronous-promise: 2.0.17
       ts-dedent: 2.2.0
       util-deprecate: 1.0.2
@@ -12825,7 +12850,7 @@ snapshots:
     dependencies:
       '@storybook/client-logger': 7.6.17
       memoizerific: 1.11.3
-      qs: 6.14.0
+      qs: 6.14.1
 
   '@storybook/svelte-vite@7.4.0(svelte@4.2.20)(typescript@5.9.2)(vite@4.5.14(@types/node@20.19.10)(terser@5.43.1))':
     dependencies:
@@ -12949,7 +12974,7 @@ snapshots:
     dependencies:
       '@storybook/channels': 7.6.17
       '@types/babel__core': 7.20.5
-      '@types/express': 4.17.23
+      '@types/express': 4.17.25
       file-system-cache: 2.3.0
 
   '@sveltejs/adapter-static@2.0.3(@sveltejs/kit@1.30.4(svelte@4.2.20)(vite@4.5.14(@types/node@20.19.10)(terser@5.43.1)))':
@@ -13028,7 +13053,7 @@ snapshots:
       chalk: 3.0.0
       css.escape: 1.5.1
       dom-accessibility-api: 0.5.16
-      lodash: 4.17.21
+      lodash: 4.17.23
       redent: 3.0.0
 
   '@testing-library/svelte@4.0.3(svelte@4.2.20)':
@@ -13160,12 +13185,26 @@ snapshots:
       '@types/range-parser': 1.2.7
       '@types/send': 0.17.5
 
+  '@types/express-serve-static-core@4.19.8':
+    dependencies:
+      '@types/node': 20.19.30
+      '@types/qs': 6.14.0
+      '@types/range-parser': 1.2.7
+      '@types/send': 1.2.1
+
   '@types/express@4.17.23':
     dependencies:
       '@types/body-parser': 1.19.6
       '@types/express-serve-static-core': 4.19.6
       '@types/qs': 6.14.0
       '@types/serve-static': 1.15.8
+
+  '@types/express@4.17.25':
+    dependencies:
+      '@types/body-parser': 1.19.6
+      '@types/express-serve-static-core': 4.19.8
+      '@types/qs': 6.14.0
+      '@types/serve-static': 1.15.10
 
   '@types/find-cache-dir@3.2.1': {}
 
@@ -13259,6 +13298,10 @@ snapshots:
     dependencies:
       undici-types: 6.21.0
 
+  '@types/node@20.19.30':
+    dependencies:
+      undici-types: 6.21.0
+
   '@types/normalize-package-data@2.4.4': {}
 
   '@types/npmlog@4.1.6':
@@ -13303,6 +13346,21 @@ snapshots:
     dependencies:
       '@types/mime': 1.3.5
       '@types/node': 20.19.10
+
+  '@types/send@0.17.6':
+    dependencies:
+      '@types/mime': 1.3.5
+      '@types/node': 20.19.30
+
+  '@types/send@1.2.1':
+    dependencies:
+      '@types/node': 20.19.30
+
+  '@types/serve-static@1.15.10':
+    dependencies:
+      '@types/http-errors': 2.0.5
+      '@types/node': 20.19.30
+      '@types/send': 0.17.6
 
   '@types/serve-static@1.15.8':
     dependencies:
@@ -14055,7 +14113,7 @@ snapshots:
       deepmerge-ts: 7.1.5
       express: 4.21.2
       jiti: 2.5.1
-      lodash: 4.17.21
+      lodash: 4.17.23
       nodemon: 3.1.10
       p-memoize: 8.0.0
       rimraf: 5.0.10
@@ -14074,7 +14132,7 @@ snapshots:
       '@contentauth/detector': 0.3.7
       '@contentauth/toolkit': 0.13.14
       debug: 4.3.4
-      lodash: 4.17.21
+      lodash: 4.17.23
       make-error: 1.3.6
       p-props: 5.0.0
       traverse: 0.6.11
@@ -16156,7 +16214,7 @@ snapshots:
       cli-cursor: 3.1.0
       cli-width: 3.0.0
       figures: 3.2.0
-      lodash: 4.17.21
+      lodash: 4.17.23
       mute-stream: 0.0.8
       ora: 5.4.1
       run-async: 2.4.1
@@ -17089,7 +17147,7 @@ snapshots:
 
   lodash.uniq@4.5.0: {}
 
-  lodash@4.17.21: {}
+  lodash@4.17.23: {}
 
   log-symbols@4.1.0:
     dependencies:
@@ -18220,6 +18278,10 @@ snapshots:
     dependencies:
       side-channel: 1.1.0
 
+  qs@6.14.1:
+    dependencies:
+      side-channel: 1.1.0
+
   quansync@0.2.10: {}
 
   querystringify@2.2.0: {}
@@ -18268,7 +18330,7 @@ snapshots:
 
   react-resize-detector@7.1.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
-      lodash: 4.17.21
+      lodash: 4.17.23
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
