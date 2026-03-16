@@ -148,7 +148,7 @@
     "p-limit": "^4.0.0",
     "p-memoize": "^4.0.4",
     "store2": "^2.14.2",
-    "svelte": "^4.2.1",
+    "svelte": "^5.53.5",
     "svelte-css-vars": "^0.0.3",
     "svelte-focus-trap": "^1.2.0",
     "svelte-i18n": "^3.7.4",
