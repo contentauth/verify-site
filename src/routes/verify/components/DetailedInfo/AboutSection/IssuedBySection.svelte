@@ -71,7 +71,7 @@
     {#if showTooltip}
       <Tooltip showTooltip on:showToolip={() => (showTooltip = !showTooltip)}
         ><div slot="tooltip">
-          {$_('sidebar.verify.about.issuedby.tooltip')}
+          {@html $_('sidebar.verify.about.issuedby.tooltip')}
         </div>
       </Tooltip>
     {/if}
