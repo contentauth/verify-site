@@ -143,23 +143,17 @@ export function createC2paReader(): C2paReaderStore {
             const isCryptoValid = (s: any) => s.code.includes('signingCredential.trusted') || s.code.includes('claimSignature.validated');
 
             // 4a. Tag the Active Manifest
-            const p1ActiveSucc = rawManifestStore.validation_results?.activeManifest?.success || [];
-            const p1ActiveFail = rawManifestStore.validation_results?.activeManifest?.failure || [];
+            const p1ActiveV3 = rawManifestStore.validation_results?.activeManifest?.failure || [];
             const p1ActiveV2 = rawManifestStore.manifests?.[rawManifestStore.active_manifest || '']?.validation_status || [];
+            const wasActiveUntrusted = p1ActiveV3.some(isTrustError) || p1ActiveV2.some(isTrustError);
+            const isFinalTrusted = finalStore.validation_state === 'Trusted';
             
             if (finalStore.manifests && finalStore.active_manifest && finalStore.manifests[finalStore.active_manifest]) {
               const activeMan = finalStore.manifests[finalStore.active_manifest];
               
-              // 1. Check for Pass 1 Trust Errors FIRST
-              if (p1ActiveFail.some(isTrustError) || p1ActiveV2.some(isTrustError)) {
-                const p2ActiveSucc = finalStore.validation_results?.activeManifest?.success || [];
-                const p2ActiveV2 = activeMan.validation_status || [];
-                // Verify Pass 2 explicitly succeeded
-                activeMan.trust_source = (p2ActiveSucc.some(isCryptoValid) || p2ActiveV2.some(isCryptoValid)) ? 'legacy' : 'none';
-              } 
-              // 2. If no errors, verify Pass 1 explicitly succeeded
-              else if (p1ActiveSucc.some(isCryptoValid) || p1ActiveV2.some(isCryptoValid)) {
-                activeMan.trust_source = 'official';
+              // If the root is Trusted, default to official, then downgrade if Pass 1 failed.
+              if (isFinalTrusted) {
+                activeMan.trust_source = wasActiveUntrusted ? 'legacy' : 'official';
               } else {
                 activeMan.trust_source = 'none';
               }
@@ -167,44 +161,38 @@ export function createC2paReader(): C2paReaderStore {
 
             // 4b. Tag ALL Ingredients across the entire provenance tree
             const p1Deltas = rawManifestStore.validation_results?.ingredientDeltas || [];
-            const p2Deltas = finalStore.validation_results?.ingredientDeltas || [];
             
             Object.entries(finalStore.manifests || {}).forEach(([label, manifest]: [string, any]) => {
               const p1Manifest = rawManifestStore.manifests?.[label];
               
               if (manifest.ingredients && p1Manifest?.ingredients) {
                 manifest.ingredients.forEach((ingredient: any, index: number) => {
+                  // STRICT DEFAULT: Unverified assets get no trust credentials
                   ingredient.trust_source = 'none';
 
                   if (ingredient.active_manifest) {
-                    const p1Ing = p1Manifest.ingredients[index];
+                    // If the final Root state is Trusted, all C2PA ingredients inherit official trust...
+                    if (isFinalTrusted) {
+                      ingredient.trust_source = 'official';
+                    }
 
+                    // ...UNLESS they explicitly failed Pass 1. (Then they are Legacy).
+                    const p1Ing = p1Manifest.ingredients[index];
                     if (p1Ing) {
                       const p1V2 = p1Ing.validation_status || [];
                       const suffix = index === 0 ? 'c2pa.ingredient' : `c2pa.ingredient__${index}`;
                       const expectedURI = `self#jumbf=/c2pa/${label}/c2pa.assertions/${suffix}`;
                       const p1Delta = p1Deltas.find((d: any) => d.ingredientAssertionURI === expectedURI);
-                      
                       const p1V3Fail = p1Delta?.validationDeltas?.failure || [];
-                      const p1V3Succ = p1Delta?.validationDeltas?.success || [];
 
-                      // 1. Check for Pass 1 Trust Errors FIRST
                       if (p1V3Fail.some(isTrustError) || p1V2.some(isTrustError)) {
-                        const p2V2 = ingredient.validation_status || [];
-                        const p2Delta = p2Deltas.find((d: any) => d.ingredientAssertionURI === expectedURI);
-                        const p2V3Succ = p2Delta?.validationDeltas?.success || [];
-
-                        // Verify Pass 2 explicitly succeeded
-                        if (p2V3Succ.some(isCryptoValid) || p2V2.some(isCryptoValid)) {
-                          ingredient.trust_source = 'legacy';
-                        }
-                      } 
-                      // 2. If no errors, verify Pass 1 explicitly succeeded
-                      else if (p1V3Succ.some(isCryptoValid) || p1V2.some(isCryptoValid)) {
-                        ingredient.trust_source = 'official';
+                        // It had a trust error in Pass 1. Since isFinalTrusted is true, Pass 2 fixed it.
+                        ingredient.trust_source = isFinalTrusted ? 'legacy' : 'none';
                       }
                     }
                   }
+                  
+                  console.log(`[DEBUG_C2PA] VERDICT -> Ingredient [${label} / ${ingredient.title || index}]: ${ingredient.trust_source}`);
                 });
               }
             });
@@ -212,30 +200,32 @@ export function createC2paReader(): C2paReaderStore {
           } else {
             legacyReader.free();
             
-            // Fallback: If the root is strictly Trusted, it's official. Otherwise, standard UI error states apply.
+            // Fallback: If root is Trusted, entire tree is official.
             const isTrusted = finalStore.validation_state === 'Trusted';
-            if (finalStore.manifests && finalStore.active_manifest) {
-              finalStore.manifests[finalStore.active_manifest].trust_source = isTrusted ? 'official' : 'none';
-            }
-            const activeManifest = finalStore.manifests?.[finalStore.active_manifest || ''];
-            if (activeManifest?.ingredients) {
-              activeManifest.ingredients.forEach((ing: any) => {
-                ing.trust_source = (isTrusted && ing.active_manifest) ? 'official' : 'none';
-              });
-            }
+            Object.entries(finalStore.manifests || {}).forEach(([label, manifest]: [string, any]) => {
+              if (label === finalStore.active_manifest) {
+                manifest.trust_source = isTrusted ? 'official' : 'none';
+              }
+              if (manifest.ingredients) {
+                manifest.ingredients.forEach((ing: any) => {
+                  ing.trust_source = (isTrusted && ing.active_manifest) ? 'official' : 'none';
+                });
+              }
+            });
           }
         } else {
           // Pass 1 had no trust issues (Could be Trusted or Hard Invalid)
           const isTrusted = finalStore.validation_state === 'Trusted';
-          if (finalStore.manifests && finalStore.active_manifest) {
-            finalStore.manifests[finalStore.active_manifest].trust_source = isTrusted ? 'official' : 'none';
-          }
-          const activeManifest = finalStore.manifests?.[finalStore.active_manifest || ''];
-          if (activeManifest?.ingredients) {
-            activeManifest.ingredients.forEach((ing: any) => {
-              ing.trust_source = (isTrusted && ing.active_manifest) ? 'official' : 'none';
-            });
-          }
+          Object.entries(finalStore.manifests || {}).forEach(([label, manifest]: [string, any]) => {
+            if (label === finalStore.active_manifest) {
+              manifest.trust_source = isTrusted ? 'official' : 'none';
+            }
+            if (manifest.ingredients) {
+              manifest.ingredients.forEach((ing: any) => {
+                ing.trust_source = (isTrusted && ing.active_manifest) ? 'official' : 'none';
+              });
+            }
+          });
         }
 
         const { assetMap, dispose: assetMapDisposer } =

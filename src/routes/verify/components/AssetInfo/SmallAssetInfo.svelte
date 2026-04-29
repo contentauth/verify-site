@@ -27,6 +27,8 @@
   <Body slot="CRInfo">
     {#if assetData.trustSource === 'legacy'}
       <span class="bg-[#fef3c7] text-[#92400e] px-1 rounded-sm font-medium">Legacy trust</span>
+    {:else if assetData.trustSource === 'official'}
+      <span class="bg-[#374151] text-white px-1 rounded-sm font-medium">Conformant</span>
     {:else if date}
       <AssetInfoDate {date} />
     {:else}

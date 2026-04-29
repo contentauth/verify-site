@@ -13,4 +13,4 @@
   $: issuer = manifestData?.signatureInfo?.issuer;
 </script>
 
-<Description>{#if issuer}<span class="{trustSource === 'legacy' ? 'ml-1.5' : ''}">{$_('sidebar.verify.about.issuedby')} {issuer}</span>{/if}{#if trustSource === 'legacy'}<span class="bg-[#fef3c7] text-[#92400e] px-1 rounded-sm font-medium {issuer ? 'ml-1' : ''}">Legacy trust</span>{:else if date}{$_('sidebar.verify.asset.date.on')} <AssetInfoDate {date} />{/if}</Description>
+<Description>{#if issuer}<span class="{trustSource !== 'none' ? 'ml-1.5' : ''}">{$_('sidebar.verify.about.issuedby')} {issuer}</span>{/if}{#if trustSource === 'legacy'}<span class="bg-[#fef3c7] text-[#92400e] px-1 rounded-sm font-medium {issuer ? 'ml-1' : ''}">Legacy trust</span>{:else if trustSource === 'official'}<span class="bg-[#374151] text-white px-1 rounded-sm font-medium {issuer ? 'ml-1' : ''}">Conformant</span>{:else if date}{$_('sidebar.verify.asset.date.on')} <AssetInfoDate {date} />{/if}</Description>
