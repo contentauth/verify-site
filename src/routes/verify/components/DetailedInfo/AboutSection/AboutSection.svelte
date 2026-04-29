@@ -18,8 +18,8 @@
   <svelte:fragment slot="content">
     {#if manifestData.signatureInfo?.common_name || manifestData.signatureInfo?.issuer}
       <IssuedBySection 
-        issuedBy={manifestData.signatureInfo?.common_name || manifestData.signatureInfo?.issuer || ''} 
-        organization={manifestData.signatureInfo?.common_name !== manifestData.signatureInfo?.issuer ? manifestData.signatureInfo?.issuer : undefined}
+        commonName={manifestData.signatureInfo?.common_name} 
+        issuer={manifestData.signatureInfo?.issuer}
         {trustSource} 
       />
     {/if}

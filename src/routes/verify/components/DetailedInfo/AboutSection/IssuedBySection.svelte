@@ -9,8 +9,8 @@
   import AboutSectionContentRow from './AboutSectionIconContentRow.svelte';
 
   let showTooltip = false;
-  export let issuedBy: string;
-  export let organization: string | undefined = undefined;
+  export let commonName: string | undefined = undefined;
+  export let issuer: string | undefined = undefined;
   export let trustSource: 'official' | 'legacy' | 'none' = 'none';
 </script>
 
@@ -21,13 +21,13 @@
     <div class="flex justify-between">
       <AboutSectionContentRow>
         <svelte:fragment slot="content">
-          {#if trustSource === 'official' && organization}
+          {#if trustSource === 'official' && commonName && issuer && commonName !== issuer}
             <div class="flex flex-col leading-snug">
-              <span class="text-generalSm font-medium">{issuedBy}</span>
-              <span class="text-xs text-gray-600">{organization}</span>
+              <span class="text-generalSm font-medium">{commonName}</span>
+              <span class="text-xs text-gray-600">{issuer}</span>
             </div>
           {:else}
-            {issuedBy}
+            <span class="text-generalSm font-medium">{issuer || commonName}</span>
           {/if}
         </svelte:fragment>
       </AboutSectionContentRow>
