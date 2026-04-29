@@ -18,8 +18,8 @@ async function loadTrustResource(file: string): Promise<string> {
   return res.text();
 }
 
-async function createToolkitSettings(): Promise<Settings> {
-  const mergedAnchors = (
+async function getOfficialAnchors(): Promise<string> {
+  return (
     await Promise.all(
       [
         'https://raw.githubusercontent.com/c2pa-org/conformance-public/refs/heads/main/trust-list/C2PA-TRUST-LIST.pem',
@@ -30,15 +30,14 @@ async function createToolkitSettings(): Promise<Settings> {
       }),
     )
   ).join('\n');
+}
 
-  const [anchors, endEntity] = await Promise.all(
-    ['anchors.pem', 'allowed.pem'].map(loadTrustResource),
-  );
+async function createOfficialToolkitSettings(): Promise<Settings> {
+  const anchors = await getOfficialAnchors();
 
   return {
     trust: {
-      trustAnchors: mergedAnchors + '\n' + anchors,
-      allowedList: endEntity,
+      trustAnchors: anchors,
     },
     verify: {
       verifyTrust: true,
@@ -47,7 +46,29 @@ async function createToolkitSettings(): Promise<Settings> {
   };
 }
 
-export const getToolkitSettings = pMemoize(createToolkitSettings, {
+async function createLegacyToolkitSettings(): Promise<Settings> {
+  const officialAnchors = await getOfficialAnchors();
+  const [localAnchors, allowedList] = await Promise.all(
+    ['anchors.pem', 'allowed.pem'].map(loadTrustResource),
+  );
+
+  return {
+    trust: {
+      trustAnchors: officialAnchors + '\n' + localAnchors,
+      allowedList: allowedList,
+    },
+    verify: {
+      verifyTrust: true,
+      verifyAfterReading: true,
+    },
+  };
+}
+
+export const getOfficialToolkitSettings = pMemoize(createOfficialToolkitSettings, {
+  maxAge: 1000 * ALLOWED_LIST_CACHE_SECS,
+});
+
+export const getLegacyToolkitSettings = pMemoize(createLegacyToolkitSettings, {
   maxAge: 1000 * ALLOWED_LIST_CACHE_SECS,
 });
 

@@ -25,6 +25,12 @@
   <Body slot="name"><slot name="name" /></Body>
 
   <Body slot="CRInfo">
-    {#if date}
-      <AssetInfoDate {date} />{:else}{issuer}{/if}</Body>
+    {#if assetData.trustSource === 'legacy'}
+      <span class="bg-[#fef3c7] text-[#92400e] px-1 rounded-sm font-medium">Legacy trust</span>
+    {:else if date}
+      <AssetInfoDate {date} />
+    {:else}
+      {issuer}
+    {/if}
+  </Body>
 </AssetInfoThumbnailBase>

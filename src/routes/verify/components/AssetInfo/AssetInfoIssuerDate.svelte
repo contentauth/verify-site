@@ -8,13 +8,9 @@
   import AssetInfoDate from './AssetInfoDate.svelte';
 
   export let manifestData: ManifestData | null;
+  export let trustSource: 'official' | 'legacy' | 'none' = 'none';
   $: date = manifestData?.date;
   $: issuer = manifestData?.signatureInfo?.issuer;
 </script>
 
-<Description>
-  {$_('sidebar.verify.about.issuedby')}
-  {issuer}
-  {#if date}
-    {$_('sidebar.verify.asset.date.on')} <AssetInfoDate {date} />{/if}
-</Description>
+<Description>{#if issuer}<span class="{trustSource === 'legacy' ? 'ml-1.5' : ''}">{$_('sidebar.verify.about.issuedby')} {issuer}</span>{/if}{#if trustSource === 'legacy'}<span class="bg-[#fef3c7] text-[#92400e] px-1 rounded-sm font-medium {issuer ? 'ml-1' : ''}">Legacy trust</span>{:else if date}{$_('sidebar.verify.asset.date.on')} <AssetInfoDate {date} />{/if}</Description>

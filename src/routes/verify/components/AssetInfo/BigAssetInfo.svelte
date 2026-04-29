@@ -12,5 +12,5 @@ Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors
 
 <AssetInfoThumbnailBase {assetData} {hideThumbnail}>
   <Header slot="name"><slot name="name" /></Header>
-  <slot slot="CRInfo" name="CRInfo" />
+  <slot slot="CRInfo" name="CRInfo" trustSource={assetData.trustSource} />
 </AssetInfoThumbnailBase>

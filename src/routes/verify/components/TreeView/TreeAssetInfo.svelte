@@ -54,9 +54,13 @@
       class="z-10 me-2 mt-1"
       slot="icon" />
     <svelte:fragment slot="string">
-      {#if date}<AssetInfoDate {date} />
+      {#if $assetStore.trustSource === 'legacy'}
+        <span class="bg-[#fef3c7] text-[#92400e] px-1 rounded-sm font-medium">Legacy trust</span>
+      {:else if date}
+        <AssetInfoDate {date} />
       {:else}
-        {issuer}{/if}
+        {issuer}
+      {/if}
     </svelte:fragment>
   </TreeL1>
 {/if}

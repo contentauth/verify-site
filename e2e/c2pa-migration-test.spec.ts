@@ -9,7 +9,12 @@ const TEST_ASSETS = [
   {
     name: 'OpenAI ChatGPT Image (V3 Manifest with untrusted timestamp)',
     path: '/usr/local/google/home/sherifhanna/github/resources/samples/OpenAI/ChatGPT Image Apr 28, 2026, 08_28_37 AM.png',
-    expectedState: 'valid' // Should be valid (green) now that we filter timestamp info codes
+    expectedState: 'valid'
+  },
+  {
+    name: 'Legacy Red House Birds (Needs Local anchors.pem)',
+    path: '/usr/local/google/home/sherifhanna/github/resources/samples/legacy/adobe_test_image_red_house_birds.jpg',
+    expectedState: 'legacy'
   }
 ];
 
@@ -39,10 +44,13 @@ test.describe('Native crJSON E2E Verification', () => {
       // Wait for the processing to complete and the panel to appear
       await expect(page.getByText('Content Credentials', { exact: false })).toBeVisible({ timeout: 15000 });
 
-      // Assert that NO "Unrecognized" (orange) banner is present
-      // This ensures our V3 timestamp logic is correctly ignoring informational timestamp codes
-      const orangeBanner = page.getByText('issuer couldn’t be recognized', { exact: false });
-      await expect(orangeBanner).toBeHidden();
+      // Assert the correct state is rendered
+      if (asset.expectedState === 'legacy') {
+        await expect(page.getByText('Legacy Trust')).toBeVisible({ timeout: 10000 });
+      } else {
+        const orangeBanner = page.getByText('issuer couldn’t be recognized', { exact: false });
+        await expect(orangeBanner).toBeHidden();
+      }
 
       // Assert that no console errors occurred during the native crJSON hydration
       const actualErrors = consoleErrors.filter(err => 

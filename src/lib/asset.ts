@@ -53,6 +53,7 @@ export type AssetData = {
   title: string | null;
   dataType: 'model' | null;
   validationResult: ValidationStatusResult | null;
+  trustSource: 'official' | 'legacy' | 'none';
 };
 
 interface EditsAndActivityInferenceResponse {
@@ -187,6 +188,7 @@ export async function resultToAssetMap({
       manifestData: null,
       dataType: null,
       validationResult: rootValidationResult,
+      trustSource: 'none',
     };
 
     if (!manifestStore || hasError) {
@@ -249,6 +251,7 @@ export async function resultToAssetMap({
       manifestData: await getManifestData(manifest, rootValidationResult),
       dataType: null,
       validationResult: rootValidationResult,
+      trustSource: (manifest as any).trust_source || 'none',
     };
 
     if (thumbnail?.dispose) {
@@ -305,6 +308,7 @@ export async function resultToAssetMap({
       manifestData: await getManifestData(ingredientManifest, validationResult),
       dataType: getIngredientDataType(ingredient),
       validationResult,
+      trustSource: (ingredient as any)?.trust_source || 'none',
     };
 
     if (thumbnail?.dispose) {

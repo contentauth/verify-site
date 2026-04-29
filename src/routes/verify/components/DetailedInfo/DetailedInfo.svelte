@@ -89,7 +89,7 @@
     {#if $assetData}
       <BigAssetInfo assetData={$assetData} hideThumbnail={hideHeaderThumbnail}>
         <span slot="name" {title}>{title}</span>
-        <AssetInfoIssuerDate {manifestData} slot="CRInfo" />
+        <AssetInfoIssuerDate {manifestData} trustSource={$assetData.trustSource} slot="CRInfo" />
       </BigAssetInfo>
     {/if}
     <button on:click={handleCloseClick} class="ms-2 shrink-0 sm:hidden">
