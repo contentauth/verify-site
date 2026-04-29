@@ -12,7 +12,12 @@ interface SdkGenerativeInfo {
 }
 
 function sdkSelectGenerativeInfo(manifest: Manifest): SdkGenerativeInfo[] {
-  const actionsAssertion = manifest.assertions?.['c2pa.actions'];
+  // Handle both native SDK array structures and crJSON maps
+  const isArray = Array.isArray(manifest.assertions);
+  const actionsAssertion = isArray 
+    ? manifest.assertions.find((a: any) => a.label === 'c2pa.actions' || a.label === 'c2pa.actions.v2')
+    : (manifest.assertions?.['c2pa.actions.v2'] || manifest.assertions?.['c2pa.actions']);
+    
   const actions = (actionsAssertion as any)?.data?.actions || [];
   return actions
     .filter((a: any) => a.action === 'c2pa.created' || a.action === 'c2pa.generated')
@@ -71,7 +76,7 @@ export function selectModelsFromIngredient(ingredient: Ingredient) {
 }
 
 export function selectCustomModels(manifest: Manifest): CustomModel[] {
-  return manifest.ingredients.reduce<CustomModel[]>((acc, ingredient) => {
+  return (manifest.ingredients || []).reduce<CustomModel[]>((acc, ingredient) => {
     const dataTypes = selectModelsFromIngredient(ingredient);
 
     if (dataTypes.length > 0) {

@@ -36,7 +36,7 @@
             <img
               src={category.icon}
               alt={category.label}
-              class="w-4 brightness-0 filter" />
+              class="w-4 h-4 object-contain brightness-0 filter" />
           {/if}
         </svelte:fragment>
         <div slot="content" class="flex flex-col">

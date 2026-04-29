@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@adobe/spectrum-css-workflow-icons':
+        specifier: ^5.0.0
+        version: 5.0.0
       '@ccx-public/ingest':
         specifier: file:etc/packages/ingest-4.3.0.tgz
         version: file:etc/packages/ingest-4.3.0.tgz
@@ -380,6 +383,10 @@ packages:
 
   '@adobe/css-tools@4.4.3':
     resolution: {integrity: sha512-VQKMkwriZbaOgVCby1UDY/LDk5fIjhQicCvVPFqfe+69fWaPWydbWJ3wRt59/YzIwda1I81loas3oCoHxnqvdA==}
+
+  '@adobe/spectrum-css-workflow-icons@5.0.0':
+    resolution: {integrity: sha512-C6N97hnwG/ZqAPsMsrxakU8F/PH4w5EUdadQermIbmCHll1ZJYdG8BL1UGu5jMTunsZkZrDgLIf1XnAnxJQhgA==}
+    engines: {node: '>=20'}
 
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
@@ -8926,6 +8933,8 @@ packages:
 snapshots:
 
   '@adobe/css-tools@4.4.3': {}
+
+  '@adobe/spectrum-css-workflow-icons@5.0.0': {}
 
   '@alloc/quick-lru@5.2.0': {}
 
