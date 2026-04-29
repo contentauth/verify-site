@@ -43,15 +43,11 @@
     aria-label={ariaLabel}
     style="clip-path: inset(-10px {clipPathOffset}px -10px 0px);"
     class="-ms-11 flex items-center rounded-full py-3 pe-3 ps-11 transition-all duration-150 motion-reduce:transition-none"
-    class:bg-white={!removeL1 && trustSource !== 'legacy' && trustSource !== 'official'}
-    class:bg-[#fef3c7]={!removeL1 && trustSource === 'legacy'}
-    class:text-[#92400e]={!removeL1 && trustSource === 'legacy'}
-    class:bg-[#374151]={!removeL1 && trustSource === 'official'}
-    class:text-white={!removeL1 && trustSource === 'official'}
+    class:bg-white={!removeL1}
     class:shadow-md={!removeL1}
     class:rounded-none={removeL1}>
     {#if !removeL1}
-      <div class="rounded-full text-[1.7em]">
+      <div class="rounded-full bg-white text-[1.7em]">
         <slot name="string" />
       </div>
     {/if}

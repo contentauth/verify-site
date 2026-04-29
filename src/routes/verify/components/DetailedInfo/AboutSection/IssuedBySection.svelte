@@ -21,14 +21,24 @@
     <div class="flex justify-between">
       <AboutSectionContentRow>
         <svelte:fragment slot="content">
-          {#if trustSource === 'official' && commonName && issuer && commonName !== issuer}
-            <div class="flex flex-col leading-snug">
-              <span class="text-generalSm font-medium">{commonName}</span>
-              <span class="text-xs text-gray-600">{issuer}</span>
-            </div>
-          {:else}
-            <span class="text-generalSm font-medium">{issuer || commonName}</span>
-          {/if}
+          <div class="flex flex-col items-start gap-1.5">
+            <!-- Identity Block -->
+            {#if trustSource === 'official' && commonName && issuer && commonName !== issuer}
+              <div class="flex flex-col leading-snug">
+                <span class="text-generalSm font-medium">{commonName}</span>
+                <span class="text-xs text-gray-600">{issuer}</span>
+              </div>
+            {:else}
+              <span class="text-generalSm font-medium">{issuer || commonName}</span>
+            {/if}
+
+            <!-- Trust Level Badge -->
+            {#if trustSource === 'official'}
+              <span class="bg-[#374151] text-white px-1.5 py-0.5 rounded-sm text-xs font-medium">Conformant</span>
+            {:else if trustSource === 'legacy'}
+              <span class="bg-[#fef3c7] text-[#92400e] px-1.5 py-0.5 rounded-sm text-xs font-medium">Legacy trust</span>
+            {/if}
+          </div>
         </svelte:fragment>
       </AboutSectionContentRow>
       <button on:click={() => (showTooltip = !showTooltip)}
