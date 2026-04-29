@@ -83,6 +83,7 @@ export type ManifestData = {
   web3Accounts: [string, string[]][];
   website: string | null;
   autoDubInfo: AutoDubInfo | null;
+  isCapturedMedia: boolean;
 };
 
 export type AssetDataMap = Record<string, AssetData>;
@@ -407,6 +408,32 @@ export async function resultToAssetMap({
       web3Accounts: selectWeb3(manifest),
       website: selectWebsite(manifest),
       autoDubInfo: selectAutoDubInfo(manifest),
+      isCapturedMedia: (() => {
+        // 1. Must be a still image or audio file (Fallback to assuming true if SDK omits format)
+        const format = manifest.format || 'image/jpeg';
+        if (!format.startsWith('image/') && !format.startsWith('audio/')) return false;
+
+        // 2. Must have exactly one action in the manifest history
+        let actionsAssertion;
+        if (manifest.assertions instanceof Map) {
+          actionsAssertion = manifest.assertions.get('c2pa.actions.v2')?.[0] || manifest.assertions.get('c2pa.actions')?.[0] || manifest.assertions.get('c2pa.actions.v2') || manifest.assertions.get('c2pa.actions');
+        } else if (Array.isArray(manifest.assertions)) {
+          actionsAssertion = manifest.assertions.find((a: any) => a.label === 'c2pa.actions.v2' || a.label === 'c2pa.actions');
+        } else {
+          actionsAssertion = manifest.assertions?.['c2pa.actions.v2'] || manifest.assertions?.['c2pa.actions'];
+        }
+
+        const actions = (actionsAssertion as any)?.data?.actions || (actionsAssertion as any)?.actions || [];
+        if (actions.length !== 1) return false;
+
+        // 3. First and only action must be c2pa.created
+        const action = actions[0];
+        if (action.action !== 'c2pa.created') return false;
+
+        // 4. Digital source type must be a standard captured media URI (including computational)
+        const sourceType = action.digitalSourceType || action.parameters?.digitalSourceType || '';
+        return sourceType.includes('digitalCapture') || sourceType.includes('compositeCapture') || sourceType.includes('computationalCapture');
+      })(),
     };
   }
 

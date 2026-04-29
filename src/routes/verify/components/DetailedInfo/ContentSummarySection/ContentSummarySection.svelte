@@ -35,7 +35,12 @@
     locale: LocaleData;
   };
 
-  type ContentSummaryData = ContentSummary | ContentSummaryTranslated;
+  type ContentSummaryText = {
+    text: string;
+    icon?: string;
+  };
+
+  type ContentSummaryData = ContentSummary | ContentSummaryTranslated | ContentSummaryText;
 
   export interface ContentSummarySectionProps {
     contentSummaryData: ContentSummaryData | null;
@@ -71,10 +76,12 @@
   }
 
   export function getContentSummaryFromManifestData(
-    { autoDubInfo, generativeInfo }: Partial<ManifestData>,
+    { autoDubInfo, generativeInfo, isCapturedMedia }: Partial<ManifestData>,
     mimeType: string | null = null,
   ): ContentSummarySectionProps {
     if (autoDubInfo) {
+      // ... existing autoDub logic ...
+      // (Retaining the lines around the signature to preserve functionality)
       const { hasLipsRoi, hasTranscriptRoi, translatedData } = autoDubInfo;
 
       if (hasLipsRoi && hasTranscriptRoi && translatedData) {
@@ -176,6 +183,14 @@
       }
     }
 
+    if (isCapturedMedia) {
+      return {
+        contentSummaryData: {
+          text: 'This is captured media.'
+        }
+      };
+    }
+
     return {
       contentSummaryData: null,
     };
@@ -235,11 +250,13 @@
     <div class="flex" slot="content">
       <img src={info} alt="" class="self-start pe-2" />
       <Description
-        >{hasLocaleData(contentSummaryData)
-          ? $_(contentSummaryData.key, {
-              values: { ...formatLocaleData(contentSummaryData.locale) },
-            })
-          : $_(contentSummaryData.key)}</Description>
+        >{'text' in contentSummaryData 
+          ? contentSummaryData.text 
+          : (hasLocaleData(contentSummaryData)
+            ? $_(contentSummaryData.key, {
+                values: { ...formatLocaleData(contentSummaryData.locale) },
+              })
+            : $_(contentSummaryData.key))}</Description>
     </div>
   </Section>
 {/if}
