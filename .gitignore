@@ -26,3 +26,4 @@ snapshot-debug
 
 # vite
 vite.config.js.timestamp-*
+static/c2pa.wasm

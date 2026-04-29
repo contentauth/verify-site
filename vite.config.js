@@ -28,6 +28,9 @@ const config = {
       compress: { evaluate: false },
     },
   },
+  ssr: {
+    noExternal: ['svelte-i18n'],
+  },
   define: {
     __SUPPORTED_LOCALES__: JSON.stringify(getSupportedLocales()),
     __OVERRIDE_MANIFEST_RECOVERY_BASE_URL__: JSON.stringify(

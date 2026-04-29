@@ -27,6 +27,7 @@
     "check": "pnpm lint && svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --fail-on-warnings",
     "format": "prettier --plugin-search-dir . --write .",
     "prepare": "husky install",
+    "postinstall": "mkdir -p static && cp node_modules/@contentauth/c2pa-web/dist/resources/c2pa_bg.wasm static/c2pa.wasm",
     "storybook": "storybook dev -p 6006 --no-open",
     "build:storybook": "storybook build"
   },
@@ -129,7 +130,7 @@
     "@spectrum-web-components/progress-circle": "^0.36.0",
     "@spectrum-web-components/radio": "^0.36.0",
     "@spectrum-web-components/theme": "^0.36.0",
-    "c2pa": "0.30.15",
+    "@contentauth/c2pa-web": "^0.6.1",
     "c2pa-test-image-service": "0.13.5",
     "circle-to-polygon": "^2.2.0",
     "d3-hierarchy": "^3.1.2",

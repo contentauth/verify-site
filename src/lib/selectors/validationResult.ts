@@ -1,11 +1,11 @@
 // Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors
 
-import type { ManifestStore } from 'c2pa';
+import type { ManifestStore } from '@contentauth/c2pa-web';
 import { difference } from 'lodash';
 
-export type ValidationStatus = ManifestStore['validationStatus'][0];
+export type ValidationStatus = ManifestStore['validation_status'][0];
 export type ValidationResults =
-  ManifestStore['validationResults']['activeManifest'];
+  ManifestStore['validation_results']['activeManifest'];
 export type ValidationStatusCode = 'valid' | 'invalid' | 'unrecognized';
 
 export type ValidationStatusResult = ReturnType<typeof selectValidationResult>;
@@ -120,53 +120,53 @@ export function selectValidationResult(
   validationStatus: ValidationStatus[],
   validationResults?: ValidationResults,
 ) {
-  const hasTimeStampCode = validationResults?.informational?.some((result) =>
-    result.code.startsWith('timeStamp'),
+  // Combine V2 failures (from validationStatus) and V3 failures (from validationResults)
+  const v3Failures = validationResults?.failure || [];
+  const v2Failures = validationStatus.filter(
+    (status) => !SUCCESS_CODES.includes(status.code)
   );
 
-  // Untrusted should not show as "invalid" on the UI
-  const hasValidationResultError = validationResults
-    ? validationResults.failure.filter(
-        (validationResult) =>
-          validationResult.code !== UNTRUSTED_SIGNER_ERROR_CODE,
-      ).length > 0
-    : false;
+  const allFailures = [...v3Failures, ...v2Failures];
 
-  const onlyErrors = validationStatus.filter(
-    (status) => !SUCCESS_CODES.includes(status.code),
+  // Determine the specific types of failures present
+  const hasUntrusted = allFailures.some(f => f.code === UNTRUSTED_SIGNER_ERROR_CODE);
+  const hasOtgp = allFailures.some(f => f.code === OTGP_ERROR_CODE);
+  const hasOtherErrors = allFailures.some(
+    f => f.code !== UNTRUSTED_SIGNER_ERROR_CODE && f.code !== OTGP_ERROR_CODE
   );
-  const untrustedResult = hasUntrustedSigner(onlyErrors);
-  const hasOtgp = hasOtgpStatus(onlyErrors);
-  const hasError =
-    // OTGP now counts as an error in the UI since we got rid of "incomplete"
-    hasOtgp ||
-    hasValidationResultError ||
-    (hasErrorStatus(onlyErrors) &&
-      [
-        UntrustedSignerResult.UntrustedWithOtherErrors,
-        UntrustedSignerResult.TrustedWithErrors,
-      ].includes(untrustedResult));
-  const hasUntrusted =
-    hasTimeStampCode ||
-    [
-      UntrustedSignerResult.UntrustedOnly,
-      UntrustedSignerResult.UntrustedWithOtgp,
-      UntrustedSignerResult.UntrustedWithOtherErrors,
-    ].includes(untrustedResult);
-  let statusCode: ValidationStatusCode;
 
-  if (hasError || hasOtgp) {
+  // Check ALL categories for an untrusted timestamp. 
+  // (The new SDK might place this in failure, informational, or success depending on strictness).
+  const allV3Codes = [
+    ...(validationResults?.failure || []),
+    ...(validationResults?.informational || []),
+    ...(validationResults?.success || []),
+  ];
+  const allCodes = [...allV3Codes, ...validationStatus];
+
+  const hasUntrustedTimestamp = allCodes.some(
+    c => c.code.toLowerCase().includes('timestamp') 
+      && !c.code.toLowerCase().includes('timestamp.trusted')
+      && !c.code.toLowerCase().includes('timestamp.validated')
+  );
+
+  let statusCode: ValidationStatusCode = 'valid';
+
+  // If there are explicit errors (other than just being untrusted), it's invalid (Red)
+  if (hasOtherErrors || hasOtgp) {
     statusCode = 'invalid';
-  } else if (hasUntrusted) {
+  } 
+  // If the only issue is an untrusted signer, it's unrecognized (Orange)
+  else if (hasUntrusted) {
     statusCode = 'unrecognized';
-  } else {
-    statusCode = 'valid';
   }
+  // If the failure array is empty, it's valid (Green)
 
   return {
-    hasError,
+    hasError: hasOtherErrors || hasOtgp,
     hasOtgp,
     hasUntrustedSigner: hasUntrusted,
+    hasUntrustedTimestamp,
     statusCode,
   };
 }
@@ -200,17 +200,17 @@ interface ValidationStatusReducer {
  *
  * **IMPORTANT:** Please update the tests in `validationResult.spec.ts` if making any changes to this function.
  *
- * @param validationStatus The runtime validation status on the root of the manifest
+ * @param validation_status The runtime validation status on the root of the manifest
  * @param allLabels
  * @param activeManifestLabel
  * @returns
  */
 export function validationStatusByManifestLabel(
-  validationStatus: ValidationStatus[],
+  validation_status: ValidationStatus[],
   allLabels: string[],
   activeManifestLabel: string,
 ): ManifestLabelValidationStatusMap {
-  const { reduced } = [...validationStatus]
+  const { reduced } = [...validation_status]
     // Reverse this so we don't have to look forward for the associated URLs
     .reverse()
     .reduce<ValidationStatusReducer>(

@@ -1,6 +1,6 @@
 // Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors
 
-import type { Manifest } from 'c2pa';
+import type { Manifest } from '@contentauth/c2pa-web';
 
 export interface TranslatedActionDataParams {
   sourceLanguage: string;
@@ -14,7 +14,7 @@ export interface AutoDubInfo {
 }
 
 export function selectAutoDubInfo(manifest: Manifest): AutoDubInfo | null {
-  const [actionAssertion] = manifest.assertions.get('c2pa.actions.v2');
+  const actionAssertion = manifest.assertions?.['c2pa.actions.v2'];
 
   if (!actionAssertion) {
     return null;

@@ -1,6 +1,9 @@
 // Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors
 
-import type { DisposableBlobUrl } from 'c2pa';
+interface DisposableBlobUrl {
+  url: string;
+  dispose: () => void;
+}
 import DOMPurify from 'dompurify';
 import { startsWith } from 'lodash';
 import { isBrowserViewable } from './formats';

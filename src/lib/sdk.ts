@@ -1,19 +1,13 @@
 // Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors
 
-import { createC2pa, type ToolkitSettings } from 'c2pa';
-import wasmSrc from 'c2pa/dist/assets/wasm/toolkit_bg.wasm?url';
-import workerSrc from 'c2pa/dist/c2pa.worker.min.js?url';
+import { createC2pa, type Settings } from '@contentauth/c2pa-web';
 import pMemoize from 'p-memoize';
 
 const ALLOWED_LIST_CACHE_SECS = 60;
 
 async function createSdk() {
   return createC2pa({
-    wasmSrc,
-    workerSrc,
-    downloaderOptions: {
-      inspectSize: 0,
-    },
+    wasmSrc: '/c2pa.wasm',
   });
 }
 
@@ -21,11 +15,10 @@ export const getSdk = pMemoize(createSdk);
 
 async function loadTrustResource(file: string): Promise<string> {
   const res = await fetch(`/trust/${file}`);
-
   return res.text();
 }
 
-async function createToolkitSettings(): Promise<ToolkitSettings> {
+async function createToolkitSettings(): Promise<Settings> {
   const mergedAnchors = (
     await Promise.all(
       [
@@ -33,26 +26,23 @@ async function createToolkitSettings(): Promise<ToolkitSettings> {
         'https://raw.githubusercontent.com/c2pa-org/conformance-public/refs/heads/main/trust-list/C2PA-TSA-TRUST-LIST.pem',
       ].map(async (url) => {
         const res = await fetch(url);
-        const text = await res.text();
-
-        return text;
+        return res.text();
       }),
     )
-  ).join('');
+  ).join('\n');
 
-  const [anchors, endEntity, config] = await Promise.all(
-    ['anchors.pem', 'allowed.sha256.txt', 'store.cfg'].map(loadTrustResource),
+  const [anchors, endEntity] = await Promise.all(
+    ['anchors.pem', 'allowed.pem'].map(loadTrustResource),
   );
 
   return {
     trust: {
-      trustConfig: config,
-      trustAnchors: mergedAnchors,
-      userAnchors: anchors,
+      trustAnchors: mergedAnchors + '\n' + anchors,
       allowedList: endEntity,
     },
     verify: {
       verifyTrust: true,
+      verifyAfterReading: true,
     },
   };
 }

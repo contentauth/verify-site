@@ -1,12 +1,26 @@
 // Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors
 
-import {
-  selectGenerativeInfo as sdkSelectGenerativeInfo,
-  type DataType,
-  type Ingredient,
-  type Manifest,
-  type GenerativeInfo as SdkGenerativeInfo,
-} from 'c2pa';
+import type {
+  DataType,
+  Ingredient,
+  Manifest,
+} from '@contentauth/c2pa-web';
+
+interface SdkGenerativeInfo {
+  softwareAgent: string;
+  type: string;
+}
+
+function sdkSelectGenerativeInfo(manifest: Manifest): SdkGenerativeInfo[] {
+  const actionsAssertion = manifest.assertions?.['c2pa.actions'];
+  const actions = (actionsAssertion as any)?.data?.actions || [];
+  return actions
+    .filter((a: any) => a.action === 'c2pa.created' || a.action === 'c2pa.generated')
+    .map((a: any) => ({
+      softwareAgent: a.softwareAgent || 'Unknown',
+      type: a.action === 'c2pa.created' ? 'compositeWithTrainedAlgorithmicMedia' : 'legacy'
+    }));
+}
 import { filter, flow, uniqBy } from 'lodash/fp';
 import startsWith from 'lodash/startsWith';
 

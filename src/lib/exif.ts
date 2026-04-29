@@ -2,7 +2,7 @@
 
 import mapbox from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
 import mapboxStatic from '@mapbox/mapbox-sdk/services/static';
-import type { Manifest } from 'c2pa';
+import type { Manifest } from '@contentauth/c2pa-web';
 import circleToPolygon from 'circle-to-polygon';
 import { add as addDate, isValid, parse, parseISO } from 'date-fns';
 import debug from 'debug';
@@ -203,15 +203,17 @@ export function parseDateTime(exif: ExifTags): Date | null {
 }
 
 export function selectExif(manifest: Manifest): ExifSummary | null {
-  const exif: ExifTags = manifest.assertions
-    .get('stds.exif')
-    ?.reduce((acc, exif) => {
+  const assertion = manifest.assertions?.['stds.exif'];
+  const exif: ExifTags = (Array.isArray(assertion) ? assertion : [assertion]).reduce(
+    (acc, exif) => {
       const caseInsensitiveData = mapKeys(exif?.data, (_, key) => {
         return key.toLowerCase();
       });
 
       return merge({}, acc, caseInsensitiveData);
-    }, {});
+    },
+    {},
+  );
 
   if (Object.keys(exif).length > 0) {
     dbg('Got EXIF tags', exif);

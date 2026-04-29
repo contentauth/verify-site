@@ -1,17 +1,15 @@
 // Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors
 
-import {
-  selectDoNotTrain,
-  selectEditsAndActivity,
-  selectProducer,
-  selectSocialAccounts,
-  type C2paReadResult,
-  type Ingredient,
-  type Manifest,
-  type ManifestStore,
-  type Thumbnail,
-  type TranslatedDictionaryCategory,
-} from 'c2pa';
+import type {
+  Ingredient,
+  Manifest,
+  ManifestStore,
+  ResourceRef as Thumbnail,
+} from '@contentauth/c2pa-web';
+import { selectDoNotTrain } from './selectors/doNotTrain';
+import { selectEditsAndActivity, type TranslatedDictionaryCategory } from './selectors/editsAndActivity';
+import { selectProducer } from './selectors/producer';
+import { selectSocialAccounts } from './selectors/socialAccounts';
 import debug from 'debug';
 import { selectExif } from './exif';
 import {
@@ -78,7 +76,7 @@ export type ManifestData = {
   generativeInfo: GenerativeInfo | null;
   producer: string | null;
   reviewRatings: ReturnType<typeof selectReviewRatings>;
-  signatureInfo: Manifest['signatureInfo'];
+  signatureInfo: Manifest['signature_info'];
   doNotTrain: ReturnType<typeof selectDoNotTrain>;
   socialAccounts: ReturnType<typeof selectSocialAccounts>;
   web3Accounts: [string, string[]][];
@@ -126,26 +124,27 @@ export function getIngredientDataType(
 export async function resultToAssetMap({
   manifestStore,
   source,
-}: C2paReadResult): Promise<DisposableAssetDataMap> {
+}: {
+  manifestStore: ManifestStore;
+  source: Blob | File;
+}): Promise<DisposableAssetDataMap> {
   const assetMap: AssetDataMap = {};
   const disposers: (() => void)[] = [];
-  const activeManifestLabel = manifestStore?.activeManifest?.label ?? '';
+  
+  const activeManifestLabel = manifestStore?.active_manifest ?? '';
   const allLabels = Object.keys(manifestStore?.manifests ?? {});
-  const runtimeValidationStatuses = manifestStore?.validationStatus
+  const runtimeValidationStatuses = manifestStore?.validation_status
     ? validationStatusByManifestLabel(
-        manifestStore?.validationStatus,
+        manifestStore?.validation_status,
         allLabels,
         activeManifestLabel,
       )
     : {};
 
-  dbg(
-    'Runtime validation statuses by manifest label',
-    runtimeValidationStatuses,
-  );
+  dbg('Runtime validation statuses by manifest label', runtimeValidationStatuses);
 
   const activeManifestValidationResults =
-    manifestStore?.validationResults.activeManifest;
+    manifestStore?.validation_results?.activeManifest;
 
   const rootValidationStatuses =
     runtimeValidationStatuses[activeManifestLabel] ?? [];
@@ -154,7 +153,7 @@ export async function resultToAssetMap({
     activeManifestValidationResults,
   );
   const { hasError, hasOtgp } = rootValidationResult ?? {};
-  const isManifest = source.blob?.type === MANIFEST_STORE_MIME_TYPE;
+  const isManifest = source.type === MANIFEST_STORE_MIME_TYPE;
   const id = ROOT_ID;
 
   dbg('resultToAssetMap input:', {
@@ -172,7 +171,7 @@ export async function resultToAssetMap({
   if (!isManifest && (!manifestStore || hasError || hasOtgp)) {
     const thumbnail = await loadThumbnail(
       source.type,
-      source.thumbnail.getUrl(),
+      undefined,
     );
 
     if (thumbnail?.dispose) {
@@ -180,9 +179,8 @@ export async function resultToAssetMap({
     }
 
     assetMap[id] = {
-      // @TODO filename if none present?
       id,
-      title: source.metadata.filename ?? null,
+      title: (source as File).name ?? null,
       thumbnail: thumbnail.info,
       mimeType: source.type,
       children: [],
@@ -191,7 +189,6 @@ export async function resultToAssetMap({
       validationResult: rootValidationResult,
     };
 
-    // Return early if we don't have a manifestStore
     if (!manifestStore || hasError) {
       return {
         assetMap,
@@ -200,9 +197,7 @@ export async function resultToAssetMap({
     }
   }
 
-  // Start processing the provenance tree
   if (manifestStore && hasOtgp) {
-    // Since the OTGP status is on the source, we don't show any issues on the asset underneath
     await manifestStoreToAssetData(
       manifestStore,
       selectValidationResult([]),
@@ -210,7 +205,6 @@ export async function resultToAssetMap({
       id,
     );
   } else if (manifestStore && rootValidationResult) {
-    // This conditional should always resolve to `true`, it's more to help TypeScript out
     await manifestStoreToAssetData(
       manifestStore,
       rootValidationResult,
@@ -219,43 +213,40 @@ export async function resultToAssetMap({
     );
   }
 
-  // Convert a manifest to an asset usable by the verify UI and add it to the map
-  // Any processing here should be specific to keys on the root manifest
   async function manifestStoreToAssetData(
     manifestStore: ManifestStore,
     rootValidationResult: ValidationStatusResult,
     runtimeValidationStatuses: ManifestLabelValidationStatusMap,
     id: string,
   ): Promise<AssetData> {
-    const { activeManifest: manifest } = manifestStore;
+    const manifest = manifestStore.manifests?.[manifestStore.active_manifest || ''];
+    if (!manifest) throw new Error('Active manifest not found');
 
-    // Attempt to use a thumbnail on the manifest if found
     let thumbnail = await loadThumbnail(
-      manifest.thumbnail?.contentType,
-      manifest.thumbnail?.getUrl(),
+      manifest.thumbnail?.format,
+      undefined
     );
 
-    // If no thumbnail exists on the claim and we have a valid manifest,
-    // we can use the source thumbnail if it is viewable by the browser
     if (
       !thumbnail.info &&
       ['valid', 'unrecognized'].includes(rootValidationResult.statusCode) &&
       (await isBrowserViewable(source.type))
     ) {
-      thumbnail = await loadThumbnail(source.type, source.thumbnail?.getUrl());
+      thumbnail = await loadThumbnail(source.type, undefined);
     }
 
     const asset = {
       id,
-      title: manifest.title,
+      title: manifest.title ?? null,
       thumbnail: thumbnail.info,
       mimeType: manifest.format || source.type,
       children: await processIngredients(
-        manifest.ingredients,
+        manifest.ingredients || [],
+        manifestStore,
         runtimeValidationStatuses,
         id,
       ),
-      manifestData: await getManifestData(manifest),
+      manifestData: await getManifestData(manifest, rootValidationResult),
       dataType: null,
       validationResult: rootValidationResult,
     };
@@ -269,30 +260,29 @@ export async function resultToAssetMap({
     return asset;
   }
 
-  // Convert an ingredient to an asset usable by the verify UI and add it to the map
-  // Any processing here should be specific to keys on an ingredient
   async function ingredientToAssetData(
     ingredient: Ingredient,
+    manifestStore: ManifestStore,
     runtimeValidationStatuses: ManifestLabelValidationStatusMap,
     id: string,
   ): Promise<AssetData> {
-    const ingredientManifestLabel = ingredient.manifest?.label;
+    const ingredientManifestLabel = ingredient.active_manifest;
+    const ingredientManifest = ingredientManifestLabel ? manifestStore.manifests?.[ingredientManifestLabel] : null;
+
     const thumbnail = await loadThumbnail(
-      ingredient.thumbnail?.contentType,
-      ingredient.thumbnail?.getUrl(),
+      ingredient.thumbnail?.format,
+      undefined,
     );
 
     const activeManifestValidationResults =
-      ingredient.validationResults?.activeManifest;
+      ingredient.validation_results?.activeManifest;
 
-    // Check validation result in the validationStatus supplied in the manifest
     let validationResult = selectValidationResult(
-      ingredient.validationStatus,
+      ingredient.validation_status || [],
       activeManifestValidationResults,
     );
 
     if (!validationResult.hasError && ingredientManifestLabel) {
-      // If validationResult doesn't have an error, also check the runtime validation
       validationResult = selectValidationResult(
         runtimeValidationStatuses[ingredientManifestLabel] ?? [],
       );
@@ -301,17 +291,18 @@ export async function resultToAssetMap({
     const showChildren = validationResult.statusCode !== 'invalid';
     const asset = {
       id,
-      title: ingredient.title,
+      title: ingredient.title ?? null,
       thumbnail: thumbnail.info,
-      mimeType: ingredient.format,
-      children: showChildren
+      mimeType: ingredient.format || '',
+      children: (showChildren && ingredientManifest?.ingredients)
         ? await processIngredients(
-            ingredient.manifest?.ingredients ?? [],
+            ingredientManifest.ingredients,
+            manifestStore,
             runtimeValidationStatuses,
             id,
           )
         : [],
-      manifestData: await getManifestData(ingredient.manifest),
+      manifestData: await getManifestData(ingredientManifest, validationResult),
       dataType: getIngredientDataType(ingredient),
       validationResult,
     };
@@ -325,26 +316,22 @@ export async function resultToAssetMap({
     return asset;
   }
 
-  // Get manifest data from a manifest (either a root manifest or an ingredient manifest)
-  // Any processing that is common to both ingredients or active manifests should go here
   async function getManifestData(
-    manifest: Manifest | null,
+    manifest: Manifest | null | undefined,
+    validationResult: ValidationStatusResult
   ): Promise<ManifestData | null> {
     if (!manifest) {
       return null;
     }
 
-    function formattedGeneratorInfo(
-      claim_generator: Manifest['claimGeneratorInfo'][0],
-    ) {
+    function formattedGeneratorInfo(claim_generator: any) {
       const version = claim_generator?.version;
       claim_generator.version = version?.replace(/\([^()]*\)/g, '');
-
       return claim_generator;
     }
 
-    const claimGeneratorInfo = manifest?.claimGeneratorInfo[0]
-      ? formattedGeneratorInfo(manifest?.claimGeneratorInfo[0])
+    const claimGeneratorInfo = manifest?.claim_generator_info?.[0]
+      ? formattedGeneratorInfo(manifest.claim_generator_info[0])
       : null;
 
     const claimGeneratorLabel =
@@ -358,29 +345,17 @@ export async function resultToAssetMap({
       icon: claimGeneratorInfo?.icon ?? null,
     };
 
-    function mapVerifiedIdentitiesToAuthors(manifest: Manifest) {
-      if (manifest.verifiedIdentities.length > 0) {
-        return manifest.verifiedIdentities
-          .filter(
-            (verifiedIdentity) => verifiedIdentity.type === 'cawg.social_media',
-          )
-          .map((verifiedIdentity) => ({
-            '@id': verifiedIdentity.uri,
-            '@type': 'Organization',
-            identifier: verifiedIdentity.provider.id,
-            name: verifiedIdentity.username,
-          }));
-      }
-
-      return null;
+    const safeSignatureInfo = manifest.signature_info ? { ...manifest.signature_info } : null;
+    if (safeSignatureInfo && validationResult.hasUntrustedTimestamp) {
+      safeSignatureInfo.time = undefined;
     }
 
     return {
-      date: manifest.signatureInfo?.time
-        ? new Date(manifest.signatureInfo.time)
+      date: safeSignatureInfo?.time
+        ? new Date(safeSignatureInfo.time)
         : null,
       claimGenerator,
-      signatureInfo: manifest.signatureInfo,
+      signatureInfo: safeSignatureInfo,
       producer: selectProducer(manifest)?.name ?? null,
       editsAndActivityForLocale: async (locale) => {
         const editsAndActivity = await selectEditsAndActivity(
@@ -389,12 +364,10 @@ export async function resultToAssetMap({
         );
 
         if (editsAndActivity) {
-          // Add inference information
-          const [actionsAssertion] = manifest.assertions.get('c2pa.actions');
+          const actionsAssertion = manifest.assertions?.['c2pa.actions'];
           const hasInference =
-            !!actionsAssertion?.data?.metadata?.['com.adobe.inference'];
+            !!(actionsAssertion as any)?.data?.metadata?.['com.adobe.inference'];
 
-          // Remove anything with an "undefined" label. It should not occur, but this prevents us from displaying "undefined" to the user.
           const filteredEditsAndActivity = editsAndActivity.filter(
             (value) => !!value.label,
           );
@@ -407,12 +380,10 @@ export async function resultToAssetMap({
 
         return null;
       },
-      socialAccounts:
-        mapVerifiedIdentitiesToAuthors(manifest) ??
-        selectSocialAccounts(manifest),
+      socialAccounts: selectSocialAccounts(manifest),
       generativeInfo: selectGenerativeInfo(manifest),
       exif: selectExif(manifest),
-      label: manifest.label,
+      label: manifest.label ?? null,
       doNotTrain: selectDoNotTrain(manifest),
       reviewRatings: selectReviewRatings(manifest),
       web3Accounts: selectWeb3(manifest),
@@ -423,6 +394,7 @@ export async function resultToAssetMap({
 
   async function processIngredients(
     ingredients: Ingredient[],
+    manifestStore: ManifestStore,
     runtimeValidationStatuses: ManifestLabelValidationStatusMap,
     id: string,
   ): Promise<string[]> {
@@ -431,6 +403,7 @@ export async function resultToAssetMap({
 
       await ingredientToAssetData(
         ingredient,
+        manifestStore,
         runtimeValidationStatuses,
         ingredientId,
       );

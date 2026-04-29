@@ -1,9 +1,9 @@
 // Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors
 
-import type { Manifest } from 'c2pa';
+import type { Manifest } from '@contentauth/c2pa-web';
 import { isSecureUrl } from '../url';
 
-declare module 'c2pa' {
+declare module '@contentauth/c2pa-web' {
   interface Reference {
     uri: string;
   }
@@ -19,9 +19,8 @@ declare module 'c2pa' {
 
 export function selectWebsite(manifest: Manifest): string | null {
   const site =
-    manifest.assertions.get('c2pa.asset-ref')[0]?.data.references[0]?.reference
-      .uri ??
-    manifest.assertions.get('stds.schema-org.CreativeWork')[0]?.data.url;
+    (manifest.assertions?.['c2pa.asset-ref'] as any)?.data?.references?.[0]?.reference?.uri ??
+    (manifest.assertions?.['stds.schema-org.CreativeWork'] as any)?.data?.url;
 
   return site && isSecureUrl(site) ? site : null;
 }

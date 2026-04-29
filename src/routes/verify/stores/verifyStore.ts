@@ -2,7 +2,7 @@
 
 import { ROOT_ID, type AssetData, type AssetDataMap } from '$lib/asset';
 import type { Loadable } from '$src/lib/types';
-import type { C2paSourceType } from 'c2pa';
+
 import debug from 'debug';
 import {
   derived,
@@ -40,7 +40,7 @@ interface VerifyStore {
   hierarchyView: Pick<HierarchyViewStore, 'subscribe'>;
   // Gets the most recently loaded asset (i.e. was dragged in or passed via source)
   mostRecentlyLoaded: Readable<MostRecentlyLoaded>;
-  readC2paSource: (source: C2paSourceType) => void;
+  readC2paSource: (source: Blob | File | string) => void;
   setCompareActiveId: (id: string | null) => void;
   setCompareView: () => void;
   setHierarchyView: () => void;
@@ -128,7 +128,7 @@ export function createVerifyStore(): VerifyStore {
     hierarchyView,
     compareView,
     mostRecentlyLoaded,
-    readC2paSource: (source: C2paSourceType) => {
+    readC2paSource: (source: Blob | File | string) => {
       resetCompare();
       selectedAssetId.set(ROOT_ID);
       const existingSource = get(selectedSource);

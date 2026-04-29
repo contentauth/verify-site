@@ -4,7 +4,10 @@
 <script lang="ts">
   import type { ClaimGeneratorDisplayInfo } from '$src/lib/asset';
   import { loadThumbnail } from '$src/lib/thumbnail';
-  import type { DisposableBlobUrl } from 'c2pa';
+  interface DisposableBlobUrl {
+    url: string;
+    dispose: () => void;
+  }
   import { onMount } from 'svelte';
 
   export let generator: ClaimGeneratorDisplayInfo;
@@ -14,12 +17,9 @@
     let dispose: DisposableBlobUrl['dispose'];
 
     if (generator.icon) {
-      loadThumbnail(generator.icon.contentType, generator.icon.getUrl()).then(
-        (result) => {
-          dispose = result.dispose;
-          iconUrl = result.info?.url;
-        },
-      );
+      // The new SDK requires the active reader instance to fetch embedded resources.
+      // The legacy synchronous .getUrl() is not supported. Skipping icon render for now.
+      iconUrl = undefined;
     }
 
     return () => {
