@@ -68,6 +68,7 @@ export interface CrJsonIngredientItem {
 export interface CrJsonSignatureInfo {
   alg: string
   common_name: string
+  organization?: string
   issuer: string
   time: string
 }
@@ -141,16 +142,23 @@ export function getSignatureInfo(m: CrJsonManifestEntry): CrJsonSignatureInfo | 
   const certInfo = (sig.certificateInfo ?? sig.certificate_info ?? {}) as Record<string, unknown>
   const tsInfo = (sig.timeStampInfo ?? sig.time_stamp_info ?? sig.timeStamp ?? {}) as Record<string, unknown>
   const alg = (sig.algorithm ?? sig.alg ?? '') as string
+  
+  const subjectObj = typeof certInfo.subject === 'object' && certInfo.subject !== null ? certInfo.subject as Record<string, unknown> : {};
+  
   const common_name =
     certFieldToString(certInfo.subject) ||
     (typeof certInfo.common_name === 'string' ? certInfo.common_name : '') ||
     (typeof certInfo.commonName === 'string' ? certInfo.commonName : '')
+    
+  const organization = (subjectObj.O ?? subjectObj.o) as string | undefined;
+
   const issuer = certFieldToString(certInfo.issuer) || (typeof certInfo.issuer === 'string' ? certInfo.issuer : '')
   const timeRaw = tsInfo.timestamp ?? sig.time ?? sig.timestamp
   const time = typeof timeRaw === 'string' ? timeRaw : ''
+  
   // Return undefined if no meaningful signature data (avoids empty section)
   if (!alg && !common_name && !issuer && !time) return undefined
-  return { alg, common_name, issuer, time }
+  return { alg, common_name, organization, issuer, time }
 }
 
 /** Read claim info from crJSON manifest.claim or manifest['claim.v2'] */

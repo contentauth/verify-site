@@ -118,8 +118,8 @@
 <div data-testid="manifestData" data-has-manifest={!!manifestData}>
   {#if manifestData}
     <ContentSummarySection {...assetDataToContentSummaryProps($assetData)} />
-    <ProcessSection {manifestData} {ingredients} {isUntrusted} />
+    <ProcessSection {manifestData} {ingredients} {isUntrusted} trustSource={$assetData.trustSource} />
     <CameraCaptureSection {manifestData} />
-    <AboutSection {manifestData} />
+    <AboutSection {manifestData} trustSource={$assetData.trustSource} />
   {/if}
 </div>

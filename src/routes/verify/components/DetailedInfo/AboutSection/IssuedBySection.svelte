@@ -10,6 +10,8 @@
 
   let showTooltip = false;
   export let issuedBy: string;
+  export let organization: string | undefined = undefined;
+  export let trustSource: 'official' | 'legacy' | 'none' = 'none';
 </script>
 
 <SubSection>
@@ -19,7 +21,14 @@
     <div class="flex justify-between">
       <AboutSectionContentRow>
         <svelte:fragment slot="content">
-          {issuedBy}
+          {#if trustSource === 'official' && organization}
+            <div class="flex flex-col leading-snug">
+              <span class="text-generalSm font-medium">{issuedBy}</span>
+              <span class="text-xs text-gray-600">{organization}</span>
+            </div>
+          {:else}
+            {issuedBy}
+          {/if}
         </svelte:fragment>
       </AboutSectionContentRow>
       <button on:click={() => (showTooltip = !showTooltip)}

@@ -9,14 +9,19 @@
   import IssuedOnSection from './IssuedOnSection.svelte';
 
   export let manifestData: ManifestData;
+  export let trustSource: 'official' | 'legacy' | 'none' = 'none';
 </script>
 
 <CollapsibleSection>
   <svelte:fragment slot="header">
     {$_('sidebar.verify.about')}</svelte:fragment>
   <svelte:fragment slot="content">
-    {#if manifestData.signatureInfo?.issuer}
-      <IssuedBySection issuedBy={manifestData.signatureInfo?.issuer} />
+    {#if manifestData.signatureInfo?.common_name || manifestData.signatureInfo?.issuer}
+      <IssuedBySection 
+        issuedBy={manifestData.signatureInfo?.common_name || manifestData.signatureInfo?.issuer || ''} 
+        organization={manifestData.signatureInfo?.common_name !== manifestData.signatureInfo?.issuer ? manifestData.signatureInfo?.issuer : undefined}
+        {trustSource} 
+      />
     {/if}
     {#if manifestData.date}
       <IssuedOnSection date={manifestData.date} />

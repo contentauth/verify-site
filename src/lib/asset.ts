@@ -349,7 +349,12 @@ export async function resultToAssetMap({
       icon: claimGeneratorInfo?.icon ?? null,
     };
 
-    const safeSignatureInfo = manifest.signature_info ? { ...manifest.signature_info } : null;
+    // Extract Organization (O) from the native X.509 certificate subject tree
+    let organization: string | undefined = undefined;
+    const safeSignatureInfo = manifest.signature_info
+      ? { ...manifest.signature_info }
+      : null;
+
     if (safeSignatureInfo && validationResult.hasUntrustedTimestamp) {
       safeSignatureInfo.time = undefined;
     }

@@ -13,6 +13,7 @@
   export let manifestData: ManifestData;
   export let ingredients: AssetData[];
   export let isUntrusted: boolean;
+  export let trustSource: 'official' | 'legacy' | 'none' = 'none';
 </script>
 
 <CollapsibleSection>
@@ -21,7 +22,7 @@
   <svelte:fragment slot="description">
     {$_('sidebar.verify.process.description')}</svelte:fragment>
   <svelte:fragment slot="content">
-    {#if manifestData.claimGenerator}
+    {#if manifestData.claimGenerator && trustSource !== 'official'}
       <AppDeviceSection generator={manifestData.claimGenerator} {isUntrusted} />
     {/if}
     {#if manifestData.generativeInfo?.softwareAgents?.length}
