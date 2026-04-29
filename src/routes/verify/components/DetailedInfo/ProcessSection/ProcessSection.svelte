@@ -25,7 +25,7 @@
     {#if manifestData.claimGenerator && trustSource !== 'official'}
       <AppDeviceSection generator={manifestData.claimGenerator} {isUntrusted} />
     {/if}
-    {#if manifestData.generativeInfo?.softwareAgents?.length}
+    {#if manifestData.generativeInfo?.softwareAgents?.length && trustSource !== 'official'}
       <AiSubSection
         softwareAgents={manifestData.generativeInfo.softwareAgents} />
     {/if}
