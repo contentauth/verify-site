@@ -167,28 +167,40 @@ export function createC2paReader(): C2paReaderStore {
               
               if (manifest.ingredients && p1Manifest?.ingredients) {
                 manifest.ingredients.forEach((ingredient: any, index: number) => {
-                  // STRICT DEFAULT: Unverified assets get no trust credentials
+                  // ZERO TRUST DEFAULT: Unverified assets get no trust credentials
                   ingredient.trust_source = 'none';
 
                   if (ingredient.active_manifest) {
-                    // If the final Root state is Trusted, all C2PA ingredients inherit official trust...
-                    if (isFinalTrusted) {
-                      ingredient.trust_source = 'official';
-                    }
-
-                    // ...UNLESS they explicitly failed Pass 1. (Then they are Legacy).
                     const p1Ing = p1Manifest.ingredients[index];
-                    if (p1Ing) {
-                      const p1V2 = p1Ing.validation_status || [];
-                      const suffix = index === 0 ? 'c2pa.ingredient' : `c2pa.ingredient__${index}`;
-                      const expectedURI = `self#jumbf=/c2pa/${label}/c2pa.assertions/${suffix}`;
-                      const p1Delta = p1Deltas.find((d: any) => d.ingredientAssertionURI === expectedURI);
-                      const p1V3Fail = p1Delta?.validationDeltas?.failure || [];
+                    const subLabel = ingredient.active_manifest;
+                    const p1SubManifest = subLabel ? rawManifestStore.manifests?.[subLabel] : null;
 
-                      if (p1V3Fail.some(isTrustError) || p1V2.some(isTrustError)) {
-                        // It had a trust error in Pass 1. Since isFinalTrusted is true, Pass 2 fixed it.
-                        ingredient.trust_source = isFinalTrusted ? 'legacy' : 'none';
-                      }
+                    // 1. Check the Ingredient Pointer (V2 standard)
+                    const p1V2_ing = p1Ing?.validation_status || [];
+
+                    // 2. Check the actual Sub-Manifest directly (V2 + V3 standards)
+                    // NOTE: In V3, the sub-manifest's own results are stored under .activeManifest
+                    const p1V2_sub = p1SubManifest?.validation_status || [];
+                    const p1V3_sub = p1SubManifest?.validation_results?.activeManifest?.failure || [];
+
+                    // 3. Check the Root Deltas (V3 standard)
+                    const p1Delta = p1Deltas.find((d: any) => 
+                      d.ingredientAssertionURI?.includes(label) && 
+                      d.ingredientAssertionURI?.includes('c2pa.ingredient')
+                    );
+                    const p1V3_delta = p1Delta?.validationDeltas?.failure || [];
+
+                    // AGGREGATE: Did ANY layer in the sub-manifest chain fail Trust in Pass 1?
+                    const hasTrustError = 
+                      p1V3_delta.some(isTrustError) || 
+                      p1V2_ing.some(isTrustError) || 
+                      p1V2_sub.some(isTrustError) || 
+                      p1V3_sub.some(isTrustError);
+
+                    if (isFinalTrusted) {
+                      // If the Root is trusted, the chain is intact. 
+                      // It only earns 'Official' if it explicitly cleared the local error gauntlet.
+                      ingredient.trust_source = hasTrustError ? 'legacy' : 'official';
                     }
                   }
                   

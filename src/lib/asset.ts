@@ -170,9 +170,11 @@ export async function resultToAssetMap({
   }
 
   if (!isManifest && (!manifestStore || hasError || hasOtgp)) {
+    // Fallback for raw files: render the original source file directly
+    const url = URL.createObjectURL(source);
     const thumbnail = await loadThumbnail(
       source.type,
-      undefined,
+      { url, dispose: () => URL.revokeObjectURL(url) },
     );
 
     if (thumbnail?.dispose) {
@@ -224,6 +226,7 @@ export async function resultToAssetMap({
     const manifest = manifestStore.manifests?.[manifestStore.active_manifest || ''];
     if (!manifest) throw new Error('Active manifest not found');
 
+    // 0.17.x SDK dropped internal thumbnail generation. Pass undefined to skip WASM fetch.
     let thumbnail = await loadThumbnail(
       manifest.thumbnail?.format,
       undefined
@@ -234,7 +237,12 @@ export async function resultToAssetMap({
       ['valid', 'unrecognized'].includes(rootValidationResult.statusCode) &&
       (await isBrowserViewable(source.type))
     ) {
-      thumbnail = await loadThumbnail(source.type, undefined);
+      // Fallback for active manifest: render the original source file directly
+      const url = URL.createObjectURL(source);
+      thumbnail = await loadThumbnail(
+        source.type, 
+        { url, dispose: () => URL.revokeObjectURL(url) }
+      );
     }
 
     const asset = {
@@ -272,6 +280,7 @@ export async function resultToAssetMap({
     const ingredientManifestLabel = ingredient.active_manifest;
     const ingredientManifest = ingredientManifestLabel ? manifestStore.manifests?.[ingredientManifestLabel] : null;
 
+    // 0.17.x SDK dropped internal thumbnail generation. Skip WASM fetch for ingredients.
     const thumbnail = await loadThumbnail(
       ingredient.thumbnail?.format,
       undefined,
