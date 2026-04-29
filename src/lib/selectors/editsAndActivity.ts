@@ -35,15 +35,10 @@ export async function selectEditsAndActivity(
       case 'c2pa.created':
         results.push({ id: action, label: 'Created', description: 'The asset was created.', icon: `${baseUrl}/new-item-dark.svg` });
         break;
-      case 'c2pa.generated':
-        results.push({ id: action, label: 'Generated', description: 'The asset was generated.', icon: `${baseUrl}/algorithm-dark.svg` });
-        break;
       case 'c2pa.edited':
-      case 'c2pa.modified':
         results.push({ id: action, label: 'Edited', description: 'The asset was modified.', icon: `${baseUrl}/actions-dark.svg` });
         break;
       case 'c2pa.color_adjustments':
-      case 'c2pa.color_adjustment':
       case 'c2pa.adjustedColor':
         results.push({ id: action, label: 'Color adjustments', description: 'Changes made to tone, saturation, or exposure.', icon: `${baseUrl}/color-palette-dark.svg` });
         break;
@@ -51,7 +46,6 @@ export async function selectEditsAndActivity(
         results.push({ id: action, label: 'Cropped', description: 'The asset was cropped.', icon: `${baseUrl}/crop-dark.svg` });
         break;
       case 'c2pa.filtered':
-      case 'c2pa.appliedFilter':
         results.push({ id: action, label: 'Filtered', description: 'Appearance changed with filters and effects.', icon: `${baseUrl}/properties-dark.svg` });
         break;
       case 'c2pa.resized':
@@ -61,7 +55,6 @@ export async function selectEditsAndActivity(
         results.push({ id: action, label: 'Orientation changed', description: 'The asset was rotated or flipped.', icon: `${baseUrl}/rotate-left-outline-dark.svg` });
         break;
       case 'c2pa.placed':
-      case 'c2pa.imported':
         results.push({ id: action, label: 'Imported', description: 'Other assets were combined into this one.', icon: `${baseUrl}/import-dark.svg` });
         break;
       case 'c2pa.drawing':
@@ -69,7 +62,6 @@ export async function selectEditsAndActivity(
         break;
       case 'c2pa.converted':
       case 'c2pa.transcoded':
-      case 'c2pa.format_conversion':
         results.push({ id: action, label: 'Format converted', description: 'The file format was changed or transcoded.', icon: `${baseUrl}/export-dark.svg` });
         break;
       case 'c2pa.deleted':
@@ -97,7 +89,6 @@ export async function selectEditsAndActivity(
         results.push({ id: action, label: 'Opened', description: 'Opened a pre-existing file.', icon: `${baseUrl}/folder-open-outline-dark.svg` });
         break;
       case 'c2pa.saved':
-      case 'c2pa.exported':
         results.push({ id: action, label: 'Saved', description: 'Saved the file.', icon: `${baseUrl}/export-dark.svg` });
         break;
       case 'c2pa.unknown':

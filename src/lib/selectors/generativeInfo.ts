@@ -22,9 +22,6 @@ function sdkSelectGenerativeInfo(manifest: Manifest): SdkGenerativeInfo[] {
   
   return actions
     .filter((a: any) => {
-      // c2pa.generated is the legacy standard for AI
-      if (a.action === 'c2pa.generated') return true;
-      
       // For created/edited actions, inspect the IPTC digitalSourceType for AI definitions
       const sourceType = a.digitalSourceType || a.parameters?.digitalSourceType || '';
       return sourceType.toLowerCase().includes('algorithmicmedia');
@@ -36,7 +33,7 @@ function sdkSelectGenerativeInfo(manifest: Manifest): SdkGenerativeInfo[] {
       
       return {
         softwareAgent: a.softwareAgent || 'Unknown',
-        type: a.action === 'c2pa.generated' ? 'legacy' : typeSlug
+        type: typeSlug
       };
     });
 }
