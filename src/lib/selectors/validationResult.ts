@@ -1,11 +1,10 @@
 // Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors
 
-import type { ManifestStore } from '@contentauth/c2pa-web';
+import type { ValidationStatus as SdkValidationStatus, StatusCodes } from '@contentauth/c2pa-web';
 import { difference } from 'lodash';
 
-export type ValidationStatus = ManifestStore['validation_status'][0];
-export type ValidationResults =
-  ManifestStore['validation_results']['activeManifest'];
+export type ValidationStatus = SdkValidationStatus;
+export type ValidationResults = StatusCodes;
 export type ValidationStatusCode = 'valid' | 'invalid' | 'unrecognized';
 
 export type ValidationStatusResult = ReturnType<typeof selectValidationResult>;

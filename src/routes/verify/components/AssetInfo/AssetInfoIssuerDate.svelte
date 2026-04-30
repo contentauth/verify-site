@@ -7,8 +7,10 @@
   import { _ } from 'svelte-i18n';
 
   export let manifestData: ManifestData | null;
-  export const trustSource: 'official' | 'legacy' | 'none' = 'none';
+  export let trustSource: 'official' | 'legacy' | 'none' = 'none';
   $: issuer = manifestData?.signatureInfo?.issuer;
 </script>
 
-<Description>{#if issuer}{$_('sidebar.verify.about.issuedby')} {issuer}{/if}</Description>
+<div data-trust-source={trustSource}>
+  <Description>{#if issuer}{$_('sidebar.verify.about.issuedby')} {issuer}{/if}</Description>
+</div>

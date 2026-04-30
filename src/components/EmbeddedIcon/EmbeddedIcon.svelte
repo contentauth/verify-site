@@ -4,17 +4,13 @@
 <script lang="ts">
   import type { ClaimGeneratorDisplayInfo } from '$src/lib/asset';
 
-  interface DisposableBlobUrl {
-    url: string;
-    dispose: () => void;
-  }
   import { onMount } from 'svelte';
 
   export let generator: ClaimGeneratorDisplayInfo;
   let iconUrl: string | undefined;
 
   onMount(() => {
-    let dispose: DisposableBlobUrl['dispose'];
+    let dispose: () => void = () => {};
 
     if (generator.icon) {
       // The new SDK requires the active reader instance to fetch embedded resources.

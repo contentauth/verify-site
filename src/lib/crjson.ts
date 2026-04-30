@@ -302,12 +302,15 @@ function legacyManifestToCrJsonEntry(label: string, m: Record<string, unknown>):
   const validationResults = m.validation_results ?? m.validationResults;
   const validationStatus = m.validation_status ?? m.validationStatus;
 
-  return {
+  const entry: CrJsonManifestEntry = {
     label,
     assertions,
-    ...(claim && { claim: claim as Record<string, unknown> }),
-    ...(signature && { signature }),
-    ...(validationResults && { validationResults: validationResults as CrJsonValidationResults }),
-    ...(validationStatus && { validationStatus: validationStatus as Record<string, unknown> })
   }
+
+  if (claim) entry.claim = claim as Record<string, unknown>;
+  if (signature) entry.signature = signature;
+  if (validationResults) entry.validationResults = validationResults as CrJsonValidationResults;
+  if (validationStatus) entry.validationStatus = validationStatus as Record<string, unknown>;
+
+  return entry;
 }

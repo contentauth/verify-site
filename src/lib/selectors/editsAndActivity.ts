@@ -17,20 +17,31 @@ export async function selectEditsAndActivity(
   // Handle Legacy SDK (Map), Native SDK (Array), and crJSON (Object)
   type ActionItem = { label?: string; action: string };
   type ActionsAssertion = { data?: { actions?: ActionItem[] }; actions?: ActionItem[] };
-  let actionsAssertion: ActionsAssertion | undefined;
+  const assertions = manifest.assertions;
+  let actionsAssertion: unknown;
 
-  if (manifest.assertions instanceof Map) {
-    actionsAssertion = manifest.assertions.get('c2pa.actions.v2')?.[0] || manifest.assertions.get('c2pa.actions')?.[0] || manifest.assertions.get('c2pa.actions.v2') || manifest.assertions.get('c2pa.actions');
-  } else if (Array.isArray(manifest.assertions)) {
-    actionsAssertion = manifest.assertions.find((a: { label?: string }) => a.label === 'c2pa.actions' || a.label === 'c2pa.actions.v2');
-  } else {
-    actionsAssertion = manifest.assertions?.['c2pa.actions.v2'] || manifest.assertions?.['c2pa.actions'];
+  if (Array.isArray(assertions)) {
+    actionsAssertion = assertions.find(
+      (a): a is { label: string; data: unknown } =>
+        typeof a === 'object' &&
+        a !== null &&
+        'label' in a &&
+        typeof (a as Record<string, unknown>)['label'] === 'string' &&
+        ['c2pa.actions', 'c2pa.actions.v2'].includes((a as Record<string, unknown>)['label'] as string)
+    );
+  } else if (assertions && typeof assertions === 'object') {
+    actionsAssertion =
+      (assertions as Record<string, unknown>)['c2pa.actions.v2'] ||
+      (assertions as Record<string, unknown>)['c2pa.actions'];
   }
 
-  const actions = actionsAssertion?.data?.actions || actionsAssertion?.actions || [];
+  const actions =
+    (actionsAssertion as ActionsAssertion)?.data?.actions ||
+    (actionsAssertion as ActionsAssertion)?.actions ||
+    [];
 
   const uniqueActionTypes = new Set<string>();
-  actions.forEach((a) => uniqueActionTypes.add(a.action));
+  actions.forEach((a: ActionItem) => uniqueActionTypes.add(a.action));
 
   const results: TranslatedDictionaryCategory[] = [];
 

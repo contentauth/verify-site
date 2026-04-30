@@ -14,19 +14,40 @@ export interface AutoDubInfo {
 }
 
 export function selectAutoDubInfo(manifest: Manifest): AutoDubInfo | null {
-  const actionAssertion = manifest.assertions?.['c2pa.actions.v2'];
+  const assertions = manifest.assertions;
+  let actionAssertion: unknown;
+
+  if (Array.isArray(assertions)) {
+    actionAssertion = assertions.find(
+      (a): a is { label: string; data: unknown } =>
+        typeof a === 'object' &&
+        a !== null &&
+        'label' in a &&
+        typeof (a as Record<string, unknown>)['label'] === 'string' &&
+        (a as Record<string, unknown>)['label'] === 'c2pa.actions.v2'
+    );
+  } else if (assertions && typeof assertions === 'object') {
+    actionAssertion = (assertions as Record<string, unknown>)['c2pa.actions.v2'];
+  }
 
   if (!actionAssertion) {
     return null;
   }
 
-  const dubbedAction = actionAssertion.data.actions.find(
+  type ActionItem = { 
+    action: string; 
+    changes?: Array<{ region?: Array<{ type?: string; item?: { value?: string } }> }>;
+    parameters?: unknown;
+  };
+  type ActionsAssertion = { data?: { actions?: ActionItem[] } };
+
+  const dubbedAction = (actionAssertion as ActionsAssertion).data?.actions?.find(
     ({ action }) => action === 'c2pa.dubbed',
   );
-  const translatedAction = actionAssertion.data.actions.find(
+  const translatedAction = (actionAssertion as ActionsAssertion).data?.actions?.find(
     ({ action }) => action === 'c2pa.translated',
   );
-  const editedAction = actionAssertion.data.actions.find(
+  const editedAction = (actionAssertion as ActionsAssertion).data?.actions?.find(
     ({ action }) => action === 'c2pa.edited',
   );
 
@@ -36,7 +57,7 @@ export function selectAutoDubInfo(manifest: Manifest): AutoDubInfo | null {
     )?.region;
     const dubbedIdentified = dubbedRegionOfInterest?.find(
       (region: Record<string, unknown>) => region.type === 'identified',
-    )?.item.value;
+    )?.item?.value;
     const hasLipsRoi = dubbedIdentified === 'lips';
 
     const editedRegionOfInterest = editedAction?.changes?.find(
@@ -44,7 +65,7 @@ export function selectAutoDubInfo(manifest: Manifest): AutoDubInfo | null {
     )?.region;
     const editedIdentified = editedRegionOfInterest?.find(
       (region: Record<string, unknown>) => region.type === 'identified',
-    )?.item.value;
+    )?.item?.value;
     const hasTranscriptRoi = editedIdentified === 'transcript';
 
     const translatedLanguageData = translatedAction?.parameters ?? null;
