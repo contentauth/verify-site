@@ -28,7 +28,7 @@ const config: PlaywrightTestConfig = {
   },
   webServer: [
     {
-      command: `pnpm preview --port=${port}`,
+      command: `pnpm dev --port=${port}`,
       port,
       reuseExistingServer: !process.env.CI,
     },

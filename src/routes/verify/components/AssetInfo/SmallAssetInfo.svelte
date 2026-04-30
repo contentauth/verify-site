@@ -26,5 +26,9 @@
 
   <Body slot="CRInfo">
     {#if date}
-      <AssetInfoDate {date} />{:else}{issuer}{/if}</Body>
+      <AssetInfoDate {date} />
+    {:else}
+      {issuer}
+    {/if}
+  </Body>
 </AssetInfoThumbnailBase>

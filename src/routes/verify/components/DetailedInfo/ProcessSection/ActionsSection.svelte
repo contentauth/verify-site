@@ -6,7 +6,7 @@
   import Link from '$src/components/typography/Link.svelte';
   import type { ManifestData } from '$src/lib/asset';
   import { DATA_PRIVACY_URL } from '$src/lib/config';
-  import type { TranslatedDictionaryCategory } from 'c2pa';
+  import type { TranslatedDictionaryCategory } from '$src/lib/selectors/editsAndActivity';
   import { _ } from 'svelte-i18n';
   import SubSection from '../../../components/SubSection/SubSection.svelte';
   import AboutSectionIconContentRow from '../AboutSection/AboutSectionIconContentRow.svelte';
@@ -36,7 +36,7 @@
             <img
               src={category.icon}
               alt={category.label}
-              class="w-4 brightness-0 filter" />
+              class="w-4 h-4 object-contain brightness-0 filter" />
           {/if}
         </svelte:fragment>
         <div slot="content" class="flex flex-col">

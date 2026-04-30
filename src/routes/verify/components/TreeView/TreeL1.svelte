@@ -32,6 +32,7 @@
   $: removeL1 = transformScale === 0.125 ? true : false;
   $: scale = 0.5 / transformScale;
   $: L1margin = transformScale >= 0.25 ? 0.5 : transformScale / 0.25;
+  $: trustSource = $assetStore.trustSource;
 </script>
 
 <div

@@ -27,6 +27,7 @@
     "check": "pnpm lint && svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --fail-on-warnings",
     "format": "prettier --plugin-search-dir . --write .",
     "prepare": "husky install",
+    "postinstall": "mkdir -p static && cp node_modules/@contentauth/c2pa-web/dist/resources/c2pa_bg.wasm static/c2pa.wasm",
     "storybook": "storybook dev -p 6006 --no-open",
     "build:storybook": "storybook build"
   },
@@ -117,7 +118,9 @@
     "vitest": "^0.34.5"
   },
   "dependencies": {
+    "@adobe/spectrum-css-workflow-icons": "^5.0.0",
     "@ccx-public/ingest": "file:etc/packages/ingest-4.3.0.tgz",
+    "@contentauth/c2pa-web": "^0.7.1",
     "@intl/adobe-locales": "file:etc/packages/adobe-locales-2.35.2.tgz",
     "@mapbox/mapbox-sdk": "^0.13.7",
     "@netlify/functions": "^2.1.0",
@@ -129,7 +132,6 @@
     "@spectrum-web-components/progress-circle": "^0.36.0",
     "@spectrum-web-components/radio": "^0.36.0",
     "@spectrum-web-components/theme": "^0.36.0",
-    "c2pa": "0.30.15",
     "c2pa-test-image-service": "0.13.5",
     "circle-to-polygon": "^2.2.0",
     "d3-hierarchy": "^3.1.2",

@@ -1,12 +1,42 @@
 // Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors
 
-import {
-  selectGenerativeInfo as sdkSelectGenerativeInfo,
-  type DataType,
-  type Ingredient,
-  type Manifest,
-  type GenerativeInfo as SdkGenerativeInfo,
-} from 'c2pa';
+import type {
+  DataType,
+  Ingredient,
+  Manifest,
+} from '@contentauth/c2pa-web';
+
+interface SdkGenerativeInfo {
+  softwareAgent: string;
+  type: string;
+}
+
+function sdkSelectGenerativeInfo(manifest: Manifest): SdkGenerativeInfo[] {
+  // Handle both native SDK array structures and crJSON maps
+  const isArray = Array.isArray(manifest.assertions);
+  const actionsAssertion = isArray 
+    ? manifest.assertions.find((a: any) => a.label === 'c2pa.actions' || a.label === 'c2pa.actions.v2')
+    : (manifest.assertions?.['c2pa.actions.v2'] || manifest.assertions?.['c2pa.actions']);
+    
+  const actions = (actionsAssertion as any)?.data?.actions || [];
+  
+  return actions
+    .filter((a: any) => {
+      // For created/edited actions, inspect the IPTC digitalSourceType for AI definitions
+      const sourceType = a.digitalSourceType || a.parameters?.digitalSourceType || '';
+      return sourceType.toLowerCase().includes('algorithmicmedia');
+    })
+    .map((a: any) => {
+      const rawType = a.digitalSourceType || a.parameters?.digitalSourceType;
+      // The UI expects the IPTC slug, not the full absolute URI
+      const typeSlug = typeof rawType === 'string' ? rawType.split('/').pop() : 'legacy';
+      
+      return {
+        softwareAgent: a.softwareAgent || 'Unknown',
+        type: typeSlug
+      };
+    });
+}
 import { filter, flow, uniqBy } from 'lodash/fp';
 import startsWith from 'lodash/startsWith';
 
@@ -57,7 +87,7 @@ export function selectModelsFromIngredient(ingredient: Ingredient) {
 }
 
 export function selectCustomModels(manifest: Manifest): CustomModel[] {
-  return manifest.ingredients.reduce<CustomModel[]>((acc, ingredient) => {
+  return (manifest.ingredients || []).reduce<CustomModel[]>((acc, ingredient) => {
     const dataTypes = selectModelsFromIngredient(ingredient);
 
     if (dataTypes.length > 0) {
