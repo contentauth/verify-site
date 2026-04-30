@@ -3,7 +3,7 @@
 -->
 <script lang="ts">
   import type { ClaimGeneratorDisplayInfo } from '$src/lib/asset';
-  import { loadThumbnail } from '$src/lib/thumbnail';
+
   interface DisposableBlobUrl {
     url: string;
     dispose: () => void;

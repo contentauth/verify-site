@@ -11,32 +11,44 @@ interface SdkGenerativeInfo {
   type: string;
 }
 
+type GenActionItem = {
+  label?: string;
+  action?: string;
+  digitalSourceType?: string;
+  softwareAgent?: string;
+  parameters?: { digitalSourceType?: string };
+};
+
+type GenActionsAssertion = { data?: { actions?: GenActionItem[] } };
+
 function sdkSelectGenerativeInfo(manifest: Manifest): SdkGenerativeInfo[] {
   // Handle both native SDK array structures and crJSON maps
   const isArray = Array.isArray(manifest.assertions);
-  const actionsAssertion = isArray 
-    ? manifest.assertions.find((a: any) => a.label === 'c2pa.actions' || a.label === 'c2pa.actions.v2')
+  const actionsAssertion = isArray
+    ? manifest.assertions.find((a: { label?: string }) => a.label === 'c2pa.actions' || a.label === 'c2pa.actions.v2')
     : (manifest.assertions?.['c2pa.actions.v2'] || manifest.assertions?.['c2pa.actions']);
-    
-  const actions = (actionsAssertion as any)?.data?.actions || [];
-  
+
+  const actions = (actionsAssertion as GenActionsAssertion)?.data?.actions || [];
+
   return actions
-    .filter((a: any) => {
+    .filter((a) => {
       // For created/edited actions, inspect the IPTC digitalSourceType for AI definitions
       const sourceType = a.digitalSourceType || a.parameters?.digitalSourceType || '';
+
       return sourceType.toLowerCase().includes('algorithmicmedia');
     })
-    .map((a: any) => {
+    .map((a) => {
       const rawType = a.digitalSourceType || a.parameters?.digitalSourceType;
       // The UI expects the IPTC slug, not the full absolute URI
-      const typeSlug = typeof rawType === 'string' ? rawType.split('/').pop() : 'legacy';
-      
+      const typeSlug = typeof rawType === 'string' ? (rawType.split('/').pop() ?? 'legacy') : 'legacy';
+
       return {
         softwareAgent: a.softwareAgent || 'Unknown',
         type: typeSlug
       };
     });
 }
+
 import { filter, flow, uniqBy } from 'lodash/fp';
 import startsWith from 'lodash/startsWith';
 

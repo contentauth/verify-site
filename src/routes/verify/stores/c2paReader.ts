@@ -14,7 +14,7 @@ import LegacyCredentialModal from '../components/modals/LegacyCredentialModal/Le
 
 interface SourceData {
   assetMap: AssetDataMap;
-  data: any; // Raw crJSON manifest store
+  data: unknown;
 }
 
 export type SourceState = Loadable<SourceData>;
@@ -33,32 +33,11 @@ const mimeTypeCorrections = {
   'image/dng': 'image/x-adobe-dng',
 };
 
-import { legacyToCrJson, type CrJson } from '$lib/crjson';
-
-// Helper to extract all manifest labels that failed trust validation in a given crJSON store
-function getUntrustedManifestLabels(store: CrJson): Set<string> {
-  const untrustedLabels = new Set<string>();
-  const isTrustError = (s: any) => s.code.includes('signingCredential');
-
-  // 1. Check Root
-  const rootFailures = store.validationResults?.activeManifest?.failure || [];
-  const activeLabel = store.manifests[0]?.label;
-  if (activeLabel && rootFailures.some(isTrustError)) {
-    untrustedLabels.add(activeLabel);
-  }
-
-  // 2. Check EVERY manifest in the store (Active + Ingredients)
-  for (const manifest of store.manifests) {
-    // Check the manifest object itself
-    const mFailures = manifest.validationResults?.failure || [];
-    const mStatuses = manifest.validationStatus || [];
-    if (mFailures.some(isTrustError) || mStatuses.some(isTrustError)) {
-      untrustedLabels.add(manifest.label);
-    }
-  }
-
-  return untrustedLabels;
-}
+type ValidationStatus = { code: string };
+type TrustSource = 'official' | 'legacy' | 'none';
+type TrustedIngredient = { trust_source?: TrustSource; active_manifest?: string; validation_status?: ValidationStatus[] };
+type TrustedManifest = { trust_source?: TrustSource; ingredients?: TrustedIngredient[] };
+type ValidationDelta = { ingredientAssertionURI?: string; validationDeltas?: { failure?: ValidationStatus[] } };
 
 export function createC2paReader(): C2paReaderStore {
   let dispose: () => void;
@@ -112,7 +91,7 @@ export function createC2paReader(): C2paReaderStore {
 
         // PASS 1: Validate against Official Trust List
         const officialSettings = await getOfficialToolkitSettings();
-        let reader = await sdk.reader.fromBlob(source.type || 'application/octet-stream', source, officialSettings);
+        const reader = await sdk.reader.fromBlob(source.type || 'application/octet-stream', source, officialSettings);
 
         if (!reader) {
           throw new Error('No C2PA manifest found in this file');
@@ -139,18 +118,17 @@ export function createC2paReader(): C2paReaderStore {
             reader.free();
             currentReader = legacyReader;
 
-            const isTrustError = (s: any) => s.code.includes('signingCredential.untrusted') || s.code.includes('signingCredential.invalid');
-            const isCryptoValid = (s: any) => s.code.includes('signingCredential.trusted') || s.code.includes('claimSignature.validated');
+            const isTrustError = (s: ValidationStatus) => s.code.includes('signingCredential.untrusted') || s.code.includes('signingCredential.invalid');
 
             // 4a. Tag the Active Manifest
-            const p1ActiveV3 = rawManifestStore.validation_results?.activeManifest?.failure || [];
-            const p1ActiveV2 = rawManifestStore.manifests?.[rawManifestStore.active_manifest || '']?.validation_status || [];
+            const p1ActiveV3 = (rawManifestStore.validation_results?.activeManifest?.failure || []) as ValidationStatus[];
+            const p1ActiveV2 = (rawManifestStore.manifests?.[rawManifestStore.active_manifest || '']?.validation_status || []) as ValidationStatus[];
             const wasActiveUntrusted = p1ActiveV3.some(isTrustError) || p1ActiveV2.some(isTrustError);
             const isFinalTrusted = finalStore.validation_state === 'Trusted';
             
             if (finalStore.manifests && finalStore.active_manifest && finalStore.manifests[finalStore.active_manifest]) {
-              const activeMan = finalStore.manifests[finalStore.active_manifest];
-              
+              const activeMan = finalStore.manifests[finalStore.active_manifest] as unknown as TrustedManifest;
+
               // If the root is Trusted, default to official, then downgrade if Pass 1 failed.
               if (isFinalTrusted) {
                 activeMan.trust_source = wasActiveUntrusted ? 'legacy' : 'official';
@@ -160,32 +138,32 @@ export function createC2paReader(): C2paReaderStore {
             }
 
             // 4b. Tag ALL Ingredients across the entire provenance tree
-            const p1Deltas = rawManifestStore.validation_results?.ingredientDeltas || [];
-            
-            Object.entries(finalStore.manifests || {}).forEach(([label, manifest]: [string, any]) => {
+            const p1Deltas = (rawManifestStore.validation_results?.ingredientDeltas || []) as ValidationDelta[];
+
+            (Object.entries(finalStore.manifests || {}) as Array<[string, TrustedManifest]>).forEach(([label, manifest]) => {
               const p1Manifest = rawManifestStore.manifests?.[label];
-              
+
               if (manifest.ingredients && p1Manifest?.ingredients) {
-                manifest.ingredients.forEach((ingredient: any, index: number) => {
+                manifest.ingredients.forEach((ingredient, index) => {
                   // ZERO TRUST DEFAULT: Unverified assets get no trust credentials
                   ingredient.trust_source = 'none';
 
                   if (ingredient.active_manifest) {
-                    const p1Ing = p1Manifest.ingredients[index];
+                    const p1Ing = p1Manifest.ingredients?.[index];
                     const subLabel = ingredient.active_manifest;
                     const p1SubManifest = subLabel ? rawManifestStore.manifests?.[subLabel] : null;
 
                     // 1. Check the Ingredient Pointer (V2 standard)
-                    const p1V2_ing = p1Ing?.validation_status || [];
+                    const p1V2_ing = (p1Ing?.validation_status || []) as ValidationStatus[];
 
                     // 2. Check the actual Sub-Manifest directly (V2 + V3 standards)
                     // NOTE: In V3, the sub-manifest's own results are stored under .activeManifest
-                    const p1V2_sub = p1SubManifest?.validation_status || [];
-                    const p1V3_sub = p1SubManifest?.validation_results?.activeManifest?.failure || [];
+                    const p1V2_sub = (p1SubManifest?.validation_status || []) as ValidationStatus[];
+                    const p1V3_sub = (p1SubManifest?.validation_results?.activeManifest?.failure || []) as ValidationStatus[];
 
                     // 3. Check the Root Deltas (V3 standard)
-                    const p1Delta = p1Deltas.find((d: any) => 
-                      d.ingredientAssertionURI?.includes(label) && 
+                    const p1Delta = p1Deltas.find((d) =>
+                      d.ingredientAssertionURI?.includes(label) &&
                       d.ingredientAssertionURI?.includes('c2pa.ingredient')
                     );
                     const p1V3_delta = p1Delta?.validationDeltas?.failure || [];
@@ -212,12 +190,13 @@ export function createC2paReader(): C2paReaderStore {
             
             // Fallback: If root is Trusted, entire tree is official.
             const isTrusted = finalStore.validation_state === 'Trusted';
-            Object.entries(finalStore.manifests || {}).forEach(([label, manifest]: [string, any]) => {
+            (Object.entries(finalStore.manifests || {}) as Array<[string, TrustedManifest]>).forEach(([label, manifest]) => {
               if (label === finalStore.active_manifest) {
                 manifest.trust_source = isTrusted ? 'official' : 'none';
               }
+
               if (manifest.ingredients) {
-                manifest.ingredients.forEach((ing: any) => {
+                manifest.ingredients.forEach((ing) => {
                   ing.trust_source = (isTrusted && ing.active_manifest) ? 'official' : 'none';
                 });
               }
@@ -226,12 +205,13 @@ export function createC2paReader(): C2paReaderStore {
         } else {
           // Pass 1 had no trust issues (Could be Trusted or Hard Invalid)
           const isTrusted = finalStore.validation_state === 'Trusted';
-          Object.entries(finalStore.manifests || {}).forEach(([label, manifest]: [string, any]) => {
+          (Object.entries(finalStore.manifests || {}) as Array<[string, TrustedManifest]>).forEach(([label, manifest]) => {
             if (label === finalStore.active_manifest) {
               manifest.trust_source = isTrusted ? 'official' : 'none';
             }
+
             if (manifest.ingredients) {
-              manifest.ingredients.forEach((ing: any) => {
+              manifest.ingredients.forEach((ing) => {
                 ing.trust_source = (isTrusted && ing.active_manifest) ? 'official' : 'none';
               });
             }
@@ -239,7 +219,8 @@ export function createC2paReader(): C2paReaderStore {
         }
 
         const { assetMap, dispose: assetMapDisposer } =
-          await resultToAssetMap({ manifestStore: finalStore, source });  
+          await resultToAssetMap({ manifestStore: finalStore, source });
+  
         dispose = () => {
           assetMapDisposer();
           currentReader.free();
@@ -279,5 +260,6 @@ export function createC2paReader(): C2paReaderStore {
 async function hasLegacyCredentials(source: Blob | File): Promise<boolean> {
   const legacySdk = await getLegacySdk();
   const legacyResult = await legacySdk.processImage(source);
+
   return legacyResult.exists;
 }

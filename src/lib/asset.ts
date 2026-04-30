@@ -260,7 +260,7 @@ export async function resultToAssetMap({
       manifestData: await getManifestData(manifest, rootValidationResult),
       dataType: null,
       validationResult: rootValidationResult,
-      trustSource: (manifest as any).trust_source || 'none',
+      trustSource: (manifest as Manifest & { trust_source?: string }).trust_source || 'none',
     };
 
     if (thumbnail?.dispose) {
@@ -318,7 +318,7 @@ export async function resultToAssetMap({
       manifestData: await getManifestData(ingredientManifest, validationResult),
       dataType: getIngredientDataType(ingredient),
       validationResult,
-      trustSource: (ingredient as any)?.trust_source || 'none',
+      trustSource: (ingredient as Ingredient & { trust_source?: string })?.trust_source || 'none',
     };
 
     if (thumbnail?.dispose) {
@@ -338,9 +338,12 @@ export async function resultToAssetMap({
       return null;
     }
 
-    function formattedGeneratorInfo(claim_generator: any) {
+    type ClaimGeneratorEntry = { name?: string; version?: string | null; icon?: Thumbnail | null };
+
+    function formattedGeneratorInfo(claim_generator: ClaimGeneratorEntry): ClaimGeneratorEntry {
       const version = claim_generator?.version;
       claim_generator.version = version?.replace(/\([^()]*\)/g, '');
+
       return claim_generator;
     }
 
@@ -359,8 +362,6 @@ export async function resultToAssetMap({
       icon: claimGeneratorInfo?.icon ?? null,
     };
 
-    // Extract Organization (O) from the native X.509 certificate subject tree
-    let organization: string | undefined = undefined;
     const safeSignatureInfo = manifest.signature_info
       ? { ...manifest.signature_info }
       : null;
@@ -383,9 +384,9 @@ export async function resultToAssetMap({
         );
 
         if (editsAndActivity) {
-          const actionsAssertion = manifest.assertions?.['c2pa.actions'];
+          const actionsAssertion = manifest.assertions?.['c2pa.actions'] as { data?: { metadata?: Record<string, unknown> } } | undefined;
           const hasInference =
-            !!(actionsAssertion as any)?.data?.metadata?.['com.adobe.inference'];
+            !!actionsAssertion?.data?.metadata?.['com.adobe.inference'];
 
           const filteredEditsAndActivity = editsAndActivity.filter(
             (value) => !!value.label,
@@ -415,15 +416,18 @@ export async function resultToAssetMap({
 
         // 2. Must have exactly one action in the manifest history
         let actionsAssertion;
+
         if (manifest.assertions instanceof Map) {
           actionsAssertion = manifest.assertions.get('c2pa.actions.v2')?.[0] || manifest.assertions.get('c2pa.actions')?.[0] || manifest.assertions.get('c2pa.actions.v2') || manifest.assertions.get('c2pa.actions');
         } else if (Array.isArray(manifest.assertions)) {
-          actionsAssertion = manifest.assertions.find((a: any) => a.label === 'c2pa.actions.v2' || a.label === 'c2pa.actions');
+          actionsAssertion = manifest.assertions.find((a: { label?: string }) => a.label === 'c2pa.actions.v2' || a.label === 'c2pa.actions');
         } else {
           actionsAssertion = manifest.assertions?.['c2pa.actions.v2'] || manifest.assertions?.['c2pa.actions'];
         }
 
-        const actions = (actionsAssertion as any)?.data?.actions || (actionsAssertion as any)?.actions || [];
+        type C2paActionItem = { action: string; digitalSourceType?: string; parameters?: { digitalSourceType?: string } };
+        type AssertionValue = { data?: { actions?: C2paActionItem[] }; actions?: C2paActionItem[] };
+        const actions = (actionsAssertion as AssertionValue)?.data?.actions || (actionsAssertion as AssertionValue)?.actions || [];
         if (actions.length !== 1) return false;
 
         // 3. First and only action must be c2pa.created
@@ -432,6 +436,7 @@ export async function resultToAssetMap({
 
         // 4. Digital source type must be a standard captured media URI (including computational)
         const sourceType = action.digitalSourceType || action.parameters?.digitalSourceType || '';
+
         return sourceType.includes('digitalCapture') || sourceType.includes('compositeCapture') || sourceType.includes('computationalCapture');
       })(),
     };

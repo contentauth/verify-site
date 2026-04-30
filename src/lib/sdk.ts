@@ -15,6 +15,7 @@ export const getSdk = pMemoize(createSdk);
 
 async function loadTrustResource(file: string): Promise<string> {
   const res = await fetch(`/trust/${file}`);
+
   return res.text();
 }
 
@@ -26,6 +27,7 @@ async function getOfficialAnchors(): Promise<string> {
         'https://raw.githubusercontent.com/c2pa-org/conformance-public/refs/heads/main/trust-list/C2PA-TSA-TRUST-LIST.pem',
       ].map(async (url) => {
         const res = await fetch(url);
+
         return res.text();
       }),
     )

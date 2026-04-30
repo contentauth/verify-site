@@ -18,6 +18,7 @@ export function selectSocialAccounts(manifest: Manifest): SocialAccount[] {
   for (const cred of credentials) {
     // Simplified mapping logic for standard social media VC schemas
     const vcData = cred.credentialSubject || {};
+
     if (vcData?.account?.service && vcData?.account?.identifier) {
       accounts.push({
         '@id': vcData.id || '',
@@ -29,7 +30,9 @@ export function selectSocialAccounts(manifest: Manifest): SocialAccount[] {
   }
 
   // Also check standard CreativeWork assertions for "sameAs" social URLs
-  const creativeWork = (manifest.assertions?.['stds.schema-org.CreativeWork'] as any)?.data;
+  type CreativeWorkAssertion = { data?: { author?: { sameAs?: string | string[] } } };
+  const creativeWork = (manifest.assertions?.['stds.schema-org.CreativeWork'] as CreativeWorkAssertion)?.data;
+
   if (creativeWork?.author?.sameAs) {
     const urls = Array.isArray(creativeWork.author.sameAs) 
       ? creativeWork.author.sameAs 

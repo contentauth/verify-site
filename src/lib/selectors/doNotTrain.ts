@@ -5,15 +5,21 @@ import type { Manifest } from '@contentauth/c2pa-web';
 export function selectDoNotTrain(manifest: Manifest): boolean {
   // Check for the explicit do not train/mine assertion
   const trainingAssertions = manifest.assertions?.['c2pa.training-mining'];
+
   if (trainingAssertions) {
-    const entry = (trainingAssertions as any)?.data?.entries?.find((e: any) => 
+    type TrainingEntry = { use: string; c2pa_manifest: boolean | string };
+    type TrainingMining = { data?: { entries?: TrainingEntry[] } };
+    const entry = (trainingAssertions as TrainingMining)?.data?.entries?.find((e: TrainingEntry) =>
       e.use === 'notAllowed' && (e.c2pa_manifest === true || e.c2pa_manifest === 'true')
     );
+
     return !!entry;
   }
 
   // Fallback: Check c2pa.actions for specific 'not_trained' markers
-  const actionsAssertion = manifest.assertions?.['c2pa.actions'];
-  const actions = (actionsAssertion as any)?.data?.actions || [];
-  return actions.some((a: any) => a.action === 'c2pa.not_trained');
+  type ActionsAssertion = { data?: { actions?: Array<{ action: string }> } };
+  const actionsAssertion = manifest.assertions?.['c2pa.actions'] as ActionsAssertion | undefined;
+  const actions = actionsAssertion?.data?.actions ?? [];
+
+  return actions.some((a) => a.action === 'c2pa.not_trained');
 }

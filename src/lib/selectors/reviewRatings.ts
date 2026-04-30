@@ -13,8 +13,9 @@ export function selectReviewRatings(manifest: Manifest) {
     },
     [],
   );
+  type ActionsReviewAssertion = { data?: { metadata?: { reviewRatings?: ReviewRating[] } } };
   const actionRatings =
-    (manifest.assertions?.['c2pa.actions'] as any)?.data?.metadata?.reviewRatings ?? [];
+    (manifest.assertions?.['c2pa.actions'] as ActionsReviewAssertion)?.data?.metadata?.reviewRatings ?? [];
   const reviewRatings = [...ingredientRatings, ...actionRatings];
 
   return {

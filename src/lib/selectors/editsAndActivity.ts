@@ -1,3 +1,5 @@
+// Copyright 2021-2024 Adobe, Copyright 2026 The C2PA Contributors
+
 import type { Manifest } from '@contentauth/c2pa-web';
 
 export interface TranslatedDictionaryCategory {
@@ -9,22 +11,26 @@ export interface TranslatedDictionaryCategory {
 
 export async function selectEditsAndActivity(
   manifest: Manifest,
-  locale: string
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  _locale: string
 ): Promise<TranslatedDictionaryCategory[]> {
   // Handle Legacy SDK (Map), Native SDK (Array), and crJSON (Object)
-  let actionsAssertion;
+  type ActionItem = { label?: string; action: string };
+  type ActionsAssertion = { data?: { actions?: ActionItem[] }; actions?: ActionItem[] };
+  let actionsAssertion: ActionsAssertion | undefined;
+
   if (manifest.assertions instanceof Map) {
     actionsAssertion = manifest.assertions.get('c2pa.actions.v2')?.[0] || manifest.assertions.get('c2pa.actions')?.[0] || manifest.assertions.get('c2pa.actions.v2') || manifest.assertions.get('c2pa.actions');
   } else if (Array.isArray(manifest.assertions)) {
-    actionsAssertion = manifest.assertions.find((a: any) => a.label === 'c2pa.actions' || a.label === 'c2pa.actions.v2');
+    actionsAssertion = manifest.assertions.find((a: { label?: string }) => a.label === 'c2pa.actions' || a.label === 'c2pa.actions.v2');
   } else {
     actionsAssertion = manifest.assertions?.['c2pa.actions.v2'] || manifest.assertions?.['c2pa.actions'];
   }
-  
-  const actions = (actionsAssertion as any)?.data?.actions || (actionsAssertion as any)?.actions || [];
+
+  const actions = actionsAssertion?.data?.actions || actionsAssertion?.actions || [];
 
   const uniqueActionTypes = new Set<string>();
-  actions.forEach((a: any) => uniqueActionTypes.add(a.action));
+  actions.forEach((a) => uniqueActionTypes.add(a.action));
 
   const results: TranslatedDictionaryCategory[] = [];
 
