@@ -13,6 +13,7 @@ describe('lib/selectors/validationResult', () => {
         hasError: false,
         hasOtgp: false,
         hasUntrustedSigner: false,
+        hasUntrustedTimestamp: false,
         statusCode: 'valid',
       });
 
@@ -33,6 +34,7 @@ describe('lib/selectors/validationResult', () => {
         hasError: false,
         hasOtgp: false,
         hasUntrustedSigner: true,
+        hasUntrustedTimestamp: false,
         statusCode: 'unrecognized',
       });
 
@@ -59,6 +61,7 @@ describe('lib/selectors/validationResult', () => {
         hasError: true,
         hasOtgp: false,
         hasUntrustedSigner: true,
+        hasUntrustedTimestamp: false,
         statusCode: 'invalid',
       });
 
@@ -80,6 +83,7 @@ describe('lib/selectors/validationResult', () => {
         hasError: true,
         hasOtgp: false,
         hasUntrustedSigner: false,
+        hasUntrustedTimestamp: false,
         statusCode: 'invalid',
       });
 
@@ -95,6 +99,7 @@ describe('lib/selectors/validationResult', () => {
         hasError: true,
         hasOtgp: false,
         hasUntrustedSigner: false,
+        hasUntrustedTimestamp: false,
         statusCode: 'invalid',
       });
 
@@ -110,6 +115,7 @@ describe('lib/selectors/validationResult', () => {
         hasError: false,
         hasOtgp: false,
         hasUntrustedSigner: true,
+        hasUntrustedTimestamp: false,
         statusCode: 'unrecognized',
       });
 
@@ -126,6 +132,7 @@ describe('lib/selectors/validationResult', () => {
         hasError: true,
         hasOtgp: true,
         hasUntrustedSigner: false,
+        hasUntrustedTimestamp: false,
         statusCode: 'invalid',
       });
     });
@@ -154,6 +161,7 @@ describe('lib/selectors/validationResult', () => {
         hasError: true,
         hasOtgp: true,
         hasUntrustedSigner: true,
+        hasUntrustedTimestamp: false,
         statusCode: 'invalid',
       });
     });
@@ -206,6 +214,65 @@ describe('lib/selectors/validationResult', () => {
         hasError: false,
         hasOtgp: false,
         hasUntrustedSigner: false,
+        hasUntrustedTimestamp: false,
+        statusCode: 'valid',
+      });
+    });
+
+    it('should detect an untrusted timestamp in v2 validationStatus', () => {
+      expect(
+        selectValidationResult([
+          {
+            code: 'timeStamp.untrusted',
+            url: 'self#jumbf=/c2pa/adobe:urn:uuid:5d75c0b0-2afc-4a12-86ad-95078cbe9fc5/c2pa.signature',
+            explanation: 'timestamp is not trusted',
+          },
+          {
+            code: 'signingCredential.trusted',
+            url: 'self#jumbf=/c2pa/adobe:urn:uuid:5d75c0b0-2afc-4a12-86ad-95078cbe9fc5/c2pa.signature',
+          },
+        ]),
+      ).toEqual({
+        hasError: false,
+        hasOtgp: false,
+        hasUntrustedSigner: false,
+        hasUntrustedTimestamp: true,
+        statusCode: 'valid',
+      });
+    });
+
+    it('should detect an untrusted timestamp in v3 validationResults', () => {
+      expect(
+        selectValidationResult(
+          [],
+          {
+            success: [{ code: 'signingCredential.trusted', url: 'Cose_Sign1' }],
+            informational: [{ code: 'timeStamp.mismatch', url: 'Cose_Sign1', explanation: 'timestamp mismatch' }],
+            failure: [],
+          },
+        ),
+      ).toEqual({
+        hasError: false,
+        hasOtgp: false,
+        hasUntrustedSigner: false,
+        hasUntrustedTimestamp: true,
+        statusCode: 'valid',
+      });
+    });
+
+    it('should not flag timeStamp.trusted or timeStamp.validated as untrusted', () => {
+      expect(
+        selectValidationResult([
+          {
+            code: 'timeStamp.trusted',
+            url: 'self#jumbf=/c2pa/adobe:urn:uuid:5d75c0b0/c2pa.signature',
+          },
+        ]),
+      ).toEqual({
+        hasError: false,
+        hasOtgp: false,
+        hasUntrustedSigner: false,
+        hasUntrustedTimestamp: false,
         statusCode: 'valid',
       });
     });

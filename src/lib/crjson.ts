@@ -262,7 +262,7 @@ function legacyManifestToCrJsonEntry(label: string, m: Record<string, unknown>):
     ? {
         claim_generator: m.claim_generator,
         claim_generator_info: m.claim_generator_info,
-        instanceID: m.instance_id ?? m.instance_id
+        instanceID: m.instanceID ?? m.instance_id
       }
     : undefined
   const sig = m.signature_info as Record<string, unknown> | undefined

@@ -128,15 +128,10 @@ export function selectValidationResult(
 
   const allFailures = [...v3Failures, ...v2Failures];
 
-  // Determine the specific types of failures present
-  const hasUntrusted = allFailures.some(f => f.code === UNTRUSTED_SIGNER_ERROR_CODE);
-  const hasOtgp = allFailures.some(f => f.code === OTGP_ERROR_CODE);
-  const hasOtherErrors = allFailures.some(
-    f => f.code !== UNTRUSTED_SIGNER_ERROR_CODE && f.code !== OTGP_ERROR_CODE
-  );
-
-  // Check ALL categories for an untrusted timestamp. 
-  // (The new SDK might place this in failure, informational, or success depending on strictness).
+  // Check ALL categories for an untrusted timestamp first so we can exclude those codes
+  // from the hard-error calculation below.
+  // (The new SDK may place timestamp codes in failure, informational, or success depending on
+  // the validation pass, so we inspect all three buckets.)
   const allV3Codes = [
     ...(validationResults?.failure || []),
     ...(validationResults?.informational || []),
@@ -145,9 +140,27 @@ export function selectValidationResult(
   const allCodes = [...allV3Codes, ...validationStatus];
 
   const hasUntrustedTimestamp = allCodes.some(
-    c => c.code.toLowerCase().includes('timestamp') 
+    c => c.code.toLowerCase().includes('timestamp')
       && !c.code.toLowerCase().includes('timestamp.trusted')
       && !c.code.toLowerCase().includes('timestamp.validated')
+  );
+
+  // Determine the specific types of failures present.
+  // Two codes are excluded from the hard-error calculation:
+  //   - GENERAL_ERROR_CODE: always a side-effect of signingCredential.untrusted (signature fails
+  //     because the cert is untrusted); treat it the same way when both are present.
+  //   - Timestamp codes: an untrusted/mismatched timestamp suppresses the date display but must
+  //     not downgrade the badge from valid to invalid.
+  const isTimestampCode = (code: string) => code.toLowerCase().startsWith('timestamp');
+  const hasUntrusted = allFailures.some(f => f.code === UNTRUSTED_SIGNER_ERROR_CODE);
+  const hasOtgp = allFailures.some(f => f.code === OTGP_ERROR_CODE);
+  const hasOtherErrors = allFailures.some(
+    f => f.code !== UNTRUSTED_SIGNER_ERROR_CODE
+      && f.code !== OTGP_ERROR_CODE
+      && !isTimestampCode(f.code)
+      // general.error is a signature-validation side-effect of an untrusted cert; only count
+      // it as a hard error when signingCredential.untrusted is absent.
+      && !(f.code === GENERAL_ERROR_CODE && hasUntrusted)
   );
 
   let statusCode: ValidationStatusCode = 'valid';

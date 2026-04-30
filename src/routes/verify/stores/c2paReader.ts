@@ -203,8 +203,6 @@ export function createC2paReader(): C2paReaderStore {
                       ingredient.trust_source = hasTrustError ? 'legacy' : 'official';
                     }
                   }
-                  
-                  console.log(`[DEBUG_C2PA] VERDICT -> Ingredient [${label} / ${ingredient.title || index}]: ${ingredient.trust_source}`);
                 });
               }
             });

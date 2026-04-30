@@ -1,67 +1,102 @@
+// Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors
+
+// End-to-end smoke tests for the c2pa-web SDK migration and two-pass trust validation.
+//
+// Fixture images are served by the local http-server at the fixtures port (default 8081) and
+// loaded via the app's ?source= query param.
+//
+// Tests that require proprietary images not checked into the repo (e.g. a "Legacy trust" image)
+// can be run locally by setting TEST_LEGACY_IMAGE_PATH to an absolute file path on disk. Those
+// tests are automatically skipped in CI when the variable is not set.
+
 import { test, expect } from '@playwright/test';
 
-const TEST_ASSETS = [
-  {
-    name: 'Google Camera Capture (V2 Manifest)',
-    path: '/usr/local/google/home/sherifhanna/github/resources/samples/Google/Photos Prod/camera-capture_cropped.jpg',
-    expectedState: 'valid'
-  },
-  {
-    name: 'OpenAI ChatGPT Image (V3 Manifest with untrusted timestamp)',
-    path: '/usr/local/google/home/sherifhanna/github/resources/samples/OpenAI/ChatGPT Image Apr 28, 2026, 08_28_37 AM.png',
-    expectedState: 'valid'
-  },
-  {
-    name: 'Legacy Red House Birds (Needs Local anchors.pem)',
-    path: '/usr/local/google/home/sherifhanna/github/resources/samples/legacy/adobe_test_image_red_house_birds.jpg',
-    expectedState: 'legacy'
-  }
-];
+import { fixturesPort } from '../playwright.config';
 
-test.describe('Native crJSON E2E Verification', () => {
-  for (const asset of TEST_ASSETS) {
-    test(`should successfully validate: ${asset.name}`, async ({ page }) => {
-      const consoleErrors: string[] = [];
-      const pageErrors: Error[] = [];
+const FIXTURES_BASE = `http://localhost:${fixturesPort}`;
 
-      // Listen for console errors
-      page.on('console', msg => {
-        if (msg.type() === 'error') {
-          consoleErrors.push(msg.text());
-        }
-      });
+// Collect browser-side errors, ignoring known third-party noise.
+function collectPageErrors(page: import('@playwright/test').Page) {
+  const consoleErrors: string[] = [];
+  const pageErrors: Error[] = [];
 
-      // Listen for uncaught page errors
-      page.on('pageerror', err => {
-        pageErrors.push(err);
-      });
+  page.on('console', (msg) => {
+    if (msg.type() !== 'error') {
+      return;
+    }
 
-      await page.goto('/');
+    const text = msg.text();
 
-      // Upload the file
-      await page.setInputFiles('input[type="file"]', asset.path);
+    if (
+      text.includes('Lit is in dev mode') ||
+      text.includes('Spectrum Web Components is in dev mode') ||
+      text.includes('<Root> was created without expected prop') ||
+      text.includes('ERR_BLOCKED_BY_CLIENT')
+    ) {
+      return;
+    }
 
-      // Wait for the processing to complete and the panel to appear
-      await expect(page.getByText('Content Credentials', { exact: false })).toBeVisible({ timeout: 15000 });
+    consoleErrors.push(text);
+  });
 
-      // Assert the correct state is rendered
-      if (asset.expectedState === 'legacy') {
-        await expect(page.getByText('Legacy Trust')).toBeVisible({ timeout: 10000 });
-      } else {
-        const orangeBanner = page.getByText('issuer couldn’t be recognized', { exact: false });
-        await expect(orangeBanner).toBeHidden();
-      }
+  page.on('pageerror', (err) => pageErrors.push(err));
 
-      // Assert that no console errors occurred during the native crJSON hydration
-      const actualErrors = consoleErrors.filter(err => 
-        !err.includes('Lit is in dev mode') && 
-        !err.includes('Spectrum Web Components is in dev mode') &&
-        !err.includes('<Root> was created without expected prop') &&
-        !err.includes('ERR_BLOCKED_BY_CLIENT')
-      );
+  return { consoleErrors, pageErrors };
+}
 
-      expect(pageErrors.length).toBe(0);
-      expect(actualErrors.length).toBe(0);
+test.describe('c2pa-web SDK migration — trust badge rendering', () => {
+  test('loads a conformant fixture image without browser errors', async ({ page }) => {
+    const { consoleErrors, pageErrors } = collectPageErrors(page);
+
+    await page.goto(`/?source=${encodeURIComponent(`${FIXTURES_BASE}/CAICAI.jpg`)}`);
+
+    await expect(page.getByText('Content Credentials', { exact: false })).toBeVisible({
+      timeout: 20000,
     });
-  }
+
+    expect(pageErrors).toHaveLength(0);
+    expect(consoleErrors).toHaveLength(0);
+  });
+
+  test('does not show an unrecognized-issuer banner for a conformant fixture image', async ({ page }) => {
+    const { consoleErrors, pageErrors } = collectPageErrors(page);
+
+    await page.goto(`/?source=${encodeURIComponent(`${FIXTURES_BASE}/CAICAI.jpg`)}`);
+
+    await expect(page.getByText('Content Credentials', { exact: false })).toBeVisible({
+      timeout: 20000,
+    });
+
+    // The orange "issuer couldn't be recognized" banner must not appear for an image signed
+    // by a conformant implementation.
+    await expect(page.getByText("issuer couldn't be recognized", { exact: false })).toBeHidden();
+
+    expect(pageErrors).toHaveLength(0);
+    expect(consoleErrors).toHaveLength(0);
+  });
+
+  // Requires a locally-available legacy-signed image. Set TEST_LEGACY_IMAGE_PATH to an
+  // absolute path on disk to run this test; it is skipped when the variable is unset so that
+  // CI passes without the proprietary asset.
+  test('shows a "Legacy trust" badge for a legacy-signed image', async ({ page }) => {
+    const legacyImagePath = process.env.TEST_LEGACY_IMAGE_PATH;
+    test.skip(!legacyImagePath, 'TEST_LEGACY_IMAGE_PATH not set — skipping legacy trust test');
+
+    const { consoleErrors, pageErrors } = collectPageErrors(page);
+
+    await page.goto('/');
+
+    // legacyImagePath is guaranteed non-null here — the test.skip above handles the null case.
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    await page.setInputFiles('input[type="file"]', legacyImagePath!);
+
+    await expect(page.getByText('Content Credentials', { exact: false })).toBeVisible({
+      timeout: 20000,
+    });
+
+    await expect(page.getByText('Legacy trust', { exact: true })).toBeVisible({ timeout: 10000 });
+
+    expect(pageErrors).toHaveLength(0);
+    expect(consoleErrors).toHaveLength(0);
+  });
 });
