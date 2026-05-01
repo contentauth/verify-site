@@ -18,6 +18,11 @@ const config = {
       allow: ['assets', 'locales'],
     },
   },
+  resolve: {
+    alias: {
+      'intl-messageformat': path.resolve(__dirname, 'node_modules/intl-messageformat/intl-messageformat.esm.js'),
+    },
+  },
   build: {
     minify: 'terser',
     sourcemap: true,
@@ -29,7 +34,7 @@ const config = {
     },
   },
   ssr: {
-    noExternal: ['svelte-i18n'],
+    noExternal: ['svelte-i18n', 'intl-messageformat'],
   },
   define: {
     __SUPPORTED_LOCALES__: JSON.stringify(getSupportedLocales()),

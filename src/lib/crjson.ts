@@ -1,8 +1,5 @@
-/**
- * crJSON (Content Credentials JSON) - native format from C2PA Reader.crjson().
- * This is the canonical format for reports: stored, downloaded, and passed through the app.
- * Legacy (Reader.json()) format is converted to crJSON only when received from the packaged SDK.
- */
+// Copyright 2021-2024 Adobe, Copyright 2026 The C2PA Contributors
+
 
 /** Validation status entry in crJSON (code, optional url, explanation) */
 export interface CrJsonValidationStatus {
@@ -83,12 +80,14 @@ export interface CrJsonClaimInfo {
 /** Detect if parsed JSON is crJSON format */
 export function isCrJson(obj: unknown): obj is CrJson {
   const o = obj as Record<string, unknown>
+
   return Array.isArray(o?.manifests) && o.manifests.length > 0 && o['@context'] != null
 }
 
 /** Read assertions as list from crJSON manifest.assertions (object → array of { label, data }) */
 export function getAssertionsList(m: CrJsonManifestEntry): CrJsonAssertionItem[] {
   const assertions = m.assertions ?? {}
+
   return Object.entries(assertions).map(([label, data]) => ({ label, data }))
 }
 
@@ -96,8 +95,10 @@ export function getAssertionsList(m: CrJsonManifestEntry): CrJsonAssertionItem[]
 export function getIngredientsFromManifest(m: CrJsonManifestEntry): CrJsonIngredientItem[] {
   const assertions = m.assertions ?? {}
   const out: CrJsonIngredientItem[] = []
+
   for (const [assertionLabel, data] of Object.entries(assertions)) {
     const d = data as Record<string, unknown>
+
     if (assertionLabel === 'c2pa.ingredient' || (d?.document_id != null && d?.instance_id != null)) {
       out.push({
         title: (d.title ?? d.dc_title ?? assertionLabel) as string,
@@ -109,6 +110,7 @@ export function getIngredientsFromManifest(m: CrJsonManifestEntry): CrJsonIngred
       })
     }
   }
+
   return out
 }
 
@@ -126,11 +128,14 @@ function certFieldToString(value: unknown): string {
   if (cn != null && typeof cn === 'string') return cn
   const parts: string[] = []
   const order = ['CN', 'O', 'OU', 'L', 'ST', 'C']
+
   for (const key of order) {
     const v = obj[key] ?? obj[key.toLowerCase()]
     if (v != null && typeof v === 'string') parts.push(`${key}=${v}`)
   }
+
   if (parts.length > 0) return parts.join(', ')
+
   return ''
 }
 
@@ -158,6 +163,7 @@ export function getSignatureInfo(m: CrJsonManifestEntry): CrJsonSignatureInfo | 
   
   // Return undefined if no meaningful signature data (avoids empty section)
   if (!alg && !common_name && !issuer && !time) return undefined
+
   return { alg, common_name, organization, issuer, time }
 }
 
@@ -172,6 +178,7 @@ export function getClaimInfo(m: CrJsonManifestEntry): CrJsonClaimInfo {
       : claim?.claim_generator != null
         ? [{ name: String(claim.claim_generator) }]
         : []
+
   return {
     claim_generator: claim?.claim_generator as string | undefined,
     claim_generator_info: cgiArray as CrJsonClaimInfo['claim_generator_info'],
@@ -182,6 +189,7 @@ export function getClaimInfo(m: CrJsonManifestEntry): CrJsonClaimInfo {
 /** Get assertion data by label from crJSON manifest.assertions */
 export function getAssertionDataByLabel(m: CrJsonManifestEntry, label: string): unknown {
   const assertions = m.assertions ?? {}
+
   return assertions[label]
 }
 
@@ -192,11 +200,14 @@ export function getAssertionDataByLabel(m: CrJsonManifestEntry, label: string): 
  */
 export function getActiveManifestValidationStatus(report: CrJson): CrJsonActiveManifestStatus | undefined {
   const docLevel = report.validationResults?.activeManifest
+
   if (docLevel && (docLevel.success?.length ?? 0) + (docLevel.failure?.length ?? 0) + (docLevel.informational?.length ?? 0) > 0) {
     return docLevel
   }
+
   const firstManifest = report.manifests?.[0]
   const perManifest = firstManifest?.validationResults as CrJsonValidationResults | undefined
+
   if (perManifest && (perManifest.success?.length ?? 0) + (perManifest.failure?.length ?? 0) + (perManifest.informational?.length ?? 0) > 0) {
     return {
       success: perManifest.success,
@@ -204,6 +215,7 @@ export function getActiveManifestValidationStatus(report: CrJson): CrJsonActiveM
       failure: perManifest.failure
     }
   }
+
   return docLevel ?? (perManifest ? { success: perManifest.success, informational: perManifest.informational, failure: perManifest.failure } : undefined)
 }
 
@@ -217,12 +229,15 @@ export function legacyToCrJson(legacy: Record<string, unknown>): CrJson {
   const validationResults = (legacy.validation_results ?? legacy.validationResults) as CrJsonValidationResults | undefined
 
   const manifests: CrJsonManifestEntry[] = []
+
   if (manifestsObj && typeof manifestsObj === 'object') {
     const labels = Object.keys(manifestsObj)
+
     // Put active manifest first (crJSON convention)
     if (activeLabel && manifestsObj[activeLabel]) {
       manifests.push(legacyManifestToCrJsonEntry(activeLabel, manifestsObj[activeLabel]))
     }
+
     for (const label of labels) {
       if (label !== activeLabel && manifestsObj[label]) {
         manifests.push(legacyManifestToCrJsonEntry(label, manifestsObj[label]))
@@ -237,10 +252,12 @@ export function legacyToCrJson(legacy: Record<string, unknown>): CrJson {
     },
     manifests
   }
+
   if (validationResults && typeof validationResults === 'object') {
     cr.validationResults = validationResults
     // Propagate into first manifest so per-manifest readers (and c2pa-rs-style crJSON) see it
     const activeStatus = validationResults.activeManifest ?? validationResults
+
     if (manifests.length > 0 && activeStatus && typeof activeStatus === 'object') {
       manifests[0].validationResults = {
         success: (activeStatus as CrJsonActiveManifestStatus).success,
@@ -249,15 +266,18 @@ export function legacyToCrJson(legacy: Record<string, unknown>): CrJson {
       }
     }
   }
+
   return cr
 }
 
 function legacyManifestToCrJsonEntry(label: string, m: Record<string, unknown>): CrJsonManifestEntry {
   const assertionsArray = (m.assertions ?? []) as Array<{ label: string; data: unknown }>
   const assertions: Record<string, unknown> = {}
+
   for (const a of assertionsArray) {
     if (a?.label != null) assertions[a.label] = a.data
   }
+
   const claim = m.claim_generator_info != null || m.instance_id != null
     ? {
         claim_generator: m.claim_generator,
@@ -282,12 +302,15 @@ function legacyManifestToCrJsonEntry(label: string, m: Record<string, unknown>):
   const validationResults = m.validation_results ?? m.validationResults;
   const validationStatus = m.validation_status ?? m.validationStatus;
 
-  return {
+  const entry: CrJsonManifestEntry = {
     label,
     assertions,
-    ...(claim && { claim: claim as Record<string, unknown> }),
-    ...(signature && { signature }),
-    ...(validationResults && { validationResults: validationResults as CrJsonValidationResults }),
-    ...(validationStatus && { validationStatus: validationStatus as Record<string, unknown> })
   }
+
+  if (claim) entry.claim = claim as Record<string, unknown>;
+  if (signature) entry.signature = signature;
+  if (validationResults) entry.validationResults = validationResults as CrJsonValidationResults;
+  if (validationStatus) entry.validationStatus = validationStatus as Record<string, unknown>;
+
+  return entry;
 }

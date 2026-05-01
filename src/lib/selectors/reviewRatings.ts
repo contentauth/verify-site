@@ -13,8 +13,25 @@ export function selectReviewRatings(manifest: Manifest) {
     },
     [],
   );
+  type ActionsReviewAssertion = { data?: { metadata?: { reviewRatings?: ReviewRating[] } } };
+  const assertions = manifest.assertions;
+  let actionsAssertion: unknown;
+
+  if (Array.isArray(assertions)) {
+    actionsAssertion = assertions.find(
+      (a): a is { label: string; data: unknown } =>
+        typeof a === 'object' &&
+        a !== null &&
+        'label' in a &&
+        typeof (a as Record<string, unknown>)['label'] === 'string' &&
+        (a as Record<string, unknown>)['label'] === 'c2pa.actions'
+    );
+  } else if (assertions && typeof assertions === 'object') {
+    actionsAssertion = (assertions as Record<string, unknown>)['c2pa.actions'];
+  }
+
   const actionRatings =
-    (manifest.assertions?.['c2pa.actions'] as any)?.data?.metadata?.reviewRatings ?? [];
+    (actionsAssertion as ActionsReviewAssertion)?.data?.metadata?.reviewRatings ?? [];
   const reviewRatings = [...ingredientRatings, ...actionRatings];
 
   return {

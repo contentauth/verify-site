@@ -22,6 +22,7 @@
     if (issuer) params.set('o', issuer);
     if (organizationalUnit) params.set('ou', organizationalUnit);
     if (country) params.set('c', country);
+
     return `https://spec.c2pa.org/conformance-explorer/?${params.toString()}`;
   })();
 </script>
@@ -71,6 +72,7 @@
     {#if showTooltip}
       <Tooltip showTooltip on:showToolip={() => (showTooltip = !showTooltip)}
         ><div slot="tooltip">
+          <!-- eslint-disable-next-line svelte/no-at-html-tags -->
           {@html $_('sidebar.verify.about.issuedby.tooltip')}
         </div>
       </Tooltip>
