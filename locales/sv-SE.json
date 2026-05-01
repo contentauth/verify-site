@@ -122,7 +122,7 @@
   "sidebar.selectedFile": "Vald fil",
   "sidebar.verify.about": "Om denna Content Credential",
   "sidebar.verify.about.issuedby": "Utfärdat av",
-  "sidebar.verify.about.issuedby.tooltip": "Detta är den organisation, enhet eller person som registrerade informationen ovan och utfärdade denna Content Credential.",
+  "sidebar.verify.about.issuedby.tooltip": "The \"Conformant\" badge indicates products that have met the requirements of the C2PA Conformance Program for correctness and security of implementation, and are issued certificates from the C2PA Trust List. The \"Legacy trust\" badge is for products with certificates on the frozen Interim Trust List. The correctness and security of those products have not been evaluated by the C2PA Conformance Program. <a href=\"https://c2pa.org/conformance\" target=\"_blank\" class=\"underline hover:text-gray-200\">Learn more at c2pa.org/conformance</a>",
   "sidebar.verify.about.issuedby.tooltip.link": "Se certifikatinformationen",
   "sidebar.verify.about.issuedon": "Utfärdat",
   "sidebar.verify.advanced": "Avancerat",

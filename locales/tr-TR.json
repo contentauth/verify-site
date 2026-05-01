@@ -122,7 +122,7 @@
   "sidebar.selectedFile": "Seçili dosya",
   "sidebar.verify.about": "Bu Content Credential hakkında",
   "sidebar.verify.about.issuedby": "Yayımlayan",
-  "sidebar.verify.about.issuedby.tooltip": "Bu, yukarıdaki ayrıntıları kaydeden ve bu Content Credential'ı düzenleyen kuruluş, cihaz veya kişidir.",
+  "sidebar.verify.about.issuedby.tooltip": "The \"Conformant\" badge indicates products that have met the requirements of the C2PA Conformance Program for correctness and security of implementation, and are issued certificates from the C2PA Trust List. The \"Legacy trust\" badge is for products with certificates on the frozen Interim Trust List. The correctness and security of those products have not been evaluated by the C2PA Conformance Program. <a href=\"https://c2pa.org/conformance\" target=\"_blank\" class=\"underline hover:text-gray-200\">Learn more at c2pa.org/conformance</a>",
   "sidebar.verify.about.issuedby.tooltip.link": "Sertifika bilgilerine bakın",
   "sidebar.verify.about.issuedon": "Yayımlama tarihi",
   "sidebar.verify.advanced": "Gelişmiş",
