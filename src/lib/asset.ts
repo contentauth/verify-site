@@ -7,7 +7,10 @@ import type {
   ResourceRef as Thumbnail,
 } from '@contentauth/c2pa-web';
 import { selectDoNotTrain } from './selectors/doNotTrain';
-import { selectEditsAndActivity, type TranslatedDictionaryCategory } from './selectors/editsAndActivity';
+import {
+  selectEditsAndActivity,
+  type TranslatedDictionaryCategory,
+} from './selectors/editsAndActivity';
 import { selectProducer } from './selectors/producer';
 import { selectSocialAccounts } from './selectors/socialAccounts';
 import debug from 'debug';
@@ -132,7 +135,7 @@ export async function resultToAssetMap({
 }): Promise<DisposableAssetDataMap> {
   const assetMap: AssetDataMap = {};
   const disposers: (() => void)[] = [];
-  
+
   const activeManifestLabel = manifestStore?.active_manifest ?? '';
   const allLabels = Object.keys(manifestStore?.manifests ?? {});
   const runtimeValidationStatuses = manifestStore?.validation_status
@@ -143,7 +146,10 @@ export async function resultToAssetMap({
       )
     : {};
 
-  dbg('Runtime validation statuses by manifest label', runtimeValidationStatuses);
+  dbg(
+    'Runtime validation statuses by manifest label',
+    runtimeValidationStatuses,
+  );
 
   const activeManifestValidationResults =
     manifestStore?.validation_results?.activeManifest;
@@ -152,7 +158,7 @@ export async function resultToAssetMap({
     runtimeValidationStatuses[activeManifestLabel] ?? [];
   const rootValidationResult = selectValidationResult(
     rootValidationStatuses,
-    activeManifestValidationResults,
+    activeManifestValidationResults ?? undefined,
   );
   const { hasError, hasOtgp } = rootValidationResult ?? {};
   const isManifest = source.type === MANIFEST_STORE_MIME_TYPE;
@@ -173,10 +179,10 @@ export async function resultToAssetMap({
   if (!isManifest && (!manifestStore || hasError || hasOtgp)) {
     // Fallback for raw files: render the original source file directly
     const url = URL.createObjectURL(source);
-    const thumbnail = await loadThumbnail(
-      source.type,
-      { url, dispose: () => URL.revokeObjectURL(url) },
-    );
+    const thumbnail = await loadThumbnail(source.type, {
+      url,
+      dispose: () => URL.revokeObjectURL(url),
+    });
 
     if (thumbnail?.dispose) {
       disposers.push(thumbnail.dispose);
@@ -224,14 +230,12 @@ export async function resultToAssetMap({
     runtimeValidationStatuses: ManifestLabelValidationStatusMap,
     id: string,
   ): Promise<AssetData> {
-    const manifest = manifestStore.manifests?.[manifestStore.active_manifest || ''];
+    const manifest =
+      manifestStore.manifests?.[manifestStore.active_manifest || ''];
     if (!manifest) throw new Error('Active manifest not found');
 
     // 0.17.x SDK dropped internal thumbnail generation. Pass undefined to skip WASM fetch.
-    let thumbnail = await loadThumbnail(
-      manifest.thumbnail?.format,
-      undefined
-    );
+    let thumbnail = await loadThumbnail(manifest.thumbnail?.format, undefined);
 
     if (
       !thumbnail.info &&
@@ -240,10 +244,10 @@ export async function resultToAssetMap({
     ) {
       // Fallback for active manifest: render the original source file directly
       const url = URL.createObjectURL(source);
-      thumbnail = await loadThumbnail(
-        source.type, 
-        { url, dispose: () => URL.revokeObjectURL(url) }
-      );
+      thumbnail = await loadThumbnail(source.type, {
+        url,
+        dispose: () => URL.revokeObjectURL(url),
+      });
     }
 
     const asset = {
@@ -260,7 +264,8 @@ export async function resultToAssetMap({
       manifestData: await getManifestData(manifest, rootValidationResult),
       dataType: null,
       validationResult: rootValidationResult,
-      trustSource: (manifest as Manifest & { trust_source?: string }).trust_source || 'none',
+      trustSource: ((manifest as Manifest & { trust_source?: string })
+        .trust_source || 'none') as AssetData['trustSource'],
     };
 
     if (thumbnail?.dispose) {
@@ -279,7 +284,9 @@ export async function resultToAssetMap({
     id: string,
   ): Promise<AssetData> {
     const ingredientManifestLabel = ingredient.active_manifest;
-    const ingredientManifest = ingredientManifestLabel ? manifestStore.manifests?.[ingredientManifestLabel] : null;
+    const ingredientManifest = ingredientManifestLabel
+      ? manifestStore.manifests?.[ingredientManifestLabel]
+      : null;
 
     // 0.17.x SDK dropped internal thumbnail generation. Skip WASM fetch for ingredients.
     const thumbnail = await loadThumbnail(
@@ -292,7 +299,7 @@ export async function resultToAssetMap({
 
     let validationResult = selectValidationResult(
       ingredient.validation_status || [],
-      activeManifestValidationResults,
+      activeManifestValidationResults ?? undefined,
     );
 
     if (!validationResult.hasError && ingredientManifestLabel) {
@@ -307,18 +314,20 @@ export async function resultToAssetMap({
       title: ingredient.title ?? null,
       thumbnail: thumbnail.info,
       mimeType: ingredient.format || '',
-      children: (showChildren && ingredientManifest?.ingredients)
-        ? await processIngredients(
-            ingredientManifest.ingredients,
-            manifestStore,
-            runtimeValidationStatuses,
-            id,
-          )
-        : [],
+      children:
+        showChildren && ingredientManifest?.ingredients
+          ? await processIngredients(
+              ingredientManifest.ingredients,
+              manifestStore,
+              runtimeValidationStatuses,
+              id,
+            )
+          : [],
       manifestData: await getManifestData(ingredientManifest, validationResult),
       dataType: getIngredientDataType(ingredient),
       validationResult,
-      trustSource: (ingredient as Ingredient & { trust_source?: string })?.trust_source || 'none',
+      trustSource: ((ingredient as Ingredient & { trust_source?: string })
+        ?.trust_source || 'none') as AssetData['trustSource'],
     };
 
     if (thumbnail?.dispose) {
@@ -332,15 +341,15 @@ export async function resultToAssetMap({
 
   async function getManifestData(
     manifest: Manifest | null | undefined,
-    validationResult: ValidationStatusResult
+    validationResult: ValidationStatusResult,
   ): Promise<ManifestData | null> {
     if (!manifest) {
       return null;
     }
 
-    type ClaimGeneratorEntry = { name?: string; version?: string | null; icon?: Thumbnail | null };
-
-    function formattedGeneratorInfo(claim_generator: ClaimGeneratorEntry): ClaimGeneratorEntry {
+    function formattedGeneratorInfo(
+      claim_generator: NonNullable<Manifest['claim_generator_info']>[number],
+    ): NonNullable<Manifest['claim_generator_info']>[number] {
       const version = claim_generator?.version;
       claim_generator.version = version?.replace(/\([^()]*\)/g, '');
 
@@ -359,7 +368,7 @@ export async function resultToAssetMap({
 
     const claimGenerator: ClaimGeneratorDisplayInfo = {
       label: claimGeneratorLabel,
-      icon: claimGeneratorInfo?.icon ?? null,
+      icon: (claimGeneratorInfo?.icon as Thumbnail | null | undefined) ?? null,
     };
 
     const safeSignatureInfo = manifest.signature_info
@@ -371,9 +380,7 @@ export async function resultToAssetMap({
     }
 
     return {
-      date: safeSignatureInfo?.time
-        ? new Date(safeSignatureInfo.time)
-        : null,
+      date: safeSignatureInfo?.time ? new Date(safeSignatureInfo.time) : null,
       claimGenerator,
       signatureInfo: safeSignatureInfo,
       producer: selectProducer(manifest)?.name ?? null,
@@ -384,9 +391,18 @@ export async function resultToAssetMap({
         );
 
         if (editsAndActivity) {
-          const actionsAssertion = manifest.assertions?.['c2pa.actions'] as { data?: { metadata?: Record<string, unknown> } } | undefined;
+          type ActionsData = { metadata?: Record<string, unknown> };
+          const assertionsArr = Array.isArray(manifest.assertions)
+            ? manifest.assertions
+            : [];
+          const actionsEntry = assertionsArr.find(
+            (a) => a.label === 'c2pa.actions',
+          );
+          const actionsAssertion = actionsEntry?.data as
+            | ActionsData
+            | undefined;
           const hasInference =
-            !!actionsAssertion?.data?.metadata?.['com.adobe.inference'];
+            !!actionsAssertion?.metadata?.['com.adobe.inference'];
 
           const filteredEditsAndActivity = editsAndActivity.filter(
             (value) => !!value.label,
@@ -412,22 +428,42 @@ export async function resultToAssetMap({
       isCapturedMedia: (() => {
         // 1. Must be a still image or audio file (Fallback to assuming true if SDK omits format)
         const format = manifest.format || 'image/jpeg';
-        if (!format.startsWith('image/') && !format.startsWith('audio/')) return false;
+        if (!format.startsWith('image/') && !format.startsWith('audio/'))
+          return false;
 
         // 2. Must have exactly one action in the manifest history
         let actionsAssertion;
 
         if (manifest.assertions instanceof Map) {
-          actionsAssertion = manifest.assertions.get('c2pa.actions.v2')?.[0] || manifest.assertions.get('c2pa.actions')?.[0] || manifest.assertions.get('c2pa.actions.v2') || manifest.assertions.get('c2pa.actions');
+          actionsAssertion =
+            manifest.assertions.get('c2pa.actions.v2')?.[0] ||
+            manifest.assertions.get('c2pa.actions')?.[0] ||
+            manifest.assertions.get('c2pa.actions.v2') ||
+            manifest.assertions.get('c2pa.actions');
         } else if (Array.isArray(manifest.assertions)) {
-          actionsAssertion = manifest.assertions.find((a: { label?: string }) => a.label === 'c2pa.actions.v2' || a.label === 'c2pa.actions');
+          actionsAssertion = manifest.assertions.find(
+            (a: { label?: string }) =>
+              a.label === 'c2pa.actions.v2' || a.label === 'c2pa.actions',
+          );
         } else {
-          actionsAssertion = manifest.assertions?.['c2pa.actions.v2'] || manifest.assertions?.['c2pa.actions'];
+          actionsAssertion =
+            manifest.assertions?.['c2pa.actions.v2'] ||
+            manifest.assertions?.['c2pa.actions'];
         }
 
-        type C2paActionItem = { action: string; digitalSourceType?: string; parameters?: { digitalSourceType?: string } };
-        type AssertionValue = { data?: { actions?: C2paActionItem[] }; actions?: C2paActionItem[] };
-        const actions = (actionsAssertion as AssertionValue)?.data?.actions || (actionsAssertion as AssertionValue)?.actions || [];
+        type C2paActionItem = {
+          action: string;
+          digitalSourceType?: string;
+          parameters?: { digitalSourceType?: string };
+        };
+        type AssertionValue = {
+          data?: { actions?: C2paActionItem[] };
+          actions?: C2paActionItem[];
+        };
+        const actions =
+          (actionsAssertion as AssertionValue)?.data?.actions ||
+          (actionsAssertion as AssertionValue)?.actions ||
+          [];
         if (actions.length !== 1) return false;
 
         // 3. First and only action must be c2pa.created
@@ -435,9 +471,16 @@ export async function resultToAssetMap({
         if (action.action !== 'c2pa.created') return false;
 
         // 4. Digital source type must be a standard captured media URI (including computational)
-        const sourceType = action.digitalSourceType || action.parameters?.digitalSourceType || '';
+        const sourceType =
+          action.digitalSourceType ||
+          action.parameters?.digitalSourceType ||
+          '';
 
-        return sourceType.includes('digitalCapture') || sourceType.includes('compositeCapture') || sourceType.includes('computationalCapture');
+        return (
+          sourceType.includes('digitalCapture') ||
+          sourceType.includes('compositeCapture') ||
+          sourceType.includes('computationalCapture')
+        );
       })(),
     };
   }

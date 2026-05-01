@@ -17,10 +17,17 @@ declare module '@contentauth/c2pa-web' {
   }
 }
 
-type CryptoAddressAssertion = { data?: Record<string, string[]> };
+type CryptoAddressData = Record<string, string[]>;
 
 export function selectWeb3(manifest: Manifest): [string, string[]][] {
-  const cryptoEntries = (manifest.assertions?.['adobe.crypto.addresses'] as CryptoAddressAssertion)?.data ?? {};
+  const assertions = Array.isArray(manifest.assertions)
+    ? manifest.assertions
+    : [];
+  const cryptoEntry = assertions.find(
+    (a) => a.label === 'adobe.crypto.addresses',
+  );
+  const cryptoEntries =
+    (cryptoEntry?.data as CryptoAddressData | undefined) ?? {};
 
   return (Object.entries(cryptoEntries) as [string, string[]][]).filter(
     ([type, [address]]) => address && ['solana', 'ethereum'].includes(type),

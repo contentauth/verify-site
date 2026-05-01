@@ -150,7 +150,11 @@ export function createVerifyStore(): VerifyStore {
       }
 
       dbg('Reading C2PA source', source);
-      c2paReader.read(source);
+
+      if (typeof source !== 'string') {
+        c2paReader.read(source);
+      }
+
       dbg('Setting selected source', incomingSource);
       selectedSource.set(incomingSource);
     },

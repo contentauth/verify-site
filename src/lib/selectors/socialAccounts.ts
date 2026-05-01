@@ -14,10 +14,15 @@ export function selectSocialAccounts(manifest: Manifest): SocialAccount[] {
 
   // Look through verified credentials if present
   const credentials = manifest.credentials || [];
-  
+
   for (const cred of credentials) {
     // Simplified mapping logic for standard social media VC schemas
-    const vcData = cred.credentialSubject || {};
+    const credRecord = cred as Record<string, unknown>;
+    type VcData = {
+      id?: string;
+      account?: { service?: string; identifier?: string };
+    };
+    const vcData = (credRecord.credentialSubject as VcData) || {};
 
     if (vcData?.account?.service && vcData?.account?.identifier) {
       accounts.push({
@@ -30,21 +35,42 @@ export function selectSocialAccounts(manifest: Manifest): SocialAccount[] {
   }
 
   // Also check standard CreativeWork assertions for "sameAs" social URLs
-  type CreativeWorkAssertion = { data?: { author?: { sameAs?: string | string[] } } };
-  const creativeWork = (manifest.assertions?.['stds.schema-org.CreativeWork'] as CreativeWorkAssertion)?.data;
+  type CreativeWorkData = { author?: { sameAs?: string | string[] } };
+  const assertionsArr = Array.isArray(manifest.assertions)
+    ? manifest.assertions
+    : [];
+  const creativeWorkEntry = assertionsArr.find(
+    (a) => a.label === 'stds.schema-org.CreativeWork',
+  );
+  const creativeWork = creativeWorkEntry?.data as CreativeWorkData | undefined;
 
   if (creativeWork?.author?.sameAs) {
-    const urls = Array.isArray(creativeWork.author.sameAs) 
-      ? creativeWork.author.sameAs 
+    const urls = Array.isArray(creativeWork.author.sameAs)
+      ? creativeWork.author.sameAs
       : [creativeWork.author.sameAs];
-      
+
     for (const url of urls) {
       if (url.includes('twitter.com') || url.includes('x.com')) {
-        accounts.push({ '@id': url, '@type': 'Organization', name: url.split('/').pop() || url, identifier: 'twitter' });
+        accounts.push({
+          '@id': url,
+          '@type': 'Organization',
+          name: url.split('/').pop() || url,
+          identifier: 'twitter',
+        });
       } else if (url.includes('instagram.com')) {
-        accounts.push({ '@id': url, '@type': 'Organization', name: url.split('/').pop() || url, identifier: 'instagram' });
+        accounts.push({
+          '@id': url,
+          '@type': 'Organization',
+          name: url.split('/').pop() || url,
+          identifier: 'instagram',
+        });
       } else if (url.includes('linkedin.com')) {
-        accounts.push({ '@id': url, '@type': 'Organization', name: url.split('/').pop() || url, identifier: 'linkedin' });
+        accounts.push({
+          '@id': url,
+          '@type': 'Organization',
+          name: url.split('/').pop() || url,
+          identifier: 'linkedin',
+        });
       }
     }
   }

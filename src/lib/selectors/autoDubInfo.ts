@@ -13,38 +13,55 @@ export interface AutoDubInfo {
   translatedData: TranslatedActionDataParams | null;
 }
 
-export function selectAutoDubInfo(manifest: Manifest): AutoDubInfo | null {
-  const actionAssertion = manifest.assertions?.['c2pa.actions.v2'];
+type ActionItem = {
+  action: string;
+  changes?: Array<{
+    region?: Array<{ type: string; item?: { value: string } }>;
+  }>;
+  parameters?: unknown;
+};
+type ActionAssertionData = { actions?: ActionItem[] };
 
-  if (!actionAssertion) {
+export function selectAutoDubInfo(manifest: Manifest): AutoDubInfo | null {
+  const assertions = Array.isArray(manifest.assertions)
+    ? manifest.assertions
+    : [];
+  const actionAssertionEntry = assertions.find(
+    (a) => a.label === 'c2pa.actions.v2',
+  );
+  const actionAssertion = actionAssertionEntry?.data as
+    | ActionAssertionData
+    | undefined;
+
+  if (!actionAssertion?.actions) {
     return null;
   }
 
-  const dubbedAction = actionAssertion.data.actions.find(
+  const dubbedAction = actionAssertion.actions.find(
     ({ action }) => action === 'c2pa.dubbed',
   );
-  const translatedAction = actionAssertion.data.actions.find(
+  const translatedAction = actionAssertion.actions.find(
     ({ action }) => action === 'c2pa.translated',
   );
-  const editedAction = actionAssertion.data.actions.find(
+  const editedAction = actionAssertion.actions.find(
     ({ action }) => action === 'c2pa.edited',
   );
 
   if (dubbedAction) {
     const dubbedRegionOfInterest = dubbedAction.changes?.find(
-      (change) => !!change?.region,
+      (change: { region?: unknown }) => !!change?.region,
     )?.region;
     const dubbedIdentified = dubbedRegionOfInterest?.find(
       (region: Record<string, unknown>) => region.type === 'identified',
-    )?.item.value;
+    )?.item?.value;
     const hasLipsRoi = dubbedIdentified === 'lips';
 
     const editedRegionOfInterest = editedAction?.changes?.find(
-      (change) => !!change?.region,
+      (change: { region?: unknown }) => !!change?.region,
     )?.region;
     const editedIdentified = editedRegionOfInterest?.find(
       (region: Record<string, unknown>) => region.type === 'identified',
-    )?.item.value;
+    )?.item?.value;
     const hasTranscriptRoi = editedIdentified === 'transcript';
 
     const translatedLanguageData = translatedAction?.parameters ?? null;
