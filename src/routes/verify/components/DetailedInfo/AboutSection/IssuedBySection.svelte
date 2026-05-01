@@ -42,24 +42,28 @@
                 <span class="text-xs text-gray-600">{issuer}</span>
               </div>
             {:else}
-              <span class="text-generalSm font-medium">{issuer || commonName}</span>
+              <span class="text-generalSm font-medium"
+                >{issuer || commonName}</span>
             {/if}
 
             <!-- Trust Level Badge & CPL Link -->
             {#if trustSource === 'official'}
               <div class="flex flex-col items-start">
-                <span class="bg-[#374151] text-white px-1.5 py-0.5 rounded-sm text-xs font-medium">Conformant</span>
-                <a 
-                  href={conformanceUrl} 
-                  target="_blank" 
-                  rel="noreferrer" 
-                  class="text-xs text-blue-600 hover:text-blue-800 hover:underline transition-colors mt-2"
-                >
+                <span
+                  class="bg-[#374151] text-white px-1.5 py-0.5 rounded-sm text-xs font-medium"
+                  >Conformant</span>
+                <a
+                  href={conformanceUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  class="text-xs text-blue-600 hover:text-blue-800 hover:underline transition-colors mt-2">
                   View on the C2PA Conforming Products List ↗
                 </a>
               </div>
             {:else if trustSource === 'legacy'}
-              <span class="bg-[#fef3c7] text-[#92400e] px-1.5 py-0.5 rounded-sm text-xs font-medium">Legacy trust</span>
+              <span
+                class="bg-[#fef3c7] text-[#92400e] px-1.5 py-0.5 rounded-sm text-xs font-medium"
+                >Legacy trust</span>
             {/if}
           </div>
         </svelte:fragment>

@@ -66,9 +66,12 @@ async function createLegacyToolkitSettings(): Promise<Settings> {
   };
 }
 
-export const getOfficialToolkitSettings = pMemoize(createOfficialToolkitSettings, {
-  maxAge: 1000 * ALLOWED_LIST_CACHE_SECS,
-});
+export const getOfficialToolkitSettings = pMemoize(
+  createOfficialToolkitSettings,
+  {
+    maxAge: 1000 * ALLOWED_LIST_CACHE_SECS,
+  },
+);
 
 export const getLegacyToolkitSettings = pMemoize(createLegacyToolkitSettings, {
   maxAge: 1000 * ALLOWED_LIST_CACHE_SECS,

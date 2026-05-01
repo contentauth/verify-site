@@ -11,4 +11,5 @@
   $: issuer = manifestData?.signatureInfo?.issuer;
 </script>
 
-<Description>{#if issuer}{$_('sidebar.verify.about.issuedby')} {issuer}{/if}</Description>
+<Description
+  >{#if issuer}{$_('sidebar.verify.about.issuedby')} {issuer}{/if}</Description>
