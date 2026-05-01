@@ -17,10 +17,22 @@ declare module '@contentauth/c2pa-web' {
   }
 }
 
+type AssetRefData = { references?: Array<{ reference?: { uri?: string } }> };
+type CreativeWorkData = { url?: string };
+
 export function selectWebsite(manifest: Manifest): string | null {
+  const assertions = Array.isArray(manifest.assertions)
+    ? manifest.assertions
+    : [];
+  const assetRefEntry = assertions.find((a) => a.label === 'c2pa.asset-ref');
+  const creativeWorkEntry = assertions.find(
+    (a) => a.label === 'stds.schema-org.CreativeWork',
+  );
+
   const site =
-    (manifest.assertions?.['c2pa.asset-ref'] as any)?.data?.references?.[0]?.reference?.uri ??
-    (manifest.assertions?.['stds.schema-org.CreativeWork'] as any)?.data?.url;
+    (assetRefEntry?.data as AssetRefData | undefined)?.references?.[0]
+      ?.reference?.uri ??
+    (creativeWorkEntry?.data as CreativeWorkData | undefined)?.url;
 
   return site && isSecureUrl(site) ? site : null;
 }

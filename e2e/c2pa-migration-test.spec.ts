@@ -45,12 +45,18 @@ function collectPageErrors(page: import('@playwright/test').Page) {
 }
 
 test.describe('c2pa-web SDK migration — trust badge rendering', () => {
-  test('loads a conformant fixture image without browser errors', async ({ page }) => {
+  test('loads a conformant fixture image without browser errors', async ({
+    page,
+  }) => {
     const { consoleErrors, pageErrors } = collectPageErrors(page);
 
-    await page.goto(`/?source=${encodeURIComponent(`${FIXTURES_BASE}/CAICAI.jpg`)}`);
+    await page.goto(
+      `/?source=${encodeURIComponent(`${FIXTURES_BASE}/CAICAI.jpg`)}`,
+    );
 
-    await expect(page.getByText('Content Credentials', { exact: false })).toBeVisible({
+    await expect(
+      page.getByText('Content Credentials', { exact: false }),
+    ).toBeVisible({
       timeout: 20000,
     });
 
@@ -58,18 +64,26 @@ test.describe('c2pa-web SDK migration — trust badge rendering', () => {
     expect(consoleErrors).toHaveLength(0);
   });
 
-  test('does not show an unrecognized-issuer banner for a conformant fixture image', async ({ page }) => {
+  test('does not show an unrecognized-issuer banner for a conformant fixture image', async ({
+    page,
+  }) => {
     const { consoleErrors, pageErrors } = collectPageErrors(page);
 
-    await page.goto(`/?source=${encodeURIComponent(`${FIXTURES_BASE}/CAICAI.jpg`)}`);
+    await page.goto(
+      `/?source=${encodeURIComponent(`${FIXTURES_BASE}/CAICAI.jpg`)}`,
+    );
 
-    await expect(page.getByText('Content Credentials', { exact: false })).toBeVisible({
+    await expect(
+      page.getByText('Content Credentials', { exact: false }),
+    ).toBeVisible({
       timeout: 20000,
     });
 
     // The orange "issuer couldn't be recognized" banner must not appear for an image signed
     // by a conformant implementation.
-    await expect(page.getByText("issuer couldn't be recognized", { exact: false })).toBeHidden();
+    await expect(
+      page.getByText("issuer couldn't be recognized", { exact: false }),
+    ).toBeHidden();
 
     expect(pageErrors).toHaveLength(0);
     expect(consoleErrors).toHaveLength(0);
@@ -78,9 +92,14 @@ test.describe('c2pa-web SDK migration — trust badge rendering', () => {
   // Requires a locally-available legacy-signed image. Set TEST_LEGACY_IMAGE_PATH to an
   // absolute path on disk to run this test; it is skipped when the variable is unset so that
   // CI passes without the proprietary asset.
-  test('shows a "Legacy trust" badge for a legacy-signed image', async ({ page }) => {
+  test('shows a "Legacy trust" badge for a legacy-signed image', async ({
+    page,
+  }) => {
     const legacyImagePath = process.env.TEST_LEGACY_IMAGE_PATH;
-    test.skip(!legacyImagePath, 'TEST_LEGACY_IMAGE_PATH not set — skipping legacy trust test');
+    test.skip(
+      !legacyImagePath,
+      'TEST_LEGACY_IMAGE_PATH not set — skipping legacy trust test',
+    );
 
     const { consoleErrors, pageErrors } = collectPageErrors(page);
 
@@ -90,11 +109,15 @@ test.describe('c2pa-web SDK migration — trust badge rendering', () => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     await page.setInputFiles('input[type="file"]', legacyImagePath!);
 
-    await expect(page.getByText('Content Credentials', { exact: false })).toBeVisible({
+    await expect(
+      page.getByText('Content Credentials', { exact: false }),
+    ).toBeVisible({
       timeout: 20000,
     });
 
-    await expect(page.getByText('Legacy trust', { exact: true })).toBeVisible({ timeout: 10000 });
+    await expect(page.getByText('Legacy trust', { exact: true })).toBeVisible({
+      timeout: 10000,
+    });
 
     expect(pageErrors).toHaveLength(0);
     expect(consoleErrors).toHaveLength(0);

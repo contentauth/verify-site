@@ -28,11 +28,7 @@ export interface ExifTags {
   'exif:offsettimeoriginal'?: string;
 }
 
-declare module 'c2pa' {
-  interface ExtendedAssertions {
-    'stds.exif': ExifTags;
-  }
-}
+// Module augmentation removed - 'c2pa' package not used directly; using '@contentauth/c2pa-web'
 
 function findExifValue(exif: ExifTags, locations: string[]) {
   return (
@@ -203,17 +199,23 @@ export function parseDateTime(exif: ExifTags): Date | null {
 }
 
 export function selectExif(manifest: Manifest): ExifSummary | null {
-  const assertion = manifest.assertions?.['stds.exif'];
-  const exif: ExifTags = (Array.isArray(assertion) ? assertion : [assertion]).reduce(
-    (acc, exif) => {
-      const caseInsensitiveData = mapKeys(exif?.data, (_, key) => {
-        return key.toLowerCase();
-      });
+  const assertions = Array.isArray(manifest.assertions)
+    ? manifest.assertions
+    : [];
+  const exifAssertions = assertions.filter((a) => a.label === 'stds.exif');
+  const exif: ExifTags = exifAssertions.reduce(
+    (acc, assertionItem) => {
+      const caseInsensitiveData = mapKeys(
+        assertionItem?.data as Record<string, unknown>,
+        (_, key) => {
+          return key.toLowerCase();
+        },
+      );
 
       return merge({}, acc, caseInsensitiveData);
     },
-    {},
-  );
+    {} as Record<string, unknown>,
+  ) as ExifTags;
 
   if (Object.keys(exif).length > 0) {
     dbg('Got EXIF tags', exif);

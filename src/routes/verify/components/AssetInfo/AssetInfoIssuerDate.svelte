@@ -5,12 +5,11 @@
   import Description from '$src/components/typography/Description.svelte';
   import type { ManifestData } from '$src/lib/asset';
   import { _ } from 'svelte-i18n';
-  import AssetInfoDate from './AssetInfoDate.svelte';
 
   export let manifestData: ManifestData | null;
-  export let trustSource: 'official' | 'legacy' | 'none' = 'none';
-  $: date = manifestData?.date;
+  export const trustSource: 'official' | 'legacy' | 'none' = 'none';
   $: issuer = manifestData?.signatureInfo?.issuer;
 </script>
 
-<Description>{#if issuer}{$_('sidebar.verify.about.issuedby')} {issuer}{/if}</Description>
+<Description
+  >{#if issuer}{$_('sidebar.verify.about.issuedby')} {issuer}{/if}</Description>
