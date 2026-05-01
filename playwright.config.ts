@@ -28,7 +28,7 @@ const config: PlaywrightTestConfig = {
   },
   webServer: [
     {
-      command: `pnpm dev --port=${port}`,
+      command: `pnpm run hash-pem && pnpm exec vite dev --port=${port}`,
       port,
       reuseExistingServer: !process.env.CI,
     },
