@@ -13,18 +13,17 @@ export function selectDoNotTrain(manifest: Manifest): boolean {
   );
 
   if (trainingAssertionEntry) {
-    type TrainingEntry = { use: string; c2pa_manifest: boolean | string };
-    type TrainingMining = { entries?: TrainingEntry[] };
+    type TrainingEntry = { use: string };
+    type TrainingMining = { entries?: Record<string, TrainingEntry> };
     const trainingData = trainingAssertionEntry.data as
       | TrainingMining
       | undefined;
-    const entry = trainingData?.entries?.find(
-      (e: TrainingEntry) =>
-        e.use === 'notAllowed' &&
-        (e.c2pa_manifest === true || e.c2pa_manifest === 'true'),
-    );
+    const entries = trainingData?.entries;
+    const hasDoNotTrain =
+      entries != null &&
+      Object.values(entries).some((e) => e.use === 'notAllowed');
 
-    return !!entry;
+    return hasDoNotTrain;
   }
 
   // Fallback: Check c2pa.actions for specific 'not_trained' markers
