@@ -122,7 +122,7 @@
   "sidebar.selectedFile": "Archivo seleccionado",
   "sidebar.verify.about": "Acerca de esta Content Credential",
   "sidebar.verify.about.issuedby": "Enviado por",
-  "sidebar.verify.about.issuedby.tooltip": "The \"Conformant\" badge indicates products that have met the requirements of the C2PA Conformance Program for correctness and security of implementation, and are issued certificates from the C2PA Trust List. The \"Legacy trust\" badge is for products with certificates on the frozen Interim Trust List. The correctness and security of those products have not been evaluated by the C2PA Conformance Program. <a href=\"https://c2pa.org/conformance\" target=\"_blank\" class=\"underline hover:text-gray-200\">Learn more at c2pa.org/conformance</a>",
+  "sidebar.verify.about.issuedby.tooltip": "La insignia “Conforme” indica que los productos cumplen con los requisitos del programa de conformidad C2PA en cuanto a corrección y seguridad de la implementación, y que cuentan con certificados emitidos por la lista de confianza C2PA. La insignia “Confianza heredada” se aplica a productos con certificados en la lista de confianza provisional congelada. La corrección y seguridad de estos productos no las ha evaluado el programa de conformidad C2PA. <a href=\"https://c2pa.org/conformance\" target=\"_blank\" class=\"underline hover:text-gray-200\">Más información en c2pa.org/conformance</a>",
   "sidebar.verify.about.issuedby.tooltip.link": "Ver información del certificado",
   "sidebar.verify.about.issuedon": "Enviado el",
   "sidebar.verify.advanced": "Avanzado",

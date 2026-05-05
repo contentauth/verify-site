@@ -122,7 +122,7 @@
   "sidebar.selectedFile": "Valittu tiedosto",
   "sidebar.verify.about": "Tietoja tästä Content Credentialista",
   "sidebar.verify.about.issuedby": "Myöntänyt",
-  "sidebar.verify.about.issuedby.tooltip": "The \"Conformant\" badge indicates products that have met the requirements of the C2PA Conformance Program for correctness and security of implementation, and are issued certificates from the C2PA Trust List. The \"Legacy trust\" badge is for products with certificates on the frozen Interim Trust List. The correctness and security of those products have not been evaluated by the C2PA Conformance Program. <a href=\"https://c2pa.org/conformance\" target=\"_blank\" class=\"underline hover:text-gray-200\">Learn more at c2pa.org/conformance</a>",
+  "sidebar.verify.about.issuedby.tooltip": "Vaatimustenmukainen-merkki osoittaa tuotteet, jotka täyttävät C2PA-vaatimustenmukaisuusohjelman vaatimukset toteutuksen oikeellisuuden ja turvallisuuden osalta ja joille on myönnetty varmenteita C2PA-luotettavuusluettelosta. Vanha luotettavuus -merkki on tarkoitettu tuotteille, joiden varmenteet ovat jäädytetyssä väliaikaisessa luotettavuusluettelossa. C2PA-vaatimustenmukaisuusohjelma ei ole arvioinut näiden tuotteiden oikeellisuutta ja turvallisuutta. <a href=\"https://c2pa.org/conformance\" target=\"_blank\" class=\"underline hover:text-gray-200\">Lisätietoja on osoitteessa c2pa.org/conformance.</a>",
   "sidebar.verify.about.issuedby.tooltip.link": "Katso varmenteen tiedot",
   "sidebar.verify.about.issuedon": "Myönnetty",
   "sidebar.verify.advanced": "Lisäasetukset",

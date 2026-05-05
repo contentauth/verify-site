@@ -122,7 +122,7 @@
   "sidebar.selectedFile": "Wybrany plik",
   "sidebar.verify.about": "Informacje o tym certyfikacje Content Credential",
   "sidebar.verify.about.issuedby": "Wystawił(a)",
-  "sidebar.verify.about.issuedby.tooltip": "The \"Conformant\" badge indicates products that have met the requirements of the C2PA Conformance Program for correctness and security of implementation, and are issued certificates from the C2PA Trust List. The \"Legacy trust\" badge is for products with certificates on the frozen Interim Trust List. The correctness and security of those products have not been evaluated by the C2PA Conformance Program. <a href=\"https://c2pa.org/conformance\" target=\"_blank\" class=\"underline hover:text-gray-200\">Learn more at c2pa.org/conformance</a>",
+  "sidebar.verify.about.issuedby.tooltip": "Odznaka „Zgodny” oznacza produkty, które spełniają wymagania Programu Zgodności C2PA w zakresie poprawności i bezpieczeństwa wdrożenia oraz posiadają certyfikaty z Listy Zaufania C2PA. Odznaka „Zaufanie starszego typu” dotyczy produktów z certyfikatami z zamrożonej Listy Zaufania Tymczasowego. Poprawność i bezpieczeństwo tych produktów nie zostały ocenione przez Program Zgodności C2PA. <a href=\"https://c2pa.org/conformance\" target=\"_blank\" class=\"underline hover:text-gray-200\">Więcej informacji na stronie c2pa.org/conformance</a>",
   "sidebar.verify.about.issuedby.tooltip.link": "Zobacz informacje o certyfikacie",
   "sidebar.verify.about.issuedon": "Data wystawienia",
   "sidebar.verify.advanced": "Zaawansowane",

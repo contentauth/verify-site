@@ -122,7 +122,7 @@
   "sidebar.selectedFile": "Вибраний файл",
   "sidebar.verify.about": "Про ці Content Credentials",
   "sidebar.verify.about.issuedby": "Автор",
-  "sidebar.verify.about.issuedby.tooltip": "The \"Conformant\" badge indicates products that have met the requirements of the C2PA Conformance Program for correctness and security of implementation, and are issued certificates from the C2PA Trust List. The \"Legacy trust\" badge is for products with certificates on the frozen Interim Trust List. The correctness and security of those products have not been evaluated by the C2PA Conformance Program. <a href=\"https://c2pa.org/conformance\" target=\"_blank\" class=\"underline hover:text-gray-200\">Learn more at c2pa.org/conformance</a>",
+  "sidebar.verify.about.issuedby.tooltip": "Значок «Conformant» позначає продукти, які відповідають вимогам Програми відповідності C2PA щодо правильності й безпеки впровадження, а також яким видано сертифікати зі Списку довіри C2PA. Значок «Legacy trust» призначається продуктам із сертифікатами, що перебувають у замороженому Тимчасовому списку довіри. Правильність і безпека цих продуктів не оцінювалися за Програмою відповідності C2PA. <a href=\"https://c2pa.org/conformance\" target=\"_blank\" class=\"underline hover:text-gray-200\">Дізнайтеся більше на c2pa.org/conformance</a>",
   "sidebar.verify.about.issuedby.tooltip.link": "Див. інформацію про сертифікат",
   "sidebar.verify.about.issuedon": "Дата видачі",
   "sidebar.verify.advanced": "Додатково",

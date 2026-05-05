@@ -122,7 +122,7 @@
   "sidebar.selectedFile": "已选择的文件",
   "sidebar.verify.about": "关于此 Content Credential",
   "sidebar.verify.about.issuedby": "颁发者",
-  "sidebar.verify.about.issuedby.tooltip": "The \"Conformant\" badge indicates products that have met the requirements of the C2PA Conformance Program for correctness and security of implementation, and are issued certificates from the C2PA Trust List. The \"Legacy trust\" badge is for products with certificates on the frozen Interim Trust List. The correctness and security of those products have not been evaluated by the C2PA Conformance Program. <a href=\"https://c2pa.org/conformance\" target=\"_blank\" class=\"underline hover:text-gray-200\">Learn more at c2pa.org/conformance</a>",
+  "sidebar.verify.about.issuedby.tooltip": "“符合性”徽章表示产品已满足 C2PA 符合性计划对实施的正确性和安全性的要求，并获得 C2PA 信任列表颁发的证书。“旧版信任”徽章适用于证书位于冻结的临时信任列表上的产品。这些产品的正确性和安全性尚未经过 C2PA 符合性计划的评估。 <a href=\"https://c2pa.org/conformance\" target=\"_blank\" class=\"underline hover:text-gray-200\">了解更多信息，请访问 c2pa.org/conformance</a>",
   "sidebar.verify.about.issuedby.tooltip.link": "查看证书信息",
   "sidebar.verify.about.issuedon": "颁发时间",
   "sidebar.verify.advanced": "高级",
