@@ -7,29 +7,13 @@ interface ProducerInfo {
   url?: string;
 }
 
-type CreativeWorkAssertion = { data?: { author?: { name?: string; url?: string; sameAs?: string | string[] } | Array<{ name?: string; url?: string }> } };
-type XmpAssertion = { data?: { 'dc:creator'?: string | string[] } };
-
 export function selectProducer(manifest: Manifest): ProducerInfo | null {
-  const assertions = manifest.assertions;
+  const assertionsArray = (manifest.assertions || []) as unknown[];
+  type AssItem = { label?: string; data?: unknown };
 
-  // 1. Check CreativeWork schema
-  let creativeWorkAssertion: unknown;
-
-  if (Array.isArray(assertions)) {
-    creativeWorkAssertion = assertions.find(
-      (a): a is { label: string; data: unknown } =>
-        typeof a === 'object' &&
-        a !== null &&
-        'label' in a &&
-        typeof (a as Record<string, unknown>)['label'] === 'string' &&
-        (a as Record<string, unknown>)['label'] === 'stds.schema-org.CreativeWork'
-    );
-  } else if (assertions && typeof assertions === 'object') {
-    creativeWorkAssertion = (assertions as Record<string, unknown>)['stds.schema-org.CreativeWork'];
-  }
-
-  const creativeWork = (creativeWorkAssertion as CreativeWorkAssertion)?.data;
+  // 1. Check CreativeWork schema item
+  const creativeWorkAss = assertionsArray.find((a: unknown) => (a as AssItem).label === 'stds.schema-org.CreativeWork') as AssItem | undefined;
+  const creativeWork = (creativeWorkAss?.data || creativeWorkAss) as Record<string, unknown> | undefined;
 
   if (creativeWork?.author) {
     const author = Array.isArray(creativeWork.author) ? creativeWork.author[0] : creativeWork.author;
@@ -39,23 +23,9 @@ export function selectProducer(manifest: Manifest): ProducerInfo | null {
     }
   }
 
-  // 2. Check XMP producer/creator
-  let xmpAssertion: unknown;
-
-  if (Array.isArray(assertions)) {
-    xmpAssertion = assertions.find(
-      (a): a is { label: string; data: unknown } =>
-        typeof a === 'object' &&
-        a !== null &&
-        'label' in a &&
-        typeof (a as Record<string, unknown>)['label'] === 'string' &&
-        (a as Record<string, unknown>)['label'] === 'stds.xmp'
-    );
-  } else if (assertions && typeof assertions === 'object') {
-    xmpAssertion = (assertions as Record<string, unknown>)['stds.xmp'];
-  }
-
-  const xmp = (xmpAssertion as XmpAssertion)?.data;
+  // 2. Check XMP producer/creator item
+  const xmpAss = assertionsArray.find((a: unknown) => (a as AssItem).label === 'stds.xmp') as AssItem | undefined;
+  const xmp = (xmpAss?.data || xmpAss) as Record<string, unknown> | undefined;
 
   if (xmp?.['dc:creator']) {
     const creator = Array.isArray(xmp['dc:creator']) ? xmp['dc:creator'][0] : xmp['dc:creator'];

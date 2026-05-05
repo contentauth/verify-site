@@ -17,26 +17,15 @@ declare module '@contentauth/c2pa-web' {
   }
 }
 
-type CryptoAddressAssertion = { data?: Record<string, string[]> };
-
 export function selectWeb3(manifest: Manifest): [string, string[]][] {
-  const assertions = manifest.assertions;
-  let cryptoAssertion: unknown;
-
-  if (Array.isArray(assertions)) {
-    cryptoAssertion = assertions.find(
-      (a): a is { label: string; data: unknown } =>
-        typeof a === 'object' &&
-        a !== null &&
-        'label' in a &&
-        typeof (a as Record<string, unknown>)['label'] === 'string' &&
-        (a as Record<string, unknown>)['label'] === 'adobe.crypto.addresses'
-    );
-  } else if (assertions && typeof assertions === 'object') {
-    cryptoAssertion = (assertions as Record<string, unknown>)['adobe.crypto.addresses'];
+  interface CryptoAssertion {
+    data?: Record<string, string[]>;
   }
+  const assertionsArray = (manifest.assertions || []) as unknown[];
+  type AssItem = { label?: string; data?: unknown };
 
-  const cryptoEntries = (cryptoAssertion as CryptoAddressAssertion)?.data ?? {};
+  const cryptoAss = assertionsArray.find((a: unknown) => (a as AssItem).label === 'adobe.crypto.addresses') as CryptoAssertion | undefined;
+  const cryptoEntries = cryptoAss?.data || (cryptoAss as unknown as Record<string, unknown>)?.entries || {};
 
   return (Object.entries(cryptoEntries) as [string, string[]][]).filter(
     ([type, [address]]) => address && ['solana', 'ethereum'].includes(type),

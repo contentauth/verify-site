@@ -1,72 +1,61 @@
 // Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors
 
 import type {
-  AssetType,
   Ingredient,
   Manifest,
 } from '@contentauth/c2pa-web';
 
-type GenSoftwareAgent = string | { name: string; version?: string };
-
 interface SdkGenerativeInfo {
-  softwareAgent: GenSoftwareAgent;
+  softwareAgent: string;
   type: string;
 }
 
-type GenActionItem = {
-  label?: string;
-  action?: string;
-  digitalSourceType?: string;
-  softwareAgent?: GenSoftwareAgent;
-  parameters?: { digitalSourceType?: string };
-};
-
-type GenActionsAssertion = { data?: { actions?: GenActionItem[] } };
-
 function sdkSelectGenerativeInfo(manifest: Manifest): SdkGenerativeInfo[] {
   // Handle both native SDK array structures and crJSON maps
-  const assertions = manifest.assertions;
-  let actionsAssertion: unknown;
+  type C2paActionItem = { action: string; digitalSourceType?: string; softwareAgent?: string; parameters?: { digitalSourceType?: string } };
+  type AssertionValue = { label?: string; data?: { actions?: C2paActionItem[] }; actions?: C2paActionItem[] };
 
-  if (Array.isArray(assertions)) {
-    actionsAssertion = assertions.find(
-      (a): a is { label: string; data: unknown } =>
-        typeof a === 'object' &&
-        a !== null &&
-        'label' in a &&
-        typeof (a as Record<string, unknown>)['label'] === 'string' &&
-        ['c2pa.actions', 'c2pa.actions.v2'].includes((a as Record<string, unknown>)['label'] as string)
-    );
-  } else if (assertions && typeof assertions === 'object') {
-    actionsAssertion =
-      (assertions as Record<string, unknown>)['c2pa.actions.v2'] ||
-      (assertions as Record<string, unknown>)['c2pa.actions'];
-  }
-
-  const actions = (actionsAssertion as GenActionsAssertion)?.data?.actions || [];
-
+  const isArray = Array.isArray(manifest.assertions);
+  const assertionsArray = (manifest.assertions || []) as unknown[];
+  const actionsAssertion = isArray 
+    ? assertionsArray.find((a: unknown) => (a as AssertionValue).label === 'c2pa.actions' || (a as AssertionValue).label === 'c2pa.actions.v2')
+    : ((manifest.assertions as unknown as Record<string, unknown>)?.[ 'c2pa.actions.v2' ] || (manifest.assertions as unknown as Record<string, unknown>)?.[ 'c2pa.actions' ]);
+     
+  const actions = (actionsAssertion as AssertionValue)?.data?.actions || (actionsAssertion as AssertionValue)?.actions || [];
+  
   return actions
-    .filter((a) => {
+    .filter((a: C2paActionItem) => {
       // For created/edited actions, inspect the IPTC digitalSourceType for AI definitions
       const sourceType = a.digitalSourceType || a.parameters?.digitalSourceType || '';
 
       return sourceType.toLowerCase().includes('algorithmicmedia');
     })
-    .map((a) => {
+    .map((a: C2paActionItem) => {
       const rawType = a.digitalSourceType || a.parameters?.digitalSourceType;
       // The UI expects the IPTC slug, not the full absolute URI
-      const typeSlug = typeof rawType === 'string' ? (rawType.split('/').pop() ?? 'legacy') : 'legacy';
+      const typeSlug = typeof rawType === 'string' ? rawType.split('/').pop() : 'legacy';
+      
+      let agentName = 'Unknown';
+
+      if (a.softwareAgent) {
+        if (typeof a.softwareAgent === 'string') {
+          agentName = a.softwareAgent;
+        } else if (typeof a.softwareAgent === 'object' && (a.softwareAgent as Record<string, unknown>).name) {
+          agentName = (a.softwareAgent as Record<string, unknown>).name as string;
+        }
+      }
 
       return {
-        softwareAgent: a.softwareAgent || 'Unknown',
-        type: typeSlug
+        softwareAgent: agentName,
+        type: typeSlug || 'legacy'
       };
     });
 }
 
+import { filter, flow, uniqBy } from 'lodash/fp';
 import startsWith from 'lodash/startsWith';
 
-type SoftwareAgent = GenSoftwareAgent;
+type SoftwareAgent = SdkGenerativeInfo['softwareAgent'];
 
 export interface GenerativeInfo {
   softwareAgents: SoftwareAgent[];
@@ -76,32 +65,21 @@ export interface GenerativeInfo {
 
 export interface CustomModel {
   name: string;
-  dataTypes: AssetType[];
+  dataTypes: unknown[];
 }
 
 export function selectGenerativeSoftwareAgents(
   generativeInfo: SdkGenerativeInfo[],
 ): SoftwareAgent[] {
-  const softwareAgents = generativeInfo.map((assertion) => {
+  const softwareAgents: SoftwareAgent[] = generativeInfo.map((assertion) => {
     return assertion?.softwareAgent;
   });
 
-  const valid = softwareAgents.filter((x): x is SoftwareAgent => {
-    if (x == null) return false;
-    if (typeof x === 'string') return !!x;
-
-    return !!x.name;
-  });
-
-  const seen = new Set<string>();
-
-  return valid.filter((x) => {
-    const key = typeof x === 'string' ? x : x.name;
-    if (seen.has(key)) return false;
-    seen.add(key);
-
-    return true;
-  });
+  // if there are undefined software agents remove them from the array
+  return flow<[SoftwareAgent[]], SoftwareAgent[], SoftwareAgent[]>(
+    filter((x) => !!x),
+    uniqBy((x) => x),
+  )(softwareAgents);
 }
 
 export function selectGenerativeType(generativeInfo: SdkGenerativeInfo[]) {
@@ -116,24 +94,27 @@ export function selectGenerativeType(generativeInfo: SdkGenerativeInfo[]) {
 }
 
 export function selectModelsFromIngredient(ingredient: Ingredient) {
-  const dataTypes = ingredient.data_types || (ingredient as { dataTypes?: AssetType[] }).dataTypes;
-  if (!dataTypes || !Array.isArray(dataTypes)) return [];
-
-  return dataTypes.filter((dataType: { type: string }) =>
+  const typesArray = ((ingredient as Record<string, unknown>).dataTypes || []) as Array<{ type: string }>;
+  
+  return typesArray.filter((dataType: { type: string }) =>
     startsWith('c2pa.types.model', dataType.type),
   );
 }
 
 export function selectCustomModels(manifest: Manifest): CustomModel[] {
-  return (manifest.ingredients || []).reduce<CustomModel[]>((acc, ingredient) => {
+  const ingredients = manifest.ingredients || [];
+  const customModels: CustomModel[] = [];
+
+  for (let i = 0; i < ingredients.length; i++) {
+    const ingredient = ingredients[i];
     const dataTypes = selectModelsFromIngredient(ingredient);
 
     if (dataTypes.length > 0) {
-      return [...acc, { name: ingredient.title, dataTypes } as CustomModel];
+      customModels.push({ name: ingredient.title, dataTypes } as CustomModel);
     }
+  }
 
-    return acc;
-  }, []);
+  return customModels;
 }
 
 export function selectGenerativeInfo(manifest: Manifest) {

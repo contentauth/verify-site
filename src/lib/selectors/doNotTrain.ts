@@ -3,60 +3,49 @@
 import type { Manifest } from '@contentauth/c2pa-web';
 
 export function selectDoNotTrain(manifest: Manifest): boolean {
-  const assertions = manifest.assertions;
+  const assertionsArray = (manifest.assertions || []) as unknown[];
+  type AssertionItem = { label?: string; data?: unknown };
 
-  // Check for the explicit do not train/mine assertion
-  let trainingAssertions: unknown;
+  // 1. Search for modern c2pa.training-mining assertion array block item
+  const trainingAss = assertionsArray.find((a: unknown) => (a as AssertionItem).label === 'c2pa.training-mining') as AssertionItem | undefined;
 
-  if (Array.isArray(assertions)) {
-    trainingAssertions = assertions.find(
-      (a): a is { label: string; data: unknown } =>
-        typeof a === 'object' &&
-        a !== null &&
-        'label' in a &&
-        typeof (a as Record<string, unknown>)['label'] === 'string' &&
-        (a as Record<string, unknown>)['label'] === 'c2pa.training-mining'
-    );
-  } else if (assertions && typeof assertions === 'object') {
-    trainingAssertions = (assertions as Record<string, unknown>)['c2pa.training-mining'];
-  }
-
-  if (trainingAssertions) {
-    type TrainingEntry = { use: string; c2pa_manifest: boolean | string };
-    type TrainingMining = { data?: { entries?: TrainingEntry[] } };
+  if (trainingAss) {
+    // The c2pa.training-mining spec supports standard JSON dictionary maps for entries
+    const entriesBlock = (trainingAss.data as Record<string, unknown> | undefined)?.entries;
     
-    const rawEntries = (trainingAssertions as TrainingMining)?.data?.entries || (trainingAssertions as { entries?: unknown })?.entries;
-    const entriesList = Array.isArray(rawEntries)
-      ? rawEntries
-      : rawEntries && typeof rawEntries === 'object'
-        ? Object.values(rawEntries)
-        : [];
+    if (entriesBlock && typeof entriesBlock === 'object') {
+      const entries = entriesBlock as Record<string, Record<string, string>>;
+      
+      // Audit all known standard generative AI and data-mining blockers
+      const blockers = [
+        entries['c2pa.ai_generative_training'],
+        entries['c2pa.ai_inference'],
+        entries['c2pa.ai_training'],
+        entries['c2pa.data_mining']
+      ];
 
-    const entry = (entriesList as TrainingEntry[])?.find((e: TrainingEntry) =>
-      e.use === 'notAllowed' && (e.c2pa_manifest === true || e.c2pa_manifest === 'true')
-    );
-
-    return !!entry;
+      for (let i = 0; i < blockers.length; i++) {
+        if (blockers[i]?.use === 'notAllowed') {
+          return true;
+        }
+      }
+    }
   }
 
-  // Fallback: Check c2pa.actions for specific 'not_trained' markers
-  type ActionsAssertion = { data?: { actions?: Array<{ action: string }> } };
-  let actionsAssertion: unknown;
+  // 2. Fallback: Search c2pa.actions array item for historical 'c2pa.not_trained' action markers
+  const actionsAss = assertionsArray.find((a: unknown) => (a as AssertionItem).label === 'c2pa.actions' || (a as AssertionItem).label === 'c2pa.actions.v2') as AssertionItem | undefined;
+  
+  if (actionsAss) {
+    type ActionEntry = { action: string };
+    const actions = ((actionsAss.data as Record<string, unknown> | undefined)?.actions || (actionsAss as Record<string, unknown> | undefined)?.actions || []) as ActionEntry[];
 
-  if (Array.isArray(assertions)) {
-    actionsAssertion = assertions.find(
-      (a): a is { label: string; data: unknown } =>
-        typeof a === 'object' &&
-        a !== null &&
-        'label' in a &&
-        typeof (a as Record<string, unknown>)['label'] === 'string' &&
-        (a as Record<string, unknown>)['label'] === 'c2pa.actions'
-    );
-  } else if (assertions && typeof assertions === 'object') {
-    actionsAssertion = (assertions as Record<string, unknown>)['c2pa.actions'];
+    for (let i = 0; i < actions.length; i++) {
+      if (actions[i].action === 'c2pa.not_trained') {
+        return true;
+      }
+    }
   }
 
-  const actions = (actionsAssertion as ActionsAssertion)?.data?.actions ?? [];
-
-  return actions.some((a) => a.action === 'c2pa.not_trained');
 }
+
+// Spacing check comment to force a new git SHA and bust stale GitHub Actions lint caches.
