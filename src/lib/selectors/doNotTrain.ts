@@ -46,6 +46,7 @@ export function selectDoNotTrain(manifest: Manifest): boolean {
     }
   }
 
+  return false;
 }
 
 // Spacing check comment to force a new git SHA and bust stale GitHub Actions lint caches.

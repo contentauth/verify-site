@@ -34,7 +34,8 @@ export function selectWebsite(manifest: Manifest): string | null {
   const assetRefAss = assertionsArray.find((a: unknown) => (a as AssItem).label === 'c2pa.asset-ref') as AssetRefAssertion | undefined;
   const creativeWorkAss = assertionsArray.find((a: unknown) => (a as AssItem).label === 'stds.schema-org.CreativeWork') as CreativeWorkAssertion | undefined;
 
-  const site = assetRefAss?.data?.references?.[0]?.reference?.uri || creativeWorkAss?.data?.url || (creativeWorkAss as unknown as Record<string, unknown>)?.url || null;
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+  const site = (assetRefAss?.data?.references?.[0]?.reference?.uri || creativeWorkAss?.data?.url || (creativeWorkAss as any)?.url || null) as string | null;
 
   return site && isSecureUrl(site) ? site : null;
 }

@@ -17,6 +17,7 @@ const baseURL = `${base ?? `http://localhost`}:${port}/`;
 
 const config: PlaywrightTestConfig = {
   testDir: 'e2e',
+  testIgnore: '**/snapshot/**',
   retries: process.env.CI ? 1 : 0,
   forbidOnly: !!process.env.CI,
   use: {

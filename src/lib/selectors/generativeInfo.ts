@@ -58,7 +58,7 @@ import startsWith from 'lodash/startsWith';
 type SoftwareAgent = SdkGenerativeInfo['softwareAgent'];
 
 export interface GenerativeInfo {
-  softwareAgents: SoftwareAgent[];
+  softwareAgents: Array<string | { name: string; version?: string | null }>;
   type: SdkGenerativeInfo['type'];
   customModels: CustomModel[];
 }

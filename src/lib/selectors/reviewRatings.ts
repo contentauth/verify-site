@@ -27,7 +27,8 @@ export function selectReviewRatings(manifest: Manifest) {
   type AssItem = { label?: string; data?: unknown };
   
   const actionsAss = assertionsArray.find((a: unknown) => (a as AssItem).label === 'c2pa.actions' || (a as AssItem).label === 'c2pa.actions.v2') as InferenceAssertion | undefined;
-  const actionRatings = actionsAss?.data?.metadata?.reviewRatings || actionsAss?.metadata?.reviewRatings || (actionsAss as unknown as Record<string, unknown>)?.actions?.[0]?.parameters?.reviewRatings || [];
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+  const actionRatings = actionsAss?.data?.metadata?.reviewRatings || actionsAss?.metadata?.reviewRatings || (actionsAss as any)?.actions?.[0]?.parameters?.reviewRatings || [];
   const reviewRatings = [...ingredientRatings, ...actionRatings];
 
   return {
