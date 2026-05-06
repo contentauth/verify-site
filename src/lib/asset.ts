@@ -35,7 +35,12 @@ import {
 } from './selectors/validationResult';
 import { selectWeb3 } from './selectors/web3Info';
 import { selectWebsite } from './selectors/website';
-import { loadThumbnail, type ThumbnailInfo } from './thumbnail';
+import { toAbsoluteIdentifier } from './resolveThumbnails';
+import {
+  loadThumbnail,
+  type ThumbnailInfo,
+  type ThumbnailResult,
+} from './thumbnail';
 import type { Disposable } from './types';
 
 const MANIFEST_STORE_MIME_TYPE = 'application/x-c2pa-manifest-store';
@@ -126,9 +131,11 @@ export function getIngredientDataType(
 export async function resultToAssetMap({
   manifestStore,
   source,
+  thumbnails,
 }: {
   manifestStore: ManifestStore;
   source: Blob | File;
+  thumbnails: Map<string, Blob>;
 }): Promise<DisposableAssetDataMap> {
   const assetMap: AssetDataMap = {};
   const disposers: (() => void)[] = [];
@@ -168,6 +175,26 @@ export async function resultToAssetMap({
     while (disposers.length) {
       disposers.pop()?.();
     }
+  }
+
+  async function lookupThumbnail(
+    ref: Thumbnail | null | undefined,
+    containingManifestLabel: string,
+  ): Promise<ThumbnailResult> {
+    const blob = ref?.identifier
+      ? thumbnails.get(toAbsoluteIdentifier(ref.identifier, containingManifestLabel))
+      : undefined;
+
+    if (!blob) {
+      return loadThumbnail(ref?.format, undefined);
+    }
+
+    const url = URL.createObjectURL(blob);
+
+    return loadThumbnail(ref?.format, {
+      url,
+      dispose: () => URL.revokeObjectURL(url),
+    });
   }
 
   if (!isManifest && (!manifestStore || hasError || hasOtgp)) {
@@ -224,14 +251,11 @@ export async function resultToAssetMap({
     runtimeValidationStatuses: ManifestLabelValidationStatusMap,
     id: string,
   ): Promise<AssetData> {
-    const manifest = manifestStore.manifests?.[manifestStore.active_manifest || ''];
+    const activeManifestLabel = manifestStore.active_manifest || '';
+    const manifest = manifestStore.manifests?.[activeManifestLabel];
     if (!manifest) throw new Error('Active manifest not found');
 
-    // 0.17.x SDK dropped internal thumbnail generation. Pass undefined to skip WASM fetch.
-    let thumbnail = await loadThumbnail(
-      manifest.thumbnail?.format,
-      undefined
-    );
+    let thumbnail = await lookupThumbnail(manifest.thumbnail, activeManifestLabel);
 
     if (
       !thumbnail.info &&
@@ -241,7 +265,7 @@ export async function resultToAssetMap({
       // Fallback for active manifest: render the original source file directly
       const url = URL.createObjectURL(source);
       thumbnail = await loadThumbnail(
-        source.type, 
+        source.type,
         { url, dispose: () => URL.revokeObjectURL(url) }
       );
     }
@@ -256,6 +280,7 @@ export async function resultToAssetMap({
         manifestStore,
         runtimeValidationStatuses,
         id,
+        activeManifestLabel,
       ),
       manifestData: await getManifestData(manifest, rootValidationResult),
       dataType: null,
@@ -277,15 +302,14 @@ export async function resultToAssetMap({
     manifestStore: ManifestStore,
     runtimeValidationStatuses: ManifestLabelValidationStatusMap,
     id: string,
+    containingManifestLabel: string,
   ): Promise<AssetData> {
     const ingredientManifestLabel = ingredient.active_manifest;
     const ingredientManifest = ingredientManifestLabel ? manifestStore.manifests?.[ingredientManifestLabel] : null;
 
-    // 0.17.x SDK dropped internal thumbnail generation. Skip WASM fetch for ingredients.
-    const thumbnail = await loadThumbnail(
-      ingredient.thumbnail?.format,
-      undefined,
-    );
+    const thumbnail = ingredientManifest && ingredientManifest.thumbnail
+      ? await lookupThumbnail(ingredientManifest.thumbnail, ingredientManifestLabel ?? containingManifestLabel)
+      : await lookupThumbnail(ingredient.thumbnail, containingManifestLabel);
 
     const activeManifestValidationResults =
       ingredient.validation_results?.activeManifest ?? undefined;
@@ -307,12 +331,13 @@ export async function resultToAssetMap({
       title: ingredient.title ?? null,
       thumbnail: thumbnail.info,
       mimeType: ingredient.format || '',
-      children: (showChildren && ingredientManifest?.ingredients)
+      children: (showChildren && ingredientManifest?.ingredients && ingredientManifestLabel)
         ? await processIngredients(
             ingredientManifest.ingredients,
             manifestStore,
             runtimeValidationStatuses,
             id,
+            ingredientManifestLabel,
           )
         : [],
       manifestData: await getManifestData(ingredientManifest, validationResult),
@@ -462,6 +487,7 @@ export async function resultToAssetMap({
     manifestStore: ManifestStore,
     runtimeValidationStatuses: ManifestLabelValidationStatusMap,
     id: string,
+    containingManifestLabel: string,
   ): Promise<string[]> {
     const ingredientIds = ingredients.map(async (ingredient, idx) => {
       const ingredientId = `${id}.${idx}`;
@@ -471,6 +497,7 @@ export async function resultToAssetMap({
         manifestStore,
         runtimeValidationStatuses,
         ingredientId,
+        containingManifestLabel,
       );
 
       return ingredientId;
