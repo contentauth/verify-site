@@ -307,8 +307,8 @@ export async function resultToAssetMap({
     const ingredientManifestLabel = ingredient.active_manifest;
     const ingredientManifest = ingredientManifestLabel ? manifestStore.manifests?.[ingredientManifestLabel] : null;
 
-    const thumbnail = ingredientManifest && ingredientManifest.thumbnail
-      ? await lookupThumbnail(ingredientManifest.thumbnail, ingredientManifestLabel ?? containingManifestLabel)
+    const thumbnail = ingredientManifestLabel && ingredientManifest?.thumbnail
+      ? await lookupThumbnail(ingredientManifest.thumbnail, ingredientManifestLabel)
       : await lookupThumbnail(ingredient.thumbnail, containingManifestLabel);
 
     const activeManifestValidationResults =
