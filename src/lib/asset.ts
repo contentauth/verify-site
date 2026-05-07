@@ -307,9 +307,26 @@ export async function resultToAssetMap({
     const ingredientManifestLabel = ingredient.active_manifest;
     const ingredientManifest = ingredientManifestLabel ? manifestStore.manifests?.[ingredientManifestLabel] : null;
 
+    // The code prioritizes the signed ingredient's own c2pa.thumbnail.claim, if present,
+    // over the c2pa.thumbnail.ingredient assertion that the consuming manifest's signer
+    // references via ingredient.thumbnail. When a signed ingredient already provides
+    // its own claim thumbnail, a consuming signer's separate ingredient assertion
+    // thumbnail could be an intentional override pointing at a misleading image. The
+    // claim thumbnail more faithfully represents the ingredient.
+    //
+    // When no claim thumbnail is available for an ingredient, we fall back to
+    // c2pa.thumbnail.ingredient only if the containing manifest is trusted. If it is
+    // untrusted, we suppress the thumbnail so an untrusted signer can't force a false
+    // thumbnail to display for an ingredient that has no claim thumbnail of its own. A
+    // signed ingredient's own claim thumbnail is still shown when present (untrusted
+    // state is flagged in the UI).
+    const containingManifestTrust = (manifestStore.manifests?.[containingManifestLabel] as Manifest & { trust_source?: 'legacy' | 'none' | 'official' })?.trust_source;
+
     const thumbnail = ingredientManifestLabel && ingredientManifest?.thumbnail
       ? await lookupThumbnail(ingredientManifest.thumbnail, ingredientManifestLabel)
-      : await lookupThumbnail(ingredient.thumbnail, containingManifestLabel);
+      : containingManifestTrust !== 'none'
+        ? await lookupThumbnail(ingredient.thumbnail, containingManifestLabel)
+        : await loadThumbnail(undefined, undefined);
 
     const activeManifestValidationResults =
       ingredient.validation_results?.activeManifest ?? undefined;
