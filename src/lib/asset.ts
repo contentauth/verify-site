@@ -320,11 +320,12 @@ export async function resultToAssetMap({
     // thumbnail to display for an ingredient that has no claim thumbnail of its own. A
     // signed ingredient's own claim thumbnail is still shown when present (untrusted
     // state is flagged in the UI).
-    const containingManifestTrust = (manifestStore.manifests?.[containingManifestLabel] as Manifest & { trust_source?: 'legacy' | 'none' | 'official' })?.trust_source;
+    const containingManifestUntrusted = (runtimeValidationStatuses[containingManifestLabel] ?? [])
+      .some((s) => s.code.includes('signingCredential.untrusted') || s.code.includes('signingCredential.invalid'));
 
     const thumbnail = ingredientManifestLabel && ingredientManifest?.thumbnail
       ? await lookupThumbnail(ingredientManifest.thumbnail, ingredientManifestLabel)
-      : containingManifestTrust !== 'none'
+      : !containingManifestUntrusted
         ? await lookupThumbnail(ingredient.thumbnail, containingManifestLabel)
         : await loadThumbnail(undefined, undefined);
 
