@@ -17,8 +17,7 @@ interface ExtendedIngredient extends Ingredient {
 }
 import { selectDoNotTrain } from './selectors/doNotTrain';
 import { selectEditsAndActivity, type TranslatedDictionaryCategory } from './selectors/editsAndActivity';
-import { selectProducer } from './selectors/producer';
-import { selectSocialAccounts } from './selectors/socialAccounts';
+
 import debug from 'debug';
 import { selectExif } from './exif';
 import {
@@ -84,11 +83,9 @@ export type ManifestData = {
   exif: ReturnType<typeof selectExif>;
   label: string | null;
   generativeInfo: GenerativeInfo | null;
-  producer: string | null;
   reviewRatings: ReturnType<typeof selectReviewRatings>;
   signatureInfo: Manifest['signature_info'];
   doNotTrain: ReturnType<typeof selectDoNotTrain>;
-  socialAccounts: ReturnType<typeof selectSocialAccounts>;
   web3Accounts: [string, string[]][];
   website: string | null;
   autoDubInfo: AutoDubInfo | null;
@@ -395,7 +392,6 @@ export async function resultToAssetMap({
         : null,
       claimGenerator,
       signatureInfo: safeSignatureInfo,
-      producer: selectProducer(manifest)?.name ?? null,
       editsAndActivityForLocale: async (locale) => {
         const editsAndActivity = await selectEditsAndActivity(
           manifest,
@@ -427,7 +423,6 @@ export async function resultToAssetMap({
 
         return null;
       },
-      socialAccounts: selectSocialAccounts(manifest),
       generativeInfo: selectGenerativeInfo(manifest),
       exif: selectExif(manifest),
       label: manifest.label ?? null,
