@@ -5,11 +5,19 @@ import type {
   Manifest,
   ManifestStore,
   ResourceRef as Thumbnail,
+  StatusCodes,
 } from '@contentauth/c2pa-web';
+import { type ValidationStatus } from './selectors/validationResult';
+
+interface ExtendedIngredient extends Ingredient {
+  activeManifest?: string;
+  validationStatus?: ValidationStatus[];
+  validationResults?: { activeManifest?: StatusCodes };
+  trustSource?: string;
+}
 import { selectDoNotTrain } from './selectors/doNotTrain';
 import { selectEditsAndActivity, type TranslatedDictionaryCategory } from './selectors/editsAndActivity';
-import { selectProducer } from './selectors/producer';
-import { selectSocialAccounts } from './selectors/socialAccounts';
+
 import debug from 'debug';
 import { selectExif } from './exif';
 import {
@@ -75,11 +83,9 @@ export type ManifestData = {
   exif: ReturnType<typeof selectExif>;
   label: string | null;
   generativeInfo: GenerativeInfo | null;
-  producer: string | null;
   reviewRatings: ReturnType<typeof selectReviewRatings>;
   signatureInfo: Manifest['signature_info'];
   doNotTrain: ReturnType<typeof selectDoNotTrain>;
-  socialAccounts: ReturnType<typeof selectSocialAccounts>;
   web3Accounts: [string, string[]][];
   website: string | null;
   autoDubInfo: AutoDubInfo | null;
@@ -134,6 +140,7 @@ export async function resultToAssetMap({
   const disposers: (() => void)[] = [];
   
   const activeManifestLabel = manifestStore?.active_manifest ?? '';
+
   const allLabels = Object.keys(manifestStore?.manifests ?? {});
   const runtimeValidationStatuses = manifestStore?.validation_status
     ? validationStatusByManifestLabel(
@@ -146,7 +153,7 @@ export async function resultToAssetMap({
   dbg('Runtime validation statuses by manifest label', runtimeValidationStatuses);
 
   const activeManifestValidationResults =
-    manifestStore?.validation_results?.activeManifest ?? undefined;
+    manifestStore?.validation_results?.activeManifest || undefined;
 
   const rootValidationStatuses =
     runtimeValidationStatuses[activeManifestLabel] ?? [];
@@ -260,7 +267,7 @@ export async function resultToAssetMap({
       manifestData: await getManifestData(manifest, rootValidationResult),
       dataType: null,
       validationResult: rootValidationResult,
-      trustSource: ((manifest as Manifest & { trust_source?: 'legacy' | 'none' | 'official' }).trust_source || 'none') as 'legacy' | 'none' | 'official',
+      trustSource: ((manifest as Manifest & { trust_source?: string }).trust_source || 'none') as 'legacy' | 'none' | 'official',
     };
 
     if (thumbnail?.dispose) {
@@ -278,8 +285,10 @@ export async function resultToAssetMap({
     runtimeValidationStatuses: ManifestLabelValidationStatusMap,
     id: string,
   ): Promise<AssetData> {
-    const ingredientManifestLabel = ingredient.active_manifest;
+    const ingredientManifestLabel = ingredient.active_manifest || (ingredient as ExtendedIngredient).activeManifest;
     const ingredientManifest = ingredientManifestLabel ? manifestStore.manifests?.[ingredientManifestLabel] : null;
+
+    
 
     // 0.17.x SDK dropped internal thumbnail generation. Skip WASM fetch for ingredients.
     const thumbnail = await loadThumbnail(
@@ -288,10 +297,11 @@ export async function resultToAssetMap({
     );
 
     const activeManifestValidationResults =
-      ingredient.validation_results?.activeManifest ?? undefined;
+      (ingredient.validation_results?.activeManifest || (ingredient as ExtendedIngredient).validationResults?.activeManifest) ?? undefined;
 
+    const validationStatus = ingredient.validation_status || (ingredient as ExtendedIngredient).validationStatus || [];
     let validationResult = selectValidationResult(
-      ingredient.validation_status || [],
+      validationStatus,
       activeManifestValidationResults,
     );
 
@@ -318,7 +328,7 @@ export async function resultToAssetMap({
       manifestData: await getManifestData(ingredientManifest, validationResult),
       dataType: getIngredientDataType(ingredient),
       validationResult,
-      trustSource: ((ingredient as Ingredient & { trust_source?: 'legacy' | 'none' | 'official' })?.trust_source || 'none') as 'legacy' | 'none' | 'official',
+      trustSource: ((ingredient as ExtendedIngredient)?.trust_source || (ingredient as ExtendedIngredient)?.trustSource || 'none') as 'legacy' | 'none' | 'official',
     };
 
     if (thumbnail?.dispose) {
@@ -338,16 +348,22 @@ export async function resultToAssetMap({
       return null;
     }
 
-    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-    function formattedGeneratorInfo(claim_generator: any): any {
-      const version = claim_generator?.version;
-      claim_generator.version = version?.replace(/\([^()]*\)/g, '');
+    interface GeneratorInfoShape {
+      name?: string;
+      version?: string | null;
+      icon?: string | null;
+    }
 
-      return claim_generator;
+    function formattedGeneratorInfo(claim_generator: GeneratorInfoShape) {
+      const cloned = { ...claim_generator };
+      const version = cloned?.version;
+      cloned.version = version ? version.replace(/\([^()]*\)/g, '') : null;
+
+      return cloned;
     }
 
     const claimGeneratorInfo = manifest?.claim_generator_info?.[0]
-      ? formattedGeneratorInfo(manifest.claim_generator_info[0])
+      ? formattedGeneratorInfo(manifest.claim_generator_info[0] as GeneratorInfoShape)
       : null;
 
     const claimGeneratorLabel =
@@ -358,9 +374,10 @@ export async function resultToAssetMap({
 
     const claimGenerator: ClaimGeneratorDisplayInfo = {
       label: claimGeneratorLabel,
-      icon: claimGeneratorInfo?.icon ?? null,
+      icon: (claimGeneratorInfo?.icon ? { identifier: claimGeneratorInfo.icon } : null) as unknown as Thumbnail | null,
     };
 
+    // Extract Organization (O) from the native X.509 certificate subject tree
     const safeSignatureInfo = manifest.signature_info
       ? { ...manifest.signature_info }
       : null;
@@ -375,7 +392,6 @@ export async function resultToAssetMap({
         : null,
       claimGenerator,
       signatureInfo: safeSignatureInfo,
-      producer: selectProducer(manifest)?.name ?? null,
       editsAndActivityForLocale: async (locale) => {
         const editsAndActivity = await selectEditsAndActivity(
           manifest,
@@ -383,25 +399,17 @@ export async function resultToAssetMap({
         );
 
         if (editsAndActivity) {
-          const assertions = manifest.assertions;
-
-          let actionsAssertion: unknown;
-
-          if (Array.isArray(assertions)) {
-            actionsAssertion = assertions.find(
-              (a): a is { label: string; data: unknown } =>
-                typeof a === 'object' &&
-                a !== null &&
-                'label' in a &&
-                typeof (a as Record<string, unknown>)['label'] === 'string' &&
-                (a as Record<string, unknown>)['label'] === 'c2pa.actions'
-            );
-          } else if (assertions && typeof assertions === 'object') {
-            actionsAssertion = (assertions as Record<string, unknown>)['c2pa.actions'];
+          interface InferenceAssertion {
+            data?: {
+              metadata?: {
+                'com.adobe.inference'?: unknown;
+              };
+            };
           }
-
-          const hasInference =
-            !!(actionsAssertion as { data?: { metadata?: Record<string, unknown> } })?.data?.metadata?.['com.adobe.inference'];
+          const assertionsArr = (manifest.assertions || []) as unknown[];
+          type AssItem = { label?: string; data?: unknown };
+          const actionsAss = assertionsArr.find((a: unknown) => (a as AssItem).label === 'c2pa.actions' || (a as AssItem).label === 'c2pa.actions.v2') as InferenceAssertion | undefined;
+          const hasInference = !!actionsAss?.data?.metadata?.['com.adobe.inference'];
 
           const filteredEditsAndActivity = editsAndActivity.filter(
             (value) => !!value.label,
@@ -415,7 +423,6 @@ export async function resultToAssetMap({
 
         return null;
       },
-      socialAccounts: selectSocialAccounts(manifest),
       generativeInfo: selectGenerativeInfo(manifest),
       exif: selectExif(manifest),
       label: manifest.label ?? null,
@@ -435,14 +442,14 @@ export async function resultToAssetMap({
         if (manifest.assertions instanceof Map) {
           actionsAssertion = manifest.assertions.get('c2pa.actions.v2')?.[0] || manifest.assertions.get('c2pa.actions')?.[0] || manifest.assertions.get('c2pa.actions.v2') || manifest.assertions.get('c2pa.actions');
         } else if (Array.isArray(manifest.assertions)) {
-          actionsAssertion = manifest.assertions.find((a: { label?: string }) => a.label === 'c2pa.actions.v2' || a.label === 'c2pa.actions');
+          actionsAssertion = manifest.assertions.find((a: unknown) => (a as { label?: string }).label === 'c2pa.actions.v2' || (a as { label?: string }).label === 'c2pa.actions');
         } else {
           actionsAssertion = manifest.assertions?.['c2pa.actions.v2'] || manifest.assertions?.['c2pa.actions'];
         }
 
-        type C2paActionItem = { action: string; digitalSourceType?: string; parameters?: { digitalSourceType?: string } };
-        type AssertionValue = { data?: { actions?: C2paActionItem[] }; actions?: C2paActionItem[] };
-        const actions = (actionsAssertion as AssertionValue)?.data?.actions || (actionsAssertion as AssertionValue)?.actions || [];
+        type ActionEntry = { action: string; digitalSourceType?: string; parameters?: { digitalSourceType?: string } };
+        type AssertionBlock = { data?: { actions?: ActionEntry[] }; actions?: ActionEntry[] };
+        const actions = (actionsAssertion as AssertionBlock)?.data?.actions || (actionsAssertion as AssertionBlock)?.actions || [];
         if (actions.length !== 1) return false;
 
         // 3. First and only action must be c2pa.created
