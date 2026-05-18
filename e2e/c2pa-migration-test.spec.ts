@@ -50,7 +50,7 @@ test.describe('c2pa-web SDK migration — trust badge rendering', () => {
 
     await page.goto(`/?source=${encodeURIComponent(`${FIXTURES_BASE}/CAICAI.jpg`)}`);
 
-    await expect(page.getByText('Content Credentials', { exact: false })).toBeVisible({
+    await expect(page.getByText('Content Credentials', { exact: true })).toBeVisible({
       timeout: 20000,
     });
 
@@ -63,7 +63,7 @@ test.describe('c2pa-web SDK migration — trust badge rendering', () => {
 
     await page.goto(`/?source=${encodeURIComponent(`${FIXTURES_BASE}/CAICAI.jpg`)}`);
 
-    await expect(page.getByText('Content Credentials', { exact: false })).toBeVisible({
+    await expect(page.getByText('Content Credentials', { exact: true })).toBeVisible({
       timeout: 20000,
     });
 
@@ -90,7 +90,7 @@ test.describe('c2pa-web SDK migration — trust badge rendering', () => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     await page.setInputFiles('input[type="file"]', legacyImagePath!);
 
-    await expect(page.getByText('Content Credentials', { exact: false })).toBeVisible({
+    await expect(page.getByText('Content Credentials', { exact: true })).toBeVisible({
       timeout: 20000,
     });
 

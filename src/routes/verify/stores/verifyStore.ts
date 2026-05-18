@@ -128,7 +128,7 @@ export function createVerifyStore(): VerifyStore {
     hierarchyView,
     compareView,
     mostRecentlyLoaded,
-    readC2paSource: (source: Blob | File | string) => {
+    readC2paSource: async (source: Blob | File | string) => {
       resetCompare();
       selectedAssetId.set(ROOT_ID);
       const existingSource = get(selectedSource);
@@ -150,7 +150,28 @@ export function createVerifyStore(): VerifyStore {
       }
 
       dbg('Reading C2PA source', source);
-      c2paReader.read(source);
+      
+      let finalSource: Blob | File;
+
+      if (typeof source === 'string') {
+        try {
+          const response = await fetch(source);
+
+          if (!response.ok) {
+            throw new Error(`HTTP error fetching external C2PA source! Status: ${response.status}`);
+          }
+
+          finalSource = await response.blob();
+        } catch (err) {
+          dbg('Failed asynchronous remote fetch C2PA source link:', err);
+          // Re-throw to ensure errors are visible, but you could also handle state down-grading here
+          throw err;
+        }
+      } else {
+        finalSource = source;
+      }
+
+      c2paReader.read(finalSource);
       dbg('Setting selected source', incomingSource);
       selectedSource.set(incomingSource);
     },

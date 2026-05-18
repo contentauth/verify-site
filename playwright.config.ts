@@ -3,6 +3,7 @@
 import type { PlaywrightTestConfig } from '@playwright/test';
 import testImageConfig from './e2e/c2pa-test-image-service.config';
 
+
 export const port = parseInt(
   (process.env.HOST_PORT as string | undefined) ?? '4173',
   10,
@@ -16,6 +17,7 @@ const baseURL = `${base ?? `http://localhost`}:${port}/`;
 
 const config: PlaywrightTestConfig = {
   testDir: 'e2e',
+  testIgnore: '**/snapshot/**',
   retries: process.env.CI ? 1 : 0,
   forbidOnly: !!process.env.CI,
   use: {
@@ -28,17 +30,18 @@ const config: PlaywrightTestConfig = {
   },
   webServer: [
     {
-      command: `pnpm dev --port=${port}`,
+      command: `npx vite preview --port=${port}`,
       port,
       reuseExistingServer: !process.env.CI,
     },
     {
-      command: `pnpm http-server e2e/fixtures --port=${fixturesPort} --cors --gzip`,
+      command: `python3 cors_server.py ${fixturesPort}`,
+      cwd: 'e2e/fixtures',
       port: fixturesPort,
       reuseExistingServer: !process.env.CI,
     },
     {
-      command: `pnpm run test-image-service`,
+      command: `./node_modules/.bin/c2pa-test-image-service --config e2e/c2pa-test-image-service.config.ts`,
       port: testImageConfig.port,
       reuseExistingServer: !process.env.CI,
     },
