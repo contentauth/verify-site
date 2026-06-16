@@ -15,8 +15,8 @@ importers:
         specifier: file:etc/packages/ingest-4.3.0.tgz
         version: file:etc/packages/ingest-4.3.0.tgz
       '@contentauth/c2pa-web':
-        specifier: ^0.9.0
-        version: 0.9.0
+        specifier: ^0.11.0
+        version: 0.11.0
       '@intl/adobe-locales':
         specifier: file:etc/packages/adobe-locales-2.35.2.tgz
         version: file:etc/packages/adobe-locales-2.35.2.tgz
@@ -1265,14 +1265,14 @@ packages:
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
     engines: {node: '>=0.1.90'}
 
-  '@contentauth/c2pa-types@0.4.6':
-    resolution: {integrity: sha512-CLRasu8IFh1zNTqa1/nnR8t5BqWefJQ3EbIZGJAjn1RrPTq+LVOKLeN8qhDVZhOpsY7wUTNT3qVfBzMGQFWQaQ==}
+  '@contentauth/c2pa-types@0.6.0':
+    resolution: {integrity: sha512-b9xPv9seNw0lY2CJtz4TeYl5Z3w5+ZHyhZtgG3M0jj7chtvY0C60LuruByxM8H/7tAiuyEp8Hhrx08pQZ/Fpyg==}
 
-  '@contentauth/c2pa-wasm@0.6.3':
-    resolution: {integrity: sha512-lC86ECrIzLyV0AdsRuQ5A5SsBuGqXrJsvh/3JoXHufjGIIWiCDXIx5Qf6BLjsHQEWw+CN3BqaX/fPX4rj08rSQ==}
+  '@contentauth/c2pa-wasm@0.8.0':
+    resolution: {integrity: sha512-QiTx7UIy0YZ2Os3zB9msT4bLqaKE3VnuTL28Io3L/4LIf5t2648iVKBOMhAFt+RMapNAdt4sE1A/Jsw3RjJRKg==}
 
-  '@contentauth/c2pa-web@0.9.0':
-    resolution: {integrity: sha512-EdKPkAoowH7cvCbLevr4KfsYdG9PUO6a3z4Na34wO+oyXYjzG2pyMJ2+CtELOaNXeZuzhx1lXPuFT4KKxbqKHQ==}
+  '@contentauth/c2pa-web@0.11.0':
+    resolution: {integrity: sha512-8DBV28iuRqvzrTEDZ7OvMwZ3a9AeKp3lcAinfIeHJ96fa1uUDJ8dC4kAlN/yjCljs0WSeucbwWeBwO4loEkaIA==}
 
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -10536,14 +10536,14 @@ snapshots:
   '@colors/colors@1.5.0':
     optional: true
 
-  '@contentauth/c2pa-types@0.4.6': {}
+  '@contentauth/c2pa-types@0.6.0': {}
 
-  '@contentauth/c2pa-wasm@0.6.3': {}
+  '@contentauth/c2pa-wasm@0.8.0': {}
 
-  '@contentauth/c2pa-web@0.9.0':
+  '@contentauth/c2pa-web@0.11.0':
     dependencies:
-      '@contentauth/c2pa-types': 0.4.6
-      '@contentauth/c2pa-wasm': 0.6.3
+      '@contentauth/c2pa-types': 0.6.0
+      '@contentauth/c2pa-wasm': 0.8.0
       highgain: 0.1.0
       ts-deepmerge: 7.0.3
 
