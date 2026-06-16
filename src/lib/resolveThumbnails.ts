@@ -1,4 +1,4 @@
-// Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors
+// Copyright 2021-2024 Adobe, Copyright 2026 The C2PA Contributors
 
 import type { ManifestStore, Reader } from '@contentauth/c2pa-web';
 
