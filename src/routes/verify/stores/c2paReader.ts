@@ -1,6 +1,7 @@
 // Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors
 
 import { resultToAssetMap, type AssetDataMap } from '$lib/asset';
+import { resolveThumbnails } from '$lib/resolveThumbnails';
 import { getLegacySdk, getSdk, getOfficialToolkitSettings, getLegacyToolkitSettings } from '$lib/sdk';
 import type { Loadable } from '$lib/types';
 import {
@@ -226,8 +227,10 @@ export function createC2paReader(): C2paReaderStore {
           });
         }
 
+        const thumbnails = await resolveThumbnails(finalStore, currentReader);
+
         const { assetMap, dispose: assetMapDisposer } =
-          await resultToAssetMap({ manifestStore: finalStore, source });
+          await resultToAssetMap({ manifestStore: finalStore, source, thumbnails });
   
         dispose = () => {
           assetMapDisposer();
