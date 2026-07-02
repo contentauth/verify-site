@@ -6,7 +6,7 @@
   "assetInfo.incomplete": "不完整",
   "assetInfo.invalid": "无效",
   "assetInfo.unrecognized": "未被识别",
-  "comp.date.at": " ",
+  "comp.date.at": "",
   "comp.date.invalid": "日期无效",
   "contentSummary.autoDub.dubbed": "AI 用于生成说话者的声音。",
   "contentSummary.autoDub.dubbedLipsRoi": "AI 用于生成说话者的声音并调整唇部动作。",

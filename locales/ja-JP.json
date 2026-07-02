@@ -6,7 +6,7 @@
   "assetInfo.incomplete": "不完全",
   "assetInfo.invalid": "無効",
   "assetInfo.unrecognized": "未認識",
-  "comp.date.at": " ",
+  "comp.date.at": "",
   "comp.date.invalid": "日付が無効です",
   "contentSummary.autoDub.dubbed": "AI を使用して話者の音声を生成しました。",
   "contentSummary.autoDub.dubbedLipsRoi": "AI を使用して話者の音声を生成し、唇の動きを調整しました。",
