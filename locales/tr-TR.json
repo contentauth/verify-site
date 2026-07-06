@@ -122,7 +122,7 @@
   "sidebar.selectedFile": "Seçili dosya",
   "sidebar.verify.about": "Bu Content Credential hakkında",
   "sidebar.verify.about.issuedby": "Yayımlayan",
-  "sidebar.verify.about.issuedby.tooltip": "Bu, yukarıdaki ayrıntıları kaydeden ve bu Content Credential'ı düzenleyen kuruluş, cihaz veya kişidir.",
+  "sidebar.verify.about.issuedby.tooltip": "“Uyumlu” rozeti, uygulama doğruluğu ve güvenliği için C2PA Uyumluluk Programı gereksinimlerini karşılayan ve C2PA Güven Listesi'ndeki sertifika düzenlenen ürünleri belirtir. “Eski güven” rozeti, değiştirilemez Geçici Güven Listesi'ndeki sertifikalara sahip ürünler için geçerlidir. Bu ürünlerin doğruluğu ve güvenliği, C2PA Uygunluk Programı tarafından değerlendirilmemiştir. <a href=\"https://c2pa.org/conformance\" target=\"_blank\" class=\"underline hover:text-gray-200\">c2pa.org/conformance adresinden daha fazla bilgi edinin</a>",
   "sidebar.verify.about.issuedby.tooltip.link": "Sertifika bilgilerine bakın",
   "sidebar.verify.about.issuedon": "Yayımlama tarihi",
   "sidebar.verify.advanced": "Gelişmiş",

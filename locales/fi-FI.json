@@ -122,7 +122,7 @@
   "sidebar.selectedFile": "Valittu tiedosto",
   "sidebar.verify.about": "Tietoja tästä Content Credentialista",
   "sidebar.verify.about.issuedby": "Myöntänyt",
-  "sidebar.verify.about.issuedby.tooltip": "Tämä on organisaatio, laite tai henkilö, joka on tallentanut yllä olevat tiedot ja myöntänyt tämän Content Credentialin.",
+  "sidebar.verify.about.issuedby.tooltip": "Vaatimustenmukainen-merkki osoittaa tuotteet, jotka täyttävät C2PA-vaatimustenmukaisuusohjelman vaatimukset toteutuksen oikeellisuuden ja turvallisuuden osalta ja joille on myönnetty varmenteita C2PA-luotettavuusluettelosta. Vanha luotettavuus -merkki on tarkoitettu tuotteille, joiden varmenteet ovat jäädytetyssä väliaikaisessa luotettavuusluettelossa. C2PA-vaatimustenmukaisuusohjelma ei ole arvioinut näiden tuotteiden oikeellisuutta ja turvallisuutta. <a href=\"https://c2pa.org/conformance\" target=\"_blank\" class=\"underline hover:text-gray-200\">Lisätietoja on osoitteessa c2pa.org/conformance.</a>",
   "sidebar.verify.about.issuedby.tooltip.link": "Katso varmenteen tiedot",
   "sidebar.verify.about.issuedon": "Myönnetty",
   "sidebar.verify.advanced": "Lisäasetukset",

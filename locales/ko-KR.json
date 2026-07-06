@@ -122,7 +122,7 @@
   "sidebar.selectedFile": "선택된 파일",
   "sidebar.verify.about": "이 Content Credentials 정보",
   "sidebar.verify.about.issuedby": "발행자",
-  "sidebar.verify.about.issuedby.tooltip": "이는 위의 세부 정보를 기록하고 이 Content Credentials를 발급한 조직, 디바이스 또는 개인입니다.",
+  "sidebar.verify.about.issuedby.tooltip": "“적합(Conformant)” 배지는 C2PA 적합성 프로그램의 요구 사항을 충족하고 구현의 정확성과 보안을 위해 C2PA 신뢰 목록에서 인증서를 발급받은 제품에 부여됩니다. “기존 신뢰(Legacy Trust)” 배지는 동결된 중간 신뢰 목록에 있는 인증서를 보유한 제품에 부여됩니다. 이러한 제품의 정확성과 보안은 C2PA 적합성 프로그램에서 평가되지 않았습니다. <a href=\"https://c2pa.org/conformance\" target=\"_blank\" class=\"underline hover:text-gray-200\">c2pa.org/conformance에서 자세히 알아보기</a>",
   "sidebar.verify.about.issuedby.tooltip.link": "인증서 정보 보기",
   "sidebar.verify.about.issuedon": "발행 날짜",
   "sidebar.verify.advanced": "고급",

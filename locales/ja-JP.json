@@ -122,7 +122,7 @@
   "sidebar.selectedFile": "選択したファイル :",
   "sidebar.verify.about": "この Content Credential について",
   "sidebar.verify.about.issuedby": "発行元",
-  "sidebar.verify.about.issuedby.tooltip": "これは、上記の詳細を記録し、この Content Credential を発行した組織、デバイス、または個人です。",
+  "sidebar.verify.about.issuedby.tooltip": "「適合」バッジは、実装の正確性とセキュリティに関して C2PA 適合性プログラムの要件を満たし、C2PA 信頼リストから証明書が発行された製品を示します。「レガシー信頼」バッジは、凍結された暫定信頼リストに証明書が掲載されている製品に使用されます。これらの製品の正確性とセキュリティは、C2PA 適合性プログラムによって評価されていません。 <a href=\"https://c2pa.org/conformance\" target=\"_blank\" class=\"underline hover:text-gray-200\">詳しくは、c2pa.org/conformance をご覧ください</a>",
   "sidebar.verify.about.issuedby.tooltip.link": "証明書情報を参照",
   "sidebar.verify.about.issuedon": "発行日",
   "sidebar.verify.advanced": "詳細",

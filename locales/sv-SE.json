@@ -122,7 +122,7 @@
   "sidebar.selectedFile": "Vald fil",
   "sidebar.verify.about": "Om denna Content Credential",
   "sidebar.verify.about.issuedby": "Utfärdat av",
-  "sidebar.verify.about.issuedby.tooltip": "Detta är den organisation, enhet eller person som registrerade informationen ovan och utfärdade denna Content Credential.",
+  "sidebar.verify.about.issuedby.tooltip": "Märket Conformant visar produkter som uppfyller kraven i C2PA Conformance Program i fråga om korrekthet och säkerhet vid implementering, och som har utfärdats med certifikat från C2PA:s förtroendelista. Märket Legacy Trust gäller produkter med certifikat på den frysta interimistiska förtroendelistan. Korrektheten och säkerheten hos dessa produkter har inte utvärderats i C2PA Conformance Program. <a href=\"https://c2pa.org/conformance\" target=\"_blank\" class=\"underline hover:text-gray-200\">Läs mer på c2pa.org/conformance</a>",
   "sidebar.verify.about.issuedby.tooltip.link": "Se certifikatinformationen",
   "sidebar.verify.about.issuedon": "Utfärdat",
   "sidebar.verify.advanced": "Avancerat",

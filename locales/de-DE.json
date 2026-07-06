@@ -122,7 +122,7 @@
   "sidebar.selectedFile": "Ausgewählte Datei",
   "sidebar.verify.about": "Über dieses Content Credential",
   "sidebar.verify.about.issuedby": "Ausgestellt von",
-  "sidebar.verify.about.issuedby.tooltip": "Dies ist die Organisation, das Gerät oder die die Person, die die oben genannten Details aufgezeichnet und dieses Content Credential ausgestellt hat.",
+  "sidebar.verify.about.issuedby.tooltip": "Das Abzeichen „Conformant“ kennzeichnet Produkte, die die Anforderungen des C2PA-Konformitätsprogramms hinsichtlich Korrektheit und Sicherheit der Implementierung erfüllen sowie Zertifikate der C2PA-Vertrauensliste erhalten haben. Das Abzeichen „Legacy Trust“ steht für Produkte mit Zertifikaten auf der eingefrorenen Interim Trust List. Die Korrektheit und Sicherheit dieser Produkte wurden vom C2PA-Konformitätsprogramm nicht geprüft. <a href=\"https://c2pa.org/conformance\" target=\"_blank\" class=\"underline hover:text-gray-200\">Weitere Informationen finden Sie unter c2pa.org/conformance</a>",
   "sidebar.verify.about.issuedby.tooltip.link": "Siehe Zertifikatsinformationen",
   "sidebar.verify.about.issuedon": "Ausgestellt am",
   "sidebar.verify.advanced": "Erweitert",

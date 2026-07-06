@@ -122,7 +122,7 @@
   "sidebar.selectedFile": "Wybrany plik",
   "sidebar.verify.about": "Informacje o tym certyfikacje Content Credential",
   "sidebar.verify.about.issuedby": "Wystawił(a)",
-  "sidebar.verify.about.issuedby.tooltip": "To jest organizacja, urządzenie lub osoba, która nagrała treści widoczne powyżej i wystawiła niniejszy certyfikat Content Credential.",
+  "sidebar.verify.about.issuedby.tooltip": "Odznaka „Zgodny” oznacza produkty, które spełniają wymagania Programu Zgodności C2PA w zakresie poprawności i bezpieczeństwa wdrożenia oraz posiadają certyfikaty z Listy Zaufania C2PA. Odznaka „Zaufanie starszego typu” dotyczy produktów z certyfikatami z zamrożonej Listy Zaufania Tymczasowego. Poprawność i bezpieczeństwo tych produktów nie zostały ocenione przez Program Zgodności C2PA. <a href=\"https://c2pa.org/conformance\" target=\"_blank\" class=\"underline hover:text-gray-200\">Więcej informacji na stronie c2pa.org/conformance</a>",
   "sidebar.verify.about.issuedby.tooltip.link": "Zobacz informacje o certyfikacie",
   "sidebar.verify.about.issuedon": "Data wystawienia",
   "sidebar.verify.advanced": "Zaawansowane",

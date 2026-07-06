@@ -122,7 +122,7 @@
   "sidebar.selectedFile": "Valgte fil",
   "sidebar.verify.about": "Om denne Content Credential",
   "sidebar.verify.about.issuedby": "Udstedt af",
-  "sidebar.verify.about.issuedby.tooltip": "Dette er den organisation, enhed eller person, som har registreret detaljerne ovenfor og angivet denne Content Credential.",
+  "sidebar.verify.about.issuedby.tooltip": "Mærket \"Conformant\" angiver produkter, der opfylder kravene i C2PA-overensstemmelsesprogrammet med hensyn til korrekthed og sikkerhed i implementeringen, og som har fået udstedt certifikater fra C2PA-tillidslisten. Mærket \"Legacy trust\" angiver produkter med certifikater på den fastfrosne midlertidige tillidsliste. Korrektheden og sikkerheden af disse produkter er ikke blevet vurderet af C2PA-overensstemmelsesprogrammet. <a href=\"https://c2pa.org/conformance\" target=\"_blank\" class=\"underline hover:text-gray-200\">Læs mere på c2pa.org/conformance</a>",
   "sidebar.verify.about.issuedby.tooltip.link": "Se certifikatoplysninger",
   "sidebar.verify.about.issuedon": "Udstedt",
   "sidebar.verify.advanced": "Avanceret",

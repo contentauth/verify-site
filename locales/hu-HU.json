@@ -122,7 +122,7 @@
   "sidebar.selectedFile": "Kiválasztott fájl",
   "sidebar.verify.about": "A Content Credential adatok",
   "sidebar.verify.about.issuedby": "Kiadta:",
-  "sidebar.verify.about.issuedby.tooltip": "Ez az a szervezet, eszköz vagy személy, amely a fenti adatokat rögzítette, és kiállította ezt a Content Credential adatot.",
+  "sidebar.verify.about.issuedby.tooltip": "A „Megfelelő” jelvény azokat a termékeket jelöli, amelyek megfeleltek a C2PA megfelelőségi program követelményeinek a megvalósítás helyessége és biztonsága tekintetében, és amelyek a C2PA megbízhatósági listáról kaptak tanúsítványokat. A „Korábbi megbízhatóság” jelvény azokhoz a termékekhez tartozik, amelyek tanúsítványai szerepelnek a befagyasztott ideiglenes megbízhatósági listán. Ezen termékek helyességét és biztonságát a C2PA megfelelőségi program nem értékelte. <a href=\"https://c2pa.org/conformance\" target=\"_blank\" class=\"underline hover:text-gray-200\">További információ a c2pa.org/conformance oldalon.</a>",
   "sidebar.verify.about.issuedby.tooltip.link": "Lásd az igazolás adatait",
   "sidebar.verify.about.issuedon": "Kiadva ekkor:",
   "sidebar.verify.advanced": "Speciális",

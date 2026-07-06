@@ -122,7 +122,7 @@
   "sidebar.selectedFile": "Вибраний файл",
   "sidebar.verify.about": "Про ці Content Credentials",
   "sidebar.verify.about.issuedby": "Автор",
-  "sidebar.verify.about.issuedby.tooltip": "Це організація, пристрій або особа, які записали наведені вище дані та випустили ці Content Credentials.",
+  "sidebar.verify.about.issuedby.tooltip": "Значок «Conformant» позначає продукти, які відповідають вимогам Програми відповідності C2PA щодо правильності й безпеки впровадження, а також яким видано сертифікати зі Списку довіри C2PA. Значок «Legacy trust» призначається продуктам із сертифікатами, що перебувають у замороженому Тимчасовому списку довіри. Правильність і безпека цих продуктів не оцінювалися за Програмою відповідності C2PA. <a href=\"https://c2pa.org/conformance\" target=\"_blank\" class=\"underline hover:text-gray-200\">Дізнайтеся більше на c2pa.org/conformance</a>",
   "sidebar.verify.about.issuedby.tooltip.link": "Див. інформацію про сертифікат",
   "sidebar.verify.about.issuedon": "Дата видачі",
   "sidebar.verify.advanced": "Додатково",

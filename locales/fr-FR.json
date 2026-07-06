@@ -122,7 +122,7 @@
   "sidebar.selectedFile": "Fichier sélectionné",
   "sidebar.verify.about": "À propos de cette Content Credential",
   "sidebar.verify.about.issuedby": "Édité par",
-  "sidebar.verify.about.issuedby.tooltip": "Organisation, appareil ou personne qui a enregistré les détails ci-dessus et émis ces Content Credentials.",
+  "sidebar.verify.about.issuedby.tooltip": "Le badge « Conformant » désigne les produits qui satisfont aux exigences du programme de conformité C2PA en matière d’exactitude et de sécurité de la mise en œuvre, et qui ont obtenu un certificat figurant sur la liste de confiance C2PA. Le badge « Legacy trust » est destiné aux produits dont les certificats figurent sur la liste de confiance provisoire gelée. L’exactitude et la sécurité de ces produits n’ont pas été évaluées par le programme de conformité C2PA. <a href=\"https://c2pa.org/conformance\" target=\"_blank\" class=\"underline hover:text-gray-200\">Pour en savoir plus, consultez c2pa.org/conformance</a>",
   "sidebar.verify.about.issuedby.tooltip.link": "Voir les informations de certificat",
   "sidebar.verify.about.issuedon": "Émises le",
   "sidebar.verify.advanced": "Avancé",

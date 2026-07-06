@@ -122,7 +122,7 @@
   "sidebar.selectedFile": "Arquivo selecionado",
   "sidebar.verify.about": "Sobre esta Content Credential",
   "sidebar.verify.about.issuedby": "Lançado por",
-  "sidebar.verify.about.issuedby.tooltip": "Esta é a organização, o dispositivo ou a pessoa que registrou os detalhes acima e emitiu esta Content Credential.",
+  "sidebar.verify.about.issuedby.tooltip": "O selo “Conformidade” (Conformant) indica produtos que atenderam aos requisitos do Programa de Conformidade (Conformance Program) C2PA em relação à correção e segurança de implementação, com certificados emitidos pela Lista de Confiança (Trust List) C2PA. O selo “Confiança Legada” (Legacy Trust) indica produtos com certificados na Lista de Confiança Provisória (Interim Trust List) definida. A correção e a segurança desses produtos não foram avaliadas pelo Programa de Conformidade C2PA. Saiba mais em <a href=\"https://c2pa.org/conformance\" target=\"_blank\" class=\"underline hover:text-gray-200\">c2pa.org/conformance</a>",
   "sidebar.verify.about.issuedby.tooltip.link": "Ver informações do certificado",
   "sidebar.verify.about.issuedon": "Lançado em",
   "sidebar.verify.advanced": "Avançado",
