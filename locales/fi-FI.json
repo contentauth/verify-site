@@ -127,7 +127,7 @@
   "sidebar.verify.about.issuedon": "Myönnetty",
   "sidebar.verify.advanced": "Lisäasetukset",
   "sidebar.verify.advanced.show": "Näytä kaikki tiedot",
-  "sidebar.verify.asset.date.on": "",
+  "sidebar.verify.asset.date.on": " ",
   "sidebar.verify.cameraCapture.approximateLocation": "Likimääräinen sijainti",
   "sidebar.verify.cameraCapture.captureDate": "Kuvauspäivä",
   "sidebar.verify.cameraCapture.copyright": "Tekijänoikeus",
