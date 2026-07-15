@@ -50,11 +50,11 @@
         {country}
         {trustSource} />
     {/if}
-    {#if manifestData.cawgRoles?.length}
-      <CAWGRolesSection roles={manifestData.cawgRoles} />
-    {/if}
     {#if manifestData.date}
       <IssuedOnSection date={manifestData.date} />
+    {/if}
+    {#if manifestData.cawgRoles?.length}
+      <CAWGRolesSection roles={manifestData.cawgRoles} />
     {/if}
   </svelte:fragment>
 </CollapsibleSection>
