@@ -16,7 +16,10 @@ interface ExtendedIngredient extends Ingredient {
   trustSource?: string;
 }
 import { selectDoNotTrain } from './selectors/doNotTrain';
-import { selectEditsAndActivity, type TranslatedDictionaryCategory } from './selectors/editsAndActivity';
+import {
+  selectEditsAndActivity,
+  type TranslatedDictionaryCategory,
+} from './selectors/editsAndActivity';
 
 import debug from 'debug';
 import { selectExif } from './exif';
@@ -34,6 +37,7 @@ import {
   selectModelsFromIngredient,
   type GenerativeInfo,
 } from './selectors/generativeInfo';
+import { selectCawgRoles, type RoleEntry } from './selectors/cawgRoles';
 import { selectReviewRatings } from './selectors/reviewRatings';
 import {
   selectValidationResult,
@@ -93,6 +97,7 @@ export type ManifestData = {
   doNotTrain: ReturnType<typeof selectDoNotTrain>;
   web3Accounts: [string, string[]][];
   website: string | null;
+  cawgRoles: RoleEntry[];
   autoDubInfo: AutoDubInfo | null;
   isCapturedMedia: boolean;
 };
@@ -145,7 +150,7 @@ export async function resultToAssetMap({
 }): Promise<DisposableAssetDataMap> {
   const assetMap: AssetDataMap = {};
   const disposers: (() => void)[] = [];
-  
+
   const activeManifestLabel = manifestStore?.active_manifest ?? '';
 
   const allLabels = Object.keys(manifestStore?.manifests ?? {});
@@ -157,7 +162,10 @@ export async function resultToAssetMap({
       )
     : {};
 
-  dbg('Runtime validation statuses by manifest label', runtimeValidationStatuses);
+  dbg(
+    'Runtime validation statuses by manifest label',
+    runtimeValidationStatuses,
+  );
 
   const activeManifestValidationResults =
     manifestStore?.validation_results?.activeManifest || undefined;
@@ -189,7 +197,9 @@ export async function resultToAssetMap({
     containingManifestLabel: string,
   ): Promise<ThumbnailResult> {
     const blob = ref?.identifier
-      ? thumbnails.get(toAbsoluteIdentifier(ref.identifier, containingManifestLabel))
+      ? thumbnails.get(
+          toAbsoluteIdentifier(ref.identifier, containingManifestLabel),
+        )
       : undefined;
 
     if (!blob) {
@@ -207,10 +217,10 @@ export async function resultToAssetMap({
   if (!isManifest && (!manifestStore || hasError || hasOtgp)) {
     // Fallback for raw files: render the original source file directly
     const url = URL.createObjectURL(source);
-    const thumbnail = await loadThumbnail(
-      source.type,
-      { url, dispose: () => URL.revokeObjectURL(url) },
-    );
+    const thumbnail = await loadThumbnail(source.type, {
+      url,
+      dispose: () => URL.revokeObjectURL(url),
+    });
 
     if (thumbnail?.dispose) {
       disposers.push(thumbnail.dispose);
@@ -262,7 +272,10 @@ export async function resultToAssetMap({
     const manifest = manifestStore.manifests?.[activeManifestLabel];
     if (!manifest) throw new Error('Active manifest not found');
 
-    let thumbnail = await lookupThumbnail(manifest.thumbnail, activeManifestLabel);
+    let thumbnail = await lookupThumbnail(
+      manifest.thumbnail,
+      activeManifestLabel,
+    );
 
     if (
       !thumbnail.info &&
@@ -271,10 +284,10 @@ export async function resultToAssetMap({
     ) {
       // Fallback for active manifest: render the original source file directly
       const url = URL.createObjectURL(source);
-      thumbnail = await loadThumbnail(
-        source.type,
-        { url, dispose: () => URL.revokeObjectURL(url) }
-      );
+      thumbnail = await loadThumbnail(source.type, {
+        url,
+        dispose: () => URL.revokeObjectURL(url),
+      });
     }
 
     const asset = {
@@ -292,7 +305,8 @@ export async function resultToAssetMap({
       manifestData: await getManifestData(manifest, rootValidationResult),
       dataType: null,
       validationResult: rootValidationResult,
-      trustSource: ((manifest as Manifest & { trust_source?: string }).trust_source || 'none') as 'legacy' | 'none' | 'official',
+      trustSource: ((manifest as Manifest & { trust_source?: string })
+        .trust_source || 'none') as 'legacy' | 'none' | 'official',
     };
 
     if (thumbnail?.dispose) {
@@ -311,8 +325,12 @@ export async function resultToAssetMap({
     id: string,
     containingManifestLabel: string,
   ): Promise<AssetData> {
-    const ingredientManifestLabel = ingredient.active_manifest || (ingredient as ExtendedIngredient).activeManifest;
-    const ingredientManifest = ingredientManifestLabel ? manifestStore.manifests?.[ingredientManifestLabel] : null;
+    const ingredientManifestLabel =
+      ingredient.active_manifest ||
+      (ingredient as ExtendedIngredient).activeManifest;
+    const ingredientManifest = ingredientManifestLabel
+      ? manifestStore.manifests?.[ingredientManifestLabel]
+      : null;
 
     /**
      * The code prioritizes the signed ingredient's own c2pa.thumbnail.claim, if present,
@@ -329,19 +347,33 @@ export async function resultToAssetMap({
      * signed ingredient's own claim thumbnail is still shown when present (untrusted
      * state is flagged in the UI).
      */
-    const containingManifestUntrusted = (runtimeValidationStatuses[containingManifestLabel] ?? [])
-      .some((s) => s.code.includes('signingCredential.untrusted') || s.code.includes('signingCredential.invalid'));
+    const containingManifestUntrusted = (
+      runtimeValidationStatuses[containingManifestLabel] ?? []
+    ).some(
+      (s) =>
+        s.code.includes('signingCredential.untrusted') ||
+        s.code.includes('signingCredential.invalid'),
+    );
 
-    const thumbnail = ingredientManifestLabel && ingredientManifest?.thumbnail
-      ? await lookupThumbnail(ingredientManifest.thumbnail, ingredientManifestLabel)
-      : !containingManifestUntrusted
-        ? await lookupThumbnail(ingredient.thumbnail, containingManifestLabel)
-        : await loadThumbnail(undefined, undefined);
+    const thumbnail =
+      ingredientManifestLabel && ingredientManifest?.thumbnail
+        ? await lookupThumbnail(
+            ingredientManifest.thumbnail,
+            ingredientManifestLabel,
+          )
+        : !containingManifestUntrusted
+          ? await lookupThumbnail(ingredient.thumbnail, containingManifestLabel)
+          : await loadThumbnail(undefined, undefined);
 
     const activeManifestValidationResults =
-      (ingredient.validation_results?.activeManifest || (ingredient as ExtendedIngredient).validationResults?.activeManifest) ?? undefined;
+      (ingredient.validation_results?.activeManifest ||
+        (ingredient as ExtendedIngredient).validationResults?.activeManifest) ??
+      undefined;
 
-    const validationStatus = ingredient.validation_status || (ingredient as ExtendedIngredient).validationStatus || [];
+    const validationStatus =
+      ingredient.validation_status ||
+      (ingredient as ExtendedIngredient).validationStatus ||
+      [];
     let validationResult = selectValidationResult(
       validationStatus,
       activeManifestValidationResults,
@@ -359,19 +391,24 @@ export async function resultToAssetMap({
       title: ingredient.title ?? null,
       thumbnail: thumbnail.info,
       mimeType: ingredient.format || '',
-      children: (showChildren && ingredientManifest?.ingredients && ingredientManifestLabel)
-        ? await processIngredients(
-            ingredientManifest.ingredients,
-            manifestStore,
-            runtimeValidationStatuses,
-            id,
-            ingredientManifestLabel,
-          )
-        : [],
+      children:
+        showChildren &&
+        ingredientManifest?.ingredients &&
+        ingredientManifestLabel
+          ? await processIngredients(
+              ingredientManifest.ingredients,
+              manifestStore,
+              runtimeValidationStatuses,
+              id,
+              ingredientManifestLabel,
+            )
+          : [],
       manifestData: await getManifestData(ingredientManifest, validationResult),
       dataType: getIngredientDataType(ingredient),
       validationResult,
-      trustSource: ((ingredient as ExtendedIngredient)?.trust_source || (ingredient as ExtendedIngredient)?.trustSource || 'none') as 'legacy' | 'none' | 'official',
+      trustSource: ((ingredient as ExtendedIngredient)?.trust_source ||
+        (ingredient as ExtendedIngredient)?.trustSource ||
+        'none') as 'legacy' | 'none' | 'official',
     };
 
     if (thumbnail?.dispose) {
@@ -385,7 +422,7 @@ export async function resultToAssetMap({
 
   async function getManifestData(
     manifest: Manifest | null | undefined,
-    validationResult: ValidationStatusResult
+    validationResult: ValidationStatusResult,
   ): Promise<ManifestData | null> {
     if (!manifest) {
       return null;
@@ -406,7 +443,9 @@ export async function resultToAssetMap({
     }
 
     const claimGeneratorInfo = manifest?.claim_generator_info?.[0]
-      ? formattedGeneratorInfo(manifest.claim_generator_info[0] as GeneratorInfoShape)
+      ? formattedGeneratorInfo(
+          manifest.claim_generator_info[0] as GeneratorInfoShape,
+        )
       : null;
 
     const claimGeneratorLabel =
@@ -417,7 +456,9 @@ export async function resultToAssetMap({
 
     const claimGenerator: ClaimGeneratorDisplayInfo = {
       label: claimGeneratorLabel,
-      icon: (claimGeneratorInfo?.icon ? { identifier: claimGeneratorInfo.icon } : null) as unknown as Thumbnail | null,
+      icon: (claimGeneratorInfo?.icon
+        ? { identifier: claimGeneratorInfo.icon }
+        : null) as unknown as Thumbnail | null,
     };
 
     // Extract Organization (O) from the native X.509 certificate subject tree
@@ -430,9 +471,7 @@ export async function resultToAssetMap({
     }
 
     return {
-      date: safeSignatureInfo?.time
-        ? new Date(safeSignatureInfo.time)
-        : null,
+      date: safeSignatureInfo?.time ? new Date(safeSignatureInfo.time) : null,
       claimGenerator,
       signatureInfo: safeSignatureInfo,
       editsAndActivityForLocale: async (locale) => {
@@ -451,8 +490,13 @@ export async function resultToAssetMap({
           }
           const assertionsArr = (manifest.assertions || []) as unknown[];
           type AssItem = { label?: string; data?: unknown };
-          const actionsAss = assertionsArr.find((a: unknown) => (a as AssItem).label === 'c2pa.actions' || (a as AssItem).label === 'c2pa.actions.v2') as InferenceAssertion | undefined;
-          const hasInference = !!actionsAss?.data?.metadata?.['com.adobe.inference'];
+          const actionsAss = assertionsArr.find(
+            (a: unknown) =>
+              (a as AssItem).label === 'c2pa.actions' ||
+              (a as AssItem).label === 'c2pa.actions.v2',
+          ) as InferenceAssertion | undefined;
+          const hasInference =
+            !!actionsAss?.data?.metadata?.['com.adobe.inference'];
 
           const filteredEditsAndActivity = editsAndActivity.filter(
             (value) => !!value.label,
@@ -473,26 +517,48 @@ export async function resultToAssetMap({
       reviewRatings: selectReviewRatings(manifest),
       web3Accounts: selectWeb3(manifest),
       website: selectWebsite(manifest),
+      cawgRoles: selectCawgRoles(manifest),
       autoDubInfo: selectAutoDubInfo(manifest),
       isCapturedMedia: (() => {
         // 1. Must be a still image or audio file (Fallback to assuming true if SDK omits format)
         const format = manifest.format || 'image/jpeg';
-        if (!format.startsWith('image/') && !format.startsWith('audio/')) return false;
+        if (!format.startsWith('image/') && !format.startsWith('audio/'))
+          return false;
 
         // 2. Must have exactly one action in the manifest history
         let actionsAssertion;
 
         if (manifest.assertions instanceof Map) {
-          actionsAssertion = manifest.assertions.get('c2pa.actions.v2')?.[0] || manifest.assertions.get('c2pa.actions')?.[0] || manifest.assertions.get('c2pa.actions.v2') || manifest.assertions.get('c2pa.actions');
+          actionsAssertion =
+            manifest.assertions.get('c2pa.actions.v2')?.[0] ||
+            manifest.assertions.get('c2pa.actions')?.[0] ||
+            manifest.assertions.get('c2pa.actions.v2') ||
+            manifest.assertions.get('c2pa.actions');
         } else if (Array.isArray(manifest.assertions)) {
-          actionsAssertion = manifest.assertions.find((a: unknown) => (a as { label?: string }).label === 'c2pa.actions.v2' || (a as { label?: string }).label === 'c2pa.actions');
+          actionsAssertion = manifest.assertions.find(
+            (a: unknown) =>
+              (a as { label?: string }).label === 'c2pa.actions.v2' ||
+              (a as { label?: string }).label === 'c2pa.actions',
+          );
         } else {
-          actionsAssertion = manifest.assertions?.['c2pa.actions.v2'] || manifest.assertions?.['c2pa.actions'];
+          actionsAssertion =
+            manifest.assertions?.['c2pa.actions.v2'] ||
+            manifest.assertions?.['c2pa.actions'];
         }
 
-        type ActionEntry = { action: string; digitalSourceType?: string; parameters?: { digitalSourceType?: string } };
-        type AssertionBlock = { data?: { actions?: ActionEntry[] }; actions?: ActionEntry[] };
-        const actions = (actionsAssertion as AssertionBlock)?.data?.actions || (actionsAssertion as AssertionBlock)?.actions || [];
+        type ActionEntry = {
+          action: string;
+          digitalSourceType?: string;
+          parameters?: { digitalSourceType?: string };
+        };
+        type AssertionBlock = {
+          data?: { actions?: ActionEntry[] };
+          actions?: ActionEntry[];
+        };
+        const actions =
+          (actionsAssertion as AssertionBlock)?.data?.actions ||
+          (actionsAssertion as AssertionBlock)?.actions ||
+          [];
         if (actions.length !== 1) return false;
 
         // 3. First and only action must be c2pa.created
@@ -500,9 +566,16 @@ export async function resultToAssetMap({
         if (action.action !== 'c2pa.created') return false;
 
         // 4. Digital source type must be a standard captured media URI (including computational)
-        const sourceType = action.digitalSourceType || action.parameters?.digitalSourceType || '';
+        const sourceType =
+          action.digitalSourceType ||
+          action.parameters?.digitalSourceType ||
+          '';
 
-        return sourceType.includes('digitalCapture') || sourceType.includes('compositeCapture') || sourceType.includes('computationalCapture');
+        return (
+          sourceType.includes('digitalCapture') ||
+          sourceType.includes('compositeCapture') ||
+          sourceType.includes('computationalCapture')
+        );
       })(),
     };
   }

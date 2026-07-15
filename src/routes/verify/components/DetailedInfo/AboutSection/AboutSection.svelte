@@ -5,6 +5,7 @@
   import CollapsibleSection from '$src/components/SidebarSection/CollapsibleSection.svelte';
   import type { ManifestData } from '$src/lib/asset';
   import { _ } from 'svelte-i18n';
+  import CAWGRolesSection from './CAWGRolesSection.svelte';
   import IssuedBySection from './IssuedBySection.svelte';
   import IssuedOnSection from './IssuedOnSection.svelte';
 
@@ -12,10 +13,29 @@
   export let trustSource: 'official' | 'legacy' | 'none' = 'none';
 
   // Extract extended X.509 fields (Catching various Rust/JS SDK naming conventions)
-  type ExtendedSigInfo = { organization_unit?: string; organizational_unit?: string; organizationUnit?: string; org_unit?: string; ou?: string; country?: string; country_name?: string; countryName?: string; c?: string };
+  type ExtendedSigInfo = {
+    organization_unit?: string;
+    organizational_unit?: string;
+    organizationUnit?: string;
+    org_unit?: string;
+    ou?: string;
+    country?: string;
+    country_name?: string;
+    countryName?: string;
+    c?: string;
+  };
   $: sigInfo = manifestData.signatureInfo as ExtendedSigInfo;
-  $: orgUnit = sigInfo?.organization_unit || sigInfo?.organizational_unit || sigInfo?.organizationUnit || sigInfo?.org_unit || sigInfo?.ou;
-  $: country = sigInfo?.country || sigInfo?.country_name || sigInfo?.countryName || sigInfo?.c;
+  $: orgUnit =
+    sigInfo?.organization_unit ||
+    sigInfo?.organizational_unit ||
+    sigInfo?.organizationUnit ||
+    sigInfo?.org_unit ||
+    sigInfo?.ou;
+  $: country =
+    sigInfo?.country ||
+    sigInfo?.country_name ||
+    sigInfo?.countryName ||
+    sigInfo?.c;
 </script>
 
 <CollapsibleSection>
@@ -23,13 +43,15 @@
     {$_('sidebar.verify.about')}</svelte:fragment>
   <svelte:fragment slot="content">
     {#if manifestData.signatureInfo?.common_name || manifestData.signatureInfo?.issuer}
-      <IssuedBySection 
-        commonName={manifestData.signatureInfo?.common_name ?? undefined} 
+      <IssuedBySection
+        commonName={manifestData.signatureInfo?.common_name ?? undefined}
         issuer={manifestData.signatureInfo?.issuer ?? undefined}
         organizationalUnit={orgUnit}
         {country}
-        {trustSource} 
-      />
+        {trustSource} />
+    {/if}
+    {#if manifestData.cawgRoles?.length}
+      <CAWGRolesSection roles={manifestData.cawgRoles} />
     {/if}
     {#if manifestData.date}
       <IssuedOnSection date={manifestData.date} />

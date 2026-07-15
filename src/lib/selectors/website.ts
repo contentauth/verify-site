@@ -27,15 +27,22 @@ export function selectWebsite(manifest: Manifest): string | null {
     data?: {
       url?: string;
     };
+    url?: string;
   }
   const assertionsArray = (manifest.assertions || []) as unknown[];
   type AssItem = { label?: string; data?: unknown };
 
-  const assetRefAss = assertionsArray.find((a: unknown) => (a as AssItem).label === 'c2pa.asset-ref') as AssetRefAssertion | undefined;
-  const creativeWorkAss = assertionsArray.find((a: unknown) => (a as AssItem).label === 'stds.schema-org.CreativeWork') as CreativeWorkAssertion | undefined;
+  const assetRefAss = assertionsArray.find(
+    (a: unknown) => (a as AssItem).label === 'c2pa.asset-ref',
+  ) as AssetRefAssertion | undefined;
+  const creativeWorkAss = assertionsArray.find(
+    (a: unknown) => (a as AssItem).label === 'stds.schema-org.CreativeWork',
+  ) as CreativeWorkAssertion | undefined;
 
-  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-  const site = (assetRefAss?.data?.references?.[0]?.reference?.uri || creativeWorkAss?.data?.url || (creativeWorkAss as any)?.url || null) as string | null;
+  const site = (assetRefAss?.data?.references?.[0]?.reference?.uri ||
+    creativeWorkAss?.data?.url ||
+    creativeWorkAss?.url ||
+    null) as string | null;
 
   return site && isSecureUrl(site) ? site : null;
 }

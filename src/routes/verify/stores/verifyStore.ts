@@ -150,7 +150,7 @@ export function createVerifyStore(): VerifyStore {
       }
 
       dbg('Reading C2PA source', source);
-      
+
       let finalSource: Blob | File;
 
       if (typeof source === 'string') {
@@ -158,7 +158,9 @@ export function createVerifyStore(): VerifyStore {
           const response = await fetch(source);
 
           if (!response.ok) {
-            throw new Error(`HTTP error fetching external C2PA source! Status: ${response.status}`);
+            throw new Error(
+              `HTTP error fetching external C2PA source! Status: ${response.status}`,
+            );
           }
 
           finalSource = await response.blob();

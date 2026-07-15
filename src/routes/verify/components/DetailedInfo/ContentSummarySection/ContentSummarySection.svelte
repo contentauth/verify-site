@@ -40,7 +40,10 @@
     icon?: string;
   };
 
-  type ContentSummaryData = ContentSummary | ContentSummaryTranslated | ContentSummaryText;
+  type ContentSummaryData =
+    | ContentSummary
+    | ContentSummaryTranslated
+    | ContentSummaryText;
 
   export interface ContentSummarySectionProps {
     contentSummaryData: ContentSummaryData | null;
@@ -186,8 +189,8 @@
     if (isCapturedMedia) {
       return {
         contentSummaryData: {
-          text: 'This is captured media.'
-        }
+          text: 'This is captured media.',
+        },
       };
     }
 
@@ -250,13 +253,13 @@
     <div class="flex" slot="content">
       <img src={info} alt="" class="self-start pe-2" />
       <Description
-        >{'text' in contentSummaryData 
-          ? contentSummaryData.text 
-          : (hasLocaleData(contentSummaryData)
+        >{'text' in contentSummaryData
+          ? contentSummaryData.text
+          : hasLocaleData(contentSummaryData)
             ? $_(contentSummaryData.key, {
                 values: { ...formatLocaleData(contentSummaryData.locale) },
               })
-            : $_(contentSummaryData.key))}</Description>
+            : $_(contentSummaryData.key)}</Description>
     </div>
   </Section>
 {/if}

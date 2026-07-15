@@ -20,7 +20,10 @@ const config = {
   },
   resolve: {
     alias: {
-      'intl-messageformat': path.resolve(__dirname, 'node_modules/intl-messageformat/intl-messageformat.esm.js'),
+      'intl-messageformat': path.resolve(
+        __dirname,
+        'node_modules/intl-messageformat/intl-messageformat.esm.js',
+      ),
     },
   },
   build: {

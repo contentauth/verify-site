@@ -24,32 +24,36 @@ export function selectAutoDubInfo(manifest: Manifest): AutoDubInfo | null {
         a !== null &&
         'label' in a &&
         typeof (a as Record<string, unknown>)['label'] === 'string' &&
-        (a as Record<string, unknown>)['label'] === 'c2pa.actions.v2'
+        (a as Record<string, unknown>)['label'] === 'c2pa.actions.v2',
     );
   } else if (assertions && typeof assertions === 'object') {
-    actionAssertion = (assertions as Record<string, unknown>)['c2pa.actions.v2'];
+    actionAssertion = (assertions as Record<string, unknown>)[
+      'c2pa.actions.v2'
+    ];
   }
 
   if (!actionAssertion) {
     return null;
   }
 
-  type ActionItem = { 
-    action: string; 
-    changes?: Array<{ region?: Array<{ type?: string; item?: { value?: string } }> }>;
+  type ActionItem = {
+    action: string;
+    changes?: Array<{
+      region?: Array<{ type?: string; item?: { value?: string } }>;
+    }>;
     parameters?: unknown;
   };
   type ActionsAssertion = { data?: { actions?: ActionItem[] } };
 
-  const dubbedAction = (actionAssertion as ActionsAssertion).data?.actions?.find(
-    ({ action }) => action === 'c2pa.dubbed',
-  );
-  const translatedAction = (actionAssertion as ActionsAssertion).data?.actions?.find(
-    ({ action }) => action === 'c2pa.translated',
-  );
-  const editedAction = (actionAssertion as ActionsAssertion).data?.actions?.find(
-    ({ action }) => action === 'c2pa.edited',
-  );
+  const dubbedAction = (
+    actionAssertion as ActionsAssertion
+  ).data?.actions?.find(({ action }) => action === 'c2pa.dubbed');
+  const translatedAction = (
+    actionAssertion as ActionsAssertion
+  ).data?.actions?.find(({ action }) => action === 'c2pa.translated');
+  const editedAction = (
+    actionAssertion as ActionsAssertion
+  ).data?.actions?.find(({ action }) => action === 'c2pa.edited');
 
   if (dubbedAction) {
     const dubbedRegionOfInterest = dubbedAction.changes?.find(
