@@ -17,7 +17,14 @@
     {#each softwareAgents as softwareAgent}
       <AboutSectionIconContentRow>
         <svelte:fragment slot="content">
-          {softwareAgent}</svelte:fragment>
+          {#if typeof softwareAgent === 'string'}
+            {softwareAgent}
+          {:else if typeof softwareAgent === 'object' && softwareAgent !== null}
+            {#each Object.entries(softwareAgent) as [key, value]}
+              <div>{key}: {value}</div>
+            {/each}
+          {/if}
+        </svelte:fragment>
       </AboutSectionIconContentRow>
     {/each}
   </svelte:fragment>
