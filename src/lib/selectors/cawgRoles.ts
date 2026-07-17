@@ -8,16 +8,6 @@ export interface RoleEntry {
 }
 
 /**
- * Dublin Core fields carried by the `cawg.metadata` assertion, mapped to a role key.
- * Per CAWG, only creator, contributor, and publisher use the dc: naming convention.
- */
-const DC_ROLE_KEYS: Record<string, string> = {
-  'dc:creator': 'creator',
-  'dc:contributor': 'contributor',
-  'dc:publisher': 'publisher',
-};
-
-/**
  * Named roles carried by the `cawg.identity` assertion's `signer_payload.role` array.
  */
 const CAWG_ROLE_MAP: Record<string, string> = {
@@ -30,69 +20,22 @@ const CAWG_ROLE_MAP: Record<string, string> = {
   'cawg.translator': 'translator',
 };
 
-function formatRoleValue(value: unknown): string {
-  if (value === null || value === undefined) {
-    return '';
-  }
-
-  if (Array.isArray(value)) {
-    return value
-      .map((v) =>
-        typeof v === 'object' && v !== null
-          ? (v as { name?: string }).name || JSON.stringify(v)
-          : String(v),
-      )
-      .filter(Boolean)
-      .join(', ');
-  }
-
-  if (typeof value === 'object') {
-    return (value as { name?: string }).name || JSON.stringify(value);
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-base-to-string
-  return String(value);
-}
-
 /**
- * Extracts CAWG named roles from a manifest, merging both supported sources:
+ * Extracts CAWG named roles from the `cawg.identity` assertion.
  *
- * 1. `cawg.metadata` — Dublin Core fields (`dc:creator`, `dc:contributor`, `dc:publisher`).
- * 2. `cawg.identity` — `signer_payload.role[]` array of `cawg.*` role strings; the role
- *    holder's name is taken from the identity issuer (falling back to the manifest signer).
+ * Reads `signer_payload.role[]` (array of `cawg.*` role strings); the role
+ * holder's name is taken from the identity issuer (falling back to the manifest signer).
  *
- * Roles are de-duplicated by role key; when a role appears in both sources the
- * `cawg.metadata` name takes precedence.
- *
- * Note: assertion labels may include JUMBF hash suffixes (e.g. `cawg.metadata#xyz`),
+ * Note: assertion labels may include JUMBF hash suffixes (e.g. `cawg.identity#xyz`),
  * so labels are matched with `startsWith`.
  */
 export function selectCawgRoles(manifest: Manifest): RoleEntry[] {
   const assertionsArray = (manifest.assertions || []) as unknown[];
   type AssertionItem = { label?: string; data?: unknown };
 
-  const rolesByKey = new Map<string, RoleEntry>();
+  const roles: RoleEntry[] = [];
 
-  // Source 1: cawg.metadata dc: fields
-  const metadataAssertion = assertionsArray.find((a: unknown) =>
-    (a as AssertionItem).label?.startsWith('cawg.metadata'),
-  ) as AssertionItem | undefined;
-
-  if (metadataAssertion?.data && typeof metadataAssertion.data === 'object') {
-    const data = metadataAssertion.data as Record<string, unknown>;
-
-    for (const [dcKey, role] of Object.entries(DC_ROLE_KEYS)) {
-      if (data[dcKey] != null) {
-        const name = formatRoleValue(data[dcKey]);
-
-        if (name) {
-          rolesByKey.set(role, { role, name });
-        }
-      }
-    }
-  }
-
-  // Source 2: cawg.identity signer_payload.role[]
+  // Source: cawg.identity signer_payload.role[]
   const identityAssertion = assertionsArray.find((a: unknown) =>
     (a as AssertionItem).label?.startsWith('cawg.identity'),
   ) as AssertionItem | undefined;
@@ -117,12 +60,11 @@ export function selectCawgRoles(manifest: Manifest): RoleEntry[] {
     for (const raw of signerRoles) {
       const role = CAWG_ROLE_MAP[String(raw)];
 
-      // Don't overwrite a name already resolved from cawg.metadata.
-      if (role && name && !rolesByKey.has(role)) {
-        rolesByKey.set(role, { role, name });
+      if (role && name) {
+        roles.push({ role, name });
       }
     }
   }
 
-  return Array.from(rolesByKey.values());
+  return roles;
 }
