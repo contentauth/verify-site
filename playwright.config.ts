@@ -3,7 +3,6 @@
 import type { PlaywrightTestConfig } from '@playwright/test';
 import testImageConfig from './e2e/c2pa-test-image-service.config';
 
-
 export const port = parseInt(
   (process.env.HOST_PORT as string | undefined) ?? '4173',
   10,

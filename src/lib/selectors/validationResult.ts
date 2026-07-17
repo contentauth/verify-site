@@ -1,6 +1,9 @@
 // Copyright 2021-2024 Adobe, Copyright 2025 The C2PA Contributors
 
-import type { ValidationStatus as SdkValidationStatus, StatusCodes } from '@contentauth/c2pa-web';
+import type {
+  ValidationStatus as SdkValidationStatus,
+  StatusCodes,
+} from '@contentauth/c2pa-web';
 import { difference } from 'lodash';
 
 export type ValidationStatus = SdkValidationStatus;
@@ -122,7 +125,7 @@ export function selectValidationResult(
   // Combine V2 failures (from validationStatus) and V3 failures (from validationResults)
   const v3Failures = validationResults?.failure || [];
   const v2Failures = validationStatus.filter(
-    (status) => !SUCCESS_CODES.includes(status.code)
+    (status) => !SUCCESS_CODES.includes(status.code),
   );
 
   const allFailures = [...v3Failures, ...v2Failures];
@@ -139,9 +142,10 @@ export function selectValidationResult(
   const allCodes = [...allV3Codes, ...validationStatus];
 
   const hasUntrustedTimestamp = allCodes.some(
-    c => c.code.toLowerCase().includes('timestamp')
-      && !c.code.toLowerCase().includes('timestamp.trusted')
-      && !c.code.toLowerCase().includes('timestamp.validated')
+    (c) =>
+      c.code.toLowerCase().includes('timestamp') &&
+      !c.code.toLowerCase().includes('timestamp.trusted') &&
+      !c.code.toLowerCase().includes('timestamp.validated'),
   );
 
   // Determine the specific types of failures present.
@@ -150,16 +154,20 @@ export function selectValidationResult(
   //     because the cert is untrusted); treat it the same way when both are present.
   //   - Timestamp codes: an untrusted/mismatched timestamp suppresses the date display but must
   //     not downgrade the badge from valid to invalid.
-  const isTimestampCode = (code: string) => code.toLowerCase().startsWith('timestamp');
-  const hasUntrusted = allFailures.some(f => f.code === UNTRUSTED_SIGNER_ERROR_CODE);
-  const hasOtgp = allFailures.some(f => f.code === OTGP_ERROR_CODE);
+  const isTimestampCode = (code: string) =>
+    code.toLowerCase().startsWith('timestamp');
+  const hasUntrusted = allFailures.some(
+    (f) => f.code === UNTRUSTED_SIGNER_ERROR_CODE,
+  );
+  const hasOtgp = allFailures.some((f) => f.code === OTGP_ERROR_CODE);
   const hasOtherErrors = allFailures.some(
-    f => f.code !== UNTRUSTED_SIGNER_ERROR_CODE
-      && f.code !== OTGP_ERROR_CODE
-      && !isTimestampCode(f.code)
+    (f) =>
+      f.code !== UNTRUSTED_SIGNER_ERROR_CODE &&
+      f.code !== OTGP_ERROR_CODE &&
+      !isTimestampCode(f.code) &&
       // general.error is a signature-validation side-effect of an untrusted cert; only count
       // it as a hard error when signingCredential.untrusted is absent.
-      && !(f.code === GENERAL_ERROR_CODE && hasUntrusted)
+      !(f.code === GENERAL_ERROR_CODE && hasUntrusted),
   );
 
   let statusCode: ValidationStatusCode = 'valid';
@@ -167,7 +175,7 @@ export function selectValidationResult(
   // If there are explicit errors (other than just being untrusted), it's invalid (Red)
   if (hasOtherErrors || hasOtgp) {
     statusCode = 'invalid';
-  } 
+  }
   // If the only issue is an untrusted signer, it's unrecognized (Orange)
   else if (hasUntrusted) {
     statusCode = 'unrecognized';

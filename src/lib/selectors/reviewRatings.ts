@@ -22,13 +22,25 @@ export function selectReviewRatings(manifest: Manifest) {
     metadata?: {
       reviewRatings?: ReviewRating[];
     };
+    actions?: Array<{
+      parameters?: {
+        reviewRatings?: ReviewRating[];
+      };
+    }>;
   }
   const assertionsArray = (manifest.assertions || []) as unknown[];
   type AssItem = { label?: string; data?: unknown };
-  
-  const actionsAss = assertionsArray.find((a: unknown) => (a as AssItem).label === 'c2pa.actions' || (a as AssItem).label === 'c2pa.actions.v2') as InferenceAssertion | undefined;
-  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-  const actionRatings = actionsAss?.data?.metadata?.reviewRatings || actionsAss?.metadata?.reviewRatings || (actionsAss as any)?.actions?.[0]?.parameters?.reviewRatings || [];
+
+  const actionsAss = assertionsArray.find(
+    (a: unknown) =>
+      (a as AssItem).label === 'c2pa.actions' ||
+      (a as AssItem).label === 'c2pa.actions.v2',
+  ) as InferenceAssertion | undefined;
+  const actionRatings =
+    actionsAss?.data?.metadata?.reviewRatings ||
+    actionsAss?.metadata?.reviewRatings ||
+    actionsAss?.actions?.[0]?.parameters?.reviewRatings ||
+    [];
   const reviewRatings = [...ingredientRatings, ...actionRatings];
 
   return {

@@ -24,8 +24,13 @@ export function selectWeb3(manifest: Manifest): [string, string[]][] {
   const assertionsArray = (manifest.assertions || []) as unknown[];
   type AssItem = { label?: string; data?: unknown };
 
-  const cryptoAss = assertionsArray.find((a: unknown) => (a as AssItem).label === 'adobe.crypto.addresses') as CryptoAssertion | undefined;
-  const cryptoEntries = cryptoAss?.data || (cryptoAss as unknown as Record<string, unknown>)?.entries || {};
+  const cryptoAss = assertionsArray.find(
+    (a: unknown) => (a as AssItem).label === 'adobe.crypto.addresses',
+  ) as CryptoAssertion | undefined;
+  const cryptoEntries =
+    cryptoAss?.data ||
+    (cryptoAss as unknown as Record<string, unknown>)?.entries ||
+    {};
 
   return (Object.entries(cryptoEntries) as [string, string[]][]).filter(
     ([type, [address]]) => address && ['solana', 'ethereum'].includes(type),

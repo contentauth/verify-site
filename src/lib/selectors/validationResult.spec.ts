@@ -243,14 +243,17 @@ describe('lib/selectors/validationResult', () => {
 
     it('should detect an untrusted timestamp in v3 validationResults', () => {
       expect(
-        selectValidationResult(
-          [],
-          {
-            success: [{ code: 'signingCredential.trusted', url: 'Cose_Sign1' }],
-            informational: [{ code: 'timeStamp.mismatch', url: 'Cose_Sign1', explanation: 'timestamp mismatch' }],
-            failure: [],
-          },
-        ),
+        selectValidationResult([], {
+          success: [{ code: 'signingCredential.trusted', url: 'Cose_Sign1' }],
+          informational: [
+            {
+              code: 'timeStamp.mismatch',
+              url: 'Cose_Sign1',
+              explanation: 'timestamp mismatch',
+            },
+          ],
+          failure: [],
+        }),
       ).toEqual({
         hasError: false,
         hasOtgp: false,

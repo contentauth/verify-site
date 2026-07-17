@@ -28,7 +28,9 @@ export async function resolveThumbnails(
 ): Promise<Map<string, Blob>> {
   const refs = new Map<string, string>();
 
-  for (const [label, manifest] of Object.entries(manifestStore.manifests || {})) {
+  for (const [label, manifest] of Object.entries(
+    manifestStore.manifests || {},
+  )) {
     if (manifest.thumbnail?.identifier && manifest.thumbnail.format) {
       refs.set(
         toAbsoluteIdentifier(manifest.thumbnail.identifier, label),
@@ -52,7 +54,10 @@ export async function resolveThumbnails(
         try {
           const bytes = await reader.resourceToBytes(identifier);
 
-          return [identifier, new Blob([new Uint8Array(bytes)], { type: format })];
+          return [
+            identifier,
+            new Blob([new Uint8Array(bytes)], { type: format }),
+          ];
         } catch (err) {
           console.warn(`Failed to resolve thumbnail ${identifier}:`, err);
 

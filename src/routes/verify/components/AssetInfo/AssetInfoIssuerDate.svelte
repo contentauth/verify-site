@@ -12,5 +12,7 @@
 </script>
 
 <div data-trust-source={trustSource}>
-  <Description>{#if issuer}{$_('sidebar.verify.about.issuedby')} {issuer}{/if}</Description>
+  <Description
+    >{#if issuer}{$_('sidebar.verify.about.issuedby')}
+      {issuer}{/if}</Description>
 </div>

@@ -89,7 +89,10 @@
     {#if $assetData}
       <BigAssetInfo assetData={$assetData} hideThumbnail={hideHeaderThumbnail}>
         <span slot="name" {title}>{title}</span>
-        <AssetInfoIssuerDate {manifestData} trustSource={$assetData.trustSource} slot="CRInfo" />
+        <AssetInfoIssuerDate
+          {manifestData}
+          trustSource={$assetData.trustSource}
+          slot="CRInfo" />
       </BigAssetInfo>
     {/if}
     <button on:click={handleCloseClick} class="ms-2 shrink-0 sm:hidden">
@@ -118,7 +121,11 @@
 <div data-testid="manifestData" data-has-manifest={!!manifestData}>
   {#if manifestData}
     <ContentSummarySection {...assetDataToContentSummaryProps($assetData)} />
-    <ProcessSection {manifestData} {ingredients} {isUntrusted} trustSource={$assetData.trustSource} />
+    <ProcessSection
+      {manifestData}
+      {ingredients}
+      {isUntrusted}
+      trustSource={$assetData.trustSource} />
     <CameraCaptureSection {manifestData} />
     <AboutSection {manifestData} trustSource={$assetData.trustSource} />
   {/if}

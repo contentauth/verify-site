@@ -28,8 +28,6 @@ export interface ExifTags {
   'exif:offsettimeoriginal'?: string;
 }
 
-
-
 function findExifValue(exif: ExifTags, locations: string[]) {
   return (
     locations
@@ -209,23 +207,22 @@ export function selectExif(manifest: Manifest): ExifSummary | null {
         a !== null &&
         'label' in a &&
         typeof (a as Record<string, unknown>)['label'] === 'string' &&
-        (a as Record<string, unknown>)['label'] === 'stds.exif'
+        (a as Record<string, unknown>)['label'] === 'stds.exif',
     );
   } else if (assertions && typeof assertions === 'object') {
     assertion = (assertions as Record<string, unknown>)['stds.exif'];
   }
 
   const assertionData = (assertion as { data?: unknown })?.data;
-  const exif: ExifTags = (Array.isArray(assertionData) ? assertionData : [assertionData]).reduce(
-    (acc, exif) => {
-      const caseInsensitiveData = mapKeys(exif?.data, (_, key) => {
-        return key.toLowerCase();
-      });
+  const exif: ExifTags = (
+    Array.isArray(assertionData) ? assertionData : [assertionData]
+  ).reduce((acc, exif) => {
+    const caseInsensitiveData = mapKeys(exif?.data, (_, key) => {
+      return key.toLowerCase();
+    });
 
-      return merge({}, acc, caseInsensitiveData);
-    },
-    {},
-  );
+    return merge({}, acc, caseInsensitiveData);
+  }, {});
 
   if (Object.keys(exif).length > 0) {
     dbg('Got EXIF tags', exif);

@@ -14,7 +14,9 @@ import {
   type CrJsonValidationResults,
 } from './crjson';
 
-const makeManifest = (overrides: Partial<CrJsonManifestEntry> = {}): CrJsonManifestEntry => ({
+const makeManifest = (
+  overrides: Partial<CrJsonManifestEntry> = {},
+): CrJsonManifestEntry => ({
   label: 'urn:test:manifest',
   assertions: {},
   ...overrides,
@@ -51,11 +53,16 @@ describe('lib/crjson', () => {
   describe('getAssertionsList()', () => {
     it('converts assertions object to label/data pairs', () => {
       const m = makeManifest({
-        assertions: { 'c2pa.actions': { actions: [] }, 'stds.schema-org.CreativeWork': { name: 'test' } },
+        assertions: {
+          'c2pa.actions': { actions: [] },
+          'stds.schema-org.CreativeWork': { name: 'test' },
+        },
       });
       const list = getAssertionsList(m);
       expect(list).toHaveLength(2);
-      expect(list.find((a) => a.label === 'c2pa.actions')?.data).toEqual({ actions: [] });
+      expect(list.find((a) => a.label === 'c2pa.actions')?.data).toEqual({
+        actions: [],
+      });
     });
 
     it('returns empty array for a manifest with no assertions', () => {
@@ -65,13 +72,21 @@ describe('lib/crjson', () => {
 
   describe('getAssertionDataByLabel()', () => {
     it('returns data for a known label', () => {
-      const m = makeManifest({ assertions: { 'c2pa.actions': { actions: [{ action: 'c2pa.created' }] } } });
-      const data = getAssertionDataByLabel(m, 'c2pa.actions') as { actions: unknown[] };
+      const m = makeManifest({
+        assertions: {
+          'c2pa.actions': { actions: [{ action: 'c2pa.created' }] },
+        },
+      });
+      const data = getAssertionDataByLabel(m, 'c2pa.actions') as {
+        actions: unknown[];
+      };
       expect(data.actions).toHaveLength(1);
     });
 
     it('returns undefined for an unknown label', () => {
-      expect(getAssertionDataByLabel(makeManifest(), 'does.not.exist')).toBeUndefined();
+      expect(
+        getAssertionDataByLabel(makeManifest(), 'does.not.exist'),
+      ).toBeUndefined();
     });
   });
 
@@ -162,7 +177,11 @@ describe('lib/crjson', () => {
         failure: [{ code: 'signingCredential.untrusted', url: 'Cose_Sign1' }],
       };
       const report = makeReport({
-        manifests: [makeManifest({ validationResults: perManifestValidation } as unknown as Partial<CrJsonManifestEntry>)],
+        manifests: [
+          makeManifest({
+            validationResults: perManifestValidation,
+          } as unknown as Partial<CrJsonManifestEntry>),
+        ],
       });
       const status = getActiveManifestValidationStatus(report);
       expect(status?.failure).toHaveLength(1);
@@ -177,7 +196,10 @@ describe('lib/crjson', () => {
         manifests: {
           'urn:legacy:manifest': {
             assertions: [
-              { label: 'c2pa.actions', data: { actions: [{ action: 'c2pa.created' }] } },
+              {
+                label: 'c2pa.actions',
+                data: { actions: [{ action: 'c2pa.created' }] },
+              },
             ],
             claim_generator_info: [{ name: 'LegacyApp', version: '0.9' }],
             signature_info: {
