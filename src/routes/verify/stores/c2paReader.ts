@@ -2,6 +2,12 @@
 
 import { resultToAssetMap, type AssetDataMap } from '$lib/asset';
 import { resolveThumbnails } from '$lib/resolveThumbnails';
+import {
+  deltaFailures,
+  ingredientDeltasFor,
+  type ValidationDelta,
+  type ValidationStatus,
+} from '$lib/selectors/ingredientDeltas';
 import { getLegacySdk, getSdk, getOfficialToolkitSettings, getLegacyToolkitSettings } from '$lib/sdk';
 import type { Loadable } from '$lib/types';
 import {
@@ -34,11 +40,9 @@ const mimeTypeCorrections = {
   'image/dng': 'image/x-adobe-dng',
 };
 
-type ValidationStatus = { code: string };
 type TrustSource = 'official' | 'legacy' | 'none';
-type TrustedIngredient = { trust_source?: TrustSource; active_manifest?: string; validation_status?: ValidationStatus[] };
+type TrustedIngredient = { trust_source?: TrustSource; active_manifest?: string; label?: string; validation_status?: ValidationStatus[] };
 type TrustedManifest = { trust_source?: TrustSource; ingredients?: TrustedIngredient[] };
-type ValidationDelta = { ingredientAssertionURI?: string; validationDeltas?: { failure?: ValidationStatus[] } };
 
 export function createC2paReader(): C2paReaderStore {
   let dispose: () => void;
@@ -170,11 +174,9 @@ export function createC2paReader(): C2paReaderStore {
                       const p1V3_sub = ((p1SubManifest?.validation_results as Record<string, unknown> | undefined)?.activeManifest as Record<string, unknown> | undefined)?.failure as ValidationStatus[] | undefined || [];
 
                       // 3. Check the Root Deltas (V3 standard)
-                      const p1Delta = p1Deltas.find((d) =>
-                        d.ingredientAssertionURI?.includes(label) &&
-                        d.ingredientAssertionURI?.includes('c2pa.ingredient')
-                      );
-                      const p1V3_delta = p1Delta?.validationDeltas?.failure || [];
+                      // Match this ingredient's own assertion (e.g. c2pa.ingredient.v3__1), not just
+                      // the parent manifest: otherwise every ingredient reads the first one's delta.
+                      const p1V3_delta = deltaFailures(ingredientDeltasFor(p1Deltas, label, ingredient.label));
 
                       // AGGREGATE: Did ANY layer in the sub-manifest chain fail Trust in Pass 1?
                       const hasTrustError = 
